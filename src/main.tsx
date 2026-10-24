@@ -14,3 +14,8 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>,
 );
+
+// Theme crossfade is enabled after first paint so the page never fades in from the wrong colors.
+requestAnimationFrame(() =>
+  requestAnimationFrame(() => document.documentElement.classList.add("theme-ready")),
+);

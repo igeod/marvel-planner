@@ -1,20 +1,42 @@
 @import (reference) "mixins";
 
-.planner-guide {
+// margin-top adds to the 8px grid gap: 40px on mobile, 48px on desktop.
+.planner-guide.card {
+  display: grid;
+  gap: 16px;
+  margin-top: 32px;
+  padding: 28px 20px;
+
+  .desktop({
+    grid-area: guide;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 48px;
+    margin-top: 40px;
+    padding: 40px 48px;
+  });
+}
+
+.planner-guide__title {
+  .display-font();
+  font-size: 2rem;
+  line-height: 1.05;
+
+  .desktop({ font-size: 2.5rem; });
+}
+
+.planner-guide__items {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
+  max-width: 72ch;
 
-  h2 {
-    font-size: 1.25rem;
+  h3 {
+    margin-bottom: 4px;
+    font-size: 1.125rem;
     font-weight: 800;
   }
 
-  dt {
-    font-weight: 700;
-  }
-
-  dd {
-    margin: 0 0 12px;
+  p {
+    color: var(--muted);
   }
 }

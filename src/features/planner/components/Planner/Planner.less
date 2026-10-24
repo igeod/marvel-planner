@@ -23,24 +23,24 @@
 
   .desktop({
     grid-template-columns: minmax(0, 1fr) 320px;
-    grid-template-areas: "list rail";
-    margin-top: 0;
+    grid-template-areas:
+      "list rail"
+      "guide .";
+    margin-top: 8px;
   });
 }
 
+// Sticky stops at its parent's edge, so the parent spans only the list's row.
 .planner__rail {
+  .desktop({ grid-area: rail; align-self: stretch; margin-top: calc(@saga-header-height + 8px); });
+}
+
+.planner__rail-content {
   display: flex;
   flex-direction: column;
   gap: 8px;
 
-  .desktop({
-    grid-area: rail;
-    position: sticky;
-    top: 16px;
-    max-height: calc(100dvh - 32px);
-    overflow-y: auto;
-    margin-top: calc(@saga-header-height + 8px);
-  });
+  .desktop({ position: sticky; top: 16px; z-index: 10; max-height: calc(100dvh - 32px); overflow-y: auto; });
 }
 
 .planner__list {

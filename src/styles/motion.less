@@ -1,0 +1,400 @@
+// All motion in one place (README section 11). Never `transition: all`, never ease-in.
+// Color and opacity changes always run; transform, height and keyframe motion are skipped
+// under prefers-reduced-motion.
+
+@color-hover:
+  background-color var(--dur-hover) var(--ease-out),
+  color var(--dur-hover) var(--ease-out);
+
+// Hidden state of the progress cards; the exit transition below keeps them rendered until it ends.
+.compact-progress:not([data-visible="true"]),
+.floating-progress:not([data-visible="true"]) {
+  display: none;
+}
+
+a {
+  transition: opacity var(--dur-hover) var(--ease-out);
+}
+
+// Loading placeholder: flat block, pulses while it waits (static under reduced motion).
+.skeleton {
+  display: block;
+  height: 1.5rem;
+  border-radius: 14px;
+  background: var(--poster-bg, var(--surface-2));
+}
+
+.details-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 62ch;
+}
+
+.details-skeleton__short {
+  width: 60%;
+}
+
+.btn,
+.why-toggle,
+.mark-watched__pill,
+.select-field__trigger,
+.select-field__option,
+.phase__summary,
+.progress-card__share,
+.progress-card__toggle {
+  transition: @color-hover;
+}
+
+.choice__face {
+  transition:
+    background-color var(--dur-ui-l) var(--ease-out),
+    color var(--dur-ui-l) var(--ease-out);
+}
+
+.title-row {
+  transition:
+    background-color var(--dur-ui-l) var(--ease-out),
+    color var(--dur-ui-l) var(--ease-out);
+}
+
+.phase-strip__cell,
+.title-row__box {
+  transition:
+    background-color var(--dur-ui) var(--ease-out),
+    border-color var(--dur-ui) var(--ease-out);
+}
+
+.title-row__box svg {
+  transition: opacity var(--dur-ui) var(--ease-out);
+}
+
+.mark-watched__pill {
+  transition:
+    background-color var(--dur-ui-l) var(--ease-out),
+    color var(--dur-ui-l) var(--ease-out);
+}
+
+.switch__track {
+  transition: background-color var(--dur-ui) var(--ease-out);
+
+  &::after {
+    transition: background-color var(--dur-ui) var(--ease-out);
+  }
+}
+
+.poster-image__img {
+  transition: opacity var(--dur-ui) var(--ease-out);
+}
+
+// Theme crossfade: body and surface classes only, enabled after first paint (main.tsx).
+.theme-ready :is(body, .card, .site-header, .site-footer) {
+  transition:
+    background-color var(--dur-ui-l) var(--ease-out),
+    color var(--dur-ui-l) var(--ease-out);
+}
+
+// Skeleton pulse while a poster loads; static under reduced motion (the ring pulses instead).
+@media (prefers-reduced-motion: no-preference) {
+  .poster-image:has(.poster-image__state--loading) {
+    animation: skeleton-pulse 1.2s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .skeleton {
+    animation: skeleton-pulse 1.2s ease-in-out infinite;
+  }
+
+  .btn,
+  .why-toggle,
+  .mark-watched__button,
+  .select-field__trigger,
+  .progress-card__share,
+  .progress-card__toggle {
+    transition:
+      @color-hover,
+      transform var(--dur-press) var(--ease-out);
+  }
+
+  .btn:active:not(:disabled):not([aria-busy="true"]),
+  .why-toggle:active,
+  .mark-watched__button:active,
+  .progress-card__share:active,
+  .progress-card__toggle:active {
+    transform: translateY(1px) scale(0.98);
+  }
+
+  // Text buttons press by fading, not by moving.
+  .btn--text:active:not(:disabled):not([aria-busy="true"]) {
+    transform: none;
+  }
+
+  .btn--icon:active:not(:disabled) {
+    transform: translateY(1px) scale(0.96);
+  }
+
+  .chevron {
+    transition: transform var(--dur-ui-l) var(--ease-out);
+  }
+
+  .select-field__trigger .chevron {
+    transition-duration: var(--dur-ui);
+  }
+
+  .switch__track::after {
+    transition:
+      background-color var(--dur-ui) var(--ease-out),
+      transform var(--dur-ui) var(--ease-out);
+  }
+
+  .poster-thumb {
+    transition:
+      width var(--dur-accordion) var(--ease-out),
+      height var(--dur-accordion) var(--ease-out);
+  }
+
+  // Native details: the content box grows from 0 and fades and rises with it.
+  details {
+    interpolate-size: allow-keywords;
+  }
+
+  details::details-content {
+    block-size: 0;
+    overflow: clip;
+    opacity: 0;
+    transform: translateY(4px);
+    transition:
+      block-size var(--dur-accordion) var(--ease-out),
+      opacity 100ms var(--ease-out),
+      transform var(--dur-accordion) var(--ease-out),
+      content-visibility var(--dur-accordion) allow-discrete;
+  }
+
+  details[open]::details-content {
+    block-size: auto;
+    opacity: 1;
+    transform: none;
+    transition-duration:
+      var(--dur-accordion), var(--dur-ui), var(--dur-accordion), var(--dur-accordion);
+  }
+
+  // Collapse all / Expand all: phases follow each other in 30ms steps.
+  .planner__list--bulk .phase {
+    &:nth-child(3)::details-content {
+      transition-delay: 30ms;
+    }
+
+    &:nth-child(4)::details-content {
+      transition-delay: 60ms;
+    }
+
+    &:nth-child(5)::details-content {
+      transition-delay: 90ms;
+    }
+
+    &:nth-child(6)::details-content {
+      transition-delay: 120ms;
+    }
+
+    &:nth-child(7)::details-content {
+      transition-delay: 150ms;
+    }
+  }
+
+  .mark-watched__button--watched svg path {
+    stroke-dasharray: 24;
+    animation: check-draw 200ms var(--ease-out);
+  }
+
+  .title-row__name s {
+    animation: strike-in var(--dur-ui) var(--ease-out);
+  }
+
+  .next-card__swap {
+    animation: swap-in var(--dur-ui-l) var(--ease-out);
+  }
+
+  .planner__list--swap {
+    animation: fade-in var(--dur-hover) var(--ease-out);
+  }
+
+  .select-field__list {
+    animation: pop-in 120ms var(--ease-out);
+  }
+
+  // Tooltip is a popover, so it can also animate out (display and overlay are discrete).
+  .tooltip__bubble {
+    opacity: 0;
+    transform: translateY(var(--pop-from, 4px));
+    transition:
+      opacity 80ms var(--ease-out),
+      transform 80ms var(--ease-out),
+      display 80ms allow-discrete,
+      overlay 80ms allow-discrete;
+
+    &[data-placement="bottom"] {
+      --pop-from: -4px;
+    }
+
+    &:popover-open {
+      opacity: 1;
+      transform: none;
+      transition-duration: var(--dur-hover);
+
+      @starting-style {
+        opacity: 0;
+        transform: translateY(var(--pop-from, 4px));
+      }
+    }
+  }
+
+  // Progress bars grow in place instead of jumping.
+  .compact-progress progress,
+  .floating-progress progress {
+    &::-webkit-progress-value,
+    &::-moz-progress-bar {
+      transition: width 220ms var(--ease-out);
+    }
+  }
+
+  // Rail card (desktop): fades and drops in; display switches after the exit, so no space is kept.
+  .compact-progress {
+    translate: 0 -8px;
+    opacity: 0;
+    transition:
+      opacity 120ms var(--ease-out),
+      translate 120ms var(--ease-out),
+      display 120ms allow-discrete;
+
+    &[data-visible="true"] {
+      translate: none;
+      opacity: 1;
+      transition-duration: var(--dur-ui-l);
+
+      @starting-style {
+        translate: 0 -8px;
+        opacity: 0;
+      }
+    }
+  }
+
+  // Fixed bar (mobile): slides up from the bottom edge.
+  .floating-progress {
+    translate: 0 100%;
+    opacity: 0;
+    transition:
+      opacity var(--dur-sheet-out) var(--ease-out),
+      translate var(--dur-sheet-out) var(--ease-out),
+      display var(--dur-sheet-out) allow-discrete;
+
+    &[data-visible="true"] {
+      translate: none;
+      opacity: 1;
+      transition-duration: var(--dur-sheet);
+
+      @starting-style {
+        translate: 0 100%;
+        opacity: 0;
+      }
+    }
+  }
+
+  // Sheets, the mobile menu and dialogs slide or scale in with their backdrop; exit is faster.
+  dialog.filters-sheet,
+  dialog.menu-panel,
+  dialog.dialog {
+    --enter: translateY(24px);
+    --dur-in: var(--dur-sheet);
+    --dur-out: var(--dur-sheet-out);
+    opacity: 0;
+    transform: var(--enter);
+    transition:
+      opacity var(--dur-out) var(--ease-out),
+      transform var(--dur-out) var(--ease-out),
+      display var(--dur-out) allow-discrete,
+      overlay var(--dur-out) allow-discrete;
+
+    &[open] {
+      opacity: 1;
+      transform: none;
+      transition-duration: var(--dur-in);
+
+      @starting-style {
+        opacity: 0;
+        transform: var(--enter);
+      }
+    }
+
+    &::backdrop {
+      background: transparent;
+      transition:
+        background-color var(--dur-out) var(--ease-out),
+        display var(--dur-out) allow-discrete,
+        overlay var(--dur-out) allow-discrete;
+    }
+
+    &[open]::backdrop {
+      background: var(--scrim);
+      transition-duration: var(--dur-in);
+
+      @starting-style {
+        background: transparent;
+      }
+    }
+  }
+
+  dialog.menu-panel {
+    --enter: translateY(-12px);
+    --dur-in: var(--dur-panel);
+    --dur-out: var(--dur-ui);
+  }
+
+  dialog.dialog {
+    --enter: scale(0.98);
+    --dur-in: var(--dur-panel);
+    --dur-out: var(--dur-ui);
+  }
+}
+
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 24;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes strike-in {
+  from {
+    text-decoration-color: transparent;
+  }
+}
+
+@keyframes swap-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes skeleton-pulse {
+  50% {
+    opacity: 0.6;
+  }
+}

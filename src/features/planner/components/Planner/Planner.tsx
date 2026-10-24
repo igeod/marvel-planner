@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { FOOTER_ID } from "../../../../app/dom";
 import { PATHS } from "../../../../app/paths";
@@ -39,6 +39,8 @@ import { PlannerGuide } from "../PlannerGuide";
 import { PlannerSummary } from "../PlannerSummary";
 import { SagaSection } from "../SagaSection";
 
+const BULK_STAGGER_MS = 600;
+
 interface PlannerProps {
   shareCode?: string;
 }
@@ -61,12 +63,15 @@ export function Planner({ shareCode }: PlannerProps) {
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
   const progressRef = useRef<HTMLDivElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
+  const previousListKeyRef = useRef<string | null>(null);
+  const [isBulkToggle, setIsBulkToggle] = useState(false);
 
   const catalog = useResolvedCatalog();
   const sagas = useMemo(() => filterCatalog(catalog, filters), [catalog, filters]);
   const { watched, isLoading, error, storage, toggle, reset, importTitles } = useWatched();
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
-  const isFloatingProgressVisible = useFloatingProgressVisibility(progressRef, FOOTER_ID);
+  const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
 
   const allTitles = flattenTitles(catalog);
   const overall = computeProgress(allTitles, watched);
@@ -85,6 +90,25 @@ export function Planner({ shareCode }: PlannerProps) {
     const isShown = (title: Title) => matchesFilters(title, filters);
     return { placed: placed.filter(isShown), unplaced: unplaced.filter(isShown) };
   }, [catalog, filters]);
+
+  // Fades the new list in when filters or order really change (not when stored ones load).
+  const listKey = `${viewOrder}${JSON.stringify(filters)}`;
+  useEffect(() => {
+    const list = listRef.current;
+    const previous = previousListKeyRef.current;
+    previousListKeyRef.current = listKey;
+    if (!list || previous === null || previous === listKey) return;
+    list.classList.remove("planner__list--swap");
+    void list.offsetWidth;
+    list.classList.add("planner__list--swap");
+  }, [listKey]);
+
+  // The flag only enables the 30ms phase stagger for Collapse all / Expand all.
+  const toggleAllPhases = () => {
+    setIsBulkToggle(true);
+    toggleAll();
+    window.setTimeout(() => setIsBulkToggle(false), BULK_STAGGER_MS);
+  };
 
   const canCollapse = viewOrder === "release";
   const openShare = () => setIsShareDialogOpen(true);
@@ -131,26 +155,28 @@ export function Planner({ shareCode }: PlannerProps) {
         {isDesktop ? (
           <>
             <div className="planner__rail">
-              <CompactProgress
-                progress={overall}
-                nextTitle={nextTitle}
-                isVisible={isFloatingProgressVisible}
-              />
-              <PlannerFilters
-                filters={filters}
-                onChange={setFilters}
-                viewOrder={viewOrder}
-                onViewOrderChange={setViewOrder}
-                shown={shownCount}
-                total={allTitles.length}
-              />
-              {canCollapse && (
-                <CollapseToggle
-                  size="lg"
-                  areAllCollapsed={areAllCollapsed}
-                  onToggleAll={toggleAll}
+              <div className="planner__rail-content">
+                <CompactProgress
+                  progress={overall}
+                  nextTitle={nextTitle}
+                  isVisible={isPastProgress}
                 />
-              )}
+                <PlannerFilters
+                  filters={filters}
+                  onChange={setFilters}
+                  viewOrder={viewOrder}
+                  onViewOrderChange={setViewOrder}
+                  shown={shownCount}
+                  total={allTitles.length}
+                />
+                {canCollapse && (
+                  <CollapseToggle
+                    size="lg"
+                    areAllCollapsed={areAllCollapsed}
+                    onToggleAll={toggleAllPhases}
+                  />
+                )}
+              </div>
             </div>
           </>
         ) : (
@@ -162,7 +188,7 @@ export function Planner({ shareCode }: PlannerProps) {
               canCollapse={canCollapse}
               areAllCollapsed={areAllCollapsed}
               onOpenFilters={() => setIsFiltersOpen(true)}
-              onToggleAll={toggleAll}
+              onToggleAll={toggleAllPhases}
             />
             <FiltersSheet
               isOpen={isFiltersOpen}
@@ -176,7 +202,11 @@ export function Planner({ shareCode }: PlannerProps) {
           </>
         )}
 
-        <div className="planner__list" aria-busy={isLoading}>
+        <div
+          ref={listRef}
+          className={`planner__list${isBulkToggle ? " planner__list--bulk" : ""}`}
+          aria-busy={isLoading}
+        >
           {viewOrder === "release" ? (
             sagas.map((saga) => (
               <SagaSection
@@ -196,11 +226,14 @@ export function Planner({ shareCode }: PlannerProps) {
               onToggleTitle={toggle}
             />
           )}
-          <PlannerGuide />
         </div>
+
+        <PlannerGuide />
       </div>
 
-      {!isDesktop && <FloatingProgress progress={overall} isVisible={isFloatingProgressVisible} />}
+      {!isDesktop && (
+        <FloatingProgress progress={overall} isVisible={isPastProgress && !isFooterVisible} />
+      )}
 
       <ShareDialog
         isOpen={isShareDialogOpen}

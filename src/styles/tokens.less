@@ -51,6 +51,15 @@
 :root {
   .light-tokens();
 
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --dur-press: 100ms;
+  --dur-hover: 120ms;
+  --dur-ui: 150ms;
+  --dur-ui-l: 180ms;
+  --dur-accordion: 220ms;
+  --dur-panel: 200ms;
+  --dur-sheet: 250ms;
+  --dur-sheet-out: 180ms;
   --on-gold: #14171f;
   --on-red: #ffffff;
   --strip-on-panel-off: #3a4260;
@@ -64,6 +73,16 @@
     var(--floating-progress-height) + var(--floating-progress-gap) * 2 +
       env(safe-area-inset-bottom, 0px)
   );
+}
+
+// Reduced motion keeps color changes only, capped at 80ms (transform motion lives in motion.less).
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-press: 80ms;
+    --dur-hover: 80ms;
+    --dur-ui: 80ms;
+    --dur-ui-l: 80ms;
+  }
 }
 
 @media (min-width: @desktop) {

@@ -47,7 +47,7 @@ export function NextToWatch({ title, phase, isHiddenByFilters, onMarkWatched }: 
       </h2>
       {title ? (
         <>
-          <div>
+          <div key={title.id} className="next-card__swap">
             <p className={`next-card__title${titleSizeClass(title.name)}`} lang="en">
               {title.name}
             </p>

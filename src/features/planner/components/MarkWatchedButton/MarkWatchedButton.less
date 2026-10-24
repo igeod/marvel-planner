@@ -37,6 +37,18 @@
   }
 }
 
+.mark-watched__button {
+  .on-hover({
+    .mark-watched__pill {
+      background: #323a50;
+    }
+  });
+
+  &:active .mark-watched__pill {
+    background: #3a4260;
+  }
+}
+
 .mark-watched__button--watched svg {
   color: var(--gold);
 }

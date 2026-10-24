@@ -20,6 +20,10 @@
   margin-bottom: 14px;
 }
 
+.phase-strip__header .section-title {
+  line-height: 1.5;
+}
+
 .phase-strip__legend {
   display: flex;
   flex-wrap: wrap;
@@ -42,18 +46,18 @@
 .phase-strip__columns {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 
-  .desktop({ flex-direction: row; gap: 14px; });
+  .desktop({ flex-direction: row; });
 }
 
 .phase-strip__phase {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
   min-width: 0;
 
-  .desktop({ flex: 1 1 0; });
+  .desktop({ flex: 1 1 0; gap: 8px; });
 }
 
 .phase-strip__cells {

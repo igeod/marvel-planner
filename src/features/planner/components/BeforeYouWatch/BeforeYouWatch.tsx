@@ -1,4 +1,4 @@
-import { Check, Eye, EyeOff } from "lucide-react";
+import { Check, Eye } from "lucide-react";
 import { useId, useState } from "react";
 import { Tooltip } from "../../../../components/ui/Tooltip";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -47,11 +47,7 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
                 aria-describedby={describedBy}
                 onClick={() => setAreReasonsRevealed(!areReasonsRevealed)}
               >
-                {areReasonsRevealed ? (
-                  <EyeOff data-tooltip-anchor aria-hidden />
-                ) : (
-                  <Eye data-tooltip-anchor aria-hidden />
-                )}
+                <Eye data-tooltip-anchor aria-hidden />
                 {t("prerequisites.why")}
               </button>
             )}

@@ -16,7 +16,7 @@ export function CompactProgress({ progress, nextTitle, isVisible }: CompactProgr
       className="compact-progress on-panel"
       role="status"
       aria-label={t("planner.progressHeading")}
-      hidden={!isVisible}
+      data-visible={isVisible}
     >
       <div className="compact-progress__row">
         <span className="compact-progress__count">

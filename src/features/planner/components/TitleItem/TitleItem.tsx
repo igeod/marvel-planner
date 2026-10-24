@@ -12,6 +12,8 @@ import { PosterThumb } from "../PosterThumb";
 import { TitleDetailsDialog } from "../TitleDetailsDialog";
 import { TitleSummaryPanel } from "../TitleSummaryPanel";
 
+const OPEN_ANIMATION_MS = 220;
+
 interface TitleItemProps {
   title: Title;
   isWatched: boolean;
@@ -27,9 +29,15 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const rowRef = useRef<HTMLLIElement>(null);
 
-  // Scrolls only when the open panel's bottom falls below the viewport.
+  // Scrolls only when the open panel's bottom falls below the viewport, once the open animation ends.
   useEffect(() => {
-    if (isOpen) rowRef.current?.scrollIntoView({ block: "nearest" });
+    if (!isOpen) return;
+    const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const timer = window.setTimeout(
+      () => rowRef.current?.scrollIntoView({ block: "nearest" }),
+      isReduced ? 0 : OPEN_ANIMATION_MS,
+    );
+    return () => window.clearTimeout(timer);
   }, [isOpen]);
 
   const meta = [

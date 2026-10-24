@@ -11,7 +11,7 @@ export function FloatingProgress({ progress, isVisible }: FloatingProgressProps)
   const percent = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
 
   return (
-    <div className="floating-progress on-panel" aria-hidden="true" hidden={!isVisible}>
+    <div className="floating-progress on-panel" aria-hidden="true" data-visible={isVisible}>
       <div className="floating-progress__row">
         <span className="floating-progress__label">
           {t("planner.watchedCount", { done: progress.done, total: progress.total })}

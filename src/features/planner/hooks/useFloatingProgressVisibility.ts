@@ -3,7 +3,7 @@ import { useEffect, useState, type RefObject } from "react";
 export function useFloatingProgressVisibility(
   progressRef: RefObject<HTMLElement | null>,
   footerId: string,
-): boolean {
+): { isPastProgress: boolean; isFooterVisible: boolean } {
   const [hasScrolledPastProgress, setHasScrolledPastProgress] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
 
@@ -28,5 +28,5 @@ export function useFloatingProgressVisibility(
     };
   }, [progressRef, footerId]);
 
-  return hasScrolledPastProgress && !isFooterVisible;
+  return { isPastProgress: hasScrolledPastProgress, isFooterVisible };
 }
