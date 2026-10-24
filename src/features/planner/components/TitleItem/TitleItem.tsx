@@ -1,5 +1,5 @@
 import { Check, Maximize2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { Chevron } from "../../../../components/ui/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -25,6 +25,12 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+  const rowRef = useRef<HTMLLIElement>(null);
+
+  // Scrolls only when the open panel's bottom falls below the viewport.
+  useEffect(() => {
+    if (isOpen) rowRef.current?.scrollIntoView({ block: "nearest" });
+  }, [isOpen]);
 
   const meta = [
     t(MEDIA_TYPE_KEYS[title.type]),
@@ -37,7 +43,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
     .join(", ");
 
   return (
-    <li className={`title-row${isOpen ? " title-row--open" : ""}`}>
+    <li ref={rowRef} className={`title-row${isOpen ? " title-row--open" : ""}`}>
       <label className="title-row__check">
         <input
           type="checkbox"

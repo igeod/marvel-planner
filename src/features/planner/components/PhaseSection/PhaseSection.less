@@ -10,6 +10,12 @@
   gap: 14px;
   min-height: 64px;
   padding: 10px 16px 10px 20px;
+  border-radius: 24px;
+  .tones(var(--phase-hover), var(--phase-press));
+
+  &:focus-visible {
+    outline-offset: -3px;
+  }
 }
 
 .phase[open] > .phase__summary {

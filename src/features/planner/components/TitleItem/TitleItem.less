@@ -9,6 +9,22 @@
   background: var(--bg);
 
   .desktop({ gap: 12px; padding: 10px 16px 14px 8px; });
+
+  // Hover and pressed follow the summary only, so the open content does not flash.
+  @media (hover: hover) and (pointer: fine) {
+    &:has(.title-row__summary:hover) {
+      background: var(--row-hover);
+    }
+  }
+
+  &:has(.title-row__summary:active) {
+    background: var(--row-press);
+  }
+
+  &:has(.title-row__summary:focus-visible) {
+    outline: 3px solid var(--red);
+    outline-offset: -3px;
+  }
 }
 
 .title-row--open {
@@ -21,8 +37,19 @@
   --poster-bg: #2f3750;
   color: var(--ink);
 
-  :focus-visible {
+  :focus-visible,
+  &:has(.title-row__summary:focus-visible) {
     outline-color: var(--gold);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:has(.title-row__summary:hover) {
+      background: var(--row-open-hover);
+    }
+  }
+
+  &:has(.title-row__summary:active) {
+    background: var(--row-open-press);
   }
 
   .title-row__check {
@@ -124,6 +151,14 @@
   font-weight: 800;
   line-height: 1.25;
   overflow-wrap: anywhere;
+}
+
+.title-row__name s {
+  color: var(--muted);
+}
+
+.title-row__summary:focus-visible {
+  outline: none;
 }
 
 .title-row__meta {
