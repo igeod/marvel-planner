@@ -9,10 +9,12 @@ export function ExportSection() {
   const { t } = useI18n();
   const [isPending, setIsPending] = useState(false);
   const [hasFailed, setHasFailed] = useState(false);
+  const [isDone, setIsDone] = useState(false);
   const headingId = useId();
 
   const download = async () => {
     setHasFailed(false);
+    setIsDone(false);
     setIsPending(true);
     try {
       const response = await fetch("/api/account/export", { credentials: "same-origin" });
@@ -23,6 +25,7 @@ export function ExportSection() {
       link.download = EXPORT_FILE_NAME;
       link.click();
       URL.revokeObjectURL(url);
+      setIsDone(true);
     } catch {
       setHasFailed(true);
     } finally {
@@ -35,6 +38,7 @@ export function ExportSection() {
       <h3 id={headingId}>{t("account.export.heading")}</h3>
       <p>{t("account.export.description")}</p>
       {hasFailed && <p role="alert">{t("account.export.error")}</p>}
+      {isDone && <p role="status">{t("account.export.done")}</p>}
       <Button
         variant="soft"
         icon={<Download aria-hidden />}

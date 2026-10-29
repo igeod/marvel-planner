@@ -9,14 +9,25 @@ interface ModalProps {
   title: string;
   titleLang?: string;
   onClose: () => void;
+  // Bare dialogs draw their own heading; this is that heading's id.
+  titleId?: string;
   size?: "md" | "lg" | "profile" | "page";
   children: ReactNode;
 }
 
-export function Modal({ isOpen, title, titleLang, onClose, size = "md", children }: ModalProps) {
+export function Modal({
+  isOpen,
+  title,
+  titleLang,
+  onClose,
+  titleId: ownTitleId,
+  size = "md",
+  children,
+}: ModalProps) {
   const { t } = useI18n();
   const dialogRef = useDialog(isOpen);
-  const titleId = useId();
+  const generatedId = useId();
+  const titleId = ownTitleId ?? generatedId;
   // Profile and page dialogs draw their own header.
   const isBare = size === "profile" || size === "page";
 
@@ -24,8 +35,9 @@ export function Modal({ isOpen, title, titleLang, onClose, size = "md", children
     <dialog
       ref={dialogRef}
       className={`dialog dialog--${size}`}
-      aria-labelledby={isBare ? undefined : titleId}
-      aria-label={isBare ? title : undefined}
+      aria-modal="true"
+      aria-labelledby={ownTitleId || !isBare ? titleId : undefined}
+      aria-label={isBare && !ownTitleId ? title : undefined}
       onCancel={(event) => {
         event.preventDefault();
         onClose();

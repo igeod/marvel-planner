@@ -334,6 +334,9 @@ export const fr: Messages = {
       byYear: "Par année",
       watched: "Titres vus",
       error: "Je ne peux pas charger votre progression.",
+      loading: "Chargement de votre progression…",
+      share: "Partager la progression",
+      empty: "Vous n'avez encore marqué aucun titre. Marquez le premier dans le planner.",
     },
     export: {
       heading: "Vos données",
@@ -342,6 +345,7 @@ export const fr: Messages = {
       button: "Télécharger mes données",
       pending: "Préparation…",
       error: "Impossible de télécharger les données. Réessayez plus tard.",
+      done: "Téléchargement lancé.",
     },
     profile: {
       heading: "Profil",

@@ -11,6 +11,8 @@ import { PasswordSection } from "../PasswordSection";
 import { ProfileSection } from "../ProfileSection";
 import { ProgressStatsSection } from "../ProgressStatsSection";
 
+export const PROFILE_TITLE_ID = "profile-title";
+
 type Tab = "progress" | "profile" | "password" | "account";
 
 const TABS: { id: Tab; labelKey: TranslationKey; icon: ComponentType }[] = [
@@ -71,7 +73,9 @@ export function AccountSettings({ user, onClose }: AccountSettingsProps) {
         >
           <X aria-hidden />
         </button>
-        <h2 className="profile__title">{t(TITLE_KEYS[tab])}</h2>
+        <h2 id={PROFILE_TITLE_ID} className="profile__title">
+          {t(TITLE_KEYS[tab])}
+        </h2>
         <div className="profile__scroll">
           {tab === "progress" && <ProgressStatsSection />}
           {tab === "profile" && <ProfileSection user={user} />}

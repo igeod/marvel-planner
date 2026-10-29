@@ -1,17 +1,25 @@
-import { useEffect, useMemo, useState } from "react";
+import { RotateCw, Share2 } from "lucide-react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { Button } from "../../../../components/ui/Button";
 import { Chevron } from "../../../../components/ui/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../../planner/data/labels";
 import { useResolvedCatalog } from "../../../planner/hooks/useResolvedCatalog";
 import { apiProgressRepository } from "../../../planner/services/apiProgressRepository";
 import type { Progress } from "../../../planner/types";
+import { ShareDialog } from "../../../share/components/ShareDialog";
 import { computeStats } from "../../utils/stats";
 
 type State =
   { status: "loading" } | { status: "error" } | { status: "ready"; watched: Set<string> };
 
-function useAccountProgress(): State {
+function useAccountProgress(): [State, () => void] {
   const [state, setState] = useState<State>({ status: "loading" });
+  const [attempt, setAttempt] = useState(0);
+  const retry = useCallback(() => {
+    setState({ status: "loading" });
+    setAttempt((count) => count + 1);
+  }, []);
 
   useEffect(() => {
     let isActive = true;
@@ -22,15 +30,31 @@ function useAccountProgress(): State {
     return () => {
       isActive = false;
     };
-  }, []);
+  }, [attempt]);
 
-  return state;
+  return [state, retry];
 }
 
 interface GroupProps {
   title: string;
   rows: { key: string; name: string; progress: Progress }[];
   isOpen?: boolean;
+}
+
+function ProgressSkeleton() {
+  const { t } = useI18n();
+
+  return (
+    <section className="progress-stats" aria-busy="true">
+      <p className="visually-hidden" role="status">
+        {t("account.stats.loading")}
+      </p>
+      <div className="progress-skeleton__card" aria-hidden="true" />
+      {[0, 1, 2].map((group) => (
+        <div key={group} className="progress-skeleton__group" aria-hidden="true" />
+      ))}
+    </section>
+  );
 }
 
 function ProgressGroup({ title, rows, isOpen }: GroupProps) {
@@ -73,14 +97,24 @@ function ProgressGroup({ title, rows, isOpen }: GroupProps) {
 export function ProgressStatsSection() {
   const { t } = useI18n();
   const catalog = useResolvedCatalog();
-  const state = useAccountProgress();
+  const [state, retry] = useAccountProgress();
+  const [isShareOpen, setIsShareOpen] = useState(false);
   const stats = useMemo(
     () => (state.status === "ready" ? computeStats(catalog, state.watched) : null),
     [catalog, state],
   );
 
-  if (state.status === "loading") return <p role="status">{t("common.loading")}</p>;
-  if (state.status === "error") return <p role="alert">{t("account.stats.error")}</p>;
+  if (state.status === "loading") return <ProgressSkeleton />;
+  if (state.status === "error") {
+    return (
+      <section className="progress-state" role="alert">
+        <p>{t("account.stats.error")}</p>
+        <Button variant="soft" icon={<RotateCw aria-hidden />} onClick={retry}>
+          {t("common.retry")}
+        </Button>
+      </section>
+    );
+  }
   if (!stats) return null;
 
   const { done, total } = stats.overall;
@@ -109,7 +143,23 @@ export function ProgressStatsSection() {
         >
           <span style={{ width: `${percent}%` }} />
         </div>
+        <Button
+          variant="ink"
+          size="lg"
+          className="progress-total__share"
+          icon={<Share2 aria-hidden />}
+          onClick={() => setIsShareOpen(true)}
+        >
+          {t("account.stats.share")}
+        </Button>
+        <ShareDialog
+          isOpen={isShareOpen}
+          progress={stats.overall}
+          onClose={() => setIsShareOpen(false)}
+        />
       </div>
+
+      {done === 0 && <p role="status">{t("account.stats.empty")}</p>}
 
       <ProgressGroup
         isOpen

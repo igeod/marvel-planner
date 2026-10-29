@@ -1,5 +1,6 @@
 import { KeyRound } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { Button } from "../../../../components/ui/Button";
 import { PasswordField } from "../../../../components/ui/Field";
 import { useI18n } from "../../../../i18n/useI18n";
 import { focusFirstInvalidField, hasErrors, type FieldErrors } from "../../../../lib/validation";
@@ -35,6 +36,13 @@ export function PasswordSection() {
       : {}),
   });
 
+  // Validate a field once the user leaves it, only after it has been filled in.
+  const validateOnBlur = (field: PasswordField) => () => {
+    if (!form[field]) return;
+    const found = validate();
+    setErrors((current) => ({ ...current, [field]: found[field] }));
+  };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const found = validate();
@@ -56,6 +64,7 @@ export function PasswordSection() {
           required
           value={form.currentPassword}
           onChange={update("currentPassword")}
+          onBlur={validateOnBlur("currentPassword")}
           error={errorText("currentPassword")}
         />
         <PasswordField
@@ -66,6 +75,7 @@ export function PasswordSection() {
           minLength={MIN_PASSWORD_LENGTH}
           value={form.newPassword}
           onChange={update("newPassword")}
+          onBlur={validateOnBlur("newPassword")}
           hint={t("account.password.hint", { min: MIN_PASSWORD_LENGTH })}
           error={errorText("newPassword")}
         />
@@ -76,13 +86,20 @@ export function PasswordSection() {
           required
           value={form.confirmation}
           onChange={update("confirmation")}
+          onBlur={validateOnBlur("confirmation")}
           error={errorText("confirmation")}
         />
         <div className="password-section__actions">
-          <button type="submit" className="btn btn--primary" disabled={isPending}>
-            <KeyRound aria-hidden />
-            {isPending ? t("account.password.changing") : t("account.password.change")}
-          </button>
+          <Button
+            type="submit"
+            variant="primary"
+            icon={<KeyRound aria-hidden />}
+            isLoading={isPending}
+            loadingLabel={t("account.password.changing")}
+            disabled={!form.currentPassword || !form.newPassword || !form.confirmation}
+          >
+            {t("account.password.change")}
+          </Button>
           {error && <p role="alert">{error}</p>}
           {isDone && <p role="status">{t("account.password.changed")}</p>}
         </div>

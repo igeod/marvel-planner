@@ -55,9 +55,9 @@
 .spoiler-box__content {
   flex: 1;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--ink-2) transparent;
+  overscroll-behavior: contain;
   transition: filter var(--dur-accordion) var(--ease-out);
 
   &[data-hidden] {

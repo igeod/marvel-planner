@@ -1,4 +1,5 @@
 import { Save } from "lucide-react";
+import { Button } from "../../../../components/ui/Button";
 import { useState, type FormEvent } from "react";
 import { TextField } from "../../../../components/ui/Field";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -15,6 +16,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
   const { updateName } = useAuth();
   const { run, error, isPending, isDone } = useAuthAction(updateName);
   const [name, setName] = useState(user.name);
+  const [isTouched, setIsTouched] = useState(false);
 
   const trimmedName = name.trim();
   const hasChanges = trimmedName !== user.name;
@@ -35,17 +37,21 @@ export function ProfileSection({ user }: ProfileSectionProps) {
           maxLength={30}
           value={name}
           onChange={setName}
+          onBlur={() => setIsTouched(true)}
+          error={isTouched && !trimmedName ? t("auth.errors.required") : null}
           hint={t("auth.nameHint")}
         />
         <div className="profile-section__actions">
-          <button
+          <Button
             type="submit"
-            className="btn btn--primary"
-            disabled={isPending || !hasChanges || !trimmedName}
+            variant="primary"
+            icon={<Save aria-hidden />}
+            isLoading={isPending}
+            loadingLabel={t("account.profile.saving")}
+            disabled={!hasChanges || !trimmedName}
           >
-            <Save aria-hidden />
-            {isPending ? t("account.profile.saving") : t("account.profile.save")}
-          </button>
+            {t("account.profile.save")}
+          </Button>
           {error && <p role="alert">{error}</p>}
           {isDone && !hasChanges && <p role="status">{t("account.profile.saved")}</p>}
         </div>

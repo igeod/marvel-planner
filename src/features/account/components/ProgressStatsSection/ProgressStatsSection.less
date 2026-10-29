@@ -150,3 +150,49 @@
 .progress-row--done .progress-row__bar span {
   background: var(--highlight);
 }
+
+// Dark-on-gold in both themes.
+.progress-total .progress-total__share {
+  align-self: flex-start;
+  min-height: 56px;
+  background: var(--ink-static);
+  color: var(--on-dark);
+  .tones(var(--raised-2), var(--raised-3));
+}
+
+.progress-state {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-4);
+}
+
+// Same shapes as the loaded state (card, three groups) so nothing shifts when data arrives.
+.progress-skeleton__card,
+.progress-skeleton__group {
+  background: var(--row-hover);
+  border-radius: var(--r-md);
+}
+
+.progress-skeleton__card {
+  height: 236px;
+  background: var(--disabled);
+}
+
+.progress-skeleton__group {
+  height: 84px;
+  border-radius: var(--r-xl);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .progress-skeleton__card,
+  .progress-skeleton__group {
+    animation: progress-pulse 1.4s ease-in-out infinite;
+  }
+}
+
+@keyframes progress-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}

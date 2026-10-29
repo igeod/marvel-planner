@@ -14,6 +14,7 @@ export interface FieldProps {
   required?: boolean;
   maxLength?: number;
   minLength?: number;
+  onBlur?: () => void;
 }
 
 function describedBy(...ids: (string | false | undefined | null)[]) {
@@ -33,6 +34,7 @@ export function TextField({
   required,
   maxLength,
   minLength,
+  onBlur,
 }: FieldProps) {
   const id = useId();
   const hintId = `${id}-hint`;
@@ -64,6 +66,7 @@ export function TextField({
         aria-invalid={Boolean(error)}
         aria-describedby={describedBy(hint && hintId, error && errorId)}
         onChange={(event) => onChange(event.target.value)}
+        onBlur={onBlur}
       />
       {hint && (
         <p id={hintId} className="field__hint">
@@ -86,7 +89,8 @@ export function PasswordField(props: Omit<FieldProps, "type">) {
   const id = useId();
   const hintId = `${id}-hint`;
   const errorId = `${id}-error`;
-  const { label, name, value, onChange, autoComplete, hint, error, required, minLength } = props;
+  const { label, name, value, onChange, autoComplete, hint, error, required, minLength, onBlur } =
+    props;
 
   return (
     <div className="field">
@@ -104,6 +108,7 @@ export function PasswordField(props: Omit<FieldProps, "type">) {
         aria-invalid={Boolean(error)}
         aria-describedby={describedBy(hint && hintId, error && errorId)}
         onChange={(event) => onChange(event.target.value)}
+        onBlur={onBlur}
       />
       <button
         type="button"

@@ -41,6 +41,7 @@ a {
 .select-field__trigger,
 .select-field__option,
 .phase__summary,
+.profile__tab,
 .progress-card__share,
 .progress-card__toggle {
   transition: @color-hover;
@@ -110,6 +111,7 @@ a {
   .why-toggle,
   .mark-watched__button,
   .select-field__trigger,
+  .profile__tab,
   .progress-card__share,
   .progress-card__toggle {
     transition:
@@ -126,6 +128,15 @@ a {
   }
 
   // Text buttons press by fading, not by moving.
+  .profile__tab:active {
+    transform: scale(0.98);
+  }
+
+  .progress-total__bar span,
+  .progress-row__bar span {
+    transition: width var(--dur-progress) var(--ease-out);
+  }
+
   .btn--text:active:not(:disabled):not([aria-busy="true"]) {
     transform: none;
   }

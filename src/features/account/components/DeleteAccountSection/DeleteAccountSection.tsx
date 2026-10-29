@@ -1,5 +1,7 @@
 import { Trash2 } from "lucide-react";
 import { useId, useState, type FormEvent } from "react";
+import { Button } from "../../../../components/ui/Button";
+import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog";
 import { PasswordField } from "../../../../components/ui/Field";
 import { useI18n } from "../../../../i18n/useI18n";
 import { focusFirstInvalidField } from "../../../../lib/validation";
@@ -12,6 +14,7 @@ export function DeleteAccountSection() {
   const { run, error, isPending } = useAuthAction(deleteAccount);
   const [password, setPassword] = useState("");
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
+  const [isConfirming, setIsConfirming] = useState(false);
   const headingId = useId();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -19,6 +22,11 @@ export function DeleteAccountSection() {
     const isMissing = !password;
     setIsPasswordMissing(isMissing);
     if (isMissing) return focusFirstInvalidField(event.currentTarget, { password: true });
+    setIsConfirming(true);
+  };
+
+  const confirm = () => {
+    setIsConfirming(false);
     void run(password);
   };
 
@@ -43,11 +51,28 @@ export function DeleteAccountSection() {
         />
         <div className="delete-account__actions">
           {error && <p role="alert">{error}</p>}
-          <button type="submit" className="btn btn--danger" disabled={isPending || !password}>
-            {isPending ? t("account.delete.pending") : t("account.delete.button")}
-          </button>
+          <Button
+            type="submit"
+            variant="soft"
+            className="delete-account__button"
+            icon={<Trash2 aria-hidden />}
+            isLoading={isPending}
+            loadingLabel={t("account.delete.pending")}
+            disabled={!password}
+          >
+            {t("account.delete.button")}
+          </Button>
         </div>
       </form>
+      <ConfirmDialog
+        isOpen={isConfirming}
+        title={t("account.delete.heading")}
+        message={t("account.delete.confirm")}
+        confirmLabel={t("account.delete.button")}
+        cancelLabel={t("common.cancel")}
+        onConfirm={confirm}
+        onCancel={() => setIsConfirming(false)}
+      />
     </section>
   );
 }

@@ -336,6 +336,9 @@ export const de: Messages = {
       byYear: "Nach Jahr",
       watched: "Gesehene Titel",
       error: "Ich kann deinen Fortschritt nicht laden.",
+      loading: "Dein Fortschritt wird geladen…",
+      share: "Fortschritt teilen",
+      empty: "Du hast noch keinen Titel markiert. Markiere den ersten im Planner.",
     },
     export: {
       heading: "Deine Daten",
@@ -344,6 +347,7 @@ export const de: Messages = {
       button: "Meine Daten herunterladen",
       pending: "Wird vorbereitet …",
       error: "Die Daten konnten nicht heruntergeladen werden. Versuche es später erneut.",
+      done: "Download gestartet.",
     },
     profile: {
       heading: "Profil",

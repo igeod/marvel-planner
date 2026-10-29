@@ -3,7 +3,7 @@ import { PATHS } from "../../../../app/paths";
 import { Modal } from "../../../../components/ui/Modal";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
-import { AccountSettings } from "../../../account/components/AccountSettings";
+import { AccountSettings, PROFILE_TITLE_ID } from "../../../account/components/AccountSettings";
 import type { AuthDialogView } from "../../context/AuthDialogContext";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
@@ -30,6 +30,7 @@ export function AuthDialogs() {
       isOpen={isOpen}
       title={t(TITLE_KEYS[currentView])}
       size={currentView === "account" ? "profile" : "md"}
+      titleId={currentView === "account" ? PROFILE_TITLE_ID : undefined}
       onClose={close}
     >
       {currentView === "login" && (

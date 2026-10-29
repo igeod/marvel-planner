@@ -333,6 +333,9 @@ export const en: Messages = {
       byYear: "By year",
       watched: "Titles watched",
       error: "I can't load your progress.",
+      loading: "Loading your progress…",
+      share: "Share progress",
+      empty: "You haven't marked any title yet. Mark your first one in the planner.",
     },
     export: {
       heading: "Your data",
@@ -341,6 +344,7 @@ export const en: Messages = {
       button: "Download my data",
       pending: "Preparing…",
       error: "Unable to download your data. Please try again later.",
+      done: "Download started.",
     },
     profile: {
       heading: "Profile",

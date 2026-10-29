@@ -113,7 +113,10 @@
   min-width: 260px;
   max-width: calc(100vw - 16px);
   max-height: calc(100dvh - 16px);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   border: 0;
   background: var(--surface);
   color: var(--ink);

@@ -6,6 +6,52 @@
   box-sizing: border-box;
 }
 
+// Scrollbars: tokens only. The document scrollbar (html/body) stays native.
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sb-thumb) var(--sb-track);
+}
+
+::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: var(--sb-size);
+    height: var(--sb-size);
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--sb-track);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: var(--r-pill);
+    background: var(--sb-thumb) padding-box;
+
+    &:hover {
+      background: var(--sb-thumb-hover) padding-box;
+    }
+  }
+}
+
+.scroll-y {
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-bottom: var(--floating-progress-clearance);

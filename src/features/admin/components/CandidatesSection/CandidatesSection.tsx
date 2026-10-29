@@ -24,11 +24,11 @@ function SnippetPanel({ candidate }: { candidate: CatalogCandidate }) {
     <div className="snippet-panel">
       <p>{t("admin.candidates.codeIntro")}</p>
       <p>{t("admin.candidates.catalogLabel")}</p>
-      <pre>
+      <pre tabIndex={0} role="region" aria-label={t("admin.candidates.catalogLabel")}>
         <code>{snippet.catalogEntry}</code>
       </pre>
       <p>{t("admin.candidates.refLabel")}</p>
-      <pre>
+      <pre tabIndex={0} role="region" aria-label={t("admin.candidates.refLabel")}>
         <code>{snippet.tmdbRef}</code>
       </pre>
       <p>{t("admin.candidates.afterNote")}</p>

@@ -17,6 +17,7 @@ dialog.dialog--profile {
 }
 
 .profile {
+  position: relative;
   display: flex;
   height: 100%;
 
@@ -94,8 +95,7 @@ dialog.dialog--profile {
 
   @media (max-width: 639px) {
     flex-direction: row;
-    overflow-x: auto;
-    scrollbar-width: none;
+    flex-wrap: wrap;
   }
 }
 
@@ -111,14 +111,16 @@ dialog.dialog--profile {
   color: var(--ink-2);
   font-size: 0.9375rem;
   font-weight: 700;
-  .tones(var(--row-hover), var(--row-press));
-
   svg {
     width: 20px;
     height: 20px;
   }
 
-  .on-hover({ color: var(--ink); });
+  // Hover and press only on tabs that are not selected.
+  &:not([aria-current="page"]) {
+    .tones(var(--row-hover), var(--row-press));
+    .on-hover({ color: var(--ink); });
+  }
 
   &[aria-current="page"] {
     background: var(--ink);
@@ -131,17 +133,16 @@ dialog.dialog--profile {
 }
 
 .profile__content {
-  position: relative;
   flex: 1;
   min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
-  padding: var(--sp-8);
+  padding: var(--pad-popup);
 
   @media (max-width: 639px) {
-    padding: 20px;
+    padding: var(--sp-5);
   }
 }
 
@@ -149,10 +150,7 @@ dialog.dialog--profile {
   position: absolute;
   top: 12px;
   right: 12px;
-
-  @media (max-width: 639px) {
-    display: none;
-  }
+  z-index: 1;
 }
 
 .profile__title {
@@ -170,11 +168,19 @@ dialog.dialog--profile {
 .profile__scroll {
   flex: 1;
   min-height: 0;
+  overflow-x: hidden;
   overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
   padding: 2px;
+
+  > section + section:not(.delete-account) {
+    padding-top: var(--sp-4);
+    box-shadow: inset 0 1px 0 var(--line);
+  }
 
   > section {
     flex: none;

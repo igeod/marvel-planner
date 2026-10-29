@@ -35,6 +35,9 @@
     0 16px 32px -20px rgba(20, 23, 31, 0.18);
   --shadow-popup: 0 24px 64px rgba(20, 23, 31, 0.28);
   --scrim: rgba(20, 23, 31, 0.6);
+  --sb-thumb: #7d8499;
+  --sb-thumb-hover: #4d5465;
+  --sb-track: transparent;
 }
 
 .dark-tokens() {
@@ -62,6 +65,10 @@
   --shadow-card: inset 0 0 0 1px rgba(242, 244, 248, 0.1);
   --shadow-popup: none;
   --scrim: rgba(0, 0, 0, 0.55);
+  --focus: 3px solid var(--highlight);
+  --sb-thumb: #8790a8;
+  --sb-thumb-hover: #b4bbcc;
+  --sb-track: transparent;
 }
 
 :root {
@@ -83,6 +90,8 @@
   // Legacy aliases.
   --muted: var(--ink-2);
   --red: var(--accent);
+  --accent-text: var(--red-text);
+  --on-accent: var(--white);
   --gold: var(--highlight);
   --cell-off: var(--disabled);
   --panel-ink: var(--on-dark);
@@ -98,6 +107,10 @@
   --sp-6: 24px;
   --sp-8: 32px;
   --sp-12: 48px;
+  --sb-size: 10px;
+  --pad-popup: 28px;
+  --dur-std: 200ms;
+  --dur-progress: 600ms;
   --gap: 8px;
   --gap-section: 32px;
 

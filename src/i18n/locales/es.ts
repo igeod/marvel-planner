@@ -334,6 +334,9 @@ export const es: Messages = {
       byYear: "Por año",
       watched: "Títulos vistos",
       error: "No puedo cargar tu progreso.",
+      loading: "Cargando tu progreso…",
+      share: "Compartir progreso",
+      empty: "Aún no has marcado ningún título. Marca el primero en el planner.",
     },
     export: {
       heading: "Tus datos",
@@ -342,6 +345,7 @@ export const es: Messages = {
       button: "Descargar mis datos",
       pending: "Preparando…",
       error: "No se pueden descargar los datos. Inténtalo más tarde.",
+      done: "Descarga iniciada.",
     },
     profile: {
       heading: "Perfil",

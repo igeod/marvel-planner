@@ -331,6 +331,9 @@ export const it = {
       byYear: "Per anno",
       watched: "Titoli visti",
       error: "Non riesco a caricare i tuoi progressi.",
+      loading: "Caricamento dei tuoi progressi…",
+      share: "Condividi i progressi",
+      empty: "Non hai ancora segnato nessun titolo. Segna il primo nel planner.",
     },
     export: {
       heading: "I tuoi dati",
@@ -339,6 +342,7 @@ export const it = {
       button: "Scarica i miei dati",
       pending: "Preparazione…",
       error: "Impossibile scaricare i dati. Riprova più tardi.",
+      done: "Download avviato.",
     },
     profile: {
       heading: "Profilo",

@@ -12,7 +12,10 @@
   background: var(--surface);
   color: var(--ink);
   box-shadow: var(--shadow-popup);
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
 
   &::backdrop {
     background: var(--scrim);
