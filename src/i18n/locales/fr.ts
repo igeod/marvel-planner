@@ -105,6 +105,13 @@ export const fr: Messages = {
       unplacedNote:
         "Ces titres ne figurent pas dans la chronologie que nous utilisons comme source ; nous ne les plaçons donc pas au hasard.",
     },
+    search: {
+      label: "Rechercher dans tous les titres",
+      placeholder: "Rechercher un titre…",
+      clear: "Effacer la recherche",
+      results: "Résultats : {count}",
+      none: "Aucun titre trouvé.",
+    },
     toolbar: {
       actions: "Actions",
       collapseAll: "Tout réduire",
@@ -210,6 +217,18 @@ export const fr: Messages = {
     close: "Ne pas importer",
   },
   details: {
+    missing: {
+      cover: "Image de couverture indisponible",
+      meta: "Date et durée indisponibles",
+      trailer: "Bande-annonce indisponible",
+      director: "Réalisation indisponible.",
+      cast: "Distribution indisponible.",
+      plot: "Aucun résumé disponible pour ce titre.",
+      credits: "Aucune scène après le générique.",
+      eggs: "Aucun easter egg ni caméo signalé.",
+      scenes: "Aucune scène clé signalée.",
+      spoilers: "Il n'y a pas encore d'informations spoiler pour ce titre.",
+    },
     keyScenes: {
       heading: "Scènes à suivre de près",
       editorial: "Conseils de la rédaction : nos choix, pas issus d'une source externe.",
@@ -353,6 +372,8 @@ export const fr: Messages = {
       save: "Enregistrer",
       saving: "Enregistrement…",
       saved: "Nom mis à jour.",
+      emailSave: "Mettre à jour l'e-mail",
+      emailSaved: "E-mail mis à jour.",
     },
     password: {
       heading: "Mot de passe",

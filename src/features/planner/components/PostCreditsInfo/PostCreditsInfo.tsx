@@ -1,3 +1,4 @@
+import { MissingNote } from "../MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -18,7 +19,15 @@ export function PostCreditsInfo({ titleId }: PostCreditsInfoProps) {
   const { t, language } = useI18n();
 
   const info = getPostCredits(titleId);
-  if (!info) return null;
+  if (!info) {
+    return (
+      <SpoilerBox
+        className="spoiler-box--credits"
+        title={t("postCredits.heading")}
+        intro={<MissingNote tone="dark">{t("details.missing.credits")}</MissingNote>}
+      />
+    );
+  }
 
   const { scenes, note } = info;
   const creditScenes = scenes.filter((scene) => scene.position !== "before");

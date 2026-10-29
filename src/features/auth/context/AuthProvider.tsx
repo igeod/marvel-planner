@@ -49,6 +49,11 @@ export function AuthProvider({ children, service = betterAuthService }: AuthProv
     [service, applyUser],
   );
 
+  const updateEmail = useCallback(
+    async (email: string) => applyUser(await service.updateEmail(email)),
+    [service, applyUser],
+  );
+
   const changePassword = useCallback(
     (change: PasswordChange) => service.changePassword(change),
     [service],
@@ -70,10 +75,11 @@ export function AuthProvider({ children, service = betterAuthService }: AuthProv
       register,
       logout,
       updateName,
+      updateEmail,
       changePassword,
       deleteAccount,
     }),
-    [user, status, login, register, logout, updateName, changePassword, deleteAccount],
+    [user, status, login, register, logout, updateName, updateEmail, changePassword, deleteAccount],
   );
 
   return <AuthContext value={value}>{children}</AuthContext>;

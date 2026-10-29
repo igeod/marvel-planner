@@ -29,7 +29,7 @@
 }
 
 .progress-card__count {
-  font-size: 1.125rem;
+  font-size: var(--fs-title);
   font-weight: 600;
 }
 
@@ -43,9 +43,9 @@
   .pill();
   background: var(--gold);
   color: var(--on-gold);
-  font-size: 1.125rem;
+  font-size: var(--fs-title);
   font-weight: 800;
-  .tones(#ffc23d, #e09f10);
+  .tones(var(--highlight-hover), var(--highlight-active));
 
   &:focus-visible {
     outline: 3px solid var(--ink);
@@ -87,7 +87,7 @@
   justify-content: space-between;
   gap: 12px;
   margin-top: auto;
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
 }
 
 .share-poster {
@@ -98,7 +98,7 @@
   gap: 20px;
   width: 250px;
   padding: 22px;
-  border-radius: 24px;
+  border-radius: var(--r-md);
   background: var(--gold);
   color: var(--on-gold);
   font-weight: 500;

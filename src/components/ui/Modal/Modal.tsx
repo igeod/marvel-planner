@@ -11,7 +11,7 @@ interface ModalProps {
   onClose: () => void;
   // Bare dialogs draw their own heading; this is that heading's id.
   titleId?: string;
-  size?: "md" | "lg" | "profile" | "page";
+  size?: "md" | "lg" | "profile";
   children: ReactNode;
 }
 
@@ -28,8 +28,8 @@ export function Modal({
   const dialogRef = useDialog(isOpen);
   const generatedId = useId();
   const titleId = ownTitleId ?? generatedId;
-  // Profile and page dialogs draw their own header.
-  const isBare = size === "profile" || size === "page";
+  // The profile dialog draws its own header.
+  const isBare = size === "profile";
 
   return createPortal(
     <dialog

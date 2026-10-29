@@ -29,7 +29,7 @@
 }
 
 .progress-total__label {
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
 }
 
@@ -80,7 +80,7 @@
   min-height: 64px;
   padding: 10px var(--sp-4) 10px 18px;
   border-radius: var(--r-row);
-  font-size: 1.25rem;
+  font-size: var(--fs-h3);
   font-weight: 800;
   line-height: 1.2;
   .tones(var(--row-hover), var(--row-press));
@@ -95,7 +95,7 @@
 }
 
 .progress-group__sum {
-  font-size: 1rem;
+  font-size: var(--fs-body);
   font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
@@ -106,8 +106,12 @@
 
 .progress-group__rows {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
   gap: 6px;
+}
+
+.progress-group--year .progress-group__rows {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
 }
 
 .progress-row {
@@ -123,11 +127,11 @@
   display: flex;
   justify-content: space-between;
   gap: var(--sp-3);
-  font-size: 1.125rem;
+  font-size: var(--fs-title);
   font-weight: 800;
 
   span:last-child {
-    font-size: 1rem;
+    font-size: var(--fs-body);
     font-weight: 700;
     font-variant-numeric: tabular-nums;
   }

@@ -15,7 +15,7 @@
 }
 
 .before-you-watch__status {
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
 }
 
 .before-you-watch__list {
@@ -37,7 +37,7 @@
 }
 
 .prereq__level {
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
 }
 
 .prereq__name {
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
   font-weight: 700;
 
   svg {
@@ -72,12 +72,12 @@
   max-width: 62ch;
 
   .desktop({ grid-column: 2 / -1; });
-  font-size: 0.9375rem;
+  font-size: var(--fs-button);
   color: var(--ink);
 }
 
 .before-you-watch__outside {
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
 }
 
 .why-toggle {
@@ -86,7 +86,7 @@
   gap: 8px;
   .touch-target();
   padding: 0 12px;
-  border-radius: 22px;
+  border-radius: var(--r-row);
   color: var(--gold);
   font-weight: 700;
 

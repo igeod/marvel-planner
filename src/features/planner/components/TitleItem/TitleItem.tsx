@@ -1,6 +1,8 @@
 import { Check, Maximize2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Button } from "../../../../components/ui/Button";
+import { Link } from "react-router";
+import { titlePath } from "../../../../app/paths";
+import { buttonClass } from "../../../../components/ui/Button/buttonClass";
 import { Chevron } from "../../../../components/ui/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS, NOTE_KEYS } from "../../data/labels";
@@ -9,7 +11,6 @@ import { formatRelease } from "../../utils/format";
 import { BeforeYouWatch } from "../BeforeYouWatch";
 import { MarkWatchedButton } from "../MarkWatchedButton";
 import { PosterThumb } from "../PosterThumb";
-import { TitleDetailsDialog } from "../TitleDetailsDialog";
 import { TitleSummaryPanel } from "../TitleSummaryPanel";
 
 const OPEN_ANIMATION_MS = 220;
@@ -26,7 +27,6 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
   const { t } = i18n;
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const rowRef = useRef<HTMLLIElement>(null);
 
   // Scrolls only when the open panel's bottom falls below the viewport, once the open animation ends.
@@ -90,25 +90,14 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
             <TitleSummaryPanel titleId={title.id} />
             <BeforeYouWatch title={title} watched={watched} />
             <div className="title-row__actions">
-              <Button
-                variant="primary"
-                iconEnd={<Maximize2 aria-hidden />}
-                aria-haspopup="dialog"
-                onClick={() => setIsDetailsOpen(true)}
-              >
+              <Link to={titlePath(title.id)} className={buttonClass("primary")}>
                 {t("details.open")}
-              </Button>
+                <Maximize2 aria-hidden />
+              </Link>
             </div>
           </div>
         )}
       </details>
-
-      <TitleDetailsDialog
-        isOpen={isDetailsOpen}
-        titleId={title.id}
-        titleName={title.name}
-        onClose={() => setIsDetailsOpen(false)}
-      />
     </li>
   );
 }

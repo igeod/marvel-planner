@@ -36,6 +36,7 @@ import { NextToWatch } from "../NextToWatch";
 import { PhaseStrip } from "../PhaseStrip";
 import { PlannerFilters } from "../PlannerFilters";
 import { PlannerGuide } from "../PlannerGuide";
+import { PlannerSearch } from "../PlannerSearch";
 import { PlannerSummary } from "../PlannerSummary";
 import { SagaSection } from "../SagaSection";
 
@@ -161,6 +162,7 @@ export function Planner({ shareCode }: PlannerProps) {
                   nextTitle={nextTitle}
                   isVisible={isPastProgress}
                 />
+                <PlannerSearch />
                 <PlannerFilters
                   filters={filters}
                   onChange={setFilters}
@@ -181,6 +183,7 @@ export function Planner({ shareCode }: PlannerProps) {
           </>
         ) : (
           <>
+            <PlannerSearch />
             <MobileToolbar
               activeFilters={countActiveFilters(filters)}
               shown={shownCount}

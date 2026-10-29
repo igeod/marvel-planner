@@ -86,4 +86,18 @@ describe("cambio del nome", () => {
     expect(await codeOf(auth.api.updateUser({ body: { name: "Hulk Fan" }, headers }))).toBeNull();
     expect(context.sqlite.prepare("SELECT name FROM user").all()).toEqual([{ name: "Hulk Fan" }]);
   });
+
+  it("cambia l'email subito e ignora quella di un altro utente", async () => {
+    await register("Iron Fan", "a@example.com");
+    await register("Hulk Fan", "b@example.com");
+    const headers = await signIn("a@example.com");
+    await auth.api.changeEmail({ body: { newEmail: "nuova@example.com" }, headers });
+    expect(context.sqlite.prepare("SELECT email FROM user WHERE name = 'Iron Fan'").get()).toEqual({
+      email: "nuova@example.com",
+    });
+    await auth.api.changeEmail({ body: { newEmail: "b@example.com" }, headers });
+    expect(context.sqlite.prepare("SELECT email FROM user WHERE name = 'Iron Fan'").get()).toEqual({
+      email: "nuova@example.com",
+    });
+  });
 });

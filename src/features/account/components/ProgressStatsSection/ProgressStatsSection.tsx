@@ -39,6 +39,7 @@ interface GroupProps {
   title: string;
   rows: { key: string; name: string; progress: Progress }[];
   isOpen?: boolean;
+  className?: string;
 }
 
 function ProgressSkeleton() {
@@ -57,7 +58,7 @@ function ProgressSkeleton() {
   );
 }
 
-function ProgressGroup({ title, rows, isOpen }: GroupProps) {
+function ProgressGroup({ title, rows, isOpen, className }: GroupProps) {
   const { t } = useI18n();
   const sum = rows.reduce(
     (total, row) => ({
@@ -68,7 +69,7 @@ function ProgressGroup({ title, rows, isOpen }: GroupProps) {
   );
 
   return (
-    <details className="progress-group" open={isOpen}>
+    <details className={`progress-group${className ? ` ${className}` : ""}`} open={isOpen}>
       <summary className="progress-group__summary">
         <span>{title}</span>
         <span className="progress-group__sum">{t("common.ofCount", sum)}</span>
@@ -179,6 +180,7 @@ export function ProgressStatsSection() {
         }))}
       />
       <ProgressGroup
+        className="progress-group--year"
         title={t("account.stats.byYear")}
         rows={stats.byYear.map(({ year, ...progress }) => ({ key: year, name: year, progress }))}
       />

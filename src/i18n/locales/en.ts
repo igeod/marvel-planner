@@ -104,6 +104,13 @@ export const en: Messages = {
       unplacedNote:
         "These titles do not appear in the timeline we use as a source, so we do not place them at random.",
     },
+    search: {
+      label: "Search all titles",
+      placeholder: "Search titles…",
+      clear: "Clear search",
+      results: "Results: {count}",
+      none: "No titles found.",
+    },
     toolbar: {
       actions: "Actions",
       collapseAll: "Collapse all",
@@ -209,6 +216,18 @@ export const en: Messages = {
     close: "Don't import",
   },
   details: {
+    missing: {
+      cover: "Cover not available",
+      meta: "Date and runtime not available",
+      trailer: "Trailer not available",
+      director: "Director not available.",
+      cast: "Cast not available.",
+      plot: "No plot available for this title.",
+      credits: "No scenes after the credits.",
+      eggs: "No Easter eggs or cameos reported.",
+      scenes: "No key scenes reported.",
+      spoilers: "There is no spoiler information for this title yet.",
+    },
     keyScenes: {
       heading: "Scenes to watch closely",
       editorial: "Editorial advice: our own picks, not from an outside source.",
@@ -352,6 +371,8 @@ export const en: Messages = {
       save: "Save",
       saving: "Saving…",
       saved: "Name updated.",
+      emailSave: "Update email",
+      emailSaved: "Email updated.",
     },
     password: {
       heading: "Password",

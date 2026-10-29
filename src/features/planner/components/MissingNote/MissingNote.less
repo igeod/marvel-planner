@@ -1,0 +1,28 @@
+.missing-note {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-button);
+  font-weight: 600;
+
+  svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.missing-note--light {
+  color: var(--ink-2);
+}
+
+// Bordered box on dark surfaces (spoiler zone, hero glass).
+.missing-note--dark {
+  justify-content: center;
+  min-height: var(--row-h);
+  padding: 14px 18px;
+  border-radius: var(--r-input);
+  box-shadow: inset 0 0 0 1.5px color-mix(in srgb, var(--white) 16%, transparent);
+  color: var(--muted-on-dark);
+  text-align: center;
+}

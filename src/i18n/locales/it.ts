@@ -102,6 +102,13 @@ export const it = {
       unplacedNote:
         "Questi titoli non compaiono nella linea temporale che usiamo come fonte, quindi non li collochiamo a caso.",
     },
+    search: {
+      label: "Cerca nei titoli",
+      placeholder: "Cerca titoli…",
+      clear: "Cancella la ricerca",
+      results: "Risultati: {count}",
+      none: "Nessun titolo trovato.",
+    },
     toolbar: {
       actions: "Azioni",
       collapseAll: "Comprimi tutto",
@@ -207,6 +214,18 @@ export const it = {
     close: "Non importare",
   },
   details: {
+    missing: {
+      cover: "Copertina non disponibile",
+      meta: "Data e durata non disponibili",
+      trailer: "Trailer non disponibile",
+      director: "Regia non disponibile.",
+      cast: "Cast non disponibile.",
+      plot: "Nessuna trama disponibile per questo titolo.",
+      credits: "Nessuna scena dopo i titoli di coda.",
+      eggs: "Nessun easter egg o cameo segnalato.",
+      scenes: "Nessuna scena chiave segnalata.",
+      spoilers: "Per questo titolo non ci sono ancora informazioni spoiler.",
+    },
     keyScenes: {
       heading: "Scene da guardare con attenzione",
       editorial: "Consigli redazionali: scelte nostre, non provengono da una fonte esterna.",
@@ -350,6 +369,8 @@ export const it = {
       save: "Salva",
       saving: "Salvataggio…",
       saved: "Nome aggiornato.",
+      emailSave: "Aggiorna email",
+      emailSaved: "Email aggiornata.",
     },
     password: {
       heading: "Password",

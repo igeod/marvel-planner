@@ -118,6 +118,24 @@
   }
 }
 
+.film__cover-missing {
+  position: absolute;
+  top: 18px;
+  right: 24px;
+  max-width: calc(100% - 48px);
+
+  .missing-note {
+    min-height: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+}
+
+.film__meta-missing {
+  font-weight: 600;
+  color: var(--panel-muted);
+}
+
 .film__meta {
   display: flex;
   flex-wrap: wrap;

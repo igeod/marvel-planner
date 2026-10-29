@@ -105,6 +105,13 @@ export const es: Messages = {
       unplacedNote:
         "Estos títulos no aparecen en la línea temporal que usamos como fuente, así que no los colocamos al azar.",
     },
+    search: {
+      label: "Buscar en todos los títulos",
+      placeholder: "Buscar títulos…",
+      clear: "Borrar la búsqueda",
+      results: "Resultados: {count}",
+      none: "No se encontró ningún título.",
+    },
     toolbar: {
       actions: "Acciones",
       collapseAll: "Contraer todo",
@@ -210,6 +217,18 @@ export const es: Messages = {
     close: "No importar",
   },
   details: {
+    missing: {
+      cover: "Portada no disponible",
+      meta: "Fecha y duración no disponibles",
+      trailer: "Tráiler no disponible",
+      director: "Dirección no disponible.",
+      cast: "Reparto no disponible.",
+      plot: "No hay argumento disponible para este título.",
+      credits: "Ninguna escena tras los créditos.",
+      eggs: "Ningún easter egg ni cameo señalado.",
+      scenes: "Ninguna escena clave señalada.",
+      spoilers: "Todavía no hay información de spoilers para este título.",
+    },
     keyScenes: {
       heading: "Escenas a las que prestar atención",
       editorial: "Consejos editoriales: elecciones nuestras, no proceden de una fuente externa.",
@@ -353,6 +372,8 @@ export const es: Messages = {
       save: "Guardar",
       saving: "Guardando…",
       saved: "Nombre actualizado.",
+      emailSave: "Actualizar correo",
+      emailSaved: "Correo actualizado.",
     },
     password: {
       heading: "Contraseña",

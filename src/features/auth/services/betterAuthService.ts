@@ -70,6 +70,17 @@ export const betterAuthService: AuthService = {
     return requireCurrentUser();
   },
 
+  async updateEmail(email) {
+    const { error } = await client.changeEmail({ newEmail: email });
+    if (error) throw toAuthError(error);
+    const user = await requireCurrentUser();
+    // The server answers 200 without changing anything when the address belongs to someone else.
+    if (user.email.toLowerCase() !== email.toLowerCase()) {
+      throw new AuthError("auth.errors.userExists");
+    }
+    return user;
+  },
+
   async changePassword(change) {
     const { error } = await client.changePassword({ ...change, revokeOtherSessions: true });
     if (error) throw toAuthError(error);

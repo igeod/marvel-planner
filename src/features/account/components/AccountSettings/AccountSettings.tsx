@@ -78,7 +78,12 @@ export function AccountSettings({ user, onClose }: AccountSettingsProps) {
         </h2>
         <div className="profile__scroll">
           {tab === "progress" && <ProgressStatsSection />}
-          {tab === "profile" && <ProfileSection user={user} />}
+          {tab === "profile" && (
+            <>
+              <ProfileSection user={user} />
+              <ExportSection />
+            </>
+          )}
           {tab === "password" && <PasswordSection />}
           {tab === "account" && (
             <>
@@ -92,7 +97,6 @@ export function AccountSettings({ user, onClose }: AccountSettingsProps) {
                   {t("account.logout.heading")}
                 </button>
               </section>
-              <ExportSection />
               <DeleteAccountSection />
             </>
           )}

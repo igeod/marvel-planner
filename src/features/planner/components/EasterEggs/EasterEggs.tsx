@@ -1,4 +1,5 @@
 import { Info } from "lucide-react";
+import { MissingNote } from "../MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 import { Tooltip } from "../../../../components/ui/Tooltip";
 import type { TranslationKey } from "../../../../i18n/types";
@@ -17,7 +18,15 @@ export function EasterEggs({ titleId }: EasterEggsProps) {
   const { t, language } = useI18n();
   const eggs = getEasterEggs(titleId);
 
-  if (eggs.length === 0) return null;
+  if (eggs.length === 0) {
+    return (
+      <SpoilerBox
+        className="spoiler-box--eggs"
+        title={t("details.easterEggs.heading")}
+        intro={<MissingNote tone="dark">{t("details.missing.eggs")}</MissingNote>}
+      />
+    );
+  }
 
   return (
     <SpoilerBox className="spoiler-box--eggs" title={t("details.easterEggs.heading")}>

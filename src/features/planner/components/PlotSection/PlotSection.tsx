@@ -1,6 +1,7 @@
 import { LANGUAGE_NAMES } from "../../../../../shared/languages";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
 import { useI18n } from "../../../../i18n/useI18n";
+import { MissingNote } from "../MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
@@ -51,7 +52,15 @@ interface PlotSectionProps {
 
 export function PlotSection({ details }: PlotSectionProps) {
   const { t } = useI18n();
-  if (!details.plot && details.episodes.length === 0) return null;
+  if (!details.plot && details.episodes.length === 0) {
+    return (
+      <SpoilerBox
+        className="spoiler-box--plot"
+        title={t("details.plot.heading")}
+        intro={<MissingNote tone="dark">{t("details.missing.plot")}</MissingNote>}
+      />
+    );
+  }
 
   return (
     <SpoilerBox

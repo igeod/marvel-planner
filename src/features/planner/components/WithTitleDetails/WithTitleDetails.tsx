@@ -6,14 +6,21 @@ import { useTitleDetails } from "../../hooks/useTitleDetails";
 interface WithTitleDetailsProps {
   titleId: string;
   children: (details: TitleDetails) => ReactNode;
+  // Replaces the default lines while loading; it should match the final layout.
+  skeleton?: ReactNode;
 }
 
-export function WithTitleDetails({ titleId, children }: WithTitleDetailsProps) {
+export function WithTitleDetails({ titleId, children, skeleton }: WithTitleDetailsProps) {
   const { t } = useI18n();
   const state = useTitleDetails(titleId);
 
   if (state.status === "loading") {
-    return (
+    return skeleton ? (
+      <div role="status" aria-busy="true">
+        <span className="visually-hidden">{t("details.loading")}</span>
+        {skeleton}
+      </div>
+    ) : (
       <div className="details-skeleton" role="status" aria-busy="true">
         <span className="visually-hidden">{t("details.loading")}</span>
         <span className="skeleton" aria-hidden="true" />

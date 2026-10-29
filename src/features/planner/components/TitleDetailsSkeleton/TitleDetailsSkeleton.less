@@ -1,0 +1,33 @@
+.film-skeleton {
+  .skeleton {
+    background: var(--row-hover);
+  }
+}
+
+.film-skeleton__hero {
+  min-height: clamp(540px, 56cqw, 680px);
+  border-radius: var(--r-xl);
+}
+
+.film-skeleton__body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 24px clamp(24px, 4cqw, 56px);
+  padding: var(--sp-6) var(--film-inner);
+}
+
+.film-skeleton__lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.film-skeleton__short {
+  width: 60%;
+}
+
+.film-skeleton .film-skeleton__spoiler {
+  height: 320px;
+  border-radius: var(--r-xl);
+  background: var(--panel);
+}

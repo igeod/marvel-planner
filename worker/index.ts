@@ -11,6 +11,7 @@ import { adminRoutes } from "./routes/admin";
 import { imageRoutes } from "./routes/images";
 import { progressRoutes } from "./routes/progress";
 import { releaseRoutes } from "./routes/releases";
+import { seoRoutes } from "./routes/seo";
 import { shareRoutes, sharedRoutes } from "./routes/share";
 import { statusRoutes } from "./routes/status";
 import { titleRoutes } from "./routes/titles";
@@ -42,6 +43,7 @@ const api = new Hono<AppEnv>()
 const app = new Hono<AppEnv>()
   .use(securityHeaders)
   .route("/api", api)
+  .route("/", seoRoutes)
   .all("*", async (c) => {
     const asset = await c.env.ASSETS.fetch(c.req.raw);
     return new Response(asset.body, asset);

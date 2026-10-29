@@ -8,6 +8,7 @@ export interface AuthContextValue {
   register(registration: Registration): Promise<void>;
   logout(): Promise<void>;
   updateName(name: string): Promise<void>;
+  updateEmail(email: string): Promise<void>;
   changePassword(change: PasswordChange): Promise<void>;
   deleteAccount(password: string): Promise<void>;
 }

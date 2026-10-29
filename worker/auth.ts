@@ -45,6 +45,8 @@ export function createAuth(env: Env, db: Database) {
     },
     user: {
       deleteUser: { enabled: true },
+      // Accounts are never email-verified, so the change applies at once.
+      changeEmail: { enabled: true, updateEmailWithoutVerification: true },
     },
     databaseHooks: {
       user: {

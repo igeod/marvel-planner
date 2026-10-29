@@ -7,6 +7,7 @@ export interface AuthService {
   register(registration: Registration): Promise<User>;
   logout(): Promise<void>;
   updateName(name: string): Promise<User>;
+  updateEmail(email: string): Promise<User>;
   changePassword(change: PasswordChange): Promise<void>;
   deleteAccount(password: string): Promise<void>;
 }

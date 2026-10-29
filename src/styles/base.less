@@ -62,7 +62,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: var(--fs-body);
   line-height: 1.5;
 }
 
@@ -116,6 +116,15 @@ button {
   padding: 0;
   text-align: inherit;
   cursor: pointer;
+}
+
+a,
+button,
+[role="button"],
+[role="switch"],
+input,
+select {
+  touch-action: manipulation;
 }
 
 button:disabled {
@@ -187,7 +196,7 @@ select[aria-invalid="true"] {
 }
 
 label {
-  font-size: 0.875rem;
+  font-size: var(--fs-label);
   font-weight: 600;
 }
 
@@ -200,7 +209,7 @@ progress {
   width: 100%;
   height: 10px;
   border: 0;
-  border-radius: 5px;
+  border-radius: var(--r-pill);
   overflow: hidden;
   appearance: none;
   background: var(--row-hover);
@@ -212,12 +221,12 @@ progress {
 
   &::-webkit-progress-value {
     background: var(--red);
-    border-radius: 5px;
+    border-radius: var(--r-pill);
   }
 
   &::-moz-progress-bar {
     background: var(--red);
-    border-radius: 5px;
+    border-radius: var(--r-pill);
   }
 }
 
@@ -251,7 +260,7 @@ progress {
 }
 
 .section-title {
-  font-size: 1.125rem;
+  font-size: var(--fs-title);
   font-weight: 700;
   line-height: 1.3;
 }

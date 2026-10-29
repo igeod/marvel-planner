@@ -1,12 +1,14 @@
 import { Check } from "lucide-react";
-import { useId, useState } from "react";
+import { useId } from "react";
+import { Link } from "react-router";
+import { titlePath } from "../../../../app/paths";
 import { Button } from "../../../../components/ui/Button";
+import { buttonClass } from "../../../../components/ui/Button/buttonClass";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../data/labels";
 import type { PhaseNumber, Title } from "../../types";
 import { useTitleDetails } from "../../hooks/useTitleDetails";
 import { backdropUrl, formatRelease } from "../../utils/format";
-import { TitleDetailsDialog } from "../TitleDetailsDialog";
 
 interface NextToWatchProps {
   title: Title | null;
@@ -37,7 +39,6 @@ export function NextToWatch({ title, phase, isHiddenByFilters, onMarkWatched }: 
   const i18n = useI18n();
   const { t } = i18n;
   const headingId = useId();
-  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
 
   return (
     <section className="next-card card" aria-labelledby={headingId}>
@@ -73,16 +74,10 @@ export function NextToWatch({ title, phase, isHiddenByFilters, onMarkWatched }: 
             >
               {t("planner.next.markWatched")}
             </Button>
-            <Button variant="text" aria-haspopup="dialog" onClick={() => setIsDetailsOpen(true)}>
+            <Link to={titlePath(title.id)} className={buttonClass("text")}>
               {t("planner.next.details")}
-            </Button>
+            </Link>
           </div>
-          <TitleDetailsDialog
-            isOpen={isDetailsOpen}
-            titleId={title.id}
-            titleName={title.name}
-            onClose={() => setIsDetailsOpen(false)}
-          />
         </>
       ) : (
         <p className="next-card__meta">{t("planner.next.allDone")}</p>
