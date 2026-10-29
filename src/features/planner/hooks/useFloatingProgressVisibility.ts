@@ -1,5 +1,7 @@
 import { useEffect, useState, type RefObject } from "react";
 
+const GONE_MARGIN_PX = 40;
+
 export function useFloatingProgressVisibility(
   progressRef: RefObject<HTMLElement | null>,
   footerId: string,
@@ -12,18 +14,20 @@ export function useFloatingProgressVisibility(
     const footer = document.getElementById(footerId);
     if (!progress || !footer || !("IntersectionObserver" in window)) return;
 
-    const progressObserver = new IntersectionObserver((entries) => {
-      const entry = entries[entries.length - 1];
-      setHasScrolledPastProgress(!entry.isIntersecting && entry.boundingClientRect.top < 0);
-    });
+    // Shows the card once the number is almost gone (its box is a bit taller than the glyphs).
+    const update = () =>
+      setHasScrolledPastProgress(progress.getBoundingClientRect().bottom < GONE_MARGIN_PX);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
     const footerObserver = new IntersectionObserver((entries) => {
       setIsFooterVisible(entries[entries.length - 1].isIntersecting);
     });
 
-    progressObserver.observe(progress);
     footerObserver.observe(footer);
     return () => {
-      progressObserver.disconnect();
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
       footerObserver.disconnect();
     };
   }, [progressRef, footerId]);

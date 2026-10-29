@@ -1,5 +1,5 @@
 import type { Language } from "../../shared/languages";
-import type { Episode, TitleDetails, Trailer } from "../../shared/titleDetails";
+import type { Season, TitleDetails, Trailer } from "../../shared/titleDetails";
 import type { TmdbRef } from "../../shared/tmdbRefs";
 import type { WatchProviders } from "../../shared/watchProviders";
 
@@ -139,14 +139,14 @@ function videoLanguages(language: Language): string {
   return `include_video_language=${[...new Set([language, FALLBACK_LANGUAGE])].join(",")}`;
 }
 
-function mapEpisodes(season: TmdbSeason | null): Episode[] {
-  return (season?.episodes ?? [])
-    .filter((episode) => episode.overview?.trim())
-    .map((episode) => ({
-      number: episode.episode_number,
-      name: episode.name,
-      overview: episode.overview!.trim(),
-    }));
+// Each planner entry is a single season, so there is at most one.
+function mapSeasons(season: TmdbSeason | null, number: number | undefined): Season[] {
+  const episodes = (season?.episodes ?? []).map((episode) => ({
+    number: episode.episode_number,
+    title: episode.name,
+    summary: episode.overview?.trim() ?? "",
+  }));
+  return number !== undefined && episodes.length > 0 ? [{ number, episodes }] : [];
 }
 
 async function movieDetails(token: string, id: number, language: Language): Promise<TmdbDetails> {
@@ -166,7 +166,7 @@ async function movieDetails(token: string, id: number, language: Language): Prom
     directors: directorsOf(movie.credits),
     creators: [],
     cast: mapCast(movie.credits),
-    episodes: [],
+    seasons: [],
     trailer: pickTrailer(movie.videos, language),
     wikidataId: movie.external_ids?.wikidata_id ?? null,
   };
@@ -205,7 +205,7 @@ async function tvDetails(
     directors: [],
     creators: (show.created_by ?? []).map((creator) => creator.name),
     cast: mapCast(credits),
-    episodes: mapEpisodes(seasonData),
+    seasons: mapSeasons(seasonData, season),
     trailer: pickTrailer(seasonData?.videos, language) ?? pickTrailer(show.videos, language),
     wikidataId: null,
   };

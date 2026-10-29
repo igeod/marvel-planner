@@ -21,6 +21,8 @@ import {
   flattenTitles,
   isFilters,
   matchesFilters,
+  matchesQuery,
+  normalizeQuery,
 } from "../../utils/filters";
 import { findNextTitle, findPhaseNumber } from "../../utils/nextTitle";
 import { chronologicalTitles, isViewOrder, titlesInOrder } from "../../utils/order";
@@ -36,11 +38,12 @@ import { NextToWatch } from "../NextToWatch";
 import { PhaseStrip } from "../PhaseStrip";
 import { PlannerFilters } from "../PlannerFilters";
 import { PlannerGuide } from "../PlannerGuide";
-import { PlannerSearch } from "../PlannerSearch";
+import { PlannerSearch, SearchNoResults } from "../PlannerSearch";
 import { PlannerSummary } from "../PlannerSummary";
 import { SagaSection } from "../SagaSection";
 
 const BULK_STAGGER_MS = 600;
+const SEARCH_DEBOUNCE_MS = 200;
 
 interface PlannerProps {
   shareCode?: string;
@@ -63,20 +66,30 @@ export function Planner({ shareCode }: PlannerProps) {
   );
   const [isResetDialogOpen, setIsResetDialogOpen] = useState(false);
   const [isShareDialogOpen, setIsShareDialogOpen] = useState(false);
-  const progressRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef<HTMLParagraphElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const previousListKeyRef = useRef<string | null>(null);
   const [isBulkToggle, setIsBulkToggle] = useState(false);
 
+  const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  useEffect(() => {
+    const timer = window.setTimeout(() => setDebouncedQuery(query), query ? SEARCH_DEBOUNCE_MS : 0);
+    return () => window.clearTimeout(timer);
+  }, [query]);
+  const needle = normalizeQuery(debouncedQuery);
+
   const catalog = useResolvedCatalog();
-  const sagas = useMemo(() => filterCatalog(catalog, filters), [catalog, filters]);
+  const sagas = useMemo(() => filterCatalog(catalog, filters, needle), [catalog, filters, needle]);
   const { watched, isLoading, error, storage, toggle, reset, importTitles } = useWatched();
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
 
   const allTitles = flattenTitles(catalog);
   const overall = computeProgress(allTitles, watched);
-  const shownCount = flattenTitles(sagas).length;
+  const searchCount = flattenTitles(sagas).length;
+  // The filters counter ignores the search text.
+  const shownCount = allTitles.filter((title) => matchesFilters(title, filters)).length;
   const knownIds = useMemo(
     () => new Set(flattenTitles(catalog).map((title) => title.id)),
     [catalog],
@@ -88,12 +101,12 @@ export function Planner({ shareCode }: PlannerProps) {
   );
   const chronological = useMemo(() => {
     const { placed, unplaced } = chronologicalTitles(catalog);
-    const isShown = (title: Title) => matchesFilters(title, filters);
+    const isShown = (title: Title) => matchesFilters(title, filters) && matchesQuery(title, needle);
     return { placed: placed.filter(isShown), unplaced: unplaced.filter(isShown) };
-  }, [catalog, filters]);
+  }, [catalog, filters, needle]);
 
   // Fades the new list in when filters or order really change (not when stored ones load).
-  const listKey = `${viewOrder}${JSON.stringify(filters)}`;
+  const listKey = `${viewOrder}${JSON.stringify(filters)}${needle}`;
   useEffect(() => {
     const list = listRef.current;
     const previous = previousListKeyRef.current;
@@ -162,7 +175,7 @@ export function Planner({ shareCode }: PlannerProps) {
                   nextTitle={nextTitle}
                   isVisible={isPastProgress}
                 />
-                <PlannerSearch />
+                <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
                 <PlannerFilters
                   filters={filters}
                   onChange={setFilters}
@@ -183,7 +196,7 @@ export function Planner({ shareCode }: PlannerProps) {
           </>
         ) : (
           <>
-            <PlannerSearch />
+            <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
             <MobileToolbar
               activeFilters={countActiveFilters(filters)}
               shown={shownCount}
@@ -210,7 +223,9 @@ export function Planner({ shareCode }: PlannerProps) {
           className={`planner__list${isBulkToggle ? " planner__list--bulk" : ""}`}
           aria-busy={isLoading}
         >
-          {viewOrder === "release" ? (
+          {needle && searchCount === 0 ? (
+            <SearchNoResults query={query} onClear={() => setQuery("")} />
+          ) : viewOrder === "release" ? (
             sagas.map((saga) => (
               <SagaSection
                 key={saga.id}

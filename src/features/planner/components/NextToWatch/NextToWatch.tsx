@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import { useId } from "react";
+import { useId, useState } from "react";
 import { Link } from "react-router";
 import { titlePath } from "../../../../app/paths";
 import { Button } from "../../../../components/ui/Button";
@@ -17,13 +17,30 @@ interface NextToWatchProps {
   onMarkWatched: (id: string) => void;
 }
 
+function BackdropImage({ src }: { src: string }) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  return (
+    <img
+      className="next-card__backdrop"
+      data-loaded={isLoaded || undefined}
+      src={src}
+      alt=""
+      ref={(img) => {
+        if (img?.complete) setIsLoaded(true);
+      }}
+      onLoad={() => setIsLoaded(true)}
+    />
+  );
+}
+
 function Backdrop({ titleId }: { titleId: string }) {
   const state = useTitleDetails(titleId);
 
   if (state.status !== "ready" || !state.details.backdropPath) return null;
-  return (
-    <img className="next-card__backdrop" src={backdropUrl(state.details.backdropPath)} alt="" />
-  );
+  const src = backdropUrl(state.details.backdropPath);
+  // Keyed by source so a new cover fades in on its own instead of popping.
+  return <BackdropImage key={src} src={src} />;
 }
 
 const MEDIUM_TITLE_LENGTH = 18;

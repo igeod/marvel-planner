@@ -29,7 +29,15 @@ export function EasterEggs({ titleId }: EasterEggsProps) {
   }
 
   return (
-    <SpoilerBox className="spoiler-box--eggs" title={t("details.easterEggs.heading")}>
+    <SpoilerBox
+      className="spoiler-box--eggs"
+      title={t("details.easterEggs.heading")}
+      spoiler={{
+        showLabel: t("details.easterEggs.show"),
+        hideLabel: t("details.easterEggs.hide"),
+        warning: t("details.easterEggs.warning"),
+      }}
+    >
       <ul className="spoiler-list">
         {eggs.map((egg) => (
           <li key={`${egg.kind}-${egg.description.en}`} className="spoiler-item">

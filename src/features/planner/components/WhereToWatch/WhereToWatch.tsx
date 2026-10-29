@@ -3,17 +3,11 @@ import { useId, useState } from "react";
 import type { WatchOptions } from "../../../../../shared/watchProviders";
 import { InfoTip } from "../../../../components/ui/InfoTip";
 import { SelectField } from "../../../../components/ui/SelectField";
-import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { DEFAULT_REGIONS } from "../../data/regions";
 import { useWatchProviders } from "../../hooks/useWatchProviders";
 
-const CATEGORIES: { key: Exclude<keyof WatchOptions, "link">; labelKey: TranslationKey }[] = [
-  { key: "stream", labelKey: "details.watch.stream" },
-  { key: "free", labelKey: "details.watch.free" },
-  { key: "rent", labelKey: "details.watch.rent" },
-  { key: "buy", labelKey: "details.watch.buy" },
-];
+const CATEGORIES: Exclude<keyof WatchOptions, "link">[] = ["stream", "free", "rent", "buy"];
 
 interface WhereToWatchProps {
   titleId: string;
@@ -54,7 +48,7 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
           <div className="where-to-watch__title">
             <h2 id={headingId}>{t("details.watch.heading")}</h2>
             <InfoTip label={t("details.watch.attribution")}>
-              {t("details.watch.attribution")} JustWatch. {t("details.watch.disclaimer")}
+              {t("details.watch.attribution")} JustWatch.
             </InfoTip>
           </div>
           <SelectField
@@ -68,16 +62,11 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
 
         {options ? (
           <>
-            {CATEGORIES.filter(({ key }) => options[key].length > 0).map(({ key, labelKey }) => (
-              <section key={key} className="where-to-watch__group" aria-label={t(labelKey)}>
-                <h3>{t(labelKey)}</h3>
-                <ul className="where-to-watch__list">
-                  {options[key].map((name) => (
-                    <li key={name}>{name}</li>
-                  ))}
-                </ul>
-              </section>
-            ))}
+            <ul className="where-to-watch__list">
+              {[...new Set(CATEGORIES.flatMap((category) => options[category]))].map((name) => (
+                <li key={name}>{name}</li>
+              ))}
+            </ul>
             <a
               className="where-to-watch__all"
               href={options.link}

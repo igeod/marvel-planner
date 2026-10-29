@@ -1,53 +1,45 @@
 import { Search, X } from "lucide-react";
-import { useId, useMemo, useState } from "react";
-import { Link } from "react-router";
-import { titlePath } from "../../../../app/paths";
+import { useId, useRef } from "react";
+import { Button } from "../../../../components/ui/Button";
 import { useI18n } from "../../../../i18n/useI18n";
-import { MEDIA_TYPE_KEYS } from "../../data/labels";
-import { useResolvedCatalog } from "../../hooks/useResolvedCatalog";
-import { flattenTitles } from "../../utils/filters";
-import { formatRelease } from "../../utils/format";
 
-function normalize(value: string): string {
-  return value
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "")
-    .toLowerCase()
-    .trim();
+interface PlannerSearchProps {
+  query: string;
+  onQueryChange: (query: string) => void;
+  // Titles left in the planner after the search, announced to assistive tech.
+  resultCount: number;
 }
 
-// Searches the whole catalog on purpose: filters and watched state do not apply.
-export function PlannerSearch() {
-  const i18n = useI18n();
-  const { t } = i18n;
-  const catalog = useResolvedCatalog();
-  const [query, setQuery] = useState("");
+// The query filters the planner lists themselves; there is no results panel.
+export function PlannerSearch({ query, onQueryChange, resultCount }: PlannerSearchProps) {
+  const { t } = useI18n();
   const inputId = useId();
-  const needle = normalize(query);
+  const inputRef = useRef<HTMLInputElement>(null);
 
-  const results = useMemo(
-    () =>
-      needle
-        ? flattenTitles(catalog).filter((title) => normalize(title.name).includes(needle))
-        : [],
-    [catalog, needle],
-  );
+  const clear = () => {
+    onQueryChange("");
+    inputRef.current?.focus();
+  };
 
   return (
-    <div className="planner-search">
+    <form className="planner-search" role="search" onSubmit={(event) => event.preventDefault()}>
       <label className="planner-search__field" htmlFor={inputId}>
-        <Search aria-hidden />
-        <span className="visually-hidden">{t("planner.search.label")}</span>
+        <Search strokeWidth={2.4} aria-hidden />
         <input
           id={inputId}
+          ref={inputRef}
+          aria-label={t("planner.search.label")}
+          enterKeyHint="search"
           type="search"
           autoComplete="off"
           spellCheck={false}
           placeholder={t("planner.search.placeholder")}
           value={query}
-          onChange={(event) => setQuery(event.target.value)}
+          onChange={(event) => onQueryChange(event.target.value)}
           onKeyDown={(event) => {
-            if (event.key === "Escape") setQuery("");
+            if (event.key !== "Escape") return;
+            if (query) onQueryChange("");
+            else event.currentTarget.blur();
           }}
         />
         {query && (
@@ -55,44 +47,36 @@ export function PlannerSearch() {
             type="button"
             className="planner-search__clear"
             aria-label={t("planner.search.clear")}
-            onClick={() => setQuery("")}
+            onClick={clear}
           >
             <X aria-hidden />
           </button>
         )}
       </label>
-      {needle && (
-        <div className="planner-search__panel card">
-          <p className="muted" role="status">
-            {results.length > 0
-              ? t("planner.search.results", { count: results.length })
-              : t("planner.search.none")}
-          </p>
-          {results.length > 0 && (
-            <ul
-              className="planner-search__list scroll-y"
-              role="region"
-              tabIndex={0}
-              aria-label={t("planner.search.label")}
-            >
-              {results.map((title) => (
-                <li key={title.id}>
-                  <Link to={titlePath(title.id)}>
-                    <span lang="en" className="planner-search__name">
-                      {title.name}
-                    </span>
-                    <span className="muted">
-                      {[t(MEDIA_TYPE_KEYS[title.type]), formatRelease(title.release, i18n)]
-                        .filter(Boolean)
-                        .join(", ")}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
+      <p className="visually-hidden" role="status">
+        {query.trim() && t("planner.search.results", { count: resultCount })}
+      </p>
+    </form>
+  );
+}
+
+interface SearchNoResultsProps {
+  query: string;
+  onClear: () => void;
+}
+
+export function SearchNoResults({ query, onClear }: SearchNoResultsProps) {
+  const { t } = useI18n();
+
+  return (
+    <div className="planner-search__empty card">
+      <p role="status">
+        <strong>{t("planner.search.none", { query: query.trim() })}</strong>
+      </p>
+      <p className="muted">{t("planner.search.noneHint")}</p>
+      <Button variant="text" onClick={onClear}>
+        {t("planner.search.clear")}
+      </Button>
     </div>
   );
 }

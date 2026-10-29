@@ -1,4 +1,5 @@
-import { InfoTip } from "../../../../components/ui/InfoTip";
+import { Info } from "lucide-react";
+import { Tooltip } from "../../../../components/ui/Tooltip";
 import { MissingNote } from "../MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -26,9 +27,6 @@ export function KeyScenes({ titleId }: KeyScenesProps) {
     <SpoilerBox
       className="spoiler-box--scenes"
       title={t("details.keyScenes.heading")}
-      headerExtra={
-        <InfoTip label={t("details.keyScenes.source")}>{t("details.keyScenes.editorial")}</InfoTip>
-      }
       spoiler={{
         showLabel: t("details.keyScenes.show"),
         hideLabel: t("details.keyScenes.hide"),
@@ -39,6 +37,18 @@ export function KeyScenes({ titleId }: KeyScenesProps) {
         {scenes.map((scene) => (
           <li key={scene.en} className="spoiler-item">
             <span>{scene[language]}</span>
+            <Tooltip content={t("details.keyScenes.editorial")} opensOnTap>
+              {(describedBy) => (
+                <button
+                  type="button"
+                  className="spoiler-item__source"
+                  aria-label={t("details.keyScenes.source")}
+                  aria-describedby={describedBy}
+                >
+                  <Info data-tooltip-anchor aria-hidden />
+                </button>
+              )}
+            </Tooltip>
           </li>
         ))}
       </ul>

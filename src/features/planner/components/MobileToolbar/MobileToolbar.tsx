@@ -54,9 +54,12 @@ export function MobileToolbar({
         </span>
       </Button>
       {canCollapse && (
-        <div className="mobile-toolbar__collapse">
-          <CollapseToggle size="sm" areAllCollapsed={areAllCollapsed} onToggleAll={onToggleAll} />
-        </div>
+        <CollapseToggle
+          size="lg"
+          iconOnly
+          areAllCollapsed={areAllCollapsed}
+          onToggleAll={onToggleAll}
+        />
       )}
     </div>
   );

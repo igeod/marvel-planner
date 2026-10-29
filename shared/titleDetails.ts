@@ -7,8 +7,13 @@ export interface CastMember {
 
 export interface Episode {
   number: number;
-  name: string;
-  overview: string;
+  title: string;
+  summary: string;
+}
+
+export interface Season {
+  number: number;
+  episodes: Episode[];
 }
 
 export interface Trailer {
@@ -33,7 +38,7 @@ export interface TitleDetails {
   directors: string[];
   creators: string[];
   cast: CastMember[];
-  episodes: Episode[];
+  seasons: Season[];
   trailer: Trailer | null;
   plot: PlotText | null;
 }

@@ -6,8 +6,7 @@
   background-color var(--dur-hover) var(--ease-out),
   color var(--dur-hover) var(--ease-out);
 
-// Hidden state of the progress cards; the exit transition below keeps them rendered until it ends.
-.compact-progress:not([data-visible="true"]),
+// Hidden state of the floating progress bar; the exit transition below keeps them rendered until it ends.
 .floating-progress:not([data-visible="true"]) {
   display: none;
 }
@@ -156,7 +155,8 @@ a {
   .switch__track::after {
     transition:
       background-color var(--dur-ui) var(--ease-out),
-      transform var(--dur-ui) var(--ease-out);
+      transform var(--dur-ui) var(--ease-out),
+      width var(--dur-ui) var(--ease-out);
   }
 
   .poster-thumb {
@@ -266,27 +266,6 @@ a {
     &::-webkit-progress-value,
     &::-moz-progress-bar {
       transition: width 220ms var(--ease-out);
-    }
-  }
-
-  // Rail card (desktop): fades and drops in; display switches after the exit, so no space is kept.
-  .compact-progress {
-    translate: 0 -8px;
-    opacity: 0;
-    transition:
-      opacity 120ms var(--ease-out),
-      translate 120ms var(--ease-out),
-      display 120ms allow-discrete;
-
-    &[data-visible="true"] {
-      translate: none;
-      opacity: 1;
-      transition-duration: var(--dur-ui-l);
-
-      @starting-style {
-        translate: 0 -8px;
-        opacity: 0;
-      }
     }
   }
 

@@ -8,6 +8,17 @@
   gap: 12px;
   min-height: 52px;
   font-weight: 500;
+}
+
+// The clickable area is the label around the track: padding gives a 44px tap height and
+// the negative margin keeps the row height, so click and drawing always coincide.
+.switch__control {
+  position: relative;
+  flex: none;
+  padding: 8px 0;
+  margin: -8px 0;
+  font-size: inherit;
+  font-weight: inherit;
   cursor: pointer;
 }
 
@@ -23,7 +34,7 @@
 
 .switch__track {
   position: relative;
-  flex: none;
+  display: block;
   width: 48px;
   height: 28px;
   border-radius: var(--r-xs);
@@ -51,16 +62,30 @@
 }
 
 .switch__input:focus-visible + .switch__track {
-  outline: 3px solid var(--red);
-  outline-offset: 2px;
+  outline: var(--focus);
+  outline-offset: var(--focus-offset);
 }
 
-.switch {
+// Hover, on the toggle only: track 12% darker.
+.switch__control {
   .on-hover({
     .switch__track {
-      background: color-mix(in srgb, var(--cell-off), var(--ink) 16%);
+      background: color-mix(in srgb, var(--cell-off), #000 12%);
+    }
+
+    .switch__input:checked + .switch__track {
+      background: color-mix(in srgb, var(--red), #000 12%);
     }
   });
+}
+
+// Pressed: the thumb stretches.
+.switch__input:active + .switch__track::after {
+  width: 24px;
+}
+
+.switch__input:checked:active + .switch__track::after {
+  transform: translateX(16px);
 }
 
 .switch__input:checked + .switch__track {

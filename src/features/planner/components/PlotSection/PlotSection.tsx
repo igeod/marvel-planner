@@ -1,7 +1,9 @@
+import { useId, useState } from "react";
 import { LANGUAGE_NAMES } from "../../../../../shared/languages";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MissingNote } from "../MissingNote";
+import { Chevron } from "../../../../components/ui/Chevron";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
@@ -28,21 +30,52 @@ function PlotText({ plot }: { plot: NonNullable<TitleDetails["plot"]> }) {
   );
 }
 
-function Episodes({ episodes }: { episodes: TitleDetails["episodes"] }) {
+// Each planner entry is a single season, so there is no season picker.
+function Episodes({
+  season,
+  isHidden,
+}: {
+  season: TitleDetails["seasons"][number];
+  isHidden: boolean;
+}) {
+  const tabIndex = isHidden ? -1 : 0;
   const { t } = useI18n();
+  const baseId = useId();
+  const [openEpisode, setOpenEpisode] = useState<number | null>(null);
 
   return (
-    <section className="episodes" aria-label={t("details.plot.episodes")}>
-      <h4>{t("details.plot.episodes")}</h4>
-      <ol className="episodes__list">
-        {episodes.map((episode) => (
-          <li key={episode.number}>
-            <strong>{episode.name}</strong>
-            <p>{episode.overview}</p>
+    <ol className="episodes">
+      {season.episodes.map((episode) => {
+        const isOpen = openEpisode === episode.number;
+        const textId = `${baseId}-${episode.number}`;
+        return (
+          <li key={episode.number} className="episode">
+            <button
+              type="button"
+              className="episode__head"
+              tabIndex={tabIndex}
+              aria-expanded={isOpen}
+              aria-controls={textId}
+              onClick={() => setOpenEpisode(isOpen ? null : episode.number)}
+            >
+              <span className="episode__number">E{episode.number}</span>
+              <span className={episode.title.trim() ? "episode__title" : "episode__title is-empty"}>
+                {episode.title.trim() || t("details.plot.noEpisodeTitle")}
+              </span>
+              <Chevron />
+            </button>
+            {isOpen && (
+              <p
+                id={textId}
+                className={episode.summary ? "episode__text" : "episode__text is-empty"}
+              >
+                {episode.summary || t("details.plot.noEpisodeSummary")}
+              </p>
+            )}
           </li>
-        ))}
-      </ol>
-    </section>
+        );
+      })}
+    </ol>
   );
 }
 
@@ -52,7 +85,8 @@ interface PlotSectionProps {
 
 export function PlotSection({ details }: PlotSectionProps) {
   const { t } = useI18n();
-  if (!details.plot && details.episodes.length === 0) {
+  const hasSeasons = details.seasons.length > 0;
+  if (!details.plot && !hasSeasons) {
     return (
       <SpoilerBox
         className="spoiler-box--plot"
@@ -72,10 +106,15 @@ export function PlotSection({ details }: PlotSectionProps) {
         warning: t("details.plot.warning"),
       }}
     >
-      <div className="plot">
-        {details.plot && <PlotText plot={details.plot} />}
-        {details.episodes.length > 0 && <Episodes episodes={details.episodes} />}
-      </div>
+      {(isHidden) => (
+        <div className="plot">
+          {hasSeasons ? (
+            <Episodes season={details.seasons[0]} isHidden={isHidden} />
+          ) : (
+            details.plot && <PlotText plot={details.plot} />
+          )}
+        </div>
+      )}
     </SpoilerBox>
   );
 }

@@ -14,8 +14,22 @@
   padding: 0 var(--sp-5);
   .pill();
   background: var(--surface);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 2px transparent;
   cursor: text;
-  .on-hover({ box-shadow: inset 0 0 0 2px var(--row-hover); });
+  transition: box-shadow 120ms var(--ease-out);
+
+  // Not while focused: the hover tone would win over the focus ring on re-entry.
+  &:not(:focus-within) {
+    .on-hover({ box-shadow: inset 0 0 0 2px var(--row-hover); });
+  }
+
+  // The ring sits on the container, so it frames icon, text and Clear together.
+  &:focus-within {
+    outline: var(--focus);
+    outline-offset: var(--focus-offset);
+    box-shadow: inset 0 0 0 2px var(--ink);
+  }
 
   > svg {
     flex: none;
@@ -31,21 +45,31 @@
     padding: 0;
     border: 0;
     background: transparent;
+    font: inherit;
+    font-size: var(--fs-body);
     font-weight: 600;
+    color: inherit;
     box-shadow: none;
+
+    &::placeholder {
+      color: var(--ink-2);
+      font-weight: 600;
+      opacity: 1;
+    }
+
+    // The ring is drawn on the label (:focus-within); the global one would box the input too.
+    &:focus-visible {
+      outline: 0;
+    }
+
+    // Long text is cut with an ellipsis only while the field is not being edited.
+    &:not(:focus) {
+      text-overflow: ellipsis;
+    }
 
     &::-webkit-search-cancel-button {
       display: none;
     }
-
-    &:focus-visible {
-      outline: none;
-    }
-  }
-
-  &:has(input:focus-visible) {
-    outline: var(--focus);
-    outline-offset: 2px;
   }
 }
 
@@ -66,37 +90,10 @@
   }
 }
 
-.planner-search__panel {
+.planner-search__empty {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-3);
-  padding: var(--sp-4);
-}
-
-.planner-search__list {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  max-height: 320px;
-  padding-right: var(--sp-1);
-
-  a {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    min-height: var(--tap);
-    padding: 8px var(--sp-4);
-    border-radius: var(--r-row);
-    background: var(--bg);
-    text-decoration: none;
-    .tones(var(--row-hover), var(--row-press));
-
-    .muted {
-      font-size: var(--fs-label);
-    }
-  }
-}
-
-.planner-search__name {
-  font-weight: 800;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  padding: var(--sp-5);
 }

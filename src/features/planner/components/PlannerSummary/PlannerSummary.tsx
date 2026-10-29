@@ -18,7 +18,7 @@ interface PlannerSummaryProps {
   progress: Progress;
   storage: ProgressStorage;
   error: TranslationKey | null;
-  progressRef: Ref<HTMLDivElement>;
+  progressRef: Ref<HTMLParagraphElement>;
   strip: StripPhase[];
   isDesktop: boolean;
   onShare: () => void;
@@ -42,11 +42,11 @@ export function PlannerSummary({
 
   return (
     <section className="progress-card card card--panel on-panel" aria-labelledby="planner-title">
-      <div className="progress-card__main" ref={progressRef}>
+      <div className="progress-card__main">
         <h1 id="planner-title" className="section-title">
           {t("planner.progressHeading")}
         </h1>
-        <p className="progress-card__percent" aria-hidden="true">
+        <p className="progress-card__percent" aria-hidden="true" ref={progressRef}>
           {percent}%
         </p>
         <p className="progress-card__count">

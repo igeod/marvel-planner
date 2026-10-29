@@ -24,7 +24,7 @@
   inset: 0;
   z-index: -1;
   background: var(--red);
-  opacity: 0.9;
+  opacity: 0.75;
 }
 
 .next-card__backdrop {
@@ -34,6 +34,18 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  opacity: 0;
+  transition: opacity 600ms var(--ease-out);
+
+  &[data-loaded] {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .next-card__backdrop {
+    transition: none;
+  }
 }
 
 .next-card .section-title {

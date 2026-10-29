@@ -1,5 +1,39 @@
 @import (reference) "mixins";
 
+// Opens and closes by animating the row height, so the rail below slides instead of jumping.
+.compact-progress-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  margin-bottom: -8px; // cancels the rail gap while closed
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    grid-template-rows var(--dur-ui-l) var(--ease-out),
+    margin-bottom var(--dur-ui-l) var(--ease-out),
+    opacity var(--dur-ui-l) var(--ease-out),
+    visibility 0s linear var(--dur-ui-l);
+
+  &[data-visible="true"] {
+    grid-template-rows: 1fr;
+    margin-bottom: 0;
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  // Padding lives on the card inside, so this clip can shrink to zero height.
+  > .compact-progress-clip {
+    min-height: 0;
+    overflow: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .compact-progress-wrap {
+    transition: none;
+  }
+}
+
 .compact-progress {
   display: flex;
   flex-direction: column;

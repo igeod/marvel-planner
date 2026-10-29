@@ -1,5 +1,6 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useId, useState, type ReactNode } from "react";
+import { useI18n } from "../../../i18n/useI18n";
 import { Tooltip } from "../Tooltip";
 
 interface SpoilerLabels {
@@ -16,7 +17,8 @@ interface SpoilerBoxProps {
   headerExtra?: ReactNode;
   // Not a spoiler: stays readable while the content is blurred.
   intro?: ReactNode;
-  children?: ReactNode;
+  // A function receives whether the content is still hidden, to drop its buttons from the tab order.
+  children?: ReactNode | ((isHidden: boolean) => ReactNode);
 }
 
 export function SpoilerBox({
@@ -27,6 +29,7 @@ export function SpoilerBox({
   intro,
   children,
 }: SpoilerBoxProps) {
+  const { t } = useI18n();
   const [isRevealed, setIsRevealed] = useState(false);
   const titleId = useId();
   const contentId = useId();
@@ -36,10 +39,12 @@ export function SpoilerBox({
   return (
     <article className={["spoiler-box", className].filter(Boolean).join(" ")}>
       <div className="spoiler-box__head">
-        <h3 id={titleId}>{title}</h3>
+        <h3 id={titleId} className="section-title">
+          {title}
+        </h3>
         {headerExtra}
         {spoiler && (
-          <Tooltip content={spoiler.warning} tone="warning">
+          <Tooltip content={t("prerequisites.warning")} tone="warning">
             {(describedBy) => (
               <button
                 type="button"
@@ -68,7 +73,7 @@ export function SpoilerBox({
           inert={isHidden}
           tabIndex={isHidden ? undefined : 0}
         >
-          {children}
+          {typeof children === "function" ? children(isHidden) : children}
         </div>
       )}
     </article>

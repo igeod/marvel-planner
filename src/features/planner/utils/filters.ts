@@ -13,6 +13,19 @@ export function matchesFilters(title: Title, filters: Filters): boolean {
   return true;
 }
 
+export function normalizeQuery(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .toLowerCase()
+    .trim();
+}
+
+// `needle` comes from normalizeQuery; an empty one matches everything.
+export function matchesQuery(title: Title, needle: string): boolean {
+  return !needle || normalizeQuery(title.name).includes(needle);
+}
+
 export function areDefaultFilters(filters: Filters): boolean {
   return (
     DEFAULT_FILTERS.types.every((type) => filters.types.includes(type)) &&
@@ -28,12 +41,14 @@ export function countActiveFilters(filters: Filters): number {
   return [differsInTypes, !filters.showAlternate, !filters.showUpcoming].filter(Boolean).length;
 }
 
-export function filterCatalog(catalog: Saga[], filters: Filters): Saga[] {
+export function filterCatalog(catalog: Saga[], filters: Filters, needle = ""): Saga[] {
   return catalog.map((saga) => ({
     ...saga,
     phases: saga.phases.map((phase) => ({
       ...phase,
-      titles: phase.titles.filter((title) => matchesFilters(title, filters)),
+      titles: phase.titles.filter(
+        (title) => matchesFilters(title, filters) && matchesQuery(title, needle),
+      ),
     })),
   }));
 }

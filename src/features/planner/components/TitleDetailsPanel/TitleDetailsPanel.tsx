@@ -45,7 +45,7 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
               : { label: t("details.director"), names: details.directors };
           const hasSpoilers =
             details.plot !== null ||
-            details.episodes.length > 0 ||
+            details.seasons.length > 0 ||
             getPostCredits(titleId) !== null ||
             getEasterEggs(titleId).length > 0 ||
             getKeyScenes(titleId).length > 0;
@@ -132,7 +132,7 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                 <div className="spoiler-zone__inner">
                   <h2 id={spoilerHeadingId}>{t("details.spoilerZone")}</h2>
                   {hasSpoilers ? (
-                    <>
+                    <div className="spoiler-zone__boxes">
                       <div className="spoiler-zone__grid">
                         <PlotSection details={details} />
                         <div className="spoiler-zone__side">
@@ -141,7 +141,7 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                         </div>
                       </div>
                       <KeyScenes titleId={titleId} />
-                    </>
+                    </div>
                   ) : (
                     <MissingNote tone="dark">{t("details.missing.spoilers")}</MissingNote>
                   )}
