@@ -257,7 +257,10 @@ export const en: Messages = {
     cast: "Cast",
     synopsis: "Synopsis",
     noSynopsis: "Synopsis not available.",
+    back: "Back to the planner",
+    spoilerZone: "Spoiler zone",
     plot: {
+      heading: "Plot",
       show: "Show the plot",
       hide: "Hide the plot",
       warning: "Warning: the plot contains spoilers.",

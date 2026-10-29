@@ -105,3 +105,14 @@
     padding: 8px 24px calc(24px + env(safe-area-inset-bottom, 0px));
   }
 }
+
+// Full-page dialog (title page): fills the viewport, scrolls inside.
+dialog.dialog.dialog--page {
+  max-width: none;
+  max-height: none;
+  height: 100dvh;
+  margin: 0;
+  border-radius: 0;
+  background: radial-gradient(900px 420px at 90% -4%, var(--surface), transparent 70%), var(--bg);
+  box-shadow: none;
+}

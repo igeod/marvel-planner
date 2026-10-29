@@ -40,7 +40,12 @@
 .phase-strip__swatch {
   width: 14px;
   height: 14px;
-  border-radius: 5px;
+  border-radius: var(--r-tiny);
+
+  svg {
+    width: 10px;
+    height: 10px;
+  }
 }
 
 .phase-strip__columns {
@@ -69,26 +74,52 @@
 .phase-strip__cell {
   width: 20px;
   height: 20px;
-  border-radius: 6px;
+  border-radius: var(--r-tiny);
 
   .desktop({ flex: 1 0 8px; width: auto; height: 44px; });
 }
 
+.phase-strip__cell,
+.phase-strip__swatch {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  svg {
+    flex: none;
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.phase-strip__cell svg {
+  .desktop({ width: 10px; height: 10px; });
+}
+
+// Watched is gold with a check, next is red with a play mark, to watch is plain.
 .phase-strip__cell--watched {
-  background: var(--cell-on);
+  background: var(--highlight);
+  color: var(--ink-static);
 }
 
 .phase-strip__cell--next {
-  background: var(--gold);
+  background: var(--accent);
+  color: var(--white);
+
+  svg {
+    fill: currentColor;
+    stroke: none;
+  }
 }
 
 .phase-strip__cell--todo {
-  background: var(--cell-off);
+  background: var(--disabled);
 }
 
 .phase-strip--inline {
-  .phase-strip__cell--watched {
-    background: var(--strip-on-panel-on);
+  .phase-strip__cell--next {
+    background: var(--accent-on-dark);
   }
 
   .phase-strip__cell--todo {

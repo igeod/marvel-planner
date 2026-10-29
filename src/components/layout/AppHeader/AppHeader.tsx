@@ -11,7 +11,7 @@ export function AppHeader() {
   const { t } = useI18n();
 
   return (
-    <header className="site-header on-panel">
+    <header className="site-header">
       <nav className="site-header__bar" aria-label={t("nav.main")}>
         <Link to={PATHS.home} className="wordmark">
           {SITE.name}

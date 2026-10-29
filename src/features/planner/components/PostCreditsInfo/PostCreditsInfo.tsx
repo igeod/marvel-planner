@@ -1,5 +1,4 @@
-import { useId, useState } from "react";
-import { SpoilerToggle } from "../../../../components/ui/SpoilerToggle";
+import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { getPostCredits, type ScenePosition } from "../../data/postCredits";
@@ -17,9 +16,6 @@ interface PostCreditsInfoProps {
 
 export function PostCreditsInfo({ titleId }: PostCreditsInfoProps) {
   const { t, language } = useI18n();
-  const [isRevealed, setIsRevealed] = useState(false);
-  const headingId = useId();
-  const scenesId = useId();
 
   const info = getPostCredits(titleId);
   if (!info) return null;
@@ -38,33 +34,37 @@ export function PostCreditsInfo({ titleId }: PostCreditsInfoProps) {
         : "postCredits.tipMid";
 
   return (
-    <section className="post-credits" aria-labelledby={headingId}>
-      <h5 id={headingId}>{t("postCredits.heading")}</h5>
-      <p>{t(summaryKey)}</p>
-      {note && <p>{note[language]}</p>}
-
+    <SpoilerBox
+      className="spoiler-box--credits"
+      title={t("postCredits.heading")}
+      spoiler={
+        scenes.length > 0
+          ? {
+              showLabel: t("postCredits.show"),
+              hideLabel: t("postCredits.hide"),
+              warning: t("postCredits.warning"),
+            }
+          : undefined
+      }
+      intro={
+        <p className="spoiler-note">
+          {t(summaryKey)}
+          {note && ` ${note[language]}`}
+        </p>
+      }
+    >
       {scenes.length > 0 && (
-        <>
-          <SpoilerToggle
-            isRevealed={isRevealed}
-            onToggle={() => setIsRevealed(!isRevealed)}
-            controls={scenesId}
-            showLabel={t("postCredits.show")}
-            hideLabel={t("postCredits.hide")}
-            warning={t("postCredits.warning")}
-          />
-          <ol className="post-credits__list">
-            {scenes.map((scene, index) => (
-              <li key={index}>
+        <ol className="spoiler-list">
+          {scenes.map((scene, index) => (
+            <li key={index} className="spoiler-item">
+              <p>
                 <strong>{t(POSITION_KEYS[scene.position])}</strong>
-                <p id={index === 0 ? scenesId : undefined} hidden={!isRevealed}>
-                  {scene.description[language]}
-                </p>
-              </li>
-            ))}
-          </ol>
-        </>
+                <small>{scene.description[language]}</small>
+              </p>
+            </li>
+          ))}
+        </ol>
       )}
-    </section>
+    </SpoilerBox>
   );
 }

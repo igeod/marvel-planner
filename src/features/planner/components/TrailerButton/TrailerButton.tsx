@@ -1,4 +1,4 @@
-import { Play, Clapperboard } from "lucide-react";
+import { Play } from "lucide-react";
 import { useState } from "react";
 import type { Trailer } from "../../../../../shared/titleDetails";
 import { Modal } from "../../../../components/ui/Modal";
@@ -51,11 +51,13 @@ export function TrailerButton({ trailer, titleName }: TrailerButtonProps) {
     <>
       <button
         type="button"
-        className="btn btn--primary"
+        className="btn btn--accent btn--lg trailer-button"
         aria-haspopup="dialog"
         onClick={() => setIsOpen(true)}
       >
-        <Clapperboard aria-hidden />
+        <span className="trailer-button__disc">
+          <Play aria-hidden />
+        </span>
         {t("details.trailer.open")}
       </button>
       <Modal

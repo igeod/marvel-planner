@@ -9,7 +9,7 @@ interface ModalProps {
   title: string;
   titleLang?: string;
   onClose: () => void;
-  size?: "md" | "lg" | "profile";
+  size?: "md" | "lg" | "profile" | "page";
   children: ReactNode;
 }
 
@@ -17,14 +17,15 @@ export function Modal({ isOpen, title, titleLang, onClose, size = "md", children
   const { t } = useI18n();
   const dialogRef = useDialog(isOpen);
   const titleId = useId();
-  const isProfile = size === "profile";
+  // Profile and page dialogs draw their own header.
+  const isBare = size === "profile" || size === "page";
 
   return createPortal(
     <dialog
       ref={dialogRef}
       className={`dialog dialog--${size}`}
-      aria-labelledby={isProfile ? undefined : titleId}
-      aria-label={isProfile ? title : undefined}
+      aria-labelledby={isBare ? undefined : titleId}
+      aria-label={isBare ? title : undefined}
       onCancel={(event) => {
         event.preventDefault();
         onClose();
@@ -33,7 +34,7 @@ export function Modal({ isOpen, title, titleLang, onClose, size = "md", children
         if (event.target === event.currentTarget) onClose();
       }}
     >
-      {isProfile ? (
+      {isBare ? (
         isOpen && children
       ) : (
         <>

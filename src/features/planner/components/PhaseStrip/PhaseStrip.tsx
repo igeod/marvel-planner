@@ -1,3 +1,4 @@
+import { Check, Play } from "lucide-react";
 import { useId } from "react";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { CellState, StripPhase } from "../../utils/strip";
@@ -8,6 +9,12 @@ interface PhaseStripProps {
 }
 
 const CELL_STATES: CellState[] = ["watched", "next", "todo"];
+
+function CellMark({ state }: { state: CellState }) {
+  if (state === "watched") return <Check strokeWidth={4} aria-hidden />;
+  if (state === "next") return <Play aria-hidden />;
+  return null;
+}
 
 function Legend() {
   const { t } = useI18n();
@@ -21,7 +28,9 @@ function Legend() {
     <ul className="phase-strip__legend muted" aria-hidden="true">
       {CELL_STATES.map((state) => (
         <li key={state}>
-          <span className={`phase-strip__swatch phase-strip__cell--${state}`} />
+          <span className={`phase-strip__swatch phase-strip__cell--${state}`}>
+            <CellMark state={state} />
+          </span>
           {labels[state]}
         </li>
       ))}
@@ -41,7 +50,9 @@ function Columns({ phases }: { phases: StripPhase[] }) {
         >
           <div className="phase-strip__cells" aria-hidden="true">
             {phase.cells.map((state, index) => (
-              <span key={index} className={`phase-strip__cell phase-strip__cell--${state}`} />
+              <span key={index} className={`phase-strip__cell phase-strip__cell--${state}`}>
+                <CellMark state={state} />
+              </span>
             ))}
           </div>
           <p className="phase-strip__label">

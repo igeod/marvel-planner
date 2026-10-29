@@ -1,43 +1,266 @@
 @import (reference) "mixins";
 
-.title-details {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+// Title page: cover hero, story and cast on a card, then the dark spoiler zone.
+.film {
+  container-type: inline-size;
+  --film-pad: clamp(8px, 2.5cqw, 32px);
+  --film-inner: clamp(20px, 3.5cqw, 44px);
+  padding-bottom: 32px;
 }
 
-.title-details__backdrop {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-  border-radius: @radius-row;
-  background: var(--surface-2);
+.film__bar {
+  padding: var(--sp-2) var(--film-pad);
 }
 
-.title-details__facts {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 4px 16px;
+.film__back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap);
+  height: var(--tap);
+  padding: 0 var(--sp-5) 0 14px;
+  .pill();
+  box-shadow: inset 0 0 0 2px var(--ink);
+  font-weight: 700;
+  white-space: nowrap;
+  .tones(var(--row-hover), var(--disabled));
 
-  dt {
-    font-weight: 700;
-    color: var(--muted);
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.6;
   }
 }
 
-.cast {
+.film__main {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: var(--gap);
+  padding: 0 var(--film-pad);
 }
 
-.cast ul {
+.film__card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+}
+
+.film__hero {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: clamp(540px, 56cqw, 680px);
+  color: var(--white);
+}
+
+.film__cover {
+  position: absolute;
+  inset: 0;
+  background: var(--panel);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // Darken the lower half for the title, then fade into the card surface.
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+  }
+
+  &::before {
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(20, 23, 31, 0.92) 0%,
+      rgba(20, 23, 31, 0.6) 45%,
+      rgba(20, 23, 31, 0) 80%
+    );
+  }
+
+  &::after {
+    bottom: 0;
+    height: 140px;
+    background: linear-gradient(0deg, var(--surface) 0%, transparent 100%);
+  }
+}
+
+.film__hero-inner {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 28px var(--sp-8);
+  padding: var(--film-inner) var(--film-inner) clamp(160px, 17cqw, 200px);
+}
+
+.film__heading {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 380px;
+  gap: var(--sp-4);
+  min-width: 0;
+
+  h1 {
+    .display-font();
+    font-size: clamp(60px, 11cqw, 144px);
+    line-height: 0.9;
+    letter-spacing: 0.012em;
+    overflow-wrap: anywhere;
+  }
+}
+
+.film__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-6);
+  font-size: clamp(1.0625rem, 2cqw, 1.375rem);
+  font-weight: 700;
+}
+
+.film__glass {
+  display: flex;
+  flex-direction: column;
+  flex: 0 1 400px;
+  gap: var(--sp-5);
+  min-width: min(100%, 300px);
+  padding: 22px;
+  border-radius: var(--r-lg);
+  background: rgba(20, 23, 31, 0.5);
+  backdrop-filter: blur(18px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+.film__body {
+  position: relative;
+  z-index: 2;
   display: grid;
-  gap: 4px 24px;
-
-  .desktop({ grid-template-columns: repeat(2, minmax(0, 1fr)); });
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  gap: 24px clamp(24px, 4cqw, 56px);
+  margin-top: -72px;
+  padding: 0 var(--film-inner) clamp(24px, 3cqw, 40px);
 }
 
-.title-details > .btn {
-  align-self: flex-start;
+.film__story {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.film__credit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--sp-1) var(--sp-4);
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+
+  p {
+    font-size: var(--fs-h3);
+    font-weight: 700;
+  }
+}
+
+.film__credit h2,
+.film__cast h2 {
+  .display-font();
+  font-size: var(--fs-h2);
+  line-height: 1.1;
+  letter-spacing: 0.03em;
+}
+
+.film__cast {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+
+  h2 {
+    margin-bottom: 6px;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 0 var(--sp-6);
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--line);
+    line-height: 1.25;
+  }
+
+  span {
+    font-weight: 700;
+  }
+
+  small {
+    font-size: var(--fs-label);
+    color: var(--ink-2);
+  }
+}
+
+.spoiler-zone {
+  overflow: hidden;
+  border-radius: var(--r-xl);
+  background: var(--panel);
+  color: var(--on-dark);
+}
+
+.spoiler-zone__stripes {
+  height: 14px;
+  background: repeating-linear-gradient(135deg, var(--highlight) 0 16px, var(--panel) 16px 32px);
+}
+
+.spoiler-zone__inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  padding: clamp(20px, 3cqw, 36px);
+
+  h2 {
+    .display-font();
+    font-size: clamp(44px, 6cqw, 76px);
+    line-height: 0.95;
+    color: var(--highlight);
+  }
+}
+
+.spoiler-zone__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+  align-items: stretch;
+  gap: 10px;
+}
+
+.spoiler-zone__side {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.spoiler-box--plot {
+  height: 460px;
+}
+
+.spoiler-box--credits {
+  height: 262px;
+}
+
+.spoiler-box--eggs {
+  height: 188px;
+}
+
+.spoiler-box--scenes .spoiler-box__content {
+  max-height: 300px;
 }

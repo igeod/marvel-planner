@@ -11,7 +11,9 @@ export function SynopsisSection({ synopsis }: SynopsisSectionProps) {
 
   return (
     <section className="synopsis" aria-labelledby={headingId}>
-      <h4 id={headingId}>{t("details.synopsis")}</h4>
+      <h2 id={headingId} className="visually-hidden">
+        {t("details.synopsis")}
+      </h2>
       <p>{synopsis || t("details.noSynopsis")}</p>
     </section>
   );

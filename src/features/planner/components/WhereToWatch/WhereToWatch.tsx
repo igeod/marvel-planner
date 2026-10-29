@@ -1,12 +1,12 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Globe } from "lucide-react";
 import { useId, useState } from "react";
 import type { WatchOptions } from "../../../../../shared/watchProviders";
+import { InfoTip } from "../../../../components/ui/InfoTip";
+import { SelectField } from "../../../../components/ui/SelectField";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { DEFAULT_REGIONS } from "../../data/regions";
 import { useWatchProviders } from "../../hooks/useWatchProviders";
-
-const JUSTWATCH_URL = "https://www.justwatch.com";
 
 const CATEGORIES: { key: Exclude<keyof WatchOptions, "link">; labelKey: TranslationKey }[] = [
   { key: "stream", labelKey: "details.watch.stream" },
@@ -24,7 +24,6 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
   const state = useWatchProviders(titleId);
   const [chosenRegion, setChosenRegion] = useState<string | null>(null);
   const headingId = useId();
-  const selectId = useId();
 
   const regionNames = new Intl.DisplayNames([language], { type: "region" });
   const regionName = (code: string) => regionNames.of(code) ?? code;
@@ -36,7 +35,7 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
       return (
         <div role="alert">
           <p>{t("details.watch.error")}</p>
-          <button type="button" className="btn btn--soft" onClick={state.retry}>
+          <button type="button" className="btn btn--panel" onClick={state.retry}>
             {t("common.retry")}
           </button>
         </div>
@@ -51,20 +50,27 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
 
     return (
       <>
-        <label htmlFor={selectId}>{t("details.watch.region")}</label>
-        <select id={selectId} value={region} onChange={(e) => setChosenRegion(e.target.value)}>
-          {regions.map((code) => (
-            <option key={code} value={code}>
-              {regionName(code)}
-            </option>
-          ))}
-        </select>
+        <div className="where-to-watch__head">
+          <div className="where-to-watch__title">
+            <h2 id={headingId}>{t("details.watch.heading")}</h2>
+            <InfoTip label={t("details.watch.attribution")}>
+              {t("details.watch.attribution")} JustWatch. {t("details.watch.disclaimer")}
+            </InfoTip>
+          </div>
+          <SelectField
+            label={t("details.watch.region")}
+            value={region}
+            options={regions.map((code) => ({ value: code, label: regionName(code) }))}
+            icon={<Globe aria-hidden />}
+            onChange={setChosenRegion}
+          />
+        </div>
 
         {options ? (
           <>
             {CATEGORIES.filter(({ key }) => options[key].length > 0).map(({ key, labelKey }) => (
               <section key={key} className="where-to-watch__group" aria-label={t(labelKey)}>
-                <h5>{t(labelKey)}</h5>
+                <h3>{t(labelKey)}</h3>
                 <ul className="where-to-watch__list">
                   {options[key].map((name) => (
                     <li key={name}>{name}</li>
@@ -73,33 +79,31 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
               </section>
             ))}
             <a
-              className="btn btn--soft"
+              className="where-to-watch__all"
               href={options.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <ExternalLink aria-hidden />
               {t("details.watch.all")}
+              <ExternalLink aria-hidden />
             </a>
           </>
         ) : (
-          <p>{t("details.watch.none", { country: regionName(region) })}</p>
+          <p className="where-to-watch__none">
+            {t("details.watch.none", { country: regionName(region) })}
+          </p>
         )}
-
-        <p>
-          {t("details.watch.attribution")}{" "}
-          <a href={JUSTWATCH_URL} target="_blank" rel="noopener noreferrer">
-            JustWatch
-          </a>
-          . {t("details.watch.disclaimer")}
-        </p>
       </>
     );
   };
 
   return (
     <section className="where-to-watch" aria-labelledby={headingId}>
-      <h4 id={headingId}>{t("details.watch.heading")}</h4>
+      {state.status === "ready" ? null : (
+        <h2 id={headingId} className="visually-hidden">
+          {t("details.watch.heading")}
+        </h2>
+      )}
       {renderBody()}
     </section>
   );

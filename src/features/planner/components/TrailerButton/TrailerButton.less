@@ -14,3 +14,30 @@
   border-radius: @radius-row;
   background: #000000;
 }
+
+.trailer-button {
+  justify-content: flex-start;
+  min-height: var(--row-h);
+  padding: 0 var(--sp-6) 0 var(--sp-4);
+  gap: var(--sp-3);
+  font-size: 1.0625rem;
+}
+
+.trailer-button__disc {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--r-pill);
+  background: var(--ink-static);
+  color: var(--highlight);
+
+  svg {
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    stroke: none;
+  }
+}

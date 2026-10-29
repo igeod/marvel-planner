@@ -255,7 +255,10 @@ export const it = {
     cast: "Cast",
     synopsis: "Sinossi",
     noSynopsis: "Sinossi non disponibile.",
+    back: "Torna al planner",
+    spoilerZone: "Zona spoiler",
     plot: {
+      heading: "Trama",
       show: "Mostra la trama",
       hide: "Nascondi la trama",
       warning: "Attenzione: la trama contiene spoiler.",

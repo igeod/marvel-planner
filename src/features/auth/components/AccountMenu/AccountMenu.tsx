@@ -1,4 +1,4 @@
-import { LogIn, LogOut, Settings } from "lucide-react";
+import { LogOut, Settings } from "lucide-react";
 import { Link } from "react-router";
 import { PATHS } from "../../../../app/paths";
 import { buttonClass, Button } from "../../../../components/ui/Button";
@@ -18,12 +18,7 @@ export function AccountMenu() {
 
   if (!user) {
     return (
-      <Button
-        variant="primary"
-        icon={<LogIn aria-hidden />}
-        aria-haspopup="dialog"
-        onClick={() => open("login")}
-      >
+      <Button variant="ink" aria-haspopup="dialog" onClick={() => open("login")}>
         {t("nav.login")}
       </Button>
     );

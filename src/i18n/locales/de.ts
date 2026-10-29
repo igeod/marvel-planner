@@ -260,7 +260,10 @@ export const de: Messages = {
     cast: "Besetzung",
     synopsis: "Kurzbeschreibung",
     noSynopsis: "Keine Kurzbeschreibung verfügbar.",
+    back: "Zurück zum Planer",
+    spoilerZone: "Spoiler-Zone",
     plot: {
+      heading: "Handlung",
       show: "Handlung anzeigen",
       hide: "Handlung ausblenden",
       warning: "Achtung: Die Handlung enthält Spoiler.",

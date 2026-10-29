@@ -1,8 +1,37 @@
 @import (reference) "mixins";
 
+// Transparent header: red wordmark, ink-ringed controls, ink sign-in pill.
 .site-header {
-  .panel-surface();
-  border-radius: 0 0 28px 28px;
+  color: var(--ink);
+
+  .wordmark {
+    color: var(--accent-hover);
+  }
+
+  :focus-visible {
+    outline-color: var(--primary);
+  }
+
+  :is(.btn--panel, .select-field__trigger, .account-pill) {
+    background: transparent;
+    color: var(--ink);
+    box-shadow: inset 0 0 0 2px var(--ink);
+    .tones(var(--row-hover), var(--disabled));
+  }
+
+  .avatar {
+    border-radius: var(--r-sm);
+  }
+}
+
+:root[data-theme="dark"] .site-header .wordmark {
+  color: var(--accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .site-header .wordmark {
+    color: var(--accent);
+  }
 }
 
 .site-header__bar {

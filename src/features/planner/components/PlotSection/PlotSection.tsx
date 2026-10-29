@@ -1,7 +1,7 @@
 import { LANGUAGE_NAMES } from "../../../../../shared/languages";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
 import { useI18n } from "../../../../i18n/useI18n";
-import { SpoilerPlot } from "../SpoilerPlot";
+import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
 
@@ -50,12 +50,23 @@ interface PlotSectionProps {
 }
 
 export function PlotSection({ details }: PlotSectionProps) {
+  const { t } = useI18n();
   if (!details.plot && details.episodes.length === 0) return null;
 
   return (
-    <SpoilerPlot>
-      {details.plot && <PlotText plot={details.plot} />}
-      {details.episodes.length > 0 && <Episodes episodes={details.episodes} />}
-    </SpoilerPlot>
+    <SpoilerBox
+      className="spoiler-box--plot"
+      title={t("details.plot.heading")}
+      spoiler={{
+        showLabel: t("details.plot.show"),
+        hideLabel: t("details.plot.hide"),
+        warning: t("details.plot.warning"),
+      }}
+    >
+      <div className="plot">
+        {details.plot && <PlotText plot={details.plot} />}
+        {details.episodes.length > 0 && <Episodes episodes={details.episodes} />}
+      </div>
+    </SpoilerBox>
   );
 }

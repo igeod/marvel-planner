@@ -258,7 +258,10 @@ export const fr: Messages = {
     cast: "Distribution",
     synopsis: "Synopsis",
     noSynopsis: "Synopsis indisponible.",
+    back: "Retour au planificateur",
+    spoilerZone: "Zone spoilers",
     plot: {
+      heading: "Intrigue",
       show: "Afficher l'intrigue",
       hide: "Masquer l'intrigue",
       warning: "Attention : l'intrigue contient des spoilers.",

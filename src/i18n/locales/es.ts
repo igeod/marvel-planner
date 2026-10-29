@@ -258,7 +258,10 @@ export const es: Messages = {
     cast: "Reparto",
     synopsis: "Sinopsis",
     noSynopsis: "Sinopsis no disponible.",
+    back: "Volver al planificador",
+    spoilerZone: "Zona de spoilers",
     plot: {
+      heading: "Argumento",
       show: "Mostrar el argumento",
       hide: "Ocultar el argumento",
       warning: "Atención: el argumento contiene spoilers.",
