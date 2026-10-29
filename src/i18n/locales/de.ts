@@ -314,12 +314,24 @@ export const de: Messages = {
   },
   account: {
     title: "Dein Konto",
+    nav: "Kontobereiche",
+    tabs: {
+      progress: "Fortschritt",
+      profile: "Profil",
+      password: "Passwort",
+      account: "Konto",
+    },
+    logout: {
+      heading: "Abmelden",
+      note: "Dein Fortschritt bleibt in deinem Konto gespeichert.",
+    },
     stats: {
       heading: "Dein Fortschritt",
       overall: "Gesehene Titel: {done} / {total}",
       byPhase: "Nach Phase",
       byType: "Nach Typ",
       byYear: "Nach Jahr",
+      watched: "Gesehene Titel",
       error: "Ich kann deinen Fortschritt nicht laden.",
     },
     export: {

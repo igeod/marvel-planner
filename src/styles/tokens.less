@@ -1,55 +1,124 @@
 @import "variables";
 
+// Source of truth: the design system tokens.css. Legacy names (--red, --gold, --muted, --surface-2)
+// stay as aliases so existing components keep working.
 .light-tokens() {
   color-scheme: light;
   --bg: #e9ecf1;
   --surface: #f7f8fa;
-  --surface-2: #dce0e8;
+  --row: #e9ecf1;
+  --row-hover: #dce0e8;
+  --row-press: #cdd2dc;
+  --surface-2: var(--row-hover);
+  --disabled: #cdd2dc;
   --ink: #14171f;
-  --muted: #4d5465;
-  --red: #c8202b;
+  --ink-2: #4d5465;
+  --line: rgba(20, 23, 31, 0.12);
+  --accent: #c8202b;
+  --accent-hover: #b01b25;
+  --accent-active: #8f1520;
   --red-text: #b81c27;
-  --gold: #f2b01e;
   --panel: #14171f;
   --panel-2: #262b38;
-  --panel-ink: #f2f4f8;
-  --panel-muted: #a9b0c2;
+  --panel-3: #14171f;
   --cell-on: #c8202b;
-  --cell-off: #cdd2dc;
-  --phase-hover: #edeff4;
-  --phase-press: #e3e6ec;
-  --row-hover: #dfe3ea;
-  --row-press: #d5d9e1;
-  --row-open-hover: #1b202b;
-  --row-open-press: #232938;
+  --phase-hover: var(--row-hover);
+  --phase-press: var(--row-press);
+  --row-open-hover: #262b38;
+  --row-open-press: #323a50;
+  --primary: var(--accent);
+  --primary-hover: var(--accent-hover);
+  --primary-press: #a81a24;
+  --primary-hover-on-panel: var(--accent-on-dark);
+  --on-primary: #ffffff;
+  --shadow-card:
+    inset 0 0 0 1px rgba(20, 23, 31, 0.05), 0 1px 2px rgba(20, 23, 31, 0.05),
+    0 16px 32px -20px rgba(20, 23, 31, 0.18);
+  --shadow-popup: 0 24px 64px rgba(20, 23, 31, 0.28);
+  --scrim: rgba(20, 23, 31, 0.6);
 }
 
 .dark-tokens() {
   color-scheme: dark;
-  --bg: #0d1322;
-  --surface: #151d33;
-  --surface-2: #1f2a48;
-  --ink: #eef0f6;
-  --muted: #a6aec4;
-  --red: #d9303a;
+  --bg: #0b0d12;
+  --surface: #1b202c;
+  --row: #2c3346;
+  --row-hover: #3a4260;
+  --row-press: #454e70;
+  --disabled: #454e70;
+  --ink: #f2f4f8;
+  --ink-2: #b4bbcc;
+  --line: rgba(242, 244, 248, 0.18);
   --red-text: #ff7a72;
-  --gold: #f2b01e;
-  --panel: #060a14;
-  --panel-2: #1b2542;
-  --panel-ink: #eef0f6;
-  --panel-muted: #a6aec4;
-  --cell-on: #e8434c;
-  --cell-off: #26314f;
-  --phase-hover: #1c2744;
-  --phase-press: #232f50;
-  --row-hover: #141d35;
-  --row-press: #1a2540;
-  --row-open-hover: #0f1629;
-  --row-open-press: #161e36;
+  --panel: #3a4260;
+  --panel-2: #2c3346;
+  --panel-3: #1b202c;
+  --cell-on: #e0343e;
+  --row-open-hover: #454e70;
+  --row-open-press: #4d5780;
+  --primary: var(--highlight);
+  --primary-hover: var(--highlight-hover);
+  --primary-press: var(--highlight-active);
+  --primary-hover-on-panel: var(--highlight-hover);
+  --on-primary: #0b0d12;
+  --shadow-card: inset 0 0 0 1px rgba(242, 244, 248, 0.1);
+  --shadow-popup: none;
+  --scrim: rgba(0, 0, 0, 0.55);
 }
 
 :root {
   .light-tokens();
+
+  --ink-static: #14171f;
+  --on-dark: #f2f4f8;
+  --white: #ffffff;
+  --accent-on-dark: #e0343e;
+  --highlight: #f2b01e;
+  --highlight-hover: #ffc23d;
+  --highlight-active: #e09f10;
+  --raised: #262b38;
+  --raised-2: #323a50;
+  --raised-3: #3a4260;
+  --muted-on-dark: #a9b0c2;
+  --deepest: #0b0d12;
+
+  // Legacy aliases.
+  --muted: var(--ink-2);
+  --red: var(--accent);
+  --gold: var(--highlight);
+  --cell-off: var(--disabled);
+  --panel-ink: var(--on-dark);
+  --panel-muted: var(--muted-on-dark);
+  --on-gold: var(--ink-static);
+  --on-red: var(--white);
+
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-12: 48px;
+  --gap: 8px;
+  --gap-section: 32px;
+
+  --r-pill: 999px;
+  --r-xl: 32px;
+  --r-lg: 28px;
+  --r-md: 24px;
+  --r-row: 22px;
+  --r-sm: 18px;
+  --r-input: 16px;
+  --r-xs: 14px;
+  --r-chip: 10px;
+  --r-tiny: 6px;
+  --r-hair: 2px;
+
+  --row-h: 56px;
+  --tap: 44px;
+  --focus: 3px solid var(--accent);
+  --focus-offset: 3px;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --dur-press: 100ms;
@@ -60,11 +129,8 @@
   --dur-panel: 200ms;
   --dur-sheet: 250ms;
   --dur-sheet-out: 180ms;
-  --on-gold: #14171f;
-  --on-red: #ffffff;
   --strip-on-panel-off: #3a4260;
   --strip-on-panel-on: #e8434c;
-  --scrim: rgba(6, 10, 20, 0.65);
   --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
   --font-body: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --floating-progress-height: 5rem;

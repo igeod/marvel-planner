@@ -309,12 +309,24 @@ export const it = {
   },
   account: {
     title: "Il tuo account",
+    nav: "Sezioni dell'account",
+    tabs: {
+      progress: "Progressi",
+      profile: "Profilo",
+      password: "Password",
+      account: "Account",
+    },
+    logout: {
+      heading: "Esci",
+      note: "I tuoi progressi restano salvati nel tuo account.",
+    },
     stats: {
       heading: "I tuoi progressi",
       overall: "Titoli visti: {done} / {total}",
       byPhase: "Per fase",
       byType: "Per tipo",
       byYear: "Per anno",
+      watched: "Titoli visti",
       error: "Non riesco a caricare i tuoi progressi.",
     },
     export: {

@@ -7,18 +7,39 @@
 .field {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--sp-2);
+}
+
+.field__label {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.field__counter {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
 }
 
 .field__hint {
-  font-size: 0.875rem;
-  color: var(--muted);
+  font-size: 0.8125rem;
+  color: var(--ink-2);
 }
 
 .field__error {
-  font-size: 0.875rem;
-  font-weight: 700;
-  color: var(--red-text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--ink);
+
+  svg {
+    flex: none;
+    width: 16px;
+    height: 16px;
+  }
 }
 
 .field__toggle {

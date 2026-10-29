@@ -312,12 +312,24 @@ export const fr: Messages = {
   },
   account: {
     title: "Votre compte",
+    nav: "Sections du compte",
+    tabs: {
+      progress: "Progression",
+      profile: "Profil",
+      password: "Mot de passe",
+      account: "Compte",
+    },
+    logout: {
+      heading: "Se déconnecter",
+      note: "Votre progression reste enregistrée sur votre compte.",
+    },
     stats: {
       heading: "Votre progression",
       overall: "Titres vus : {done} / {total}",
       byPhase: "Par phase",
       byType: "Par type",
       byYear: "Par année",
+      watched: "Titres vus",
       error: "Je ne peux pas charger votre progression.",
     },
     export: {

@@ -11,7 +11,6 @@ export function DeleteAccountSection() {
   const { deleteAccount } = useAuth();
   const { run, error, isPending } = useAuthAction(deleteAccount);
   const [password, setPassword] = useState("");
-  const [isConfirmed, setIsConfirmed] = useState(false);
   const [isPasswordMissing, setIsPasswordMissing] = useState(false);
   const headingId = useId();
 
@@ -25,8 +24,13 @@ export function DeleteAccountSection() {
 
   return (
     <section className="delete-account" aria-labelledby={headingId}>
-      <h3 id={headingId}>{t("account.delete.heading")}</h3>
-      <p>{t("account.delete.warning")}</p>
+      <div className="delete-account__head">
+        <span className="delete-account__icon" aria-hidden="true">
+          <Trash2 />
+        </span>
+        <h3 id={headingId}>{t("account.delete.heading")}</h3>
+      </div>
+      <p className="muted">{t("account.delete.warning")}</p>
       <form onSubmit={handleSubmit} noValidate>
         <PasswordField
           label={t("auth.password")}
@@ -37,23 +41,12 @@ export function DeleteAccountSection() {
           onChange={setPassword}
           error={isPasswordMissing && !password ? t("auth.errors.required") : null}
         />
-        <label>
-          <input
-            type="checkbox"
-            checked={isConfirmed}
-            onChange={(event) => setIsConfirmed(event.target.checked)}
-          />
-          {t("account.delete.confirm")}
-        </label>
-        {error && <p role="alert">{error}</p>}
-        <button
-          type="submit"
-          className="btn btn--primary btn--lg"
-          disabled={isPending || !isConfirmed}
-        >
-          <Trash2 aria-hidden />
-          {isPending ? t("account.delete.pending") : t("account.delete.button")}
-        </button>
+        <div className="delete-account__actions">
+          {error && <p role="alert">{error}</p>}
+          <button type="submit" className="btn btn--danger" disabled={isPending || !password}>
+            {isPending ? t("account.delete.pending") : t("account.delete.button")}
+          </button>
+        </div>
       </form>
     </section>
   );

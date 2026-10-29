@@ -1,4 +1,4 @@
-import { Eye, EyeOff } from "lucide-react";
+import { CircleAlert, Eye, EyeOff } from "lucide-react";
 import { useId, useState, type HTMLInputTypeAttribute } from "react";
 import { useI18n } from "../../../i18n/useI18n";
 
@@ -41,7 +41,14 @@ export function TextField({
 
   return (
     <div className="field">
-      <label htmlFor={id}>{label}</label>
+      <div className="field__label">
+        <label htmlFor={id}>{label}</label>
+        {maxLength !== undefined && (
+          <span className="field__counter" aria-hidden="true">
+            {value.length}/{maxLength}
+          </span>
+        )}
+      </div>
       <input
         id={id}
         name={name}
@@ -65,6 +72,7 @@ export function TextField({
       )}
       {error && (
         <p id={errorId} className="field__error">
+          <CircleAlert aria-hidden />
           {error}
         </p>
       )}
@@ -112,6 +120,7 @@ export function PasswordField(props: Omit<FieldProps, "type">) {
       )}
       {error && (
         <p id={errorId} className="field__error">
+          <CircleAlert aria-hidden />
           {error}
         </p>
       )}

@@ -350,10 +350,20 @@ a {
     --dur-out: var(--dur-ui);
   }
 
+  // Popups rest from scale .96 and 8px below; exit is faster.
   dialog.dialog {
-    --enter: scale(0.98);
+    --enter: translateY(8px) scale(0.96);
     --dur-in: var(--dur-panel);
-    --dur-out: var(--dur-ui);
+    --dur-out: 120ms;
+  }
+
+  // Under 640px the popup is a bottom sheet that slides up.
+  @media (max-width: 639px) {
+    dialog.dialog {
+      --enter: translateY(100%);
+      --dur-in: var(--dur-sheet);
+      --dur-out: var(--dur-sheet-out);
+    }
   }
 }
 

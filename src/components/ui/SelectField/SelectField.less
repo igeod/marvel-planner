@@ -57,10 +57,10 @@
 .on-panel .select-field__trigger {
   background: var(--panel-2);
   color: var(--panel-ink);
-  .tones(#323a50, #3a4260);
+  .tones(var(--raised-2), var(--raised-3));
 
   &[aria-expanded="true"] {
-    background: #323a50;
+    background: var(--raised-2);
   }
 }
 
@@ -145,11 +145,11 @@
 }
 
 .select-field__option {
-  .tones(var(--surface-2), #cdd2dc);
+  .tones(var(--row-hover), var(--disabled));
 }
 
 .select-field--inline .select-field__option {
-  .tones(#323a50, #3a4260);
+  .tones(var(--raised-2), var(--raised-3));
 }
 
 .select-field__option[data-active="true"] {
@@ -165,7 +165,7 @@
   background: var(--ink);
   color: var(--bg);
   font-weight: 800;
-  .tones(#2a2f3d, #2a2f3d);
+  .tones(var(--raised), var(--raised));
 }
 
 .select-field--inline .select-field__option[aria-selected="true"] {

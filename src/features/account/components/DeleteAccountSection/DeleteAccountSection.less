@@ -1,0 +1,57 @@
+@import (reference) "mixins";
+
+// Destructive panel: one step off the popup surface, so its field sits on --surface.
+.delete-account {
+  --field-bg: var(--surface);
+  padding: var(--sp-6);
+  border-radius: var(--r-md);
+  background: var(--bg);
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-4);
+  }
+}
+
+.delete-account__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+
+  h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    line-height: 1.2;
+  }
+}
+
+.delete-account__icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  .pill();
+  background: var(--accent);
+  color: var(--white);
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.delete-account__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+
+  [role] {
+    flex: 1;
+    font-size: 0.875rem;
+  }
+}

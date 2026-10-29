@@ -311,12 +311,24 @@ export const en: Messages = {
   },
   account: {
     title: "Your account",
+    nav: "Account sections",
+    tabs: {
+      progress: "Progress",
+      profile: "Profile",
+      password: "Password",
+      account: "Account",
+    },
+    logout: {
+      heading: "Log out",
+      note: "Your progress stays saved on your account.",
+    },
     stats: {
       heading: "Your progress",
       overall: "Titles watched: {done} / {total}",
       byPhase: "By phase",
       byType: "By type",
       byYear: "By year",
+      watched: "Titles watched",
       error: "I can't load your progress.",
     },
     export: {

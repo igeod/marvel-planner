@@ -61,6 +61,7 @@ export function TrailerButton({ trailer, titleName }: TrailerButtonProps) {
       <Modal
         isOpen={isOpen}
         title={t("details.trailer.title", { name: titleName })}
+        size="lg"
         onClose={() => setIsOpen(false)}
       >
         <TrailerPlayer trailer={trailer} titleName={titleName} />

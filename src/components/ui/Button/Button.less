@@ -35,7 +35,7 @@
 
   &:focus-visible {
     outline: 3px solid var(--btn-ring);
-    outline-offset: 2px;
+    outline-offset: var(--focus-offset);
   }
 
   &:disabled,
@@ -100,49 +100,68 @@
 
 .btn--primary {
   --btn-ring: var(--ink);
-  background: var(--red);
-  color: var(--on-red);
-  .tones(#b01c26, #a81a24);
+  background: var(--primary);
+  color: var(--on-primary);
+  .tones(var(--primary-hover), var(--primary-press));
 }
 
 .on-panel .btn--primary,
 .title-row--open .btn--primary {
-  .tones(#e0343e, #a81a24);
+  .tones(var(--primary-hover-on-panel), var(--primary-press));
 }
 
 .btn--accent {
   --btn-ring: var(--ink);
-  background: var(--gold);
-  color: var(--on-gold);
-  .tones(#ffc23d, #e09f10);
+  background: var(--highlight);
+  color: var(--ink-static);
+  .tones(var(--highlight-hover), var(--highlight-active));
 }
 
 .btn--dark {
-  --btn-ring: #14171f;
-  background: #14171f;
-  color: #f7f8fa;
-  .tones(#2a2f3d, #0b0d12);
+  --btn-ring: var(--ink-static);
+  background: var(--ink-static);
+  color: var(--on-dark);
+  .tones(var(--raised), var(--deepest));
+}
+
+.btn--ink {
+  background: var(--ink);
+  color: var(--surface);
+  .tones(color-mix(in srgb, var(--ink), var(--surface) 12%), color-mix(in srgb, var(--ink), var(--surface) 24%));
+}
+
+// Destructive confirm: red in both themes (primary turns gold on dark).
+.btn--danger {
+  background: var(--accent);
+  color: var(--white);
+  .tones(var(--accent-hover), var(--accent-active));
+
+  &:disabled {
+    background: var(--disabled);
+    color: var(--ink-2);
+    opacity: 1;
+  }
 }
 
 .btn--surface {
   background: var(--surface);
   color: var(--ink);
   font-weight: 700;
-  .tones(var(--surface-2), var(--cell-off));
+  .tones(var(--row-hover), var(--disabled));
 }
 
 .btn--soft {
   background: var(--surface-2);
   color: var(--ink);
   font-weight: 700;
-  .tones(var(--cell-off), color-mix(in srgb, var(--cell-off), var(--ink) 14%));
+  .tones(var(--disabled), color-mix(in srgb, var(--disabled), var(--ink) 14%));
 }
 
 .btn--panel {
   background: var(--panel-2);
   color: var(--panel-ink);
   font-weight: 700;
-  .tones(#323a50, #3a4260);
+  .tones(var(--raised-2), var(--raised-3));
 }
 
 .btn--text {
@@ -154,7 +173,7 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 
-  .on-hover({ color: #8f1520; });
+  .on-hover({ color: var(--accent-active); });
 
   &:active:not(:disabled):not([aria-busy="true"]) {
     opacity: 0.65;

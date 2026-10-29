@@ -1,5 +1,5 @@
 import { Save } from "lucide-react";
-import { useId, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { TextField } from "../../../../components/ui/Field";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useAuth } from "../../../auth/hooks/useAuth";
@@ -15,7 +15,6 @@ export function ProfileSection({ user }: ProfileSectionProps) {
   const { updateName } = useAuth();
   const { run, error, isPending, isDone } = useAuthAction(updateName);
   const [name, setName] = useState(user.name);
-  const headingId = useId();
 
   const trimmedName = name.trim();
   const hasChanges = trimmedName !== user.name;
@@ -26,12 +25,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
   };
 
   return (
-    <section className="profile-section" aria-labelledby={headingId}>
-      <h3 id={headingId}>{t("account.profile.heading")}</h3>
-      <dl className="profile-section__facts">
-        <dt>{t("account.profile.email")}</dt>
-        <dd>{user.email}</dd>
-      </dl>
+    <section className="profile-section">
       <form onSubmit={handleSubmit} noValidate>
         <TextField
           label={t("auth.name")}
@@ -43,17 +37,23 @@ export function ProfileSection({ user }: ProfileSectionProps) {
           onChange={setName}
           hint={t("auth.nameHint")}
         />
-        {error && <p role="alert">{error}</p>}
-        {isDone && !hasChanges && <p role="status">{t("account.profile.saved")}</p>}
-        <button
-          type="submit"
-          className="btn btn--primary btn--lg"
-          disabled={isPending || !hasChanges || !trimmedName}
-        >
-          <Save aria-hidden />
-          {isPending ? t("account.profile.saving") : t("account.profile.save")}
-        </button>
+        <div className="profile-section__actions">
+          <button
+            type="submit"
+            className="btn btn--primary"
+            disabled={isPending || !hasChanges || !trimmedName}
+          >
+            <Save aria-hidden />
+            {isPending ? t("account.profile.saving") : t("account.profile.save")}
+          </button>
+          {error && <p role="alert">{error}</p>}
+          {isDone && !hasChanges && <p role="status">{t("account.profile.saved")}</p>}
+        </div>
       </form>
+      <dl className="profile-section__facts">
+        <dt>{t("account.profile.email")}</dt>
+        <dd>{user.email}</dd>
+      </dl>
     </section>
   );
 }

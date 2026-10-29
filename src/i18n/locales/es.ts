@@ -312,12 +312,24 @@ export const es: Messages = {
   },
   account: {
     title: "Tu cuenta",
+    nav: "Secciones de la cuenta",
+    tabs: {
+      progress: "Progreso",
+      profile: "Perfil",
+      password: "Contraseña",
+      account: "Cuenta",
+    },
+    logout: {
+      heading: "Cerrar sesión",
+      note: "Tu progreso queda guardado en tu cuenta.",
+    },
     stats: {
       heading: "Tu progreso",
       overall: "Títulos vistos: {done} / {total}",
       byPhase: "Por fase",
       byType: "Por tipo",
       byYear: "Por año",
+      watched: "Títulos vistos",
       error: "No puedo cargar tu progreso.",
     },
     export: {

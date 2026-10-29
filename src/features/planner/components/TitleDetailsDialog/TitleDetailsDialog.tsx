@@ -15,7 +15,7 @@ export function TitleDetailsDialog({
   onClose,
 }: TitleDetailsDialogProps) {
   return (
-    <Modal isOpen={isOpen} title={titleName} titleLang="en" onClose={onClose}>
+    <Modal isOpen={isOpen} title={titleName} titleLang="en" size="lg" onClose={onClose}>
       <TitleDetailsPanel titleId={titleId} />
     </Modal>
   );

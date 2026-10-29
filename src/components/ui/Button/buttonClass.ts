@@ -1,4 +1,5 @@
-export type ButtonVariant = "primary" | "accent" | "dark" | "soft" | "surface" | "panel" | "text";
+export type ButtonVariant =
+  "primary" | "accent" | "dark" | "soft" | "surface" | "panel" | "text" | "ink" | "danger";
 
 export function buttonClass(
   variant: ButtonVariant,

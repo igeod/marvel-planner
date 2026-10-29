@@ -26,7 +26,12 @@ export function AuthDialogs() {
   const currentView: AuthDialogView = view ?? "login";
 
   return (
-    <Modal isOpen={isOpen} title={t(TITLE_KEYS[currentView])} onClose={close}>
+    <Modal
+      isOpen={isOpen}
+      title={t(TITLE_KEYS[currentView])}
+      size={currentView === "account" ? "profile" : "md"}
+      onClose={close}
+    >
       {currentView === "login" && (
         <>
           <p>{t("auth.login.intro")}</p>
@@ -68,7 +73,7 @@ export function AuthDialogs() {
         </>
       )}
 
-      {currentView === "account" && user && <AccountSettings user={user} />}
+      {currentView === "account" && user && <AccountSettings user={user} onClose={close} />}
     </Modal>
   );
 }

@@ -1,5 +1,5 @@
 import { KeyRound } from "lucide-react";
-import { useId, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import { PasswordField } from "../../../../components/ui/Field";
 import { useI18n } from "../../../../i18n/useI18n";
 import { focusFirstInvalidField, hasErrors, type FieldErrors } from "../../../../lib/validation";
@@ -19,7 +19,6 @@ export function PasswordSection() {
   const { run, error, isPending, isDone } = useAuthAction(changePassword, () =>
     setForm(EMPTY_FORM),
   );
-  const headingId = useId();
 
   const update = (field: PasswordField) => (value: string) =>
     setForm((current) => ({ ...current, [field]: value }));
@@ -48,8 +47,7 @@ export function PasswordSection() {
     errors[field] && t(errors[field], { min: MIN_PASSWORD_LENGTH });
 
   return (
-    <section className="password-section" aria-labelledby={headingId}>
-      <h3 id={headingId}>{t("account.password.heading")}</h3>
+    <section className="password-section">
       <form className="form" onSubmit={handleSubmit} noValidate>
         <PasswordField
           label={t("account.password.current")}
@@ -80,12 +78,14 @@ export function PasswordSection() {
           onChange={update("confirmation")}
           error={errorText("confirmation")}
         />
-        {error && <p role="alert">{error}</p>}
-        {isDone && <p role="status">{t("account.password.changed")}</p>}
-        <button type="submit" className="btn btn--primary btn--lg" disabled={isPending}>
-          <KeyRound aria-hidden />
-          {isPending ? t("account.password.changing") : t("account.password.change")}
-        </button>
+        <div className="password-section__actions">
+          <button type="submit" className="btn btn--primary" disabled={isPending}>
+            <KeyRound aria-hidden />
+            {isPending ? t("account.password.changing") : t("account.password.change")}
+          </button>
+          {error && <p role="alert">{error}</p>}
+          {isDone && <p role="status">{t("account.password.changed")}</p>}
+        </div>
       </form>
     </section>
   );
