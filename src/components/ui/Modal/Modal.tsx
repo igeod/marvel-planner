@@ -56,20 +56,23 @@ export function Modal({
         isOpen && children
       ) : (
         <>
-          <header className="dialog__header">
-            <h2 id={titleId} lang={titleLang}>
-              {title}
-            </h2>
-            <button
-              type="button"
-              className="dialog__close"
-              aria-label={t("common.close")}
-              onClick={onClose}
-            >
-              <X aria-hidden />
-            </button>
-          </header>
-          {isOpen && <div className="dialog__body">{children}</div>}
+          <div className="dialog__scroll scroll-y">
+            <header className="dialog__header">
+              <h2 id={titleId} lang={titleLang}>
+                {title}
+              </h2>
+            </header>
+            {isOpen && <div className="dialog__body">{children}</div>}
+          </div>
+          {/* Last in focus order, and fixed: the scroll area is a separate sibling. */}
+          <button
+            type="button"
+            className="dialog__close"
+            aria-label={t("common.close")}
+            onClick={onClose}
+          >
+            <X aria-hidden />
+          </button>
         </>
       )}
     </dialog>,

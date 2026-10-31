@@ -12,10 +12,7 @@
   background: var(--surface);
   color: var(--ink);
   box-shadow: var(--shadow-popup);
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  overflow: hidden;
 
   &::backdrop {
     background: var(--scrim);
@@ -26,16 +23,14 @@
   max-width: min(720px, calc(100vw - 32px));
 }
 
+.dialog__scroll {
+  max-height: calc(100dvh - 64px);
+}
+
 .dialog__header {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 28px 28px 8px 32px;
-  background: var(--surface);
+  position: relative;
+  // Keeps the title clear of the fixed close button: tap + offset + gap.
+  padding: 28px calc(var(--tap) + 12px + var(--sp-3)) 8px 32px;
 
   h2 {
     font-size: 1.5rem;
@@ -46,6 +41,10 @@
 }
 
 .dialog__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
   flex: none;
   display: flex;
   align-items: center;
@@ -57,11 +56,24 @@
   color: var(--ink);
 
   .tones(var(--row-hover), var(--row-press));
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-hover) var(--ease-out);
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.94);
+      transition-duration: var(--dur-press);
+    }
+  }
 
   svg {
+    flex: none;
     width: 20px;
     height: 20px;
-    stroke-width: 2.6;
+    stroke-width: 2.4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
 }
 
@@ -89,8 +101,12 @@
     max-height: calc(100dvh - 48px);
   }
 
+  .dialog__scroll {
+    max-height: calc(100dvh - 48px);
+  }
+
   .dialog__header {
-    padding: 28px 12px 8px 24px;
+    padding: 28px calc(var(--tap) + 12px + var(--sp-3)) 8px 24px;
 
     &::before {
       content: "";

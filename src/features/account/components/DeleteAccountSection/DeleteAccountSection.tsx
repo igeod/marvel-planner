@@ -33,7 +33,6 @@ export function DeleteAccountSection() {
     setIsConfirming(true);
   };
 
-  // The server checks the password (better-auth deleteUser) and only then deletes.
   const confirm = () => {
     setIsConfirming(false);
     void run(password);
@@ -65,9 +64,8 @@ export function DeleteAccountSection() {
           <Status>{reason}</Status>
           <Button
             type="submit"
-            variant="soft"
+            variant="danger"
             className="delete-account__button"
-            icon={<Trash2 aria-hidden />}
             isLoading={isPending}
             loadingLabel={t("account.delete.pending")}
             aria-disabled={!password}

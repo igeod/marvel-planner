@@ -13,7 +13,8 @@ import { MarkWatchedButton } from "../MarkWatchedButton";
 import { PosterThumb } from "../PosterThumb";
 import { TitleSummaryPanel } from "../TitleSummaryPanel";
 
-const OPEN_ANIMATION_MS = 220;
+// Matches --dur-enter (240ms), the accordion opening time.
+const OPEN_ANIMATION_MS = 240;
 
 interface TitleItemProps {
   title: Title;

@@ -38,8 +38,10 @@
     outline-offset: 3px;
   }
 
-  &:active {
-    transform: translateY(1px) scale(0.98);
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: translateY(1px) scale(0.98);
+    }
   }
 
   svg {

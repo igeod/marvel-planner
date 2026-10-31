@@ -48,14 +48,14 @@ a {
 
 .choice__face {
   transition:
-    background-color var(--dur-ui-l) var(--ease-out),
-    color var(--dur-ui-l) var(--ease-out);
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
 }
 
 .title-row {
   transition:
-    background-color var(--dur-ui-l) var(--ease-out),
-    color var(--dur-ui-l) var(--ease-out);
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
 }
 
 .phase-strip__cell,
@@ -71,8 +71,8 @@ a {
 
 .mark-watched__pill {
   transition:
-    background-color var(--dur-ui-l) var(--ease-out),
-    color var(--dur-ui-l) var(--ease-out);
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
 }
 
 .switch__track {
@@ -90,20 +90,83 @@ a {
 // Theme crossfade: body and surface classes only, enabled after first paint (main.tsx).
 .theme-ready :is(body, .card, .site-header, .site-footer) {
   transition:
-    background-color var(--dur-ui-l) var(--ease-out),
-    color var(--dur-ui-l) var(--ease-out);
+    background-color var(--dur-ui) var(--ease-out),
+    color var(--dur-ui) var(--ease-out);
 }
 
 // Skeleton pulse while a poster loads; static under reduced motion (the ring pulses instead).
 @media (prefers-reduced-motion: no-preference) {
   .poster-image:has(.poster-image__state--loading) {
-    animation: skeleton-pulse 1.2s ease-in-out infinite;
+    animation: skeleton-pulse 1.4s ease-in-out infinite;
   }
+}
+
+// Opacity and backdrop of dialogs, sheets and menus; these run under reduced motion too, at 80ms.
+dialog.filters-sheet,
+dialog.menu-panel,
+dialog.dialog {
+  --dur-in: var(--dur-enter);
+  --dur-out: var(--dur-ui);
+  opacity: 0;
+  transition:
+    opacity var(--dur-out) var(--ease-out),
+    display var(--dur-out) allow-discrete,
+    overlay var(--dur-out) allow-discrete;
+
+  &[open] {
+    opacity: 1;
+    transition-duration: var(--dur-in);
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+
+  &::backdrop {
+    background: transparent;
+    transition:
+      background-color var(--dur-out) var(--ease-out),
+      display var(--dur-out) allow-discrete,
+      overlay var(--dur-out) allow-discrete;
+  }
+
+  &[open]::backdrop {
+    background: var(--scrim);
+    transition-duration: var(--dur-in);
+
+    @starting-style {
+      background: transparent;
+    }
+  }
+}
+
+dialog.menu-panel {
+  --dur-in: var(--dur-ui);
+  --dur-out: var(--dur-hover);
+}
+
+// Profile tab panel, unsaved banner and field errors fade in under reduced motion too (80ms);
+// their movement is added inside the no-preference block below.
+.profile__panel:not([hidden]) {
+  animation: fade-in var(--dur-ui) var(--ease-out);
+}
+
+.profile__unsaved {
+  animation: fade-in var(--dur-ui) var(--ease-out);
+
+  &[data-leaving] {
+    animation: fade-out var(--dur-hover) var(--ease-out) forwards;
+    pointer-events: none;
+  }
+}
+
+.field__error {
+  animation: fade-in var(--dur-ui) var(--ease-out);
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .skeleton {
-    animation: skeleton-pulse 1.2s ease-in-out infinite;
+    animation: skeleton-pulse 1.4s ease-in-out infinite;
   }
 
   .btn,
@@ -131,9 +194,11 @@ a {
     transform: scale(0.98);
   }
 
+  // First fill takes 600ms; later updates (the transition) take 240ms.
   .progress-total__bar span,
   .progress-row__bar span {
-    transition: width var(--dur-progress) var(--ease-out);
+    animation: bar-fill var(--dur-progress) var(--ease-out);
+    transition: width var(--dur-enter) var(--ease-out);
   }
 
   .btn--text:active:not(:disabled):not([aria-busy="true"]) {
@@ -145,24 +210,19 @@ a {
   }
 
   .chevron {
-    transition: transform var(--dur-ui-l) var(--ease-out);
-  }
-
-  .select-field__trigger .chevron {
-    transition-duration: var(--dur-ui);
+    transition: transform var(--dur-ui) var(--ease-out);
   }
 
   .switch__track::after {
     transition:
       background-color var(--dur-ui) var(--ease-out),
-      transform var(--dur-ui) var(--ease-out),
-      width var(--dur-ui) var(--ease-out);
+      transform var(--dur-ui) var(--ease-out);
   }
 
   .poster-thumb {
     transition:
-      width var(--dur-accordion) var(--ease-out),
-      height var(--dur-accordion) var(--ease-out);
+      width var(--dur-enter) var(--ease-out),
+      height var(--dur-enter) var(--ease-out);
   }
 
   // Native details: the content box grows from 0 and fades and rises with it.
@@ -175,47 +235,48 @@ a {
     overflow: clip;
     opacity: 0;
     transform: translateY(4px);
+    // Closing: 180ms, with the fade shortened to 80ms.
     transition:
-      block-size var(--dur-accordion) var(--ease-out),
-      opacity 100ms var(--ease-out),
-      transform var(--dur-accordion) var(--ease-out),
-      content-visibility var(--dur-accordion) allow-discrete;
+      block-size var(--dur-ui) var(--ease-out),
+      opacity var(--dur-press) var(--ease-out),
+      transform var(--dur-ui) var(--ease-out),
+      content-visibility var(--dur-ui) allow-discrete;
   }
 
+  // Opening: 240ms, with the fade at 120ms.
   details[open]::details-content {
     block-size: auto;
     opacity: 1;
     transform: none;
-    transition-duration:
-      var(--dur-accordion), var(--dur-ui), var(--dur-accordion), var(--dur-accordion);
+    transition-duration: var(--dur-enter), var(--dur-hover), var(--dur-enter), var(--dur-enter);
   }
 
   // Collapse all / Expand all: phases follow each other in 30ms steps.
   .planner__list--bulk .phase {
     &:nth-child(3)::details-content {
-      transition-delay: 30ms;
+      transition-delay: min(calc(var(--stagger-step) * 1), var(--stagger-max));
     }
 
     &:nth-child(4)::details-content {
-      transition-delay: 60ms;
+      transition-delay: min(calc(var(--stagger-step) * 2), var(--stagger-max));
     }
 
     &:nth-child(5)::details-content {
-      transition-delay: 90ms;
+      transition-delay: min(calc(var(--stagger-step) * 3), var(--stagger-max));
     }
 
     &:nth-child(6)::details-content {
-      transition-delay: 120ms;
+      transition-delay: min(calc(var(--stagger-step) * 4), var(--stagger-max));
     }
 
     &:nth-child(7)::details-content {
-      transition-delay: 150ms;
+      transition-delay: min(calc(var(--stagger-step) * 5), var(--stagger-max));
     }
   }
 
-  .mark-watched__button--watched svg path {
+  .mark-watched__button--watched.mark-watched__button--pressed svg path {
     stroke-dasharray: 24;
-    animation: check-draw 200ms var(--ease-out);
+    animation: check-draw var(--dur-ui) var(--ease-out);
   }
 
   .title-row__name s {
@@ -223,15 +284,31 @@ a {
   }
 
   .next-card__swap {
-    animation: swap-in var(--dur-ui-l) var(--ease-out);
+    animation: swap-in var(--dur-ui) var(--ease-out);
   }
 
   .planner__list--swap {
     animation: fade-in var(--dur-hover) var(--ease-out);
   }
 
+  .profile__panel:not([hidden]) {
+    animation-name: swap-in;
+  }
+
+  .profile__unsaved {
+    animation-name: banner-in;
+
+    &[data-leaving] {
+      animation-name: banner-out;
+    }
+  }
+
+  .field__error {
+    animation-name: message-in;
+  }
+
   .select-field__list {
-    animation: pop-in 120ms var(--ease-out);
+    animation: pop-in var(--dur-hover) var(--ease-out);
   }
 
   // Tooltip is a popover, so it can also animate out (display and overlay are discrete).
@@ -239,10 +316,10 @@ a {
     opacity: 0;
     transform: translateY(var(--pop-from, 4px));
     transition:
-      opacity 80ms var(--ease-out),
-      transform 80ms var(--ease-out),
-      display 80ms allow-discrete,
-      overlay 80ms allow-discrete;
+      opacity var(--dur-press) var(--ease-out),
+      transform var(--dur-press) var(--ease-out),
+      display var(--dur-press) allow-discrete,
+      overlay var(--dur-press) allow-discrete;
 
     &[data-placement="bottom"] {
       --pop-from: -4px;
@@ -265,7 +342,7 @@ a {
   .floating-progress progress {
     &::-webkit-progress-value,
     &::-moz-progress-bar {
-      transition: width 220ms var(--ease-out);
+      transition: width var(--dur-enter) var(--ease-out);
     }
   }
 
@@ -274,14 +351,14 @@ a {
     translate: 0 100%;
     opacity: 0;
     transition:
-      opacity var(--dur-sheet-out) var(--ease-out),
-      translate var(--dur-sheet-out) var(--ease-out),
-      display var(--dur-sheet-out) allow-discrete;
+      opacity var(--dur-ui) var(--ease-out),
+      translate var(--dur-ui) var(--ease-out),
+      display var(--dur-ui) allow-discrete;
 
     &[data-visible="true"] {
       translate: none;
       opacity: 1;
-      transition-duration: var(--dur-sheet);
+      transition-duration: var(--dur-enter);
 
       @starting-style {
         translate: 0 100%;
@@ -290,14 +367,14 @@ a {
     }
   }
 
-  // Sheets, the mobile menu and dialogs slide or scale in with their backdrop; exit is faster.
+  // Dialogs, sheets and menus add their movement here; opacity and the backdrop fade stay outside
+  // this block so reduced motion keeps an 80ms fade.
   dialog.filters-sheet,
   dialog.menu-panel,
   dialog.dialog {
     --enter: translateY(24px);
-    --dur-in: var(--dur-sheet);
-    --dur-out: var(--dur-sheet-out);
-    opacity: 0;
+    --dur-in: var(--dur-enter);
+    --dur-out: var(--dur-ui);
     transform: var(--enter);
     transition:
       opacity var(--dur-out) var(--ease-out),
@@ -306,53 +383,31 @@ a {
       overlay var(--dur-out) allow-discrete;
 
     &[open] {
-      opacity: 1;
       transform: none;
       transition-duration: var(--dur-in);
 
       @starting-style {
-        opacity: 0;
         transform: var(--enter);
       }
     }
-
-    &::backdrop {
-      background: transparent;
-      transition:
-        background-color var(--dur-out) var(--ease-out),
-        display var(--dur-out) allow-discrete,
-        overlay var(--dur-out) allow-discrete;
-    }
-
-    &[open]::backdrop {
-      background: var(--scrim);
-      transition-duration: var(--dur-in);
-
-      @starting-style {
-        background: transparent;
-      }
-    }
   }
 
+  // Header menu: 180ms in, 120ms out.
   dialog.menu-panel {
-    --enter: translateY(-12px);
-    --dur-in: var(--dur-panel);
-    --dur-out: var(--dur-ui);
+    --enter: translateY(-8px);
+    --dur-in: var(--dur-ui);
+    --dur-out: var(--dur-hover);
   }
 
-  // Popups rest from scale .96 and 8px below; exit is faster.
+  // Popup: rests from scale .96 and 8px below; 240ms in, 180ms out.
   dialog.dialog {
     --enter: translateY(8px) scale(0.96);
-    --dur-in: var(--dur-panel);
-    --dur-out: 120ms;
   }
 
   // Under 640px the popup is a bottom sheet that slides up.
   @media (max-width: 639px) {
     dialog.dialog {
       --enter: translateY(100%);
-      --dur-in: var(--dur-sheet);
-      --dur-out: var(--dur-sheet-out);
     }
   }
 }
@@ -383,6 +438,39 @@ a {
 @keyframes fade-in {
   from {
     opacity: 0;
+  }
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes banner-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes banner-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@keyframes message-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes bar-fill {
+  from {
+    width: 0;
   }
 }
 

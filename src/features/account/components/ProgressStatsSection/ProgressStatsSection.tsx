@@ -160,8 +160,6 @@ export function ProgressStatsSection() {
         />
       </div>
 
-      {done === 0 && <p role="status">{t("account.stats.empty")}</p>}
-
       <ProgressGroup
         isOpen
         title={t("account.stats.byPhase")}

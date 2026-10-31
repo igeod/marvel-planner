@@ -1,7 +1,12 @@
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { computePlacement, type Placement } from "./placement";
 
-const HOVER_OPEN_DELAY_MS = 150;
+// Reads --delay-tooltip (400ms, 0 under reduced motion) so the delay lives with the other tokens.
+function hoverOpenDelay(): number {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue("--delay-tooltip");
+  return Number.parseFloat(raw) || 0;
+}
+
 const HOVER_CLOSE_DELAY_MS = 100;
 
 interface TooltipProps {
@@ -90,7 +95,7 @@ export function Tooltip({
       ref={wrapperRef}
       className={`tooltip tooltip--${tone}`}
       onPointerEnter={(event) => {
-        if (event.pointerType === "mouse") schedule(true, HOVER_OPEN_DELAY_MS);
+        if (event.pointerType === "mouse") schedule(true, hoverOpenDelay());
       }}
       onPointerLeave={(event) => {
         if (event.pointerType === "mouse") schedule(false, HOVER_CLOSE_DELAY_MS);

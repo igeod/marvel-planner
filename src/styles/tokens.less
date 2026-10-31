@@ -115,10 +115,6 @@
   --sp-12: 48px;
   --sb-size: 12px;
   --pad-popup: 28px;
-  --dur-micro: 150ms;
-  --dur-std: 220ms;
-  --dur-enter: 280ms;
-  --dur-progress: 600ms;
   --gap: 8px;
   --gap-section: 32px;
   --page-margin: 48px;
@@ -156,14 +152,15 @@
   --focus-offset: 3px;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
-  --dur-press: 100ms;
+  // Five durations; an exit runs one step shorter than its entrance (240 to 180, 180 to 120, 120 to 80).
+  --dur-press: 80ms;
   --dur-hover: 120ms;
-  --dur-ui: 150ms;
-  --dur-ui-l: 180ms;
-  --dur-accordion: 220ms;
-  --dur-panel: 200ms;
-  --dur-sheet: 250ms;
-  --dur-sheet-out: 180ms;
+  --dur-ui: 180ms;
+  --dur-enter: 240ms;
+  --dur-progress: 600ms;
+  --delay-tooltip: 400ms;
+  --stagger-step: 30ms;
+  --stagger-max: 150ms;
   --strip-on-panel-off: #3a4260;
   --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
   --font-body: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -175,13 +172,17 @@
   );
 }
 
-// Reduced motion keeps color changes only, capped at 80ms (transform motion lives in motion.less).
+// Reduced motion keeps color and opacity changes, capped at 80ms. Transform, height, keyframes and
+// loops live inside prefers-reduced-motion: no-preference blocks.
 @media (prefers-reduced-motion: reduce) {
   :root {
-    --dur-press: 80ms;
     --dur-hover: 80ms;
     --dur-ui: 80ms;
-    --dur-ui-l: 80ms;
+    --dur-enter: 80ms;
+    --dur-progress: 0ms;
+    --delay-tooltip: 0ms;
+    --stagger-step: 0ms;
+    --stagger-max: 0ms;
   }
 }
 

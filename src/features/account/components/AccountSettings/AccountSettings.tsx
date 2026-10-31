@@ -1,4 +1,4 @@
-import { ChartNoAxesColumn, KeyRound, LogOut, UserRound, X } from "lucide-react";
+import { ChartLine, Lock, LogOut, UserRound, X } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -37,9 +37,9 @@ const FIELD_SCROLL_DELAY = 250;
 type Tab = "progress" | "profile" | "password" | "account";
 
 const TABS: { id: Tab; labelKey: TranslationKey; icon: ComponentType }[] = [
-  { id: "progress", labelKey: "account.tabs.progress", icon: ChartNoAxesColumn },
+  { id: "progress", labelKey: "account.tabs.progress", icon: ChartLine },
   { id: "profile", labelKey: "account.tabs.profile", icon: UserRound },
-  { id: "password", labelKey: "account.tabs.password", icon: KeyRound },
+  { id: "password", labelKey: "account.tabs.password", icon: Lock },
   { id: "account", labelKey: "account.tabs.account", icon: LogOut },
 ];
 
@@ -62,6 +62,7 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   const { logout } = useAuth();
   const [tab, setTab] = useState<Tab>("progress");
   const [isAskingDiscard, setIsAskingDiscard] = useState(false);
+  const [isBannerLeaving, setIsBannerLeaving] = useState(false);
   const isSheet = useMediaQuery(SHEET_QUERY);
   const baseId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -77,7 +78,11 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
     else dirtyForms.current.delete(id);
   }, []);
 
-  const tryClose = () => (dirtyForms.current.size > 0 ? setIsAskingDiscard(true) : onClose());
+  const tryClose = () => {
+    if (dirtyForms.current.size === 0) return onClose();
+    setIsBannerLeaving(false);
+    setIsAskingDiscard(true);
+  };
 
   useEffect(() => {
     closeRef.current = tryClose;
@@ -163,8 +168,11 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
     }, FIELD_SCROLL_DELAY);
   };
 
+  // The banner fades out (--dur-hover) before it leaves the DOM.
   const keepEditing = () => {
-    setIsAskingDiscard(false);
+    setIsBannerLeaving(true);
+    const raw = getComputedStyle(document.documentElement).getPropertyValue("--dur-hover");
+    window.setTimeout(() => setIsAskingDiscard(false), Number.parseFloat(raw) || 0);
     rootRef.current?.closest("dialog")?.focus();
   };
 
@@ -213,24 +221,24 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
         </aside>
 
         <section className="profile__content">
-          <h2 id={PROFILE_TITLE_ID} className="profile__title">
-            {t(TITLE_KEYS[tab])}
-          </h2>
           <div
             id={`${baseId}-panel`}
             role="tabpanel"
             aria-labelledby={tabId(tab)}
-            className="profile__scroll"
+            className="profile__inner"
+            data-tab={tab}
             ref={scrollRef}
             onFocus={keepFieldVisible}
           >
+            <h2 id={PROFILE_TITLE_ID} className="profile__title">
+              {t(TITLE_KEYS[tab])}
+            </h2>
             {/* Every panel stays mounted so unsaved edits survive switching tabs. */}
-            <div className="profile__panel" hidden={tab !== "progress"}>
+            <div className="profile__panel profile__scroll scroll-y" hidden={tab !== "progress"}>
               <ProgressStatsSection />
             </div>
             <div className="profile__panel" hidden={tab !== "profile"}>
               <ProfileSection user={user} />
-              <ExportSection />
             </div>
             <div className="profile__panel" hidden={tab !== "password"}>
               <PasswordSection />
@@ -246,6 +254,8 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
                   {t("account.logout.heading")}
                 </button>
               </section>
+              <hr className="profile__rule" />
+              <ExportSection />
               <DeleteAccountSection />
             </div>
           </div>
@@ -261,7 +271,11 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
         </button>
 
         {isAskingDiscard && (
-          <div className="profile__unsaved" role="alert">
+          <div
+            className="profile__unsaved"
+            role="alert"
+            data-leaving={isBannerLeaving || undefined}
+          >
             <p>{t("account.dialog.unsaved")}</p>
             <div className="profile__unsaved-actions">
               <button type="button" className="profile__keep" onClick={keepEditing}>

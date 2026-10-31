@@ -6,19 +6,19 @@
   box-sizing: border-box;
 }
 
-// Scrollbars: tokens only. The document scrollbar (html/body) stays native.
+// Scrollbars: tokens only. Firefox uses the standard properties; Chromium/Safari must not,
+// or the system scrollbar (with arrows) comes back over ::-webkit-scrollbar.
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--sb-thumb) var(--sb-track);
 }
 
-::-webkit-scrollbar-button {
-  display: none;
-  width: 0;
-  height: 0;
-}
+@supports selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: auto;
+  }
 
-@supports not (scrollbar-color: auto) {
   ::-webkit-scrollbar {
     width: var(--sb-size);
     height: var(--sb-size);
@@ -29,13 +29,25 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    border: 2px solid transparent;
+    background: var(--sb-thumb);
     border-radius: var(--r-pill);
-    background: var(--sb-thumb) padding-box;
+    border: 3px solid transparent;
+    background-clip: content-box;
 
     &:hover {
-      background: var(--sb-thumb-hover) padding-box;
+      background: var(--sb-thumb-hover);
+      background-clip: content-box;
     }
+  }
+
+  ::-webkit-scrollbar-button {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
   }
 }
 
@@ -166,6 +178,14 @@ select {
   background: var(--field-bg, var(--bg));
   color: var(--ink);
   font: inherit;
+  text-overflow: ellipsis;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    box-shadow var(--dur-hover) var(--ease-out);
+
+  &[data-clearable] {
+    padding-right: 56px;
+  }
 
   &::placeholder {
     color: var(--ink-2);

@@ -13,6 +13,7 @@ import { progressRoutes } from "./routes/progress";
 import { releaseRoutes } from "./routes/releases";
 import { seoRoutes } from "./routes/seo";
 import { shareRoutes, sharedRoutes } from "./routes/share";
+import { passwordPolicyRoutes } from "./routes/passwordPolicy";
 import { statusRoutes } from "./routes/status";
 import { titleRoutes } from "./routes/titles";
 import { runDiscovery } from "./services/discovery";
@@ -32,6 +33,7 @@ const api = new Hono<AppEnv>()
   .route("/account", accountRoutes)
   .route("/admin", adminRoutes)
   .route("/images", imageRoutes)
+  .route("/password-policy", passwordPolicyRoutes)
   .route("/progress", progressRoutes)
   .route("/releases", releaseRoutes)
   .route("/share", shareRoutes)

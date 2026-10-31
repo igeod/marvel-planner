@@ -305,6 +305,9 @@ export const fr: Messages = {
     passwordHint: "Au moins {min} caractères.",
     showPassword: "Afficher le mot de passe",
     hidePassword: "Masquer le mot de passe",
+    emailSuggestion: "Vouliez-vous dire {email} ?",
+    clearEmail: "Effacer l'e-mail",
+    capsLock: "Le verrouillage majuscule est activé.",
     login: {
       title: "Se connecter",
       intro: "Connectez-vous pour conserver votre progression sur tous vos appareils.",
@@ -331,6 +334,8 @@ export const fr: Messages = {
       nameTaken: "Ce nom de super-héros est déjà pris. Choisissez-en un autre.",
       userExists: "Un compte existe déjà avec cet e-mail.",
       passwordShort: "Le mot de passe doit contenir au moins {min} caractères.",
+      passwordWeak:
+        "Ce mot de passe a été exposé dans une fuite de données. Choisissez-en un autre.",
       passwordLong: "Le mot de passe est trop long.",
       reauthenticate: "Par sécurité, déconnectez-vous puis reconnectez-vous avant de continuer.",
       tooManyRequests: "Trop de tentatives. Patientez quelques minutes puis réessayez.",
@@ -361,13 +366,11 @@ export const fr: Messages = {
       error: "Je ne peux pas charger votre progression.",
       loading: "Chargement de votre progression…",
       share: "Partager la progression",
-      empty: "Vous n'avez encore marqué aucun titre. Marquez le premier dans le planner.",
     },
     export: {
       heading: "Vos données",
-      description:
-        "Téléchargez une copie des données de votre compte (profil, titres vus et sessions) au format JSON.",
-      button: "Télécharger mes données",
+      description: "Téléchargez votre profil, titres vus et réglages dans un fichier JSON.",
+      button: "Exporter en JSON",
       pending: "Préparation…",
       error: "Impossible de télécharger les données. Réessayez plus tard.",
       done: "Téléchargement lancé.",
@@ -375,7 +378,7 @@ export const fr: Messages = {
     profile: {
       heading: "Profil",
       email: "E-mail",
-      save: "Enregistrer",
+      save: "Enregistrer le nom",
       saving: "Enregistrement…",
       saved: "Nom mis à jour.",
       emailSave: "Mettre à jour l'e-mail",
@@ -386,8 +389,17 @@ export const fr: Messages = {
       current: "Mot de passe actuel",
       next: "Nouveau mot de passe",
       confirm: "Confirmer le nouveau mot de passe",
-      hint: "Au moins {min} caractères. Après le changement, vous serez déconnecté de vos autres appareils.",
-      mismatch: "Les deux mots de passe ne correspondent pas.",
+      showCurrent: "Afficher le mot de passe actuel",
+      showNew: "Afficher le nouveau mot de passe",
+      showConfirm: "Afficher la confirmation",
+      signedOut:
+        "Après le changement de mot de passe, vous serez déconnecté de vos autres appareils.",
+      requirements: {
+        length: "Au moins {min} caractères",
+        met: "Rempli",
+        notMet: "Non rempli",
+      },
+      mismatch: "Les mots de passe ne correspondent pas.",
       change: "Changer le mot de passe",
       changing: "Mise à jour…",
       changed: "Mot de passe mis à jour.",

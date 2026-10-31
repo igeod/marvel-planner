@@ -6,10 +6,12 @@ import {
   focusFirstInvalidField,
   hasErrors,
   isValidEmail,
+  suggestEmail,
   type FieldErrors,
 } from "../../../../lib/validation";
-import { MIN_PASSWORD_LENGTH } from "../../constants";
+import { isLongEnough } from "../../../../../shared/passwordPolicy";
 import { useAuth } from "../../hooks/useAuth";
+import { usePasswordPolicy } from "../../hooks/usePasswordPolicy";
 import { useAuthAction } from "../../hooks/useAuthAction";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 
@@ -25,6 +27,9 @@ export function RegisterForm() {
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors<RegisterField>>({});
 
+  const policy = usePasswordPolicy();
+  const suggestion = suggestEmail(email);
+
   const validate = (): FieldErrors<RegisterField> => ({
     ...(!name.trim() ? { name: "auth.errors.required" as const } : {}),
     ...(!email.trim()
@@ -34,7 +39,7 @@ export function RegisterForm() {
         : {}),
     ...(!password
       ? { password: "auth.errors.required" as const }
-      : password.length < MIN_PASSWORD_LENGTH
+      : !isLongEnough(policy, password)
         ? { password: "auth.errors.passwordShort" as const }
         : {}),
   });
@@ -68,6 +73,7 @@ export function RegisterForm() {
         required
         value={email}
         onChange={setEmail}
+        hint={suggestion ? t("auth.emailSuggestion", { email: suggestion }) : undefined}
         error={errors.email && t(errors.email)}
       />
       <PasswordField
@@ -75,11 +81,11 @@ export function RegisterForm() {
         name="password"
         autoComplete="new-password"
         required
-        minLength={MIN_PASSWORD_LENGTH}
+        minLength={policy.minLength}
         value={password}
         onChange={setPassword}
-        hint={t("auth.passwordHint", { min: MIN_PASSWORD_LENGTH })}
-        error={errors.password && t(errors.password, { min: MIN_PASSWORD_LENGTH })}
+        hint={t("auth.passwordHint", { min: policy.minLength })}
+        error={errors.password && t(errors.password, { min: policy.minLength })}
       />
       {error && <p role="alert">{error}</p>}
       <button type="submit" className="btn btn--primary btn--lg" disabled={isPending}>

@@ -1,12 +1,21 @@
 import { and, ne, sql } from "drizzle-orm";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
-import { APIError } from "better-auth/api";
+import { APIError, createAuthMiddleware } from "better-auth/api";
 import type { Database } from "./db/client";
 import * as schema from "./db/schema";
+import { isLongEnough, MAX_PASSWORD_LENGTH } from "../shared/passwordPolicy";
 import type { Env } from "./env";
+import { isPwnedPassword } from "./services/pwnedPasswords";
+import { getPasswordPolicy } from "./services/siteSettings";
 
-const MIN_PASSWORD_LENGTH = 10;
+// Where the new password sits in the body of each endpoint that sets one.
+const PASSWORD_FIELDS: Record<string, string> = {
+  "/sign-up/email": "password",
+  "/change-password": "newPassword",
+  "/reset-password": "newPassword",
+  "/set-password": "newPassword",
+};
 const MIN_NAME_LENGTH = 2;
 const MAX_NAME_LENGTH = 30;
 
@@ -41,12 +50,34 @@ export function createAuth(env: Env, db: Database) {
     database: drizzleAdapter(db, { provider: "sqlite", schema }),
     emailAndPassword: {
       enabled: true,
-      minPasswordLength: MIN_PASSWORD_LENGTH,
+      // The real minimum lives in the database (see the password policy hook below).
+      minPasswordLength: 1,
+      maxPasswordLength: MAX_PASSWORD_LENGTH,
     },
     user: {
       deleteUser: { enabled: true },
       // Accounts are never email-verified, so the change applies at once.
       changeEmail: { enabled: true, updateEmailWithoutVerification: true },
+    },
+    hooks: {
+      before: createAuthMiddleware(async (ctx) => {
+        const field = PASSWORD_FIELDS[ctx.path];
+        if (!field) return;
+        const value = (ctx.body as Record<string, unknown> | undefined)?.[field];
+        if (typeof value !== "string") return;
+        if (!isLongEnough(await getPasswordPolicy(db), value)) {
+          throw new APIError("BAD_REQUEST", {
+            code: "PASSWORD_TOO_SHORT",
+            message: "Password too short",
+          });
+        }
+        if (await isPwnedPassword(value)) {
+          throw new APIError("BAD_REQUEST", {
+            code: "PASSWORD_WEAK",
+            message: "Password found in a data breach",
+          });
+        }
+      }),
     },
     databaseHooks: {
       user: {

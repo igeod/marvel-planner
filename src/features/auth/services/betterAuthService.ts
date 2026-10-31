@@ -17,6 +17,7 @@ const ERROR_KEYS: Record<string, TranslationKey> = {
   USER_ALREADY_EXISTS: "auth.errors.userExists",
   USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL: "auth.errors.userExists",
   PASSWORD_TOO_SHORT: "auth.errors.passwordShort",
+  PASSWORD_WEAK: "auth.errors.passwordWeak",
   PASSWORD_TOO_LONG: "auth.errors.passwordLong",
   SESSION_EXPIRED: "auth.errors.reauthenticate",
   SESSION_NOT_FRESH: "auth.errors.reauthenticate",

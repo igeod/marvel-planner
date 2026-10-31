@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { createAuth } from "../../worker/auth";
 import type { Env } from "../../worker/env";
 import { createTestDatabase } from "./support/testDatabase";
@@ -7,6 +7,22 @@ const env = {
   BETTER_AUTH_URL: "http://localhost:5173",
   BETTER_AUTH_SECRET: "un-segreto-di-prova-lungo-almeno-trentadue-caratteri",
 } as Env;
+
+// Offline by default: the breach check fails open when the network is unreachable.
+beforeEach(() => {
+  vi.stubGlobal(
+    "fetch",
+    vi.fn(async () => new Response("")),
+  );
+});
+afterEach(() => vi.unstubAllGlobals());
+
+async function sha1(text: string) {
+  const digest = await crypto.subtle.digest("SHA-1", new TextEncoder().encode(text));
+  return Array.from(new Uint8Array(digest), (b) => b.toString(16).padStart(2, "0"))
+    .join("")
+    .toUpperCase();
+}
 
 let context: ReturnType<typeof createTestDatabase>;
 let auth: ReturnType<typeof createAuth>;
@@ -99,5 +115,45 @@ describe("cambio del nome", () => {
     expect(context.sqlite.prepare("SELECT email FROM user WHERE name = 'Iron Fan'").get()).toEqual({
       email: "nuova@example.com",
     });
+  });
+});
+
+describe("regola della password dal database", () => {
+  const setPolicy = (value: string) =>
+    context.sqlite
+      .prepare("UPDATE site_setting SET value = ? WHERE key = 'password_policy'")
+      .run(value);
+  const withPassword = (password: string) =>
+    auth.api.signUpEmail({ body: { name: "Iron Fan", email: "p@example.com", password } });
+
+  it("rifiuta solo le password troppo corte, senza regole di composizione", async () => {
+    expect(await codeOf(withPassword("abc1"))).toBe("PASSWORD_TOO_SHORT");
+    expect(await codeOf(withPassword("soloLettere"))).toBeNull();
+  });
+
+  it("accetta frasi lunghe con spazi e Unicode", async () => {
+    expect(
+      await codeOf(withPassword("la mia frase è più lunga così ☕ 123 ".repeat(2))),
+    ).toBeNull();
+  });
+
+  it("segue la riga della tabella senza nuovo deploy", async () => {
+    setPolicy('{"minLength":12}');
+    expect(await codeOf(withPassword("abcdefgh12"))).toBe("PASSWORD_TOO_SHORT");
+    expect(await codeOf(withPassword("soloLettereLunghe"))).toBeNull();
+  });
+
+  it("rifiuta le password trapelate", async () => {
+    const leaked = "una-password-gia-trapelata";
+    const hash = await sha1(leaked);
+    vi.stubGlobal(
+      "fetch",
+      vi.fn(
+        async (url: string) =>
+          new Response(url.endsWith(hash.slice(0, 5)) ? `${hash.slice(5)}:42\n` : ""),
+      ),
+    );
+    expect(await codeOf(withPassword(leaked))).toBe("PASSWORD_WEAK");
+    expect(await codeOf(withPassword("un-altra-password-mai-vista"))).toBeNull();
   });
 });

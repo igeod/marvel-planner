@@ -8,10 +8,10 @@ dialog.dialog--profile {
   height: 640px;
   max-height: calc(100dvh - 64px);
   overflow: hidden;
-  // Nothing scrolls here, so no gutter: it would narrow the content by the scrollbar width.
+  // Nothing scrolls on the dialog itself; a gutter would only narrow the content.
   scrollbar-gutter: auto;
 
-  // The dialog itself holds focus when opened; a ring around the whole popup says nothing.
+  // The dialog holds focus when opened; a ring around the whole popup says nothing.
   &:focus {
     outline: none;
   }
@@ -27,11 +27,8 @@ dialog.dialog--profile {
 }
 
 // Help text and captions in the popup are 14px.
-.dialog--profile {
-  .field__hint,
-  .field__error {
-    font-size: var(--fs-label);
-  }
+.dialog--profile .field__message {
+  font-size: var(--fs-label);
 }
 
 .profile {
@@ -133,9 +130,25 @@ dialog.dialog--profile {
   color: var(--ink-2);
   font-size: var(--fs-button);
   font-weight: 700;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-hover) var(--ease-out);
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.98);
+      transition-duration: var(--dur-press);
+    }
+  }
+
+  &:focus-visible {
+    outline-offset: 0;
+  }
+
   svg {
     width: 20px;
     height: 20px;
+    stroke-width: 2.2;
   }
 
   // Hover and press only on tabs that are not selected.
@@ -147,6 +160,9 @@ dialog.dialog--profile {
   &[aria-selected="true"] {
     background: var(--ink);
     color: var(--surface);
+
+    // Darkens on hover instead of turning grey.
+    .on-hover({ background: color-mix(in srgb, var(--ink) 82%, #000); });
   }
 
   @media (max-width: 639px) {
@@ -155,13 +171,31 @@ dialog.dialog--profile {
 }
 
 .profile__content {
+  position: relative;
   flex: 1;
   min-width: 0;
   min-height: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-4);
+}
+
+// The padded box is the scroll area, so focus rings have the whole padding to draw in.
+.profile__inner {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
   padding: var(--pad-popup);
+  overflow: hidden auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+
+  // Progress scrolls only its list, under a fixed title.
+  &[data-tab="progress"] {
+    overflow: hidden;
+    gap: var(--sp-4);
+  }
 
   @media (max-width: 639px) {
     padding: var(--sp-5) var(--sp-5) calc(var(--sp-5) + env(safe-area-inset-bottom, 0px));
@@ -186,41 +220,32 @@ dialog.dialog--profile {
   }
 }
 
-// One scroll area under the fixed title.
+.profile__panel {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+
+  &[hidden] {
+    display: none;
+  }
+}
+
 .profile__scroll {
   flex: 1;
   min-height: 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  scrollbar-gutter: stable;
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
   padding: 2px;
 }
 
-.profile__panel {
+.profile__rule {
   flex: none;
-  display: flex;
-  flex-direction: column;
-  gap: var(--sp-4);
-
-  &[hidden] {
-    display: none;
-  }
-
-  > section + section:not(.delete-account) {
-    padding-top: var(--sp-4);
-    box-shadow: inset 0 1px 0 var(--line);
-  }
-
-  > section {
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-3);
-  }
+  height: 1px;
+  margin: 0;
+  border: 0;
+  background: var(--line);
 }
 
 .profile__logout {
@@ -228,13 +253,17 @@ dialog.dialog--profile {
   justify-content: space-between;
   flex-wrap: wrap;
 
-  &,
-  .profile__panel > & {
-    flex-direction: row;
-  }
+  display: flex;
+  flex-direction: row;
+  gap: var(--sp-4);
 
   h3 {
     font-weight: 800;
+  }
+
+  // Same 14px secondary text as the description under "Your data".
+  p {
+    font-size: var(--fs-label);
   }
 }
 

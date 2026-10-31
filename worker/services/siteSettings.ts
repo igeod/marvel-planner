@@ -1,5 +1,10 @@
 import { eq } from "drizzle-orm";
 import type { Database } from "../db/client";
+import {
+  PASSWORD_POLICY_KEY,
+  parsePasswordPolicy,
+  type PasswordPolicy,
+} from "../../shared/passwordPolicy";
 import { siteSetting } from "../db/schema";
 
 export type ScheduledRun = "daily" | "weekly";
@@ -55,4 +60,9 @@ export async function getLastRuns(db: Database): Promise<Record<ScheduledRun, st
     readSetting(db, runKey("weekly")),
   ]);
   return { daily, weekly };
+}
+
+// Read on every use, with no cache: editing the row takes effect on the next request.
+export async function getPasswordPolicy(db: Database): Promise<PasswordPolicy> {
+  return parsePasswordPolicy(await readSetting(db, PASSWORD_POLICY_KEY));
 }

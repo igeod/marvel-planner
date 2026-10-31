@@ -1,7 +1,10 @@
+@import (reference) "mixins";
+
 .form {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--sp-5);
+  max-width: 480px;
 }
 
 .field {
@@ -22,16 +25,20 @@
   font-variant-numeric: tabular-nums;
 }
 
-.field__hint {
+.field__control {
+  position: relative;
+}
+
+.field__message {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 20px;
   font-size: var(--fs-caption);
   color: var(--ink-2);
 }
 
 .field__error {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: var(--fs-caption);
   font-weight: 500;
   color: var(--ink);
 
@@ -42,6 +49,37 @@
   }
 }
 
-.field__toggle {
-  align-self: flex-start;
+.field__button {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap);
+  height: var(--tap);
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-hover) var(--ease-out);
+
+  .on-hover({
+    background: var(--row-hover);
+    color: var(--ink);
+  });
+
+  // Press: 80ms in, back in 120ms; no movement under reduced motion.
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.94);
+      transition-duration: var(--dur-press);
+    }
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.3;
+  }
 }

@@ -1,15 +1,15 @@
-import { Mail, Save } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { TextField } from "../../../../components/ui/Field";
 import { Status } from "../../../../components/ui/Status";
 import { useI18n } from "../../../../i18n/useI18n";
-import { isValidEmail } from "../../../../lib/validation";
-import { MIN_NAME_LENGTH } from "../../../auth/constants";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthAction } from "../../../auth/hooks/useAuthAction";
+import { isValidEmail, suggestEmail } from "../../../../lib/validation";
 import type { User } from "../../../auth/types";
 import { useReportDirty } from "../../hooks/useReportDirty";
+
+const MIN_NAME_LENGTH = 3;
 
 interface ProfileSectionProps {
   user: User;
@@ -35,6 +35,7 @@ export function ProfileSection({ user }: ProfileSectionProps) {
   const trimmedEmail = email.trim();
   const emailChanged = trimmedEmail !== user.email;
   const emailValid = isValidEmail(trimmedEmail);
+  const suggestion = suggestEmail(trimmedEmail);
   const canSaveEmail = emailChanged && emailValid;
 
   useReportDirty("name", hasChanges);
@@ -67,14 +68,13 @@ export function ProfileSection({ user }: ProfileSectionProps) {
             setNameReason("");
           }}
           onBlur={() => setIsTouched(true)}
-          error={isTouched && !trimmedName ? t("auth.errors.required") : null}
           hint={t("auth.nameHint")}
+          error={isTouched && !trimmedName ? t("auth.errors.required") : null}
         />
         <div className="profile-section__actions">
           <Button
             type="submit"
             variant="primary"
-            icon={<Save aria-hidden />}
             isLoading={isPending}
             loadingLabel={t("account.profile.saving")}
             aria-disabled={!canSaveName}
@@ -85,7 +85,8 @@ export function ProfileSection({ user }: ProfileSectionProps) {
           <Status>{nameReason || (isDone && !hasChanges ? t("account.profile.saved") : "")}</Status>
         </div>
       </form>
-      <form onSubmit={handleEmailSubmit} noValidate className="profile-section__second">
+      <hr className="profile__rule" />
+      <form onSubmit={handleEmailSubmit} noValidate>
         <TextField
           label={t("account.profile.email")}
           name="email"
@@ -98,13 +99,13 @@ export function ProfileSection({ user }: ProfileSectionProps) {
             setEmailReason("");
           }}
           onBlur={() => setIsEmailTouched(true)}
+          hint={suggestion ? t("auth.emailSuggestion", { email: suggestion }) : undefined}
           error={isEmailTouched && !emailValid ? t("auth.errors.invalidEmail") : null}
         />
         <div className="profile-section__actions">
           <Button
             type="submit"
             variant="primary"
-            icon={<Mail aria-hidden />}
             isLoading={emailAction.isPending}
             loadingLabel={t("account.profile.saving")}
             aria-disabled={!canSaveEmail}

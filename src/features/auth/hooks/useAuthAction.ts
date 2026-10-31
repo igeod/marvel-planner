@@ -1,11 +1,12 @@
 import { useState } from "react";
 import type { TranslationKey } from "../../../i18n/types";
 import { useI18n } from "../../../i18n/useI18n";
-import { MIN_PASSWORD_LENGTH } from "../constants";
 import { AuthError } from "../services/authService";
+import { usePasswordPolicy } from "./usePasswordPolicy";
 
 export function useAuthAction<T>(action: (values: T) => Promise<void>, onSuccess?: () => void) {
   const { t } = useI18n();
+  const policy = usePasswordPolicy();
   const [errorKey, setErrorKey] = useState<TranslationKey | null>(null);
   const [isPending, setIsPending] = useState(false);
   const [isDone, setIsDone] = useState(false);
@@ -25,6 +26,6 @@ export function useAuthAction<T>(action: (values: T) => Promise<void>, onSuccess
     }
   };
 
-  const error = errorKey && t(errorKey, { min: MIN_PASSWORD_LENGTH });
+  const error = errorKey && t(errorKey, { min: policy.minLength });
   return { run, error, isPending, isDone };
 }

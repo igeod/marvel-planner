@@ -107,7 +107,8 @@ Solo gli utenti registrati possono creare un link (`/s/<codice>`). Il codice è 
 
 ## Sicurezza
 
-- Password salvate solo come hash (scrypt), minimo 10 caratteri
+- Password salvate solo come hash (scrypt). La regola (lunghezza minima, lettera, numero) sta nella riga `password_policy` di `site_setting` e vale subito, senza deploy:
+  `wrangler d1 execute DB --remote --command "UPDATE site_setting SET value = '{\"minLength\":10,\"requireLetter\":true,\"requireNumber\":true}' WHERE key = 'password_policy'"`
 - Sessioni in cookie `httpOnly`, `secure`, `SameSite=Lax`; ogni scrittura sulle API con `Origin` o `Sec-Fetch-Site` estranei viene rifiutata (403)
 - Limite ai tentativi sugli endpoint di autenticazione, salvato su D1
 - Input delle API validati con Zod; query parametrizzate tramite Drizzle

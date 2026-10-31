@@ -57,6 +57,13 @@
       "when": 1792842506811,
       "tag": "0007_launch_gate",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "6",
+      "when": 1792842600000,
+      "tag": "0008_password_policy",
+      "breakpoints": true
     }
   ]
 }

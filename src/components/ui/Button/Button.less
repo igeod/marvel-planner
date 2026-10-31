@@ -6,12 +6,6 @@
   }
 }
 
-@keyframes btn-pulse {
-  50% {
-    opacity: 0.35;
-  }
-}
-
 .btn {
   --btn-ring: var(--red);
   display: inline-flex;
@@ -54,13 +48,10 @@
   --btn-ring: var(--gold);
 }
 
-.btn__spinner {
-  animation: btn-spin 0.8s linear infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
+// Still under reduced motion: the label ("Saving…") carries the state.
+@media (prefers-reduced-motion: no-preference) {
   .btn__spinner {
-    animation: btn-pulse 1.6s ease-in-out infinite;
+    animation: btn-spin 0.8s linear infinite;
   }
 }
 

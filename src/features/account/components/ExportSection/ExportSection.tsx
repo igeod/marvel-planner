@@ -36,19 +36,23 @@ export function ExportSection() {
 
   return (
     <section className="export-section" aria-labelledby={headingId}>
-      <h3 id={headingId}>{t("account.export.heading")}</h3>
-      <p>{t("account.export.description")}</p>
+      <div className="export-section__row">
+        <div>
+          <h3 id={headingId}>{t("account.export.heading")}</h3>
+          <p className="muted">{t("account.export.description")}</p>
+        </div>
+        <Button
+          variant="soft"
+          icon={<Download aria-hidden />}
+          isLoading={isPending}
+          loadingLabel={t("account.export.pending")}
+          onClick={download}
+        >
+          {t("account.export.button")}
+        </Button>
+      </div>
       {hasFailed && <p role="alert">{t("account.export.error")}</p>}
       <Status>{isDone ? t("account.export.done") : ""}</Status>
-      <Button
-        variant="soft"
-        icon={<Download aria-hidden />}
-        isLoading={isPending}
-        loadingLabel={t("account.export.pending")}
-        onClick={download}
-      >
-        {t("account.export.button")}
-      </Button>
     </section>
   );
 }
