@@ -26,13 +26,19 @@ export function PasswordSection() {
   // New password and its confirmation share one eye; the current password has its own.
   const controls = `${ids.newPassword} ${ids.confirmation}`;
   const [errors, setErrors] = useState<FieldErrors<PasswordField>>({});
+  // The cross shows only after blur or submit with fewer characters than required, then stays live.
+  const [isNewFailed, setIsNewFailed] = useState(false);
+  // The mismatch error appears at the first blur of the confirmation or on submit, then stays live.
+  const [isConfirmTouched, setIsConfirmTouched] = useState(false);
   const { run, error, isPending, isDone } = useAuthAction(changePassword, () => {
     setForm(EMPTY_FORM);
     setIsVisible(false);
+    setIsNewFailed(false);
+    setIsConfirmTouched(false);
   });
   const meetsLength = isLongEnough(policy, form.newPassword);
-  // A cross shows once the user has typed something too short, or tried to submit.
-  const isLengthFailed = !meetsLength && (form.newPassword !== "" || Boolean(errors.newPassword));
+  const isLengthFailed = !meetsLength && isNewFailed;
+  const mismatch = form.confirmation !== form.newPassword;
   const isValid =
     Boolean(form.currentPassword) && meetsLength && form.confirmation === form.newPassword;
 
@@ -42,6 +48,7 @@ export function PasswordSection() {
 
   const update = (field: PasswordField) => (value: string) => {
     setReason("");
+    if (field === "newPassword" && isLongEnough(policy, value)) setIsNewFailed(false);
     setForm((current) => ({ ...current, [field]: value }));
   };
 
@@ -68,6 +75,8 @@ export function PasswordSection() {
     event.preventDefault();
     const found = validate();
     setErrors(found);
+    setIsConfirmTouched(true);
+    if (!meetsLength) setIsNewFailed(true);
     if (hasErrors(found)) {
       setReason(t("account.dialog.invalidPassword", { min: policy.minLength }));
       return focusFirstInvalidField(event.currentTarget, found);
@@ -75,11 +84,8 @@ export function PasswordSection() {
     void run({ currentPassword: form.currentPassword, newPassword: form.newPassword });
   };
 
-  // An error stays only while it still applies: fixing the other field clears a stale mismatch.
-  const errorText = (field: PasswordField) => {
-    const current = validate()[field];
-    return errors[field] && current ? t(current, { min: policy.minLength }) : null;
-  };
+  const errorText = (field: PasswordField) =>
+    errors[field] && validate()[field] ? t("auth.errors.required") : null;
 
   return (
     <section className="password-section">
@@ -107,6 +113,7 @@ export function PasswordSection() {
             toggleLabel={t("account.password.showNew")}
             after={
               <p
+                role="status"
                 className="password-requirement"
                 data-met={meetsLength || undefined}
                 data-failed={isLengthFailed || undefined}
@@ -131,7 +138,9 @@ export function PasswordSection() {
             minLength={policy.minLength}
             value={form.newPassword}
             onChange={update("newPassword")}
-            onBlur={validateOnBlur("newPassword")}
+            onBlur={() => {
+              if (form.newPassword && !meetsLength) setIsNewFailed(true);
+            }}
           />
           <PasswordField
             label={t("account.password.confirm")}
@@ -145,8 +154,8 @@ export function PasswordSection() {
             required
             value={form.confirmation}
             onChange={update("confirmation")}
-            onBlur={validateOnBlur("confirmation")}
-            error={errorText("confirmation")}
+            onBlur={() => setIsConfirmTouched(true)}
+            error={isConfirmTouched && mismatch ? t("account.password.mismatch") : null}
           />
         </div>
         <div className="password-section__actions">

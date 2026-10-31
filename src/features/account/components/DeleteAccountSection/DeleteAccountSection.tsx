@@ -61,7 +61,6 @@ export function DeleteAccountSection() {
         />
         <div className="delete-account__actions">
           {error && <p role="alert">{error}</p>}
-          <Status>{reason}</Status>
           <Button
             type="submit"
             variant="danger"
@@ -73,6 +72,7 @@ export function DeleteAccountSection() {
             {t("account.delete.button")}
           </Button>
         </div>
+        <Status className="delete-account__status">{reason}</Status>
       </form>
       <ConfirmDialog
         isOpen={isConfirming}

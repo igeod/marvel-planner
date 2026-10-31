@@ -188,18 +188,18 @@
   border-radius: var(--r-xl);
 }
 
-// The skeleton appears only after --delay-skeleton, so a quick load never flashes it.
+// The skeleton appears only after --delay-pending, so a quick load never flashes it.
 .progress-skeleton__card,
 .progress-skeleton__group {
   visibility: hidden;
-  animation: skeleton-reveal 0s linear var(--delay-skeleton) forwards;
+  animation: skeleton-reveal 0s linear var(--delay-pending) forwards;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .progress-skeleton__card,
   .progress-skeleton__group {
     animation:
-      skeleton-reveal 0s linear var(--delay-skeleton) forwards,
+      skeleton-reveal 0s linear var(--delay-pending) forwards,
       progress-pulse 1.4s ease-in-out infinite;
   }
 }

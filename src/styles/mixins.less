@@ -8,7 +8,9 @@
 
 .on-hover(@rules) {
   @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]) {
+    &:hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]):not(
+        [aria-pressed="true"]
+      ):not([aria-selected="true"]):not([aria-checked="true"]) {
       @rules();
     }
   }

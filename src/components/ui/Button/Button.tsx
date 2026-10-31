@@ -43,6 +43,7 @@ export function Button({
         onClick?.(event);
       }}
       {...rest}
+      aria-disabled={isLoading ? true : rest["aria-disabled"]}
     >
       {canLoad ? (
         <span className="btn__stack">

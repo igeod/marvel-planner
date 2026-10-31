@@ -5,8 +5,8 @@
   --field-bg: var(--surface);
   display: flex;
   flex-direction: column;
-  // Icon row, text, label and field are 12px apart.
-  gap: var(--sp-3);
+  // Title to text 16px, text to label 20px (set on the paragraph); label to field 8px (.field).
+  gap: 0;
   padding: var(--sp-5);
   border-radius: var(--r-md);
   background: var(--bg);
@@ -23,7 +23,22 @@
   }
 
   > p {
+    margin: var(--sp-4) 0 var(--sp-5);
     font-size: var(--fs-button);
+  }
+
+  // No reserved space under the field: a message takes room only when there is one.
+  .field__message:empty {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    min-height: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .delete-account__status {
+    flex: 1 1 100%;
   }
 }
 
@@ -62,8 +77,6 @@
   align-items: center;
   flex-wrap: wrap;
   gap: var(--sp-3);
-  // Lines the button up with the input: the field's message row is 20px plus the 8px gap.
-  margin-bottom: 28px;
 
   [role] {
     flex: 1;
@@ -79,6 +92,6 @@
 
   &[aria-disabled="true"] {
     background: var(--disabled);
-    color: var(--ink-2);
+    color: var(--on-disabled);
   }
 }

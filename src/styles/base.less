@@ -200,7 +200,7 @@ select {
 
   &:disabled {
     background: var(--disabled);
-    color: var(--ink-2);
+    color: var(--on-disabled);
     cursor: not-allowed;
   }
 }
@@ -298,4 +298,11 @@ progress {
   font-weight: 700;
   text-decoration: underline;
   text-underline-offset: 0.15em;
+}
+
+// No grey flash on tap; the pressed state is drawn by :active instead.
+a,
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
 }

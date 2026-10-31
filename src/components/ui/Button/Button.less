@@ -32,10 +32,19 @@
     outline-offset: var(--focus-offset);
   }
 
+  // Disabled: flat --disabled fill and --on-disabled text, never opacity. A loading button
+  // (aria-busy) keeps its full look.
   &:disabled,
-  &[aria-disabled="true"] {
-    opacity: 0.45;
+  &[aria-disabled="true"]:not([aria-busy="true"]) {
+    background: var(--disabled);
+    color: var(--on-disabled);
+    opacity: 1;
     cursor: not-allowed;
+  }
+
+  &.btn--text:disabled,
+  &.btn--text[aria-disabled="true"]:not([aria-busy="true"]) {
+    background: transparent;
   }
 
   &[aria-busy="true"] {
@@ -96,13 +105,6 @@
   .tones(var(--primary-hover), var(--primary-press));
 }
 
-.btn--primary:disabled,
-.btn--primary[aria-disabled="true"] {
-  background: var(--disabled);
-  color: var(--ink-2);
-  opacity: 1;
-}
-
 .on-panel .btn--primary,
 .title-row--open .btn--primary {
   .tones(var(--primary-hover-on-panel), var(--primary-press));
@@ -133,13 +135,6 @@
   background: var(--accent);
   color: var(--white);
   .tones(var(--accent-hover), var(--accent-active));
-
-  &:disabled,
-  &[aria-disabled="true"] {
-    background: var(--disabled);
-    color: var(--ink-2);
-    opacity: 1;
-  }
 }
 
 .btn--surface {
@@ -185,4 +180,30 @@
   color: inherit;
 
   .on-hover({ color: inherit; opacity: 0.85; });
+}
+
+// A loading button shows its normal label for --delay-pending, then the spinner, so a quick action
+// never flashes one. Width stays fixed (both labels share the same grid cell).
+.btn[aria-busy="true"] {
+  .btn__content--hidden:first-child {
+    visibility: visible;
+    animation: pending-hide 0s linear var(--delay-pending) forwards;
+  }
+
+  .btn__content:last-child:not(.btn__content--hidden) {
+    visibility: hidden;
+    animation: pending-show 0s linear var(--delay-pending) forwards;
+  }
+}
+
+@keyframes pending-hide {
+  to {
+    visibility: hidden;
+  }
+}
+
+@keyframes pending-show {
+  to {
+    visibility: visible;
+  }
 }

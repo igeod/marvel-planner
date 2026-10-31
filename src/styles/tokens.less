@@ -21,6 +21,9 @@
   --danger: #b3261e;
   --danger-text: #a11f18;
   --on-danger: #ffffff;
+  --on-disabled: #4d5465;
+  --focus-on-inverse: 3px solid var(--highlight);
+  --shadow-pop: 0 2px 4px rgba(20, 23, 31, 0.08), 0 20px 40px -16px rgba(20, 23, 31, 0.32);
   --panel: #14171f;
   --panel-2: #262b38;
   --panel-3: #14171f;
@@ -57,7 +60,10 @@
   --red-text: #f05a63;
   --danger: #f2766e;
   --danger-text: #f2766e;
-  --on-danger: #0b0d12;
+  --on-danger: #14171f;
+  --on-disabled: #f2f4f8;
+  --focus-on-inverse: 3px solid var(--ink-static);
+  --shadow-pop: inset 0 0 0 1px rgba(242, 244, 248, 0.12), 0 20px 40px -16px rgba(0, 0, 0, 0.6);
   --panel: #3a4260;
   --panel-2: #2c3346;
   --panel-3: #1b202c;
@@ -150,6 +156,8 @@
   --tap: 44px;
   --focus: 3px solid var(--accent);
   --focus-offset: 3px;
+  --popover-w: 360px;
+  --popover-gap: 8px;
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   // Five durations; an exit runs one step shorter than its entrance (240 to 180, 180 to 120, 120 to 80).
@@ -159,8 +167,8 @@
   --dur-enter: 240ms;
   --dur-progress: 600ms;
   --delay-tooltip: 400ms;
-  // A skeleton shows only after this wait, so quick loads never flash one.
-  --delay-skeleton: 200ms;
+  // Skeletons, poster pulses and button spinners show only after this wait, so quick loads never flash.
+  --delay-pending: 200ms;
   --stagger-step: 30ms;
   --stagger-max: 150ms;
   --strip-on-panel-off: #3a4260;

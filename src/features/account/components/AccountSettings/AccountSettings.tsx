@@ -9,9 +9,9 @@ import {
   type FocusEvent,
   type KeyboardEvent,
   type MutableRefObject,
-  type TouchEvent,
 } from "react";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
+import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useAuth } from "../../../auth/hooks/useAuth";
@@ -27,9 +27,6 @@ import { ProgressStatsSection } from "../ProgressStatsSection";
 export const PROFILE_TITLE_ID = "profile-title";
 
 const SHEET_QUERY = "(max-width: 639px)";
-// A downward swipe on the header closes the sheet past this distance, if mostly vertical.
-const SWIPE_CLOSE_DISTANCE = 70;
-const SWIPE_MAX_DRIFT = 40;
 // Space kept between a focused field and the edge of the visible area.
 const FIELD_MARGIN = 16;
 const FIELD_SCROLL_DELAY = 250;
@@ -69,9 +66,13 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   const navRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const dirtyForms = useRef(new Set<string>());
-  const swipeStart = useRef<{ x: number; y: number } | null>(null);
 
   const tabId = (id: Tab) => `${baseId}-tab-${id}`;
+
+  const tryCloseRef = useRef<() => void>(() => undefined);
+  // The sheet follows the finger on mobile; with unsaved changes it springs back and asks first.
+  const getDialog = useCallback(() => rootRef.current?.closest("dialog"), []);
+  useSheetDrag(getDialog, () => tryCloseRef.current(), isSheet);
 
   const reportDirty = useCallback((id: string, isDirty: boolean) => {
     if (isDirty) dirtyForms.current.add(id);
@@ -85,6 +86,7 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   };
 
   useEffect(() => {
+    tryCloseRef.current = tryClose;
     closeRef.current = tryClose;
     return () => {
       closeRef.current = null;
@@ -138,16 +140,6 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
     selectTab(TABS[(target + TABS.length) % TABS.length].id);
   };
 
-  const handleSwipeEnd = (event: TouchEvent) => {
-    const start = swipeStart.current;
-    swipeStart.current = null;
-    if (!start || !isSheet) return;
-    const touch = event.changedTouches[0];
-    const dx = touch.clientX - start.x;
-    const dy = touch.clientY - start.y;
-    if (dy > SWIPE_CLOSE_DISTANCE && Math.abs(dx) < SWIPE_MAX_DRIFT) tryClose();
-  };
-
   // Scroll the content, not the page, so a focused field clears the keyboard.
   const keepFieldVisible = (event: FocusEvent<HTMLElement>) => {
     const field = event.target;
@@ -179,14 +171,7 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   return (
     <UnsavedChangesContext value={reportDirty}>
       <div className="profile" ref={rootRef}>
-        <aside
-          className="profile__side"
-          onTouchStart={(event) => {
-            const touch = event.touches[0];
-            swipeStart.current = { x: touch.clientX, y: touch.clientY };
-          }}
-          onTouchEnd={handleSwipeEnd}
-        >
+        <aside className="profile__side">
           <div className="profile__id">
             <div className="profile__avatar" aria-hidden="true">
               {initials(user.name).slice(0, 1)}

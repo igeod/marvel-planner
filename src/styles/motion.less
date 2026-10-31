@@ -21,9 +21,9 @@ a {
   height: 1.5rem;
   border-radius: var(--r-xs);
   background: var(--poster-bg, var(--surface-2));
-  // Shown only after --delay-skeleton.
+  // Shown only after --delay-pending.
   visibility: hidden;
-  animation: skeleton-reveal 0s linear var(--delay-skeleton) forwards;
+  animation: skeleton-reveal 0s linear var(--delay-pending) forwards;
 }
 
 @keyframes skeleton-reveal {
@@ -149,13 +149,20 @@ dialog.dialog {
   }
 
   &[open]::backdrop {
-    background: var(--scrim);
+    // --drag (0 to 1) lightens the backdrop while a sheet is dragged down.
+    background: color-mix(in srgb, var(--scrim) calc((1 - var(--drag, 0)) * 100%), transparent);
     transition-duration: var(--dur-in);
 
     @starting-style {
       background: transparent;
     }
   }
+}
+
+// While a sheet follows the finger nothing eases.
+dialog[data-dragging],
+dialog[data-dragging]::backdrop {
+  transition: none !important;
 }
 
 dialog.menu-panel {
@@ -190,7 +197,7 @@ dialog.menu-panel {
 @media (prefers-reduced-motion: no-preference) {
   .skeleton {
     animation:
-      skeleton-reveal 0s linear var(--delay-skeleton) forwards,
+      skeleton-reveal 0s linear var(--delay-pending) forwards,
       skeleton-pulse 1.4s ease-in-out infinite;
   }
 
