@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Link } from "react-router";
 import { PATHS } from "../../../../app/paths";
 import { Modal } from "../../../../components/ui/Modal";
@@ -24,6 +25,9 @@ export function AuthDialogs() {
   const isAccountWithoutUser = view === "account" && !user;
   const isOpen = view !== null && !(isAccountWithoutUser && status === "anonymous");
   const currentView: AuthDialogView = view ?? "login";
+  // The profile popup registers its own close, which asks about unsaved changes first.
+  const accountClose = useRef<(() => void) | null>(null);
+  const requestClose = () => (currentView === "account" && accountClose.current) || close;
 
   return (
     <Modal
@@ -31,7 +35,7 @@ export function AuthDialogs() {
       title={t(TITLE_KEYS[currentView])}
       size={currentView === "account" ? "profile" : "md"}
       titleId={currentView === "account" ? PROFILE_TITLE_ID : undefined}
-      onClose={close}
+      onClose={() => requestClose()()}
     >
       {currentView === "login" && (
         <>
@@ -74,7 +78,9 @@ export function AuthDialogs() {
         </>
       )}
 
-      {currentView === "account" && user && <AccountSettings user={user} onClose={close} />}
+      {currentView === "account" && user && (
+        <AccountSettings user={user} onClose={close} closeRef={accountClose} />
+      )}
     </Modal>
   );
 }

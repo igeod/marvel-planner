@@ -2,11 +2,13 @@ import { KeyRound } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { PasswordField } from "../../../../components/ui/Field";
+import { Status } from "../../../../components/ui/Status";
 import { useI18n } from "../../../../i18n/useI18n";
 import { focusFirstInvalidField, hasErrors, type FieldErrors } from "../../../../lib/validation";
 import { MIN_PASSWORD_LENGTH } from "../../../auth/constants";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthAction } from "../../../auth/hooks/useAuthAction";
+import { useReportDirty } from "../../hooks/useReportDirty";
 
 const EMPTY_FORM = { currentPassword: "", newPassword: "", confirmation: "" };
 
@@ -21,8 +23,14 @@ export function PasswordSection() {
     setForm(EMPTY_FORM),
   );
 
-  const update = (field: PasswordField) => (value: string) =>
+  const [reason, setReason] = useState("");
+
+  useReportDirty("password", Object.values(form).some(Boolean));
+
+  const update = (field: PasswordField) => (value: string) => {
+    setReason("");
     setForm((current) => ({ ...current, [field]: value }));
+  };
 
   const validate = (): FieldErrors<PasswordField> => ({
     ...(!form.currentPassword ? { currentPassword: "auth.errors.required" as const } : {}),
@@ -47,7 +55,10 @@ export function PasswordSection() {
     event.preventDefault();
     const found = validate();
     setErrors(found);
-    if (hasErrors(found)) return focusFirstInvalidField(event.currentTarget, found);
+    if (hasErrors(found)) {
+      setReason(t("account.dialog.invalidPassword", { min: MIN_PASSWORD_LENGTH }));
+      return focusFirstInvalidField(event.currentTarget, found);
+    }
     void run({ currentPassword: form.currentPassword, newPassword: form.newPassword });
   };
 
@@ -96,12 +107,12 @@ export function PasswordSection() {
             icon={<KeyRound aria-hidden />}
             isLoading={isPending}
             loadingLabel={t("account.password.changing")}
-            disabled={!form.currentPassword || !form.newPassword || !form.confirmation}
+            aria-disabled={hasErrors(validate())}
           >
             {t("account.password.change")}
           </Button>
           {error && <p role="alert">{error}</p>}
-          {isDone && <p role="status">{t("account.password.changed")}</p>}
+          <Status>{reason || (isDone ? t("account.password.changed") : "")}</Status>
         </div>
       </form>
     </section>

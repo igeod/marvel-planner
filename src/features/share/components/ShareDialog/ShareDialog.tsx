@@ -4,6 +4,7 @@ import { useEffect, useId, useState } from "react";
 import type { ShareDuration, ShareLinkInfo } from "../../../../../shared/share";
 import { Button } from "../../../../components/ui/Button";
 import { Modal } from "../../../../components/ui/Modal";
+import { Status } from "../../../../components/ui/Status";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Progress } from "../../../planner/types";
@@ -58,7 +59,8 @@ function LinkDetails({ link, name, progress }: LinkDetailsProps) {
   const inputId = useId();
   const url = shareUrl(link.code);
   const [qrDataUrl, setQrDataUrl] = useState<string | null>(null);
-  const [isCopied, setIsCopied] = useState(false);
+  // Reports the real outcome of the last copy or share, never an expected one.
+  const [outcome, setOutcome] = useState("");
   const [hasImageFailed, setHasImageFailed] = useState(false);
 
   useEffect(() => {
@@ -74,9 +76,9 @@ function LinkDetails({ link, name, progress }: LinkDetailsProps) {
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(url);
-      setIsCopied(true);
+      setOutcome(t("share.copied"));
     } catch {
-      setIsCopied(false);
+      setOutcome(t("share.copyFailed", { url }));
     }
   };
 
@@ -118,6 +120,7 @@ function LinkDetails({ link, name, progress }: LinkDetailsProps) {
         title: t("share.shareTitle"),
         url,
       });
+      setOutcome(t("share.shared"));
     } catch (error) {
       if (!(error instanceof DOMException && error.name === "AbortError")) setHasImageFailed(true);
     }
@@ -132,7 +135,7 @@ function LinkDetails({ link, name, progress }: LinkDetailsProps) {
           <Copy aria-hidden />
           {t("share.copy")}
         </button>
-        <p role="status">{isCopied ? t("share.copied") : ""}</p>
+        <Status>{outcome}</Status>
       </div>
 
       <p>

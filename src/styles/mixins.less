@@ -8,7 +8,7 @@
 
 .on-hover(@rules) {
   @media (hover: hover) and (pointer: fine) {
-    &:hover:not(:disabled):not([aria-busy="true"]) {
+    &:hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]) {
       @rules();
     }
   }
@@ -17,7 +17,7 @@
 .tones(@hover, @pressed) {
   .on-hover({ background: @hover; });
 
-  &:active:not(:disabled):not([aria-busy="true"]) {
+  &:active:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]) {
     background: @pressed;
   }
 }

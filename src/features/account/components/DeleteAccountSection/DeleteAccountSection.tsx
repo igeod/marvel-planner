@@ -3,28 +3,37 @@ import { useId, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog";
 import { PasswordField } from "../../../../components/ui/Field";
+import { Status } from "../../../../components/ui/Status";
 import { useI18n } from "../../../../i18n/useI18n";
 import { focusFirstInvalidField } from "../../../../lib/validation";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthAction } from "../../../auth/hooks/useAuthAction";
+import { useReportDirty } from "../../hooks/useReportDirty";
+
+// Typed in the confirmation step; the same in every language, like the spec.
+const CONFIRM_WORD = "DELETE";
 
 export function DeleteAccountSection() {
   const { t } = useI18n();
   const { deleteAccount } = useAuth();
   const { run, error, isPending } = useAuthAction(deleteAccount);
   const [password, setPassword] = useState("");
-  const [isPasswordMissing, setIsPasswordMissing] = useState(false);
+  const [reason, setReason] = useState("");
   const [isConfirming, setIsConfirming] = useState(false);
   const headingId = useId();
 
+  useReportDirty("delete", password !== "");
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const isMissing = !password;
-    setIsPasswordMissing(isMissing);
-    if (isMissing) return focusFirstInvalidField(event.currentTarget, { password: true });
+    if (!password) {
+      setReason(t("account.dialog.invalidDelete"));
+      return focusFirstInvalidField(event.currentTarget, { password: true });
+    }
     setIsConfirming(true);
   };
 
+  // The server checks the password (better-auth deleteUser) and only then deletes.
   const confirm = () => {
     setIsConfirming(false);
     void run(password);
@@ -46,11 +55,14 @@ export function DeleteAccountSection() {
           autoComplete="current-password"
           required
           value={password}
-          onChange={setPassword}
-          error={isPasswordMissing && !password ? t("auth.errors.required") : null}
+          onChange={(value) => {
+            setPassword(value);
+            setReason("");
+          }}
         />
         <div className="delete-account__actions">
           {error && <p role="alert">{error}</p>}
+          <Status>{reason}</Status>
           <Button
             type="submit"
             variant="soft"
@@ -58,7 +70,7 @@ export function DeleteAccountSection() {
             icon={<Trash2 aria-hidden />}
             isLoading={isPending}
             loadingLabel={t("account.delete.pending")}
-            disabled={!password}
+            aria-disabled={!password}
           >
             {t("account.delete.button")}
           </Button>
@@ -70,6 +82,8 @@ export function DeleteAccountSection() {
         message={t("account.delete.confirm")}
         confirmLabel={t("account.delete.button")}
         cancelLabel={t("common.cancel")}
+        requiredText={CONFIRM_WORD}
+        requiredLabel={t("account.dialog.typeLabel", { word: CONFIRM_WORD })}
         onConfirm={confirm}
         onCancel={() => setIsConfirming(false)}
       />

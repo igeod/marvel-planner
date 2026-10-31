@@ -105,7 +105,8 @@
   .tones(var(--primary-hover), var(--primary-press));
 }
 
-.btn--primary:disabled {
+.btn--primary:disabled,
+.btn--primary[aria-disabled="true"] {
   background: var(--disabled);
   color: var(--ink-2);
   opacity: 1;
@@ -142,7 +143,8 @@
   color: var(--white);
   .tones(var(--accent-hover), var(--accent-active));
 
-  &:disabled {
+  &:disabled,
+  &[aria-disabled="true"] {
     background: var(--disabled);
     color: var(--ink-2);
     opacity: 1;

@@ -185,6 +185,8 @@ export const es: Messages = {
     linkLabel: "Enlace para compartir",
     copy: "Copiar enlace",
     copied: "Enlace copiado",
+    shared: "Compartido.",
+    copyFailed: "No se pudo copiar. Enlace: {url}",
     expires: "Caduca el {date}.",
     noExpiry: "El enlace no caduca hasta que lo desactives.",
     qrAlt: "Código QR del enlace para compartir",
@@ -389,6 +391,17 @@ export const es: Messages = {
       change: "Cambiar contraseña",
       changing: "Actualizando…",
       changed: "Contraseña actualizada.",
+    },
+    dialog: {
+      unsaved: "Tienes cambios sin guardar.",
+      keep: "Seguir editando",
+      discard: "Descartar",
+      invalidName: "Introduce al menos 3 caracteres y un nombre distinto del guardado.",
+      invalidEmail: "Introduce un correo válido y distinto del actual.",
+      invalidPassword:
+        "Rellena todos los campos. La nueva contraseña necesita al menos {min} caracteres y las dos contraseñas nuevas deben coincidir.",
+      invalidDelete: "Introduce tu contraseña para continuar.",
+      typeLabel: "Escribe {word} para confirmar.",
     },
     delete: {
       heading: "Eliminar cuenta",

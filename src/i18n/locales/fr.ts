@@ -185,6 +185,8 @@ export const fr: Messages = {
     linkLabel: "Lien à partager",
     copy: "Copier le lien",
     copied: "Lien copié",
+    shared: "Partagé.",
+    copyFailed: "Copie impossible. Lien : {url}",
     expires: "Expire le {date}.",
     noExpiry: "Le lien n'expire pas tant que vous ne le désactivez pas.",
     qrAlt: "Code QR du lien de partage",
@@ -389,6 +391,17 @@ export const fr: Messages = {
       change: "Changer le mot de passe",
       changing: "Mise à jour…",
       changed: "Mot de passe mis à jour.",
+    },
+    dialog: {
+      unsaved: "Vous avez des modifications non enregistrées.",
+      keep: "Continuer à modifier",
+      discard: "Abandonner",
+      invalidName: "Saisissez au moins 3 caractères et un nom différent de celui enregistré.",
+      invalidEmail: "Saisissez une adresse e-mail valide et différente de l'actuelle.",
+      invalidPassword:
+        "Remplissez tous les champs. Le nouveau mot de passe doit comporter au moins {min} caractères et les deux nouveaux mots de passe doivent correspondre.",
+      invalidDelete: "Saisissez votre mot de passe pour continuer.",
+      typeLabel: "Saisissez {word} pour confirmer.",
     },
     delete: {
       heading: "Supprimer le compte",

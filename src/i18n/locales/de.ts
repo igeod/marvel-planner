@@ -187,6 +187,8 @@ export const de: Messages = {
     linkLabel: "Link zum Teilen",
     copy: "Link kopieren",
     copied: "Link kopiert",
+    shared: "Geteilt.",
+    copyFailed: "Kopieren nicht möglich. Link: {url}",
     expires: "Läuft am {date} ab.",
     noExpiry: "Der Link läuft nicht ab, bis du ihn deaktivierst.",
     qrAlt: "QR-Code des Freigabelinks",
@@ -391,6 +393,17 @@ export const de: Messages = {
       change: "Passwort ändern",
       changing: "Wird aktualisiert …",
       changed: "Passwort aktualisiert.",
+    },
+    dialog: {
+      unsaved: "Du hast ungespeicherte Änderungen.",
+      keep: "Weiter bearbeiten",
+      discard: "Verwerfen",
+      invalidName: "Gib mindestens 3 Zeichen und einen vom gespeicherten abweichenden Namen ein.",
+      invalidEmail: "Gib eine gültige E-Mail-Adresse ein, die von der aktuellen abweicht.",
+      invalidPassword:
+        "Fülle alle Felder aus. Das neue Passwort braucht mindestens {min} Zeichen und beide neuen Passwörter müssen übereinstimmen.",
+      invalidDelete: "Gib dein Passwort ein, um fortzufahren.",
+      typeLabel: "Gib {word} ein, um zu bestätigen.",
     },
     delete: {
       heading: "Konto löschen",

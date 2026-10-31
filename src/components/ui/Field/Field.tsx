@@ -73,12 +73,10 @@ export function TextField({
           {hint}
         </p>
       )}
-      {error && (
-        <p id={errorId} className="field__error">
-          <CircleAlert aria-hidden />
-          {error}
-        </p>
-      )}
+      <p id={errorId} role="status" className={error ? "field__error" : "visually-hidden"}>
+        {error && <CircleAlert aria-hidden />}
+        {error}
+      </p>
     </div>
   );
 }
@@ -123,12 +121,10 @@ export function PasswordField(props: Omit<FieldProps, "type">) {
           {hint}
         </p>
       )}
-      {error && (
-        <p id={errorId} className="field__error">
-          <CircleAlert aria-hidden />
-          {error}
-        </p>
-      )}
+      <p id={errorId} role="status" className={error ? "field__error" : "visually-hidden"}>
+        {error && <CircleAlert aria-hidden />}
+        {error}
+      </p>
     </div>
   );
 }

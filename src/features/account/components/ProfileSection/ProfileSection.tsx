@@ -1,12 +1,15 @@
 import { Mail, Save } from "lucide-react";
-import { Button } from "../../../../components/ui/Button";
 import { useState, type FormEvent } from "react";
+import { Button } from "../../../../components/ui/Button";
 import { TextField } from "../../../../components/ui/Field";
+import { Status } from "../../../../components/ui/Status";
 import { useI18n } from "../../../../i18n/useI18n";
+import { isValidEmail } from "../../../../lib/validation";
+import { MIN_NAME_LENGTH } from "../../../auth/constants";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthAction } from "../../../auth/hooks/useAuthAction";
-import { isValidEmail } from "../../../../lib/validation";
 import type { User } from "../../../auth/types";
+import { useReportDirty } from "../../hooks/useReportDirty";
 
 interface ProfileSectionProps {
   user: User;
@@ -21,22 +24,32 @@ export function ProfileSection({ user }: ProfileSectionProps) {
   const [isEmailTouched, setIsEmailTouched] = useState(false);
   const [name, setName] = useState(user.name);
   const [isTouched, setIsTouched] = useState(false);
+  // Why a submit was refused; cleared as soon as the field changes.
+  const [nameReason, setNameReason] = useState("");
+  const [emailReason, setEmailReason] = useState("");
 
   const trimmedName = name.trim();
   const hasChanges = trimmedName !== user.name;
+  const canSaveName = hasChanges && trimmedName.length >= MIN_NAME_LENGTH;
 
   const trimmedEmail = email.trim();
   const emailChanged = trimmedEmail !== user.email;
   const emailValid = isValidEmail(trimmedEmail);
+  const canSaveEmail = emailChanged && emailValid;
+
+  useReportDirty("name", hasChanges);
+  useReportDirty("email", emailChanged);
 
   const handleEmailSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (emailChanged && emailValid) void emailAction.run(trimmedEmail);
+    if (!canSaveEmail) return setEmailReason(t("account.dialog.invalidEmail"));
+    void emailAction.run(trimmedEmail);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (hasChanges && trimmedName) void run(trimmedName);
+    if (!canSaveName) return setNameReason(t("account.dialog.invalidName"));
+    void run(trimmedName);
   };
 
   return (
@@ -49,7 +62,10 @@ export function ProfileSection({ user }: ProfileSectionProps) {
           required
           maxLength={30}
           value={name}
-          onChange={setName}
+          onChange={(value) => {
+            setName(value);
+            setNameReason("");
+          }}
           onBlur={() => setIsTouched(true)}
           error={isTouched && !trimmedName ? t("auth.errors.required") : null}
           hint={t("auth.nameHint")}
@@ -61,12 +77,12 @@ export function ProfileSection({ user }: ProfileSectionProps) {
             icon={<Save aria-hidden />}
             isLoading={isPending}
             loadingLabel={t("account.profile.saving")}
-            disabled={!hasChanges || !trimmedName}
+            aria-disabled={!canSaveName}
           >
             {t("account.profile.save")}
           </Button>
           {error && <p role="alert">{error}</p>}
-          {isDone && !hasChanges && <p role="status">{t("account.profile.saved")}</p>}
+          <Status>{nameReason || (isDone && !hasChanges ? t("account.profile.saved") : "")}</Status>
         </div>
       </form>
       <form onSubmit={handleEmailSubmit} noValidate className="profile-section__second">
@@ -77,7 +93,10 @@ export function ProfileSection({ user }: ProfileSectionProps) {
           autoComplete="email"
           required
           value={email}
-          onChange={setEmail}
+          onChange={(value) => {
+            setEmail(value);
+            setEmailReason("");
+          }}
           onBlur={() => setIsEmailTouched(true)}
           error={isEmailTouched && !emailValid ? t("auth.errors.invalidEmail") : null}
         />
@@ -88,14 +107,15 @@ export function ProfileSection({ user }: ProfileSectionProps) {
             icon={<Mail aria-hidden />}
             isLoading={emailAction.isPending}
             loadingLabel={t("account.profile.saving")}
-            disabled={!emailChanged || !emailValid}
+            aria-disabled={!canSaveEmail}
           >
             {t("account.profile.emailSave")}
           </Button>
           {emailAction.error && <p role="alert">{emailAction.error}</p>}
-          {emailAction.isDone && !emailChanged && (
-            <p role="status">{t("account.profile.emailSaved")}</p>
-          )}
+          <Status>
+            {emailReason ||
+              (emailAction.isDone && !emailChanged ? t("account.profile.emailSaved") : "")}
+          </Status>
         </div>
       </form>
     </section>

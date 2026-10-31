@@ -184,6 +184,8 @@ export const en: Messages = {
     linkLabel: "Link to share",
     copy: "Copy link",
     copied: "Link copied",
+    shared: "Shared.",
+    copyFailed: "Could not copy. Link: {url}",
     expires: "Expires on {date}.",
     noExpiry: "The link does not expire until you turn it off.",
     qrAlt: "QR code of the sharing link",
@@ -388,6 +390,17 @@ export const en: Messages = {
       change: "Change password",
       changing: "Updating…",
       changed: "Password updated.",
+    },
+    dialog: {
+      unsaved: "You have unsaved changes.",
+      keep: "Keep editing",
+      discard: "Discard",
+      invalidName: "Enter at least 3 characters and a name different from the saved one.",
+      invalidEmail: "Enter a valid email different from the current one.",
+      invalidPassword:
+        "Fill in all fields. The new password needs {min}+ characters and both new passwords must match.",
+      invalidDelete: "Enter your password to continue.",
+      typeLabel: "Type {word} to confirm.",
     },
     delete: {
       heading: "Delete account",

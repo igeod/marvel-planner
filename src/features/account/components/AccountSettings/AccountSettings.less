@@ -8,11 +8,29 @@ dialog.dialog--profile {
   height: 640px;
   max-height: calc(100dvh - 64px);
   overflow: hidden;
+  // Nothing scrolls here, so no gutter: it would narrow the content by the scrollbar width.
+  scrollbar-gutter: auto;
 
+  // The dialog itself holds focus when opened; a ring around the whole popup says nothing.
+  &:focus {
+    outline: none;
+  }
+
+  // --viewport-height is the visual viewport, set by AccountSettings, so keyboards and browser bars
+  // never cover the fields.
   @media (max-width: 639px) {
     width: 100%;
     max-width: 100%;
-    height: min(760px, calc(100dvh - 48px));
+    height: min(760px, calc(var(--viewport-height, 100dvh) - 48px));
+    max-height: calc(var(--viewport-height, 100dvh) - 48px);
+  }
+}
+
+// Help text and captions in the popup are 14px.
+.dialog--profile {
+  .field__hint,
+  .field__error {
+    font-size: var(--fs-label);
   }
 }
 
@@ -52,6 +70,8 @@ dialog.dialog--profile {
   @media (max-width: 639px) {
     flex-direction: row;
     align-items: center;
+    // Room for the close button.
+    padding-right: 52px;
   }
 }
 
@@ -89,6 +109,7 @@ dialog.dialog--profile {
 }
 
 .profile__nav {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--sp-1);
@@ -118,12 +139,12 @@ dialog.dialog--profile {
   }
 
   // Hover and press only on tabs that are not selected.
-  &:not([aria-current="page"]) {
+  &:not([aria-selected="true"]) {
     .tones(var(--row-hover), var(--row-press));
     .on-hover({ color: var(--ink); });
   }
 
-  &[aria-current="page"] {
+  &[aria-selected="true"] {
     background: var(--ink);
     color: var(--surface);
   }
@@ -143,7 +164,7 @@ dialog.dialog--profile {
   padding: var(--pad-popup);
 
   @media (max-width: 639px) {
-    padding: var(--sp-5);
+    padding: var(--sp-5) var(--sp-5) calc(var(--sp-5) + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -152,10 +173,6 @@ dialog.dialog--profile {
   top: 12px;
   right: 12px;
   z-index: 1;
-
-  @media (max-width: 639px) {
-    display: none;
-  }
 }
 
 .profile__title {
@@ -181,6 +198,17 @@ dialog.dialog--profile {
   flex-direction: column;
   gap: var(--sp-4);
   padding: 2px;
+}
+
+.profile__panel {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+
+  &[hidden] {
+    display: none;
+  }
 
   > section + section:not(.delete-account) {
     padding-top: var(--sp-4);
@@ -201,11 +229,59 @@ dialog.dialog--profile {
   flex-wrap: wrap;
 
   &,
-  .profile__scroll > & {
+  .profile__panel > & {
     flex-direction: row;
   }
 
   h3 {
     font-weight: 800;
   }
+}
+
+// Shown over the bottom of the popup when it is closed with edits not yet saved.
+.profile__unsaved {
+  position: absolute;
+  z-index: 2;
+  left: var(--sp-3);
+  right: var(--sp-3);
+  bottom: calc(var(--sp-3) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--ink);
+  color: var(--surface);
+  font-weight: 700;
+}
+
+.profile__unsaved-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+
+  button {
+    min-height: var(--tap);
+    padding: 0 var(--sp-5);
+    .pill();
+    font-weight: 800;
+
+    &:focus-visible {
+      outline: 3px solid var(--highlight);
+      outline-offset: 2px;
+    }
+  }
+}
+
+.profile__keep {
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.profile__discard {
+  background: transparent;
+  color: var(--surface);
+  box-shadow: inset 0 0 0 2px var(--surface);
 }

@@ -182,6 +182,8 @@ export const it = {
     linkLabel: "Link da condividere",
     copy: "Copia link",
     copied: "Link copiato",
+    shared: "Condiviso.",
+    copyFailed: "Impossibile copiare. Link: {url}",
     expires: "Scade il {date}.",
     noExpiry: "Il link non scade finché non lo disattivi.",
     qrAlt: "Codice QR del link di condivisione",
@@ -386,6 +388,17 @@ export const it = {
       change: "Cambia password",
       changing: "Aggiornamento…",
       changed: "Password aggiornata.",
+    },
+    dialog: {
+      unsaved: "Hai modifiche non salvate.",
+      keep: "Continua a modificare",
+      discard: "Scarta",
+      invalidName: "Inserisci almeno 3 caratteri e un nome diverso da quello salvato.",
+      invalidEmail: "Inserisci un'email valida e diversa da quella attuale.",
+      invalidPassword:
+        "Compila tutti i campi. La nuova password deve avere almeno {min} caratteri e le due nuove password devono coincidere.",
+      invalidDelete: "Inserisci la password per continuare.",
+      typeLabel: "Scrivi {word} per confermare.",
     },
     delete: {
       heading: "Elimina account",

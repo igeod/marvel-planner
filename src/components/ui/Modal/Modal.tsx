@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useId, type ReactNode } from "react";
+import { useEffect, useId, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useI18n } from "../../../i18n/useI18n";
 import { useDialog } from "../useDialog";
@@ -31,9 +31,15 @@ export function Modal({
   // The profile dialog draws its own header.
   const isBare = size === "profile";
 
+  // Focus starts on the dialog itself, not on its first control.
+  useEffect(() => {
+    if (isOpen && isBare) dialogRef.current?.focus();
+  }, [isOpen, isBare, dialogRef]);
+
   return createPortal(
     <dialog
       ref={dialogRef}
+      tabIndex={isBare ? -1 : undefined}
       className={`dialog dialog--${size}`}
       aria-modal="true"
       aria-labelledby={ownTitleId || !isBare ? titleId : undefined}
