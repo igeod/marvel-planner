@@ -99,27 +99,19 @@
   color: var(--panel-muted);
 }
 
+// Hover only on options that are not selected, so a selected one never turns grey.
 .choice {
   .on-hover({
-    .choice__face {
+    .choice__input:not(:checked) + .choice__face {
       background: var(--cell-off);
     }
   });
 }
 
-.choice__input:checked + .choice__face,
-.choice:hover .choice__input:checked + .choice__face {
-  background: var(--ink);
-}
-
 .on-panel .choice {
   .on-hover({
-    .choice__face {
+    .choice__input:not(:checked) + .choice__face {
       background: var(--raised-2);
     }
   });
-}
-
-.on-panel .choice__input:checked + .choice__face {
-  background: var(--gold);
 }

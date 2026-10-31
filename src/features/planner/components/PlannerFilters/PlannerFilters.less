@@ -1,10 +1,24 @@
 @import (reference) "mixins";
 
-.filters-card.card {
-  box-shadow: none;
+.filters-popover-wrap {
   display: flex;
+}
+
+// Top-layer popover under the button; the UA centres popovers, so reset that.
+.filters-popover.card {
+  position: fixed;
+  inset: auto;
+  margin: 0;
+  box-shadow: var(--shadow-popup);
+  display: none;
   flex-direction: column;
   gap: 20px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+
+  &:popover-open {
+    display: flex;
+  }
 }
 
 .filters-card__header {
@@ -15,11 +29,11 @@
   min-height: 44px;
 }
 
-.filters-card .choice__face {
+.filters-popover .choice__face {
   min-height: 48px;
 }
 
-.filters-card [role="status"] {
+.filters-popover [role="status"] {
   font-size: var(--fs-label);
 }
 

@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useId, useState } from "react";
+import { useId, useRef, useState, type PointerEvent } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "../../../../components/ui/Button";
 import { useDialog } from "../../../../components/ui/useDialog";
@@ -60,6 +60,9 @@ export function FiltersSheet({
   );
 }
 
+// Dragging the header down past this distance closes (discards) the sheet.
+const DRAG_CLOSE_DISTANCE = 80;
+
 interface FiltersSheetBodyProps extends Omit<FiltersSheetProps, "isOpen"> {
   titleId: string;
 }
@@ -78,6 +81,31 @@ function FiltersSheetBody({
   const [draft, setDraft] = useState(filters);
   const [draftOrder, setDraftOrder] = useState(viewOrder);
 
+  const drag = useRef<{ startY: number; dy: number; dialog: HTMLElement } | null>(null);
+
+  // The sheet follows the finger with no transition; on release it closes or springs back in 180ms.
+  const startDrag = (event: PointerEvent<HTMLElement>) => {
+    const dialog = event.currentTarget.closest("dialog");
+    if (!dialog || (event.target as HTMLElement).closest("button")) return;
+    drag.current = { startY: event.clientY, dy: 0, dialog };
+    event.currentTarget.setPointerCapture(event.pointerId);
+    dialog.style.transition = "none";
+  };
+  const moveDrag = (event: PointerEvent<HTMLElement>) => {
+    const current = drag.current;
+    if (!current) return;
+    current.dy = Math.max(0, event.clientY - current.startY);
+    current.dialog.style.transform = `translateY(${current.dy}px)`;
+  };
+  const endDrag = () => {
+    const current = drag.current;
+    drag.current = null;
+    if (!current) return;
+    current.dialog.style.transition = "";
+    current.dialog.style.transform = "";
+    if (current.dy > DRAG_CLOSE_DISTANCE) onClose();
+  };
+
   const apply = () => {
     onChange(draft);
     onViewOrderChange(draftOrder);
@@ -86,7 +114,13 @@ function FiltersSheetBody({
 
   return (
     <div className="filters-sheet__body">
-      <div className="filters-sheet__header">
+      <div
+        className="filters-sheet__header"
+        onPointerDown={startDrag}
+        onPointerMove={moveDrag}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+      >
         <h2 id={titleId} className="filters-sheet__title">
           {t("planner.filters.heading")}
         </h2>

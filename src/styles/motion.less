@@ -163,6 +163,24 @@ dialog.menu-panel {
   --dur-out: var(--dur-hover);
 }
 
+// Desktop filters popover: 180ms in, 120ms out; opacity only under reduced motion.
+.filters-popover {
+  opacity: 0;
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    display var(--dur-hover) allow-discrete,
+    overlay var(--dur-hover) allow-discrete;
+
+  &:popover-open {
+    opacity: 1;
+    transition-duration: var(--dur-ui);
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
 // The result list fades from 60%, not from 0, so the page never flashes empty.
 .planner__list--swap {
   animation: list-swap-in var(--dur-hover) var(--ease-out);
@@ -318,6 +336,24 @@ dialog.menu-panel {
     animation: swap-in var(--dur-ui) var(--ease-out);
   }
 
+  .filters-popover {
+    transform: translateY(-8px);
+    transition:
+      opacity var(--dur-hover) var(--ease-out),
+      transform var(--dur-hover) var(--ease-out),
+      display var(--dur-hover) allow-discrete,
+      overlay var(--dur-hover) allow-discrete;
+
+    &:popover-open {
+      transform: none;
+      transition-duration: var(--dur-ui);
+
+      @starting-style {
+        transform: translateY(-8px);
+      }
+    }
+  }
+
   .profile__panel:not([hidden]) {
     animation-name: swap-in;
   }
@@ -417,6 +453,11 @@ dialog.menu-panel {
         transform: var(--enter);
       }
     }
+  }
+
+  // Filters on mobile are a bottom sheet like the popup.
+  dialog.filters-sheet {
+    --enter: translateY(100%);
   }
 
   // Header menu: 180ms in, 120ms out.
