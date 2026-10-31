@@ -115,7 +115,7 @@ a {
 // Skeleton pulse while a poster loads; static under reduced motion (the ring pulses instead).
 @media (prefers-reduced-motion: no-preference) {
   .poster-image:has(.poster-image__state--loading) {
-    animation: skeleton-pulse 1.4s ease-in-out infinite;
+    animation: skeleton-pulse 1.4s ease-in-out var(--delay-pending) infinite;
   }
 }
 
