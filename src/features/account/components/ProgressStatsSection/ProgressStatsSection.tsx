@@ -10,6 +10,9 @@ import type { Progress } from "../../../planner/types";
 import { ShareDialog } from "../../../share/components/ShareDialog";
 import { computeStats } from "../../utils/stats";
 
+// The bars fill from 0 once per page load; reopening the popup or the tab does not replay it.
+let hasFilledOnce = false;
+
 type State =
   { status: "loading" } | { status: "error" } | { status: "ready"; watched: Set<string> };
 
@@ -100,10 +103,15 @@ export function ProgressStatsSection() {
   const catalog = useResolvedCatalog();
   const [state, retry] = useAccountProgress();
   const [isShareOpen, setIsShareOpen] = useState(false);
+  const [isFirstFill] = useState(() => !hasFilledOnce);
   const stats = useMemo(
     () => (state.status === "ready" ? computeStats(catalog, state.watched) : null),
     [catalog, state],
   );
+
+  useEffect(() => {
+    if (state.status === "ready") hasFilledOnce = true;
+  }, [state.status]);
 
   if (state.status === "loading") return <ProgressSkeleton />;
   if (state.status === "error") {
@@ -122,7 +130,7 @@ export function ProgressStatsSection() {
   const percent = total > 0 ? Math.round((done / total) * 100) : 0;
 
   return (
-    <section className="progress-stats">
+    <section className={`progress-stats${isFirstFill ? " progress-stats--first" : ""}`}>
       <div className="progress-total">
         <div className="progress-total__row">
           <div>

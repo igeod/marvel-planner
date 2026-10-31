@@ -15,6 +15,8 @@ import { TitleSummaryPanel } from "../TitleSummaryPanel";
 
 // Matches --dur-enter (240ms), the accordion opening time.
 const OPEN_ANIMATION_MS = 240;
+// Matches --dur-ui (180ms): how long a row counts as "just marked" and animates.
+const JUST_MARKED_MS = 180;
 
 interface TitleItemProps {
   title: Title;
@@ -29,6 +31,20 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const rowRef = useRef<HTMLLIElement>(null);
+  const [isJustMarked, setIsJustMarked] = useState(false);
+  const markedTimerRef = useRef<number | undefined>(undefined);
+
+  useEffect(() => () => window.clearTimeout(markedTimerRef.current), []);
+
+  // Only a click on an unwatched title animates its row; loading, filters and "mark all" do not.
+  const toggle = () => {
+    window.clearTimeout(markedTimerRef.current);
+    setIsJustMarked(!isWatched);
+    if (!isWatched) {
+      markedTimerRef.current = window.setTimeout(() => setIsJustMarked(false), JUST_MARKED_MS);
+    }
+    onToggle(title.id);
+  };
 
   // Scrolls only when the open panel's bottom falls below the viewport, once the open animation ends.
   useEffect(() => {
@@ -52,13 +68,17 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
     .join(", ");
 
   return (
-    <li ref={rowRef} className={`title-row${isOpen ? " title-row--open" : ""}`}>
+    <li
+      ref={rowRef}
+      className={`title-row${isOpen ? " title-row--open" : ""}`}
+      data-just-marked={isJustMarked || undefined}
+    >
       <label className="title-row__check">
         <input
           type="checkbox"
           checked={isWatched}
           aria-label={t("planner.markWatched", { name: title.name })}
-          onChange={() => onToggle(title.id)}
+          onChange={toggle}
         />
         <span className="title-row__box" aria-hidden="true">
           <Check />
@@ -87,7 +107,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
 
         {hasBeenOpened && (
           <div className="title-row__content">
-            <MarkWatchedButton isWatched={isWatched} onToggle={() => onToggle(title.id)} />
+            <MarkWatchedButton isWatched={isWatched} onToggle={toggle} />
             <TitleSummaryPanel titleId={title.id} />
             <BeforeYouWatch title={title} watched={watched} />
             <div className="title-row__actions">

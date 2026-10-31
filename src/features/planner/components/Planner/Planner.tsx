@@ -213,7 +213,7 @@ export function Planner({ shareCode }: PlannerProps) {
               onChange={setFilters}
               viewOrder={viewOrder}
               onViewOrderChange={setViewOrder}
-              shown={shownCount}
+              countFor={(next) => allTitles.filter((title) => matchesFilters(title, next)).length}
             />
           </>
         )}

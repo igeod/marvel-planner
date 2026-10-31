@@ -21,6 +21,15 @@ a {
   height: 1.5rem;
   border-radius: var(--r-xs);
   background: var(--poster-bg, var(--surface-2));
+  // Shown only after --delay-skeleton.
+  visibility: hidden;
+  animation: skeleton-reveal 0s linear var(--delay-skeleton) forwards;
+}
+
+@keyframes skeleton-reveal {
+  to {
+    visibility: visible;
+  }
 }
 
 .details-skeleton {
@@ -52,21 +61,30 @@ a {
     color var(--dur-ui) var(--ease-out);
 }
 
+// Hover and unmarking take 120ms; a row just marked by the user takes 180ms.
 .title-row {
   transition:
-    background-color var(--dur-ui) var(--ease-out),
-    color var(--dur-ui) var(--ease-out);
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out);
+
+  &[data-just-marked] {
+    transition-duration: var(--dur-ui);
+  }
 }
 
 .phase-strip__cell,
 .title-row__box {
   transition:
-    background-color var(--dur-ui) var(--ease-out),
-    border-color var(--dur-ui) var(--ease-out);
+    background-color var(--dur-hover) var(--ease-out),
+    border-color var(--dur-hover) var(--ease-out);
 }
 
 .title-row__box svg {
-  transition: opacity var(--dur-ui) var(--ease-out);
+  transition: opacity var(--dur-hover) var(--ease-out);
+}
+
+.title-row[data-just-marked] .title-row__box {
+  transition-duration: var(--dur-ui);
 }
 
 .mark-watched__pill {
@@ -145,6 +163,11 @@ dialog.menu-panel {
   --dur-out: var(--dur-hover);
 }
 
+// The result list fades from 60%, not from 0, so the page never flashes empty.
+.planner__list--swap {
+  animation: list-swap-in var(--dur-hover) var(--ease-out);
+}
+
 // Profile tab panel, unsaved banner and field errors fade in under reduced motion too (80ms);
 // their movement is added inside the no-preference block below.
 .profile__panel:not([hidden]) {
@@ -166,7 +189,9 @@ dialog.menu-panel {
 
 @media (prefers-reduced-motion: no-preference) {
   .skeleton {
-    animation: skeleton-pulse 1.4s ease-in-out infinite;
+    animation:
+      skeleton-reveal 0s linear var(--delay-skeleton) forwards,
+      skeleton-pulse 1.4s ease-in-out infinite;
   }
 
   .btn,
@@ -194,11 +219,17 @@ dialog.menu-panel {
     transform: scale(0.98);
   }
 
-  // First fill takes 600ms; later updates (the transition) take 240ms.
+  // Later updates take 240ms; the first fill (600ms) is added by .progress-stats--first.
   .progress-total__bar span,
   .progress-row__bar span {
-    animation: bar-fill var(--dur-progress) var(--ease-out);
     transition: width var(--dur-enter) var(--ease-out);
+  }
+
+  .progress-stats--first {
+    .progress-total__bar span,
+    .progress-row__bar span {
+      animation: bar-fill var(--dur-progress) var(--ease-out);
+    }
   }
 
   .btn--text:active:not(:disabled):not([aria-busy="true"]) {
@@ -279,16 +310,12 @@ dialog.menu-panel {
     animation: check-draw var(--dur-ui) var(--ease-out);
   }
 
-  .title-row__name s {
+  .title-row[data-just-marked] .title-row__name s {
     animation: strike-in var(--dur-ui) var(--ease-out);
   }
 
   .next-card__swap {
     animation: swap-in var(--dur-ui) var(--ease-out);
-  }
-
-  .planner__list--swap {
-    animation: fade-in var(--dur-hover) var(--ease-out);
   }
 
   .profile__panel:not([hidden]) {
@@ -438,6 +465,12 @@ dialog.menu-panel {
 @keyframes fade-in {
   from {
     opacity: 0;
+  }
+}
+
+@keyframes list-swap-in {
+  from {
+    opacity: 0.6;
   }
 }
 

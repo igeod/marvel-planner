@@ -1,5 +1,5 @@
 import { X } from "lucide-react";
-import { useId } from "react";
+import { useId, useState } from "react";
 import { createPortal } from "react-dom";
 import { Button } from "../../../../components/ui/Button";
 import { useDialog } from "../../../../components/ui/useDialog";
@@ -15,7 +15,8 @@ interface FiltersSheetProps {
   onChange: (filters: Filters) => void;
   viewOrder: ViewOrder;
   onViewOrderChange: (order: ViewOrder) => void;
-  shown: number;
+  // Matches for a set of filters, so the Apply button can show the count before applying.
+  countFor: (filters: Filters) => number;
 }
 
 export function FiltersSheet({
@@ -25,9 +26,8 @@ export function FiltersSheet({
   onChange,
   viewOrder,
   onViewOrderChange,
-  shown,
+  countFor,
 }: FiltersSheetProps) {
-  const { t } = useI18n();
   const dialogRef = useDialog(isOpen);
   const titleId = useId();
 
@@ -45,40 +45,77 @@ export function FiltersSheet({
       }}
     >
       {isOpen && (
-        <div className="filters-sheet__body">
-          <div className="filters-sheet__header">
-            <h2 id={titleId} className="filters-sheet__title">
-              {t("planner.filters.heading")}
-            </h2>
-            <Button
-              variant="soft"
-              icon={<X aria-hidden />}
-              aria-label={t("common.close")}
-              onClick={onClose}
-            />
-          </div>
-          <FiltersFields
-            filters={filters}
-            onChange={onChange}
-            viewOrder={viewOrder}
-            onViewOrderChange={onViewOrderChange}
-          />
-          <div className="filters-sheet__actions">
-            <Button
-              variant="soft"
-              size="lg"
-              disabled={areDefaultFilters(filters)}
-              onClick={() => onChange(DEFAULT_FILTERS)}
-            >
-              {t("planner.filters.clear")}
-            </Button>
-            <Button variant="primary" size="lg" onClick={onClose}>
-              {t("planner.filters.show", { count: shown })}
-            </Button>
-          </div>
-        </div>
+        <FiltersSheetBody
+          titleId={titleId}
+          onClose={onClose}
+          filters={filters}
+          onChange={onChange}
+          viewOrder={viewOrder}
+          onViewOrderChange={onViewOrderChange}
+          countFor={countFor}
+        />
       )}
     </dialog>,
     document.body,
+  );
+}
+
+interface FiltersSheetBodyProps extends Omit<FiltersSheetProps, "isOpen"> {
+  titleId: string;
+}
+
+// Edits a draft: results change on Apply; the close button, Esc and the backdrop discard it.
+function FiltersSheetBody({
+  titleId,
+  onClose,
+  filters,
+  onChange,
+  viewOrder,
+  onViewOrderChange,
+  countFor,
+}: FiltersSheetBodyProps) {
+  const { t } = useI18n();
+  const [draft, setDraft] = useState(filters);
+  const [draftOrder, setDraftOrder] = useState(viewOrder);
+
+  const apply = () => {
+    onChange(draft);
+    onViewOrderChange(draftOrder);
+    onClose();
+  };
+
+  return (
+    <div className="filters-sheet__body">
+      <div className="filters-sheet__header">
+        <h2 id={titleId} className="filters-sheet__title">
+          {t("planner.filters.heading")}
+        </h2>
+        <Button
+          variant="soft"
+          icon={<X aria-hidden />}
+          aria-label={t("common.close")}
+          onClick={onClose}
+        />
+      </div>
+      <FiltersFields
+        filters={draft}
+        onChange={setDraft}
+        viewOrder={draftOrder}
+        onViewOrderChange={setDraftOrder}
+      />
+      <div className="filters-sheet__actions">
+        <Button
+          variant="soft"
+          size="lg"
+          aria-disabled={areDefaultFilters(draft)}
+          onClick={() => !areDefaultFilters(draft) && setDraft(DEFAULT_FILTERS)}
+        >
+          {t("planner.filters.clear")}
+        </Button>
+        <Button variant="primary" size="lg" onClick={apply}>
+          {t("planner.filters.show", { count: countFor(draft) })}
+        </Button>
+      </div>
+    </div>
   );
 }
