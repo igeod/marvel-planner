@@ -1,11 +1,13 @@
-import { Check, Code, Copy, ExternalLink } from "lucide-react";
+import { Check, CircleAlert, Clock, Code, Copy, ExternalLink } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 import { useLocation } from "react-router";
-import type { AdminCandidate } from "../../../../../shared/admin";
+import type { AdminCandidate, JobRun } from "../../../../../shared/admin";
 import { buildCatalogSnippet } from "../../../../../shared/catalogCandidate";
 import { useI18n } from "../../../../i18n/useI18n";
 import { todayIso } from "../../../planner/utils/releases";
+import type { TranslationKey } from "../../../../i18n/types";
 import { tmdbUrl } from "../../services/adminService";
+import { searchReliability, type SearchReliability } from "../../utils/jobStatus";
 
 const COPIED_MS = 2000;
 
@@ -125,16 +127,83 @@ function CandidateItem({ candidate, onDismiss, onCopied }: CandidateItemProps) {
   );
 }
 
+const EMPTY_MESSAGE: Record<SearchReliability, TranslationKey> = {
+  ok: "admin.candidates.empty",
+  noToken: "admin.candidates.unreliable.noToken",
+  error: "admin.candidates.unreliable.error",
+  late: "admin.candidates.unreliable.late",
+  never: "admin.candidates.unreliable.never",
+};
+const EMPTY_ICON = {
+  ok: Check,
+  noToken: CircleAlert,
+  error: CircleAlert,
+  late: Clock,
+  never: Clock,
+};
+const EMPTY_TONE = {
+  ok: "",
+  noToken: " candidates__empty-icon--error",
+  error: " candidates__empty-icon--error",
+  late: " candidates__empty-icon--late",
+  never: " candidates__empty-icon--late",
+};
+
+// "No titles" can be false when the weekly search did not work, so the row says so instead.
+function EmptyState({
+  id,
+  tmdbConfigured,
+  weeklyRun,
+}: {
+  id: string;
+  tmdbConfigured: boolean;
+  weeklyRun: JobRun | null;
+}) {
+  const { t, language } = useI18n();
+  const reliability = searchReliability(tmdbConfigured, weeklyRun);
+  const Icon = EMPTY_ICON[reliability];
+  const date =
+    weeklyRun &&
+    new Intl.DateTimeFormat(language, { dateStyle: "medium", timeStyle: "short" }).format(
+      new Date(weeklyRun.at),
+    );
+
+  return (
+    <div id={id} className="candidates__empty">
+      <span className={`candidates__empty-icon${EMPTY_TONE[reliability]}`} aria-hidden="true">
+        <Icon />
+      </span>
+      <div className="candidates__empty-text">
+        <p>{t(EMPTY_MESSAGE[reliability])}</p>
+        {date && reliability === "ok" && <p>{t("admin.candidates.lastSearch", { date })}</p>}
+        {date && (reliability === "error" || reliability === "late") && (
+          <p>{t("admin.automation.lastRun", { date })}</p>
+        )}
+      </div>
+    </div>
+  );
+}
+
 interface CandidatesSectionProps {
   candidates: AdminCandidate[];
   onDismiss: (key: string) => void;
   onCopied: (key: string) => void;
+  tmdbConfigured: boolean;
+  weeklyRun: JobRun | null;
 }
 
-export function CandidatesSection({ candidates, onDismiss, onCopied }: CandidatesSectionProps) {
+export function CandidatesSection({
+  candidates,
+  onDismiss,
+  onCopied,
+  tmdbConfigured,
+  weeklyRun,
+}: CandidatesSectionProps) {
   const { t } = useI18n();
   const { hash } = useLocation();
   const headingId = useId();
+  const emptyId = useId();
+  const isEmpty = candidates.length === 0;
   const sectionRef = useRef<HTMLElement>(null);
   const headingNode = useRef<HTMLHeadingElement | null>(null);
   const [announcement, setAnnouncement] = useState("");
@@ -163,11 +232,16 @@ export function CandidatesSection({ candidates, onDismiss, onCopied }: Candidate
 
   return (
     <section id="candidati" className="candidates" aria-labelledby={headingId} ref={sectionRef}>
-      <h2 id={headingId} tabIndex={-1} ref={headingNode}>
+      <h2
+        id={headingId}
+        tabIndex={-1}
+        ref={headingNode}
+        aria-describedby={isEmpty ? emptyId : undefined}
+      >
         {t("admin.heading")}
       </h2>
-      {candidates.length === 0 ? (
-        <p>{t("admin.candidates.empty")}</p>
+      {isEmpty ? (
+        <EmptyState id={emptyId} tmdbConfigured={tmdbConfigured} weeklyRun={weeklyRun} />
       ) : (
         <>
           <p>{t("admin.intro")}</p>

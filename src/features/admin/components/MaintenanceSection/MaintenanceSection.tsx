@@ -6,18 +6,31 @@ import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
 
 interface MaintenanceSectionProps {
   isOn: boolean;
-  onChange: (enabled: boolean) => void;
+  onChange: (enabled: boolean) => Promise<boolean>;
 }
 
 export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) {
   const { t } = useI18n();
   const { refresh } = useSiteStatus();
   const [isConfirming, setIsConfirming] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [hasFailed, setHasFailed] = useState(false);
   const headingId = useId();
 
-  const apply = (enabled: boolean) => {
-    setIsConfirming(false);
-    onChange(enabled);
+  // The dialog stays open while the request runs; if it fails it stays open with the error.
+  const confirm = async () => {
+    setIsPending(true);
+    setHasFailed(false);
+    const ok = await onChange(true);
+    setIsPending(false);
+    if (ok) {
+      setIsConfirming(false);
+      refresh();
+    } else setHasFailed(true);
+  };
+
+  const disable = async () => {
+    await onChange(false);
     refresh();
   };
 
@@ -44,7 +57,8 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
         <button
           type="button"
           className={`btn ${isOn ? "btn--primary" : "btn--soft"}`}
-          onClick={() => (isOn ? apply(false) : setIsConfirming(true))}
+          aria-haspopup={isOn ? undefined : "dialog"}
+          onClick={() => (isOn ? void disable() : setIsConfirming(true))}
         >
           {isOn ? t("admin.maintenance.disable") : t("admin.maintenance.enable")}
         </button>
@@ -56,8 +70,16 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
         message={t("admin.maintenance.confirmMessage")}
         confirmLabel={t("admin.maintenance.enable")}
         cancelLabel={t("common.cancel")}
-        onConfirm={() => apply(true)}
-        onCancel={() => setIsConfirming(false)}
+        tone="warning"
+        icon={<TriangleAlert />}
+        isPending={isPending}
+        pendingLabel={t("admin.maintenance.confirmPending")}
+        error={hasFailed ? t("admin.actionError") : undefined}
+        onConfirm={() => void confirm()}
+        onCancel={() => {
+          setIsConfirming(false);
+          setHasFailed(false);
+        }}
       />
     </section>
   );

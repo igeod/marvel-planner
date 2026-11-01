@@ -549,9 +549,10 @@ export const de: Messages = {
       off: "Seite online",
       enable: "Wartung aktivieren",
       disable: "Wartung deaktivieren",
-      confirmTitle: "Wartung aktivieren?",
+      confirmTitle: "Wartungsmodus aktivieren?",
       confirmMessage:
-        "Andere Nutzer können die Seite nicht mehr verwenden, bis du die Wartung deaktivierst.",
+        "Andere Nutzer sehen nur eine Hinweisseite (Fehler 503). Du kannst die Website weiter nutzen. Ausschalten kannst du den Modus unter „Status der Website“.",
+      confirmPending: "Wartungsmodus wird aktiviert",
     },
     automation: {
       heading: "Automatische Aufgaben",
@@ -580,6 +581,13 @@ export const de: Messages = {
     },
     candidates: {
       empty: "Keine neuen Titel zu prüfen.",
+      lastSearch: "Letzte Suche: {date}",
+      unreliable: {
+        error: "Die Suche ist fehlgeschlagen: Die Liste kann unvollständig sein.",
+        late: "Die Suche lief seit über 8 Tagen nicht: Die Liste kann unvollständig sein.",
+        never: "Die Suche wurde noch nicht ausgeführt: Die Liste kann unvollständig sein.",
+        noToken: "TMDB-Token fehlt: Die Suche kann nicht laufen.",
+      },
       generate: "Code anzeigen",
       hideCode: "Code ausblenden",
       catalogLabel: "Katalog (src/features/planner/data/catalog.ts, in der richtigen Phase)",

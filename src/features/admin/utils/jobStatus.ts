@@ -15,3 +15,18 @@ export function jobStatus(
   if (now - new Date(run.at).getTime() > JOB_LATE_AFTER_HOURS[job] * HOUR_MS) return "late";
   return "ok";
 }
+
+export type SearchReliability = "ok" | "noToken" | "error" | "late" | "never";
+
+// Whether "no new titles" can be trusted: it depends on the weekly search having run.
+export function searchReliability(
+  tmdbConfigured: boolean,
+  weekly: JobRun | null,
+  now = Date.now(),
+): SearchReliability {
+  if (!tmdbConfigured) return "noToken";
+  if (!weekly) return "never";
+  if (weekly.status === "error") return "error";
+  if (now - new Date(weekly.at).getTime() > JOB_LATE_AFTER_HOURS.weekly * HOUR_MS) return "late";
+  return "ok";
+}

@@ -60,11 +60,10 @@ export function AdminDashboard() {
             candidates={state.overview.candidates}
             onDismiss={(key) => void dismiss(key)}
             onCopied={(key) => void markCopied(key)}
+            tmdbConfigured={state.overview.tmdbConfigured}
+            weeklyRun={state.overview.lastRuns.weekly}
           />
-          <MaintenanceSection
-            isOn={state.overview.maintenance}
-            onChange={(enabled) => void toggleMaintenance(enabled)}
-          />
+          <MaintenanceSection isOn={state.overview.maintenance} onChange={toggleMaintenance} />
           <AutomationSection
             lastRuns={state.overview.lastRuns}
             tmdbConfigured={state.overview.tmdbConfigured}

@@ -38,13 +38,16 @@ export function useAdminOverview() {
     );
   }, []);
 
+  // Resolves to whether the action worked, so a dialog can stay open on failure.
   const run = useCallback(async (action: () => Promise<unknown>, apply: () => void) => {
     setHasActionFailed(false);
     try {
       await action();
       apply();
+      return true;
     } catch {
       setHasActionFailed(true);
+      return false;
     }
   }, []);
 

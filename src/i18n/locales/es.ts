@@ -548,7 +548,9 @@ export const es: Messages = {
       enable: "Activar mantenimiento",
       disable: "Desactivar mantenimiento",
       confirmTitle: "¿Activar el mantenimiento?",
-      confirmMessage: "Los demás usuarios no podrán usar el sitio hasta que lo desactives.",
+      confirmMessage:
+        "Los demás usuarios solo verán una página de aviso (error 503). Tú sigues usando el sitio. Se desactiva desde «Estado del sitio».",
+      confirmPending: "Activando el mantenimiento",
     },
     automation: {
       heading: "Tareas automáticas",
@@ -577,6 +579,13 @@ export const es: Messages = {
     },
     candidates: {
       empty: "No hay títulos nuevos por revisar.",
+      lastSearch: "Última búsqueda: {date}",
+      unreliable: {
+        error: "La búsqueda falló: la lista puede estar incompleta.",
+        late: "La búsqueda no se ejecuta desde hace más de 8 días: la lista puede estar incompleta.",
+        never: "La búsqueda aún no se ha ejecutado: la lista puede estar incompleta.",
+        noToken: "Falta el token de TMDB: la búsqueda no puede ejecutarse.",
+      },
       generate: "Mostrar código",
       hideCode: "Ocultar código",
       catalogLabel: "Catálogo (src/features/planner/data/catalog.ts, en la fase correcta)",

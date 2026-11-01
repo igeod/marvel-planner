@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { JobRun } from "../shared/admin";
-import { jobStatus } from "../src/features/admin/utils/jobStatus";
+import { jobStatus, searchReliability } from "../src/features/admin/utils/jobStatus";
 
 const NOW = new Date("2026-10-30T12:00:00Z").getTime();
 const run = (at: string, status: JobRun["status"] = "ok"): JobRun => ({
@@ -26,5 +26,16 @@ describe("stato dei job", () => {
 
   it("l'errore vince sul ritardo", () => {
     expect(jobStatus(run("2026-09-01T00:00:00Z", "error"), "daily", NOW)).toBe("error");
+  });
+});
+
+describe("affidabilità della ricerca dei candidati", () => {
+  it("segue la priorità: token, mai eseguita, errore, ritardo, regolare", () => {
+    const recent = run("2026-10-26T04:43:00Z");
+    expect(searchReliability(false, recent, NOW)).toBe("noToken");
+    expect(searchReliability(true, null, NOW)).toBe("never");
+    expect(searchReliability(true, run("2026-10-29T04:43:00Z", "error"), NOW)).toBe("error");
+    expect(searchReliability(true, run("2026-10-12T04:43:00Z"), NOW)).toBe("late");
+    expect(searchReliability(true, recent, NOW)).toBe("ok");
   });
 });

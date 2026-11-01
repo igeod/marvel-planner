@@ -190,7 +190,9 @@ dialog.menu-panel {
   }
 }
 
-.field__error {
+.field__error,
+.dialog__error,
+.candidates__empty {
   animation: fade-in var(--dur-ui) var(--ease-out);
 }
 
@@ -471,7 +473,8 @@ dialog.menu-panel {
     }
   }
 
-  .field__error {
+  .field__error,
+  .dialog__error {
     animation-name: message-in;
   }
 

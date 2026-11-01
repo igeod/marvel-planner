@@ -545,8 +545,10 @@ export const en: Messages = {
       off: "Site online",
       enable: "Turn maintenance on",
       disable: "Turn maintenance off",
-      confirmTitle: "Turn maintenance on?",
-      confirmMessage: "Other users will not be able to use the site until you turn it off.",
+      confirmTitle: "Turn on maintenance?",
+      confirmMessage:
+        "Other users will see only a notice page (error 503). You can keep using the site. Turn it off from “Site status”.",
+      confirmPending: "Turning on maintenance",
     },
     automation: {
       heading: "Automatic tasks",
@@ -575,6 +577,13 @@ export const en: Messages = {
     },
     candidates: {
       empty: "No new titles to review.",
+      lastSearch: "Last search: {date}",
+      unreliable: {
+        error: "The search failed: the list may be incomplete.",
+        late: "The search has not run for over 8 days: the list may be incomplete.",
+        never: "The search has not run yet: the list may be incomplete.",
+        noToken: "TMDB token missing: the search cannot run.",
+      },
       generate: "Show code",
       hideCode: "Hide code",
       catalogLabel: "Catalog (src/features/planner/data/catalog.ts, in the right phase)",

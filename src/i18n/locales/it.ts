@@ -545,7 +545,9 @@ export const it = {
       enable: "Attiva manutenzione",
       disable: "Disattiva manutenzione",
       confirmTitle: "Attivare la manutenzione?",
-      confirmMessage: "Gli altri utenti non potranno più usare il sito finché non la disattivi.",
+      confirmMessage:
+        "Gli altri utenti vedranno solo una pagina di avviso (errore 503). Tu continui a usare il sito. Si disattiva da «Stato del sito».",
+      confirmPending: "Attivo la manutenzione",
     },
     automation: {
       heading: "Attività automatiche",
@@ -574,6 +576,13 @@ export const it = {
     },
     candidates: {
       empty: "Nessun nuovo titolo da valutare.",
+      lastSearch: "Ultima ricerca: {date}",
+      unreliable: {
+        error: "La ricerca non è riuscita: l'elenco può essere incompleto.",
+        late: "La ricerca non gira da più di 8 giorni: l'elenco può essere incompleto.",
+        never: "La ricerca non è ancora stata eseguita: l'elenco può essere incompleto.",
+        noToken: "Token TMDB mancante: la ricerca non può partire.",
+      },
       generate: "Mostra codice",
       hideCode: "Nascondi codice",
       catalogLabel: "Catalogo (src/features/planner/data/catalog.ts, nella fase giusta)",

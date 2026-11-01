@@ -550,7 +550,8 @@ export const fr: Messages = {
       disable: "Désactiver la maintenance",
       confirmTitle: "Activer la maintenance ?",
       confirmMessage:
-        "Les autres utilisateurs ne pourront plus utiliser le site tant que vous ne la désactivez pas.",
+        "Les autres utilisateurs ne verront qu'une page d'avis (erreur 503). Vous continuez à utiliser le site. Désactivez-la depuis « État du site ».",
+      confirmPending: "Activation de la maintenance",
     },
     automation: {
       heading: "Tâches automatiques",
@@ -578,7 +579,14 @@ export const fr: Messages = {
       since: "Compté depuis le {date}",
     },
     candidates: {
-      empty: "Aucun nouveau titre à évaluer.",
+      empty: "Aucun nouveau titre à examiner.",
+      lastSearch: "Dernière recherche : {date}",
+      unreliable: {
+        error: "La recherche a échoué : la liste peut être incomplète.",
+        late: "La recherche n'a pas tourné depuis plus de 8 jours : la liste peut être incomplète.",
+        never: "La recherche n'a pas encore été exécutée : la liste peut être incomplète.",
+        noToken: "Jeton TMDB manquant : la recherche ne peut pas démarrer.",
+      },
       generate: "Afficher le code",
       hideCode: "Masquer le code",
       catalogLabel: "Catalogue (src/features/planner/data/catalog.ts, dans la bonne phase)",
