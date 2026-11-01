@@ -30,7 +30,7 @@ export function AppLayout() {
       <main className="site-main" id={MAIN_CONTENT_ID} ref={mainRef} tabIndex={-1}>
         {isLoading ? null : maintenance && !isAdmin ? <MaintenancePage /> : <Outlet />}
       </main>
-      <AppFooter />
+      {!isLoading && <AppFooter />}
       <AuthDialogs />
       <PrivacySettingsDialog />
       <ScrollRestoration />

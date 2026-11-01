@@ -9,12 +9,9 @@
       content="Marvel Cinematic Universe watch planner: every film and series by saga and phase, with what to watch first."
     />
     <script>
-      // Splash only on the first load of the session; the fallback frees the page if the bundle never starts.
+      // Splash on every full load; the fallback frees the page if the bundle never starts.
       (function () {
         var d = document.documentElement;
-        try {
-          if (sessionStorage.getItem("mp-splash-seen")) return;
-        } catch (e) {}
         d.dataset.splash = "on";
         d.dataset.splashStart = String(performance.now());
         d.dataset.splashFallback = String(
@@ -56,7 +53,8 @@
     <div id="splash" aria-hidden="true">MARVEL PLANNER</div>
     <div id="root"></div>
     <script>
-      if (document.documentElement.dataset.splash === "on") document.getElementById("root").inert = true;
+      if (document.documentElement.dataset.splash === "on")
+        document.getElementById("root").inert = true;
     </script>
     <noscript>Marvel Planner needs JavaScript to run. Please enable it in your browser.</noscript>
     <script type="module" src="/src/main.tsx"></script>

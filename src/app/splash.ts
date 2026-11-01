@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 
-const SEEN_KEY = "mp-splash-seen";
 const MIN_MS = 600;
 const MAX_MS = 3000;
 const INTRO_MS = 700;
@@ -16,11 +15,6 @@ let startedAt = 0;
 function finish() {
   if (!active) return;
   active = false;
-  try {
-    sessionStorage.setItem(SEEN_KEY, "1");
-  } catch {
-    // Storage unavailable: the splash may show again on the next full load.
-  }
   const splash = document.getElementById("splash");
   const root = document.getElementById("root");
   html.dataset.intro = "";
