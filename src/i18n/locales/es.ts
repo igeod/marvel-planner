@@ -554,6 +554,8 @@ export const es: Messages = {
       heading: "Tareas automáticas",
       daily: "Limpieza y actualización de fechas (cada día)",
       weekly: "Búsqueda de títulos nuevos (cada lunes)",
+      dailyTitle: "Diaria",
+      weeklyTitle: "Semanal",
       tmdb: "Token de TMDB",
       configured: "Configurado",
       missing: "Falta",

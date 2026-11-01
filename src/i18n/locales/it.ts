@@ -551,6 +551,8 @@ export const it = {
       heading: "Attività automatiche",
       daily: "Pulizia e aggiornamento delle date (ogni giorno)",
       weekly: "Ricerca di nuovi titoli (ogni lunedì)",
+      dailyTitle: "Giornaliera",
+      weeklyTitle: "Settimanale",
       tmdb: "Token TMDB",
       configured: "Configurato",
       missing: "Mancante",

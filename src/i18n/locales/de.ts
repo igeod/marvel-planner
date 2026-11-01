@@ -557,6 +557,8 @@ export const de: Messages = {
       heading: "Automatische Aufgaben",
       daily: "Bereinigung und Datumsaktualisierung (täglich)",
       weekly: "Suche nach neuen Titeln (jeden Montag)",
+      dailyTitle: "Täglich",
+      weeklyTitle: "Wöchentlich",
       tmdb: "TMDB-Token",
       configured: "Eingerichtet",
       missing: "Fehlt",

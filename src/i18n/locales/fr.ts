@@ -556,6 +556,8 @@ export const fr: Messages = {
       heading: "Tâches automatiques",
       daily: "Nettoyage et mise à jour des dates (chaque jour)",
       weekly: "Recherche de nouveaux titres (chaque lundi)",
+      dailyTitle: "Quotidienne",
+      weeklyTitle: "Hebdomadaire",
       tmdb: "Jeton TMDB",
       configured: "Configuré",
       missing: "Manquant",

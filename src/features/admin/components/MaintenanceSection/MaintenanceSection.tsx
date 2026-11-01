@@ -24,7 +24,7 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
   return (
     <section className="maintenance-section" aria-labelledby={headingId}>
       <h2 id={headingId}>{t("admin.maintenance.heading")}</h2>
-      <div className="admin-row maintenance-section__row">
+      <div className="maintenance-section__row">
         <div className="maintenance-section__text">
           <p role="status">
             {isOn ? (

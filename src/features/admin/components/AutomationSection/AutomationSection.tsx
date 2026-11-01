@@ -36,7 +36,10 @@ export function AutomationSection({ lastRuns, tmdbConfigured }: AutomationSectio
     return (
       <div className="admin-row automation-section__job">
         <div className="automation-section__head">
-          <h3>{t(`admin.automation.${kind}`)}</h3>
+          <div>
+            <h3>{t(`admin.automation.${kind}Title`)}</h3>
+            <p className="muted">{t(`admin.automation.${kind}`)}</p>
+          </div>
           <StatusPill state={state}>{label(state)}</StatusPill>
         </div>
         {run && (
