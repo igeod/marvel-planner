@@ -38,12 +38,12 @@ export function AutomationSection({ lastRuns, tmdbConfigured }: AutomationSectio
         <div className="automation-section__head">
           <div>
             <h3>{t(`admin.automation.${kind}Title`)}</h3>
-            <p className="muted">{t(`admin.automation.${kind}`)}</p>
+            <p className="admin-note">{t(`admin.automation.${kind}`)}</p>
           </div>
           <StatusPill state={state}>{label(state)}</StatusPill>
         </div>
         {run && (
-          <p className="muted">
+          <p className="admin-note">
             {before}
             <time dateTime={run.at}>{formatter.format(new Date(run.at))}</time>
             {after}

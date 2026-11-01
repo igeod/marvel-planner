@@ -39,7 +39,7 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
               </span>
             )}
           </p>
-          <p className="muted">{t("admin.maintenance.description")}</p>
+          <p className="admin-note">{t("admin.maintenance.description")}</p>
         </div>
         <button
           type="button"

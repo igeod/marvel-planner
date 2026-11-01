@@ -22,13 +22,13 @@ export function UsersSection({ users }: { users: AdminOverview["users"] }) {
           <dt>{t("admin.users.deleted")}</dt>
           <dd>{users.deleted}</dd>
           {users.deletedSince && (
-            <dd className="muted users-section__since">
+            <dd className="admin-note users-section__since">
               {t("admin.users.since", { date: formatDate(users.deletedSince) })}
             </dd>
           )}
         </div>
       </dl>
-      <p className="muted">{t("admin.users.note")}</p>
+      <p className="admin-note">{t("admin.users.note")}</p>
     </section>
   );
 }

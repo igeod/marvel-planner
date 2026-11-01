@@ -76,7 +76,7 @@ function CandidateItem({ candidate, onDismiss, onCopied }: CandidateItemProps) {
           </span>
         )}
       </div>
-      <p className="muted candidate__meta">
+      <p className="admin-note candidate__meta">
         {t(candidate.kind === "season" ? "admin.newSeason" : "admin.newTitle")}
         {candidate.releaseDate && ` · ${formatDate(candidate.releaseDate)}`}
         {` · ${t("admin.candidates.found", { date: formatDate(candidate.foundAt) })}`}
