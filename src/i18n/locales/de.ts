@@ -449,7 +449,7 @@ export const de: Messages = {
     warning: "Achtung, Geheimnisse der Handlung voraus",
     outside: "Außerhalb dieses Planers",
     provisional: "Vorläufige Liste: Sie kann sich ändern, sobald der Titel erscheint.",
-    standalone: "Vorher gibt es nichts anzusehen. Du kannst hier anfangen.",
+    standalone: "Vorher gibt es nichts anzusehen.",
   },
   postCredits: {
     heading: "Szenen im Abspann",

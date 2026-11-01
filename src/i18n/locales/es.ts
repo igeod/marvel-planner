@@ -448,7 +448,7 @@ export const es: Messages = {
     warning: "Ojo, se vienen secretos de la historia",
     outside: "Fuera de este planificador",
     provisional: "Lista provisional: puede cambiar cuando se estrene el título.",
-    standalone: "Nada que ver antes. Puedes empezar aquí.",
+    standalone: "Nada que ver antes.",
   },
   postCredits: {
     heading: "Escenas durante y después de los créditos",
