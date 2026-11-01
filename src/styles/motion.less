@@ -194,6 +194,21 @@ dialog.menu-panel {
   animation: fade-in var(--dur-ui) var(--ease-out);
 }
 
+// Splash exit: under reduced motion only an 80ms fade (scale is added in the no-preference block).
+#splash[data-leaving] {
+  pointer-events: none;
+  animation: fade-out var(--dur-press) var(--ease-out) forwards;
+}
+
+// Phase open/close under reduced motion: no height or movement, content fades in/out in 80ms.
+.phase[data-motion="opening"] > :not(summary) {
+  animation: fade-in var(--dur-press) var(--ease-out) both;
+}
+
+.phase[data-motion="closing"] > :not(summary) {
+  animation: fade-out var(--dur-press) var(--ease-out) both;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .skeleton {
     animation:
@@ -272,7 +287,8 @@ dialog.menu-panel {
     interpolate-size: allow-keywords;
   }
 
-  details::details-content {
+  // Title rows still use the native pseudo-element; phases are driven by data-motion below.
+  details:not(.phase)::details-content {
     block-size: 0;
     overflow: clip;
     opacity: 0;
@@ -286,34 +302,143 @@ dialog.menu-panel {
   }
 
   // Opening: 240ms, with the fade at 120ms.
-  details[open]::details-content {
+  details[open]:not(.phase)::details-content {
     block-size: auto;
     opacity: 1;
     transform: none;
     transition-duration: var(--dur-enter), var(--dur-hover), var(--dur-enter), var(--dur-enter);
   }
 
-  // Collapse all / Expand all: phases follow each other in 30ms steps.
+  // Phase open/close (all browsers): usePhaseMotion sets data-motion and --phase-h0/--phase-h1.
+  .phase[data-motion] {
+    overflow: clip;
+  }
+
+  .phase[data-motion="opening"] {
+    animation: phase-height-open var(--dur-enter) var(--ease-out) both;
+
+    > :not(summary) {
+      animation: pop-in var(--dur-enter) var(--ease-out) both;
+    }
+  }
+
+  .phase[data-motion="closing"] {
+    animation: phase-height-close var(--dur-ui) var(--ease-out) both;
+
+    > :not(summary) {
+      animation:
+        fade-out var(--dur-press) var(--ease-out) both,
+        content-sink var(--dur-ui) var(--ease-out) both;
+    }
+
+    // The attribute stays open until the animation ends; the chevron turns back right away.
+    > summary .chevron {
+      transform: none;
+    }
+  }
+
+  // Collapse all / Expand all: phases follow each other in 30ms steps (height, content and chevron).
   .planner__list--bulk .phase {
-    &:nth-child(3)::details-content {
-      transition-delay: min(calc(var(--stagger-step) * 1), var(--stagger-max));
+    &:nth-child(3) {
+      --bulk-delay: min(calc(var(--stagger-step) * 1), var(--stagger-max));
     }
 
-    &:nth-child(4)::details-content {
-      transition-delay: min(calc(var(--stagger-step) * 2), var(--stagger-max));
+    &:nth-child(4) {
+      --bulk-delay: min(calc(var(--stagger-step) * 2), var(--stagger-max));
     }
 
-    &:nth-child(5)::details-content {
-      transition-delay: min(calc(var(--stagger-step) * 3), var(--stagger-max));
+    &:nth-child(5) {
+      --bulk-delay: min(calc(var(--stagger-step) * 3), var(--stagger-max));
     }
 
-    &:nth-child(6)::details-content {
-      transition-delay: min(calc(var(--stagger-step) * 4), var(--stagger-max));
+    &:nth-child(6) {
+      --bulk-delay: min(calc(var(--stagger-step) * 4), var(--stagger-max));
     }
 
-    &:nth-child(7)::details-content {
-      transition-delay: min(calc(var(--stagger-step) * 5), var(--stagger-max));
+    &:nth-child(7) {
+      --bulk-delay: min(calc(var(--stagger-step) * 5), var(--stagger-max));
     }
+
+    &[data-motion],
+    &[data-motion] > :not(summary) {
+      animation-delay: var(--bulk-delay, 0ms);
+    }
+
+    > summary .chevron {
+      transition-delay: var(--bulk-delay, 0ms);
+    }
+  }
+
+  // Intro after the splash: runs once (html[data-intro] is removed ~700ms later), opacity and transform only.
+  // --i is the step; the delay is capped at --stagger-max.
+  :root[data-intro] {
+    .site-header,
+    .progress-card,
+    .planner > .phase-strip,
+    .planner__body > :is(.planner__rail, .planner-search, .mobile-toolbar),
+    .planner__hero > .next-card,
+    .phase:not([data-motion]),
+    .site-footer {
+      animation: swap-in var(--dur-enter) var(--ease-out) backwards;
+      animation-delay: min(calc(var(--stagger-step) * var(--i, 0)), var(--stagger-max));
+    }
+
+    .site-header {
+      --i: 0;
+    }
+
+    .progress-card {
+      --i: 1;
+    }
+
+    .planner > .phase-strip,
+    .planner__body > :is(.planner__rail, .planner-search, .mobile-toolbar) {
+      --i: 2;
+    }
+
+    .planner__hero > .next-card {
+      --i: 3;
+    }
+
+    // Phases past the fifth start with the list and do not cascade.
+    .phase {
+      --i: 4;
+    }
+
+    // The saga header is child 1, so its phases start at child 2.
+    .planner__list > :nth-child(1) .phase {
+      &:nth-child(2) {
+        --i: 4;
+      }
+
+      &:nth-child(3) {
+        --i: 5;
+      }
+
+      &:nth-child(4) {
+        --i: 6;
+      }
+    }
+
+    .planner__list > :nth-child(2) .phase {
+      &:nth-child(2) {
+        --i: 7;
+      }
+
+      &:nth-child(3) {
+        --i: 8;
+      }
+    }
+
+    .site-footer {
+      --i: 9;
+    }
+  }
+
+  // Splash exit: fade and slight scale.
+  #splash[data-leaving] {
+    animation-name: splash-out;
+    animation-duration: var(--dur-reveal);
   }
 
   .mark-watched__button--watched.mark-watched__button--pressed svg path {
@@ -545,5 +670,38 @@ dialog.menu-panel {
 @keyframes skeleton-pulse {
   50% {
     opacity: 0.6;
+  }
+}
+
+@keyframes splash-out {
+  to {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes phase-height-open {
+  from {
+    height: var(--phase-h0);
+  }
+
+  to {
+    height: var(--phase-h1);
+  }
+}
+
+@keyframes phase-height-close {
+  from {
+    height: var(--phase-h1);
+  }
+
+  to {
+    height: var(--phase-h0);
+  }
+}
+
+@keyframes content-sink {
+  to {
+    transform: translateY(4px);
   }
 }

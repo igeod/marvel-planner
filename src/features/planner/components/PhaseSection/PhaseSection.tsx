@@ -2,6 +2,7 @@ import { Chevron } from "../../../../components/ui/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Phase } from "../../types";
 import { computeProgress } from "../../utils/progress";
+import { usePhaseMotion } from "../../hooks/usePhaseMotion";
 import { TitleItem } from "../TitleItem";
 
 interface PhaseSectionProps {
@@ -23,13 +24,28 @@ export function PhaseSection({
   const progress = computeProgress(phase.titles, watched);
   const phaseName = t(`catalog.phases.${phase.number}`);
 
+  const ref = usePhaseMotion(isCollapsed);
+
   return (
     <details
+      ref={ref}
       className="phase card"
       open={!isCollapsed}
-      onToggle={(event) => onCollapsedChange(!event.currentTarget.open)}
+      onToggle={(event) => {
+        // Ignore toggles caused by the animation; react only to native ones (e.g. find in page).
+        const details = event.currentTarget;
+        if (details.dataset.motion || details.open === !isCollapsed) return;
+        onCollapsedChange(!details.open);
+      }}
     >
-      <summary className="phase__summary">
+      <summary
+        className="phase__summary"
+        onClick={(event) => {
+          // State drives open/closed so the close can animate before the attribute is removed.
+          event.preventDefault();
+          onCollapsedChange(!isCollapsed);
+        }}
+      >
         <span className="phase__heading">
           <h3 className="phase__name">{phaseName}</h3>
           <span className="phase__years muted">{phase.years}</span>

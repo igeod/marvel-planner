@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { FOOTER_ID } from "../../../../app/dom";
+import { useSplashReady } from "../../../../app/splash";
 import { PATHS } from "../../../../app/paths";
 import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog";
 import { useIsDesktopWithReset } from "../../../../components/ui/useMediaQuery";
@@ -82,6 +83,7 @@ export function Planner({ shareCode }: PlannerProps) {
   const catalog = useResolvedCatalog();
   const sagas = useMemo(() => filterCatalog(catalog, filters, needle), [catalog, filters, needle]);
   const { watched, isLoading, error, storage, toggle, reset, importTitles } = useWatched();
+  useSplashReady("planner", !isLoading);
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
 
