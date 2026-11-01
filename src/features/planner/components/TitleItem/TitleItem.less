@@ -88,14 +88,17 @@
       margin: 0 8px 0 0;
     }
 
+    // 69px = poster 108 - the 34px pill - the 5px the button's hit area adds above it, so the pill's
+    // bottom edge lines up with the poster's bottom edge. A longer title pushes the button down.
     .title-row__summary {
       align-items: flex-start;
+      min-height: 69px;
       padding-top: 0;
     }
 
     .title-row__content {
       display: block;
-      margin-top: 16px;
+      margin-top: 0;
 
       > * + * {
         margin-top: 16px;
