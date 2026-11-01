@@ -415,7 +415,7 @@ export const it = {
       warning:
         "L'account, i progressi salvati e tutte le sessioni attive verranno cancellati in modo definitivo. L'operazione non può essere annullata.",
       confirm: "Ho capito che l'eliminazione è definitiva",
-      button: "Elimina definitivamente",
+      button: "Elimina account",
       pending: "Eliminazione…",
     },
   },
