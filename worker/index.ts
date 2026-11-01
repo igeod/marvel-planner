@@ -1,6 +1,6 @@
 import { Hono } from "hono";
 import { HTTPException } from "hono/http-exception";
-import { createDb } from "./db/client";
+import { createDb, type Database } from "./db/client";
 import type { Env } from "./env";
 import { withContext } from "./middleware/context";
 import { maintenance } from "./middleware/maintenance";
@@ -19,7 +19,7 @@ import { titleRoutes } from "./routes/titles";
 import { runDiscovery } from "./services/discovery";
 import { purgeExpiredData } from "./services/maintenance";
 import { refreshReleases } from "./services/releases";
-import { recordRun } from "./services/siteSettings";
+import { recordRun, type ScheduledRun } from "./services/siteSettings";
 import type { AppEnv } from "./types";
 
 const SCHEDULED_REFRESH_LIMIT = 30;
@@ -57,16 +57,29 @@ app.onError((error, c) => {
   return c.json({ error: "internal_error" }, 500);
 });
 
+// Each job records its outcome, then rethrows so the failure still shows in the Workers logs.
+async function runRecorded(db: Database, run: ScheduledRun, job: () => Promise<void>) {
+  try {
+    await job();
+  } catch (error) {
+    await recordRun(db, run, new Date(), error);
+    throw error;
+  }
+  await recordRun(db, run);
+}
+
 async function runScheduledTasks(env: Env, cron: string) {
   const db = createDb(env.DB);
   if (cron === WEEKLY_DISCOVERY_CRON) {
-    if (env.TMDB_TOKEN) await runDiscovery(db, env.TMDB_TOKEN);
-    await recordRun(db, "weekly");
+    await runRecorded(db, "weekly", async () => {
+      if (env.TMDB_TOKEN) await runDiscovery(db, env.TMDB_TOKEN);
+    });
     return;
   }
-  await purgeExpiredData(db);
-  if (env.TMDB_TOKEN) await refreshReleases(db, env.TMDB_TOKEN, SCHEDULED_REFRESH_LIMIT);
-  await recordRun(db, "daily");
+  await runRecorded(db, "daily", async () => {
+    await purgeExpiredData(db);
+    if (env.TMDB_TOKEN) await refreshReleases(db, env.TMDB_TOKEN, SCHEDULED_REFRESH_LIMIT);
+  });
 }
 
 export default {

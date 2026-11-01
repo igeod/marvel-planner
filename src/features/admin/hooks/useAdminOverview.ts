@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import type { AdminOverview } from "../../../../shared/admin";
-import { dismissCandidate, getAdminOverview, setMaintenance } from "../services/adminService";
+import {
+  dismissCandidate,
+  getAdminOverview,
+  markCandidateCopied,
+  setMaintenance,
+} from "../services/adminService";
 
 type State =
   { status: "loading" } | { status: "error" } | { status: "ready"; overview: AdminOverview };
@@ -8,6 +13,7 @@ type State =
 export function useAdminOverview() {
   const [state, setState] = useState<State>({ status: "loading" });
   const [hasActionFailed, setHasActionFailed] = useState(false);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
     let isActive = true;
@@ -17,6 +23,11 @@ export function useAdminOverview() {
     return () => {
       isActive = false;
     };
+  }, [attempt]);
+
+  const reload = useCallback(() => {
+    setState({ status: "loading" });
+    setAttempt((current) => current + 1);
   }, []);
 
   const update = useCallback((change: (overview: AdminOverview) => AdminOverview) => {
@@ -59,5 +70,22 @@ export function useAdminOverview() {
     [run, update],
   );
 
-  return { state, hasActionFailed, toggleMaintenance, dismiss };
+  const markCopied = useCallback(
+    (key: string) =>
+      run(
+        () => markCandidateCopied(key),
+        () =>
+          update((overview) => ({
+            ...overview,
+            candidates: overview.candidates.map((candidate) =>
+              candidate.key === key
+                ? { ...candidate, copiedAt: new Date().toISOString() }
+                : candidate,
+            ),
+          })),
+      ),
+    [run, update],
+  );
+
+  return { state, hasActionFailed, toggleMaintenance, dismiss, markCopied, reload };
 }

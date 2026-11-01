@@ -6,13 +6,21 @@
   gap: 8px;
 }
 
-.candidate {
+.candidate__head {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 16px 20px;
-  border-radius: @radius-row;
-  background: var(--bg);
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+}
+
+.candidate__title {
+  font-size: var(--fs-title);
+  font-weight: 800;
+}
+
+.candidate__meta {
+  font-size: var(--fs-label);
 }
 
 .candidate__actions {
@@ -20,6 +28,18 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 8px;
+
+  @media (max-width: 639px) {
+    .candidate__copy {
+      flex: 1 1 100%;
+    }
+  }
+}
+
+.candidate__error {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  color: var(--danger-text);
 }
 
 .snippet-panel {

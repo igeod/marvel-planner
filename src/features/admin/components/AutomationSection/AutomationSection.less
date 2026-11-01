@@ -1,11 +1,25 @@
 @import (reference) "mixins";
 
-.automation-section__list {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 6px 16px;
+.automation-section__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
 
-  dt {
-    font-weight: 700;
+  h3 {
+    font-size: 1rem;
+    font-weight: 800;
   }
+
+  @media (max-width: 639px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+.automation-section__error {
+  font-size: var(--fs-label);
+  font-weight: 700;
+  color: var(--danger-text);
+  overflow-wrap: anywhere;
 }

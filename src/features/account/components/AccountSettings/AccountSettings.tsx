@@ -1,4 +1,4 @@
-import { ChartLine, Lock, LogOut, UserRound, X } from "lucide-react";
+import { ChartLine, Lock, LogOut, Settings, ShieldCheck, UserRound, X } from "lucide-react";
 import {
   useCallback,
   useEffect,
@@ -8,15 +8,21 @@ import {
   type ComponentType,
   type FocusEvent,
   type KeyboardEvent,
+  type MouseEvent,
   type MutableRefObject,
 } from "react";
+import { Link } from "react-router";
+import { PATHS } from "../../../../app/paths";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
+import { AdminBadge } from "../../../admin/components/AdminBadge";
+import { useAdminOverview } from "../../../admin/hooks/useAdminOverview";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import type { User } from "../../../auth/types";
 import { initials } from "../../../auth/utils/initials";
+import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
 import { UnsavedChangesContext } from "../../hooks/useReportDirty";
 import { DeleteAccountSection } from "../DeleteAccountSection";
 import { ExportSection } from "../ExportSection";
@@ -54,9 +60,32 @@ interface AccountSettingsProps {
   closeRef: MutableRefObject<(() => void) | null>;
 }
 
+// A separate component so the overview is requested only for administrators.
+function AdminEntry({ onClick }: { onClick: (event: MouseEvent<HTMLAnchorElement>) => void }) {
+  const { t } = useI18n();
+  const { state } = useAdminOverview();
+  const count = state.status === "ready" ? state.overview.candidates.length : 0;
+
+  return (
+    <Link to={PATHS.admin} className="profile__admin" onClick={onClick}>
+      <Settings aria-hidden />
+      <span className="profile__admin-label">{t("nav.admin")}</span>
+      {count > 0 && (
+        <>
+          <span className="profile__admin-count" aria-hidden="true">
+            {count}
+          </span>
+          <span className="visually-hidden">, {t("account.admin.pending", { count })}</span>
+        </>
+      )}
+    </Link>
+  );
+}
+
 export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProps) {
   const { t } = useI18n();
   const { logout } = useAuth();
+  const { isAdmin } = useSiteStatus();
   const [tab, setTab] = useState<Tab>("progress");
   const [isAskingDiscard, setIsAskingDiscard] = useState(false);
   const [isBannerLeaving, setIsBannerLeaving] = useState(false);
@@ -83,6 +112,13 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
     if (dirtyForms.current.size === 0) return onClose();
     setIsBannerLeaving(false);
     setIsAskingDiscard(true);
+  };
+
+  const handleAdminClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (dirtyForms.current.size > 0) {
+      event.preventDefault();
+      tryClose();
+    } else onClose();
   };
 
   useEffect(() => {
@@ -175,9 +211,19 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
           <div className="profile__id">
             <div className="profile__avatar" aria-hidden="true">
               {initials(user.name).slice(0, 1)}
+              {isAdmin && <AdminBadge />}
             </div>
-            <p className="profile__name">{user.name}</p>
+            <div className="profile__who">
+              <p className="profile__name">{user.name}</p>
+              {isAdmin && (
+                <p className="profile__role">
+                  <ShieldCheck aria-hidden />
+                  {t("account.admin.role")}
+                </p>
+              )}
+            </div>
           </div>
+          {isAdmin && <AdminEntry onClick={handleAdminClick} />}
           <nav
             className="profile__nav"
             role="tablist"

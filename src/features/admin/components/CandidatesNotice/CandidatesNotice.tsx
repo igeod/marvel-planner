@@ -15,7 +15,7 @@ function PendingCandidates() {
     <p className="candidates-notice" role="status">
       <TriangleAlert aria-hidden />
       {t("admin.notice", { count: state.overview.candidates.length })}{" "}
-      <Link to={PATHS.admin}>{t("admin.openDashboard")}</Link>
+      <Link to={{ pathname: PATHS.admin, hash: "#candidati" }}>{t("admin.openDashboard")}</Link>
     </p>
   );
 }

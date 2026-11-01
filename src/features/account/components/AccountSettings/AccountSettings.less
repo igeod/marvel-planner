@@ -73,6 +73,10 @@ dialog.dialog--profile {
 }
 
 .profile__avatar {
+  position: relative;
+  --badge-size: 24px;
+  --badge-icon: 14px;
+  --badge-ring-w: 3px;
   flex: none;
   display: flex;
   align-items: center;
@@ -87,10 +91,94 @@ dialog.dialog--profile {
   line-height: 1;
 
   @media (max-width: 639px) {
+    --badge-size: 18px;
+    --badge-icon: 12px;
+    --badge-ring-w: 2px;
     width: 44px;
     height: 44px;
     font-size: 1.375rem;
   }
+}
+
+.profile__who {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  min-width: 0;
+}
+
+.profile__role {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-label);
+  font-weight: 700;
+  color: var(--ink-2);
+
+  svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.4;
+  }
+}
+
+.profile__admin {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  height: 48px;
+  padding: 0 var(--sp-4);
+  .pill();
+  box-shadow: inset 0 0 0 2px var(--ink);
+  color: var(--ink);
+  font-size: var(--fs-button);
+  font-weight: 700;
+  text-decoration: none;
+  background: transparent;
+  transition:
+    background-color var(--dur-hover) var(--ease-out),
+    transform var(--dur-hover) var(--ease-out);
+  .tones(var(--row-hover), var(--row-press));
+
+  @media (prefers-reduced-motion: no-preference) {
+    &:active {
+      transform: scale(0.98);
+      transition-duration: var(--dur-press);
+    }
+  }
+
+  &:focus-visible {
+    outline: var(--focus);
+    outline-offset: var(--focus-offset);
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.2;
+    flex: none;
+  }
+}
+
+.profile__admin-label {
+  flex: 1;
+  min-width: 0;
+}
+
+.profile__admin-count {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 var(--sp-2);
+  box-sizing: border-box;
+  .pill();
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--highlight);
+  color: var(--ink-static);
+  font-size: var(--fs-label);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
 }
 
 .profile__name {

@@ -119,6 +119,9 @@ describe("impostazioni del sito", () => {
   it("registrano l'ultima esecuzione delle attività automatiche", async () => {
     expect(await getLastRuns(db)).toEqual({ daily: null, weekly: null });
     await recordRun(db, "daily", new Date("2026-10-24T03:17:00Z"));
-    expect(await getLastRuns(db)).toEqual({ daily: "2026-10-24T03:17:00.000Z", weekly: null });
+    expect(await getLastRuns(db)).toEqual({
+      daily: { at: "2026-10-24T03:17:00.000Z", status: "ok", error: null },
+      weekly: null,
+    });
   });
 });

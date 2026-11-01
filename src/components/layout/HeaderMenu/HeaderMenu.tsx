@@ -1,13 +1,12 @@
-import { LogIn, LogOut, Menu, Settings, X } from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router";
-import { PATHS } from "../../../app/paths";
 import { SITE } from "../../../app/site";
-import { Button, buttonClass } from "../../ui/Button";
+import { Button } from "../../ui/Button";
 import { useDialog } from "../../ui/useDialog";
 import { useIsDesktopWithReset } from "../../ui/useMediaQuery";
 import { useAuth } from "../../../features/auth/hooks/useAuth";
+import { AdminBadge } from "../../../features/admin/components/AdminBadge";
 import { useAuthDialog } from "../../../features/auth/hooks/useAuthDialog";
 import { initials } from "../../../features/auth/utils/initials";
 import { useSiteStatus } from "../../../features/site/hooks/useSiteStatus";
@@ -17,7 +16,7 @@ import { LanguageSwitcher } from "../LanguageSwitcher";
 
 function MenuAccount({ onNavigate }: { onNavigate: () => void }) {
   const { t } = useI18n();
-  const { user, status, logout } = useAuth();
+  const { user, status } = useAuth();
   const { open } = useAuthDialog();
   const { isAdmin } = useSiteStatus();
 
@@ -51,18 +50,11 @@ function MenuAccount({ onNavigate }: { onNavigate: () => void }) {
       >
         <span className="avatar" aria-hidden="true">
           {initials(user.name)}
+          {isAdmin && <AdminBadge />}
         </span>
         <span>{user.name}</span>
+        {isAdmin && <span className="visually-hidden">, {t("account.admin.role")}</span>}
       </button>
-      {isAdmin && (
-        <Link to={PATHS.admin} className={buttonClass("panel", "lg")} onClick={onNavigate}>
-          <Settings aria-hidden />
-          {t("nav.admin")}
-        </Link>
-      )}
-      <Button variant="panel" size="lg" icon={<LogOut aria-hidden />} onClick={() => void logout()}>
-        {t("nav.logout")}
-      </Button>
     </div>
   );
 }

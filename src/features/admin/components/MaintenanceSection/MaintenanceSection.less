@@ -1,11 +1,40 @@
 @import (reference) "mixins";
 
-.maintenance-section {
+.maintenance-section__row {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  @media (max-width: 639px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    .btn {
+      width: 100%;
+    }
+  }
+}
+
+.maintenance-section__text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+
   [role="status"] {
     font-weight: 700;
   }
+}
 
-  .btn {
-    align-self: flex-start;
+.maintenance-section__online {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 2.6;
   }
 }

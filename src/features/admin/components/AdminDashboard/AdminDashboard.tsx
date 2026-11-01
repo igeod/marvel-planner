@@ -1,23 +1,68 @@
+import { useEffect, useRef } from "react";
+import { useLocation } from "react-router";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useAdminOverview } from "../../hooks/useAdminOverview";
 import { AutomationSection } from "../AutomationSection";
 import { CandidatesSection } from "../CandidatesSection";
 import { MaintenanceSection } from "../MaintenanceSection";
+import { UsersSection } from "../UsersSection";
+
+function AdminSkeleton() {
+  const { t } = useI18n();
+  const titles = [
+    "admin.maintenance.heading",
+    "admin.automation.heading",
+    "admin.users.heading",
+    "admin.heading",
+  ] as const;
+
+  return titles.map((key) => (
+    <section key={key} aria-busy="true">
+      <h2>{t(key)}</h2>
+      <div className="admin-skeleton" />
+      <div className="admin-skeleton" />
+    </section>
+  ));
+}
 
 export function AdminDashboard() {
   const { t } = useI18n();
-  const { state, hasActionFailed, toggleMaintenance, dismiss } = useAdminOverview();
+  const { hash } = useLocation();
+  const { state, hasActionFailed, toggleMaintenance, dismiss, markCopied, reload } =
+    useAdminOverview();
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const wantsCandidates = hash === "#candidati";
+
+  useEffect(() => {
+    if (!wantsCandidates) titleRef.current?.focus();
+  }, [wantsCandidates]);
 
   return (
-    <section className="admin" aria-labelledby="admin-title">
-      <h1 id="admin-title">{t("admin.title")}</h1>
+    <div className="admin">
+      <h1 id="admin-title" tabIndex={-1} ref={titleRef}>
+        {t("admin.title")}
+      </h1>
 
-      {state.status === "loading" && <p role="status">{t("common.loading")}</p>}
-      {state.status === "error" && <p role="alert">{t("admin.error")}</p>}
+      {state.status === "loading" && <AdminSkeleton />}
+      {state.status === "error" && (
+        <section>
+          <p role="alert">{t("admin.error")}</p>
+          <button type="button" className="btn btn--soft" onClick={reload}>
+            {t("admin.retry")}
+          </button>
+        </section>
+      )}
       {hasActionFailed && <p role="alert">{t("admin.actionError")}</p>}
 
       {state.status === "ready" && (
         <>
+          {state.overview.candidates.length > 0 && (
+            <CandidatesSection
+              candidates={state.overview.candidates}
+              onDismiss={(key) => void dismiss(key)}
+              onCopied={(key) => void markCopied(key)}
+            />
+          )}
           <MaintenanceSection
             isOn={state.overview.maintenance}
             onChange={(enabled) => void toggleMaintenance(enabled)}
@@ -26,12 +71,16 @@ export function AdminDashboard() {
             lastRuns={state.overview.lastRuns}
             tmdbConfigured={state.overview.tmdbConfigured}
           />
-          <CandidatesSection
-            candidates={state.overview.candidates}
-            onDismiss={(key) => void dismiss(key)}
-          />
+          <UsersSection users={state.overview.users} />
+          {state.overview.candidates.length === 0 && (
+            <CandidatesSection
+              candidates={state.overview.candidates}
+              onDismiss={(key) => void dismiss(key)}
+              onCopied={(key) => void markCopied(key)}
+            />
+          )}
         </>
       )}
-    </section>
+    </div>
   );
 }

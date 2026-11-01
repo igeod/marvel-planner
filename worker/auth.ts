@@ -7,7 +7,7 @@ import * as schema from "./db/schema";
 import { isLongEnough, MAX_PASSWORD_LENGTH } from "../shared/passwordPolicy";
 import type { Env } from "./env";
 import { isPwnedPassword } from "./services/pwnedPasswords";
-import { getPasswordPolicy } from "./services/siteSettings";
+import { getPasswordPolicy, recordDeletedAccount } from "./services/siteSettings";
 
 // Where the new password sits in the body of each endpoint that sets one.
 const PASSWORD_FIELDS: Record<string, string> = {
@@ -86,6 +86,11 @@ export function createAuth(env: Env, db: Database) {
             const name = normalizeName(user.name);
             await assertNameAvailable(db, name);
             return { data: { ...user, name } };
+          },
+        },
+        delete: {
+          after: async () => {
+            await recordDeletedAccount(db);
           },
         },
         update: {

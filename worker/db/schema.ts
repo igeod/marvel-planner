@@ -64,4 +64,5 @@ export const catalogCandidate = sqliteTable("catalog_candidate", {
   releaseDate: text("release_date"),
   foundAt: integer("found_at", { mode: "timestamp_ms" }).notNull(),
   isDismissed: integer("is_dismissed", { mode: "boolean" }).notNull().default(false),
+  copiedAt: integer("copied_at", { mode: "timestamp_ms" }),
 });

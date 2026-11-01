@@ -64,6 +64,13 @@
       "when": 1792842600000,
       "tag": "0008_password_policy",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "6",
+      "when": 1792842700000,
+      "tag": "0009_candidate_copied",
+      "breakpoints": true
     }
   ]
 }
