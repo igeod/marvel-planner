@@ -12,6 +12,16 @@
   gap: var(--sp-2);
 }
 
+// An empty message row stays in the DOM for screen readers but takes no space.
+.profile-section .field__message:empty {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  min-height: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
 .profile-section__actions {
   display: flex;
   align-items: center;
@@ -21,7 +31,7 @@
 
   [role] {
     font-size: var(--fs-label);
-    font-weight: 500;
+    font-weight: 400;
     color: var(--ink-2);
   }
 }
