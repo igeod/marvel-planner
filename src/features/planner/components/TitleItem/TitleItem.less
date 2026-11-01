@@ -75,6 +75,43 @@
   }
 }
 
+// Open row below the desktop breakpoint: the poster floats left, so the title and the "Mark as
+// watched" button sit beside it, and everything after them clears the poster to run full width.
+// A float rather than a grid, because the summary and the content live inside one <details>.
+@media (max-width: 1023px) {
+  .title-row--open {
+    display: block;
+    padding: 14px 14px 16px 12px;
+
+    .poster-thumb {
+      float: left;
+      margin: 0 8px 0 0;
+    }
+
+    .title-row__summary {
+      align-items: flex-start;
+      padding-top: 0;
+    }
+
+    .title-row__content {
+      display: block;
+      margin-top: 16px;
+
+      > * + * {
+        margin-top: 16px;
+      }
+
+      > :not(.mark-watched) {
+        clear: both;
+      }
+    }
+
+    .mark-watched {
+      margin: 0;
+    }
+  }
+}
+
 .title-row__check {
   position: relative;
   flex: none;
