@@ -28,7 +28,6 @@ export function UsersSection({ users }: { users: AdminOverview["users"] }) {
           )}
         </div>
       </dl>
-      <p className="admin-note">{t("admin.users.note")}</p>
     </section>
   );
 }

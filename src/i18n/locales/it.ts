@@ -571,7 +571,6 @@ export const it = {
       newWeek: "Nuovi negli ultimi 7 giorni",
       deleted: "Account eliminati",
       since: "Conteggio dal {date}",
-      note: "Solo conteggi. Nessun nome né email.",
     },
     candidates: {
       empty: "Nessun nuovo titolo da valutare.",

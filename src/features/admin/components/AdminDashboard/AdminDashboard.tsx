@@ -56,13 +56,11 @@ export function AdminDashboard() {
 
       {state.status === "ready" && (
         <>
-          {state.overview.candidates.length > 0 && (
-            <CandidatesSection
-              candidates={state.overview.candidates}
-              onDismiss={(key) => void dismiss(key)}
-              onCopied={(key) => void markCopied(key)}
-            />
-          )}
+          <CandidatesSection
+            candidates={state.overview.candidates}
+            onDismiss={(key) => void dismiss(key)}
+            onCopied={(key) => void markCopied(key)}
+          />
           <MaintenanceSection
             isOn={state.overview.maintenance}
             onChange={(enabled) => void toggleMaintenance(enabled)}
@@ -72,13 +70,6 @@ export function AdminDashboard() {
             tmdbConfigured={state.overview.tmdbConfigured}
           />
           <UsersSection users={state.overview.users} />
-          {state.overview.candidates.length === 0 && (
-            <CandidatesSection
-              candidates={state.overview.candidates}
-              onDismiss={(key) => void dismiss(key)}
-              onCopied={(key) => void markCopied(key)}
-            />
-          )}
         </>
       )}
     </div>

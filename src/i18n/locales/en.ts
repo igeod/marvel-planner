@@ -572,7 +572,6 @@ export const en: Messages = {
       newWeek: "New in the last 7 days",
       deleted: "Deleted accounts",
       since: "Counted since {date}",
-      note: "Counts only. No names or emails.",
     },
     candidates: {
       empty: "No new titles to review.",
