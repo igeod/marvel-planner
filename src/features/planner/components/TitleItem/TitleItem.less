@@ -50,36 +50,64 @@
     display: none;
   }
 
-  // Hover and pressed colour only this band (title and chevron); the margins cancel the padding,
-  // so the text does not move.
+  // Hover and pressed tint a gradient that starts at the row's top edge and fades out under the
+  // meta. --pt / --pl / --pr are the row padding (plus poster and gap on the left) so the layer
+  // reaches the row edges; --fade is its soft end (mobile: 5px, where "Mark as watched" starts).
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  --pt: 10px;
+  --pl: 116px;
+  --pr: 16px;
+  --fade: 14px;
+
   .title-row__summary {
+    position: relative;
     min-height: 0;
-    margin: -6px -8px;
-    padding: 8px 8px 6px;
-    border-radius: var(--r-sm);
-    transition: background-color var(--dur-row) var(--ease-out);
+    padding-top: 2px;
+    border-radius: var(--r-xs);
     -webkit-tap-highlight-color: transparent;
 
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      pointer-events: none;
+      top: calc(-1 * var(--pt));
+      left: calc(-1 * var(--pl));
+      right: calc(-1 * var(--pr));
+      bottom: calc(-1 * var(--fade));
+      background: var(--row-open-hover);
+      opacity: 0;
+      -webkit-mask-image: linear-gradient(#000 calc(100% - var(--fade)), transparent);
+      mask-image: linear-gradient(#000 calc(100% - var(--fade)), transparent);
+      transition:
+        opacity var(--dur-row) var(--ease-out),
+        background-color var(--dur-row) var(--ease-out);
+    }
+
     @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        background: var(--row-open-hover);
+      &:hover::before {
+        opacity: 1;
       }
     }
 
-    &:active {
+    &:active::before {
+      opacity: 1;
       background: var(--row-open-press);
       transition-duration: var(--dur-press);
     }
 
     &:focus-visible {
       outline: 3px solid var(--gold);
-      outline-offset: -3px;
+      outline-offset: 2px;
     }
 
     @media (prefers-reduced-motion: no-preference) {
       @media (hover: hover) and (pointer: fine) {
         &:hover .chevron {
           transform: rotate(180deg) translateY(1px);
+          transition-duration: var(--dur-hover);
         }
       }
 
@@ -109,6 +137,10 @@
   .title-row--open {
     display: block;
     padding: 14px 14px 16px 12px;
+    --pt: 14px;
+    --pl: 92px;
+    --pr: 14px;
+    --fade: 5px;
 
     .poster-thumb {
       float: left;
@@ -120,8 +152,7 @@
     .title-row__summary {
       align-items: flex-start;
       min-height: 69px;
-      margin: -8px -8px -6px -4px;
-      padding-left: 4px;
+      padding-top: 0;
     }
 
     .title-row__content {
