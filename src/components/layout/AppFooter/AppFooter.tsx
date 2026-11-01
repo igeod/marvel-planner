@@ -7,6 +7,7 @@ import { usePrivacySettings } from "../../../features/privacy/hooks/usePrivacySe
 import { useI18n } from "../../../i18n/useI18n";
 import { Button } from "../../ui/Button";
 import { CoffeeLink } from "../CoffeeLink";
+import tmdbLogo from "./tmdb-logo.svg";
 
 const FONT_LICENSE_URL = "/licenses/fonts-OFL.txt";
 
@@ -46,9 +47,7 @@ export function AppFooter() {
           </p>
         </div>
         <div className="site-footer__tmdb">
-          <span className="site-footer__tmdb-logo" aria-hidden="true">
-            TMDB
-          </span>
+          <img className="site-footer__tmdb-logo" src={tmdbLogo} alt="" />
           <p className="muted">
             This product uses the TMDB API but is not endorsed or certified by{" "}
             <a href="https://www.themoviedb.org" rel="noreferrer">
