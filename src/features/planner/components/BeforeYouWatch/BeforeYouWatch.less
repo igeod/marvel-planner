@@ -42,6 +42,26 @@
   });
 }
 
+// Same card as a prerequisite, with a gold tick and one bold line.
+.prereq-none {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: var(--r-input);
+  background: var(--surface-2);
+
+  .desktop({ padding: 10px 16px; });
+
+  svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    stroke-width: 3;
+    color: var(--gold);
+  }
+}
+
 .prereq__level {
   grid-column: 1 / -1;
   font-size: var(--fs-label);

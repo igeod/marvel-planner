@@ -446,7 +446,7 @@ export const en: Messages = {
     warning: "Heads up, story secrets ahead",
     outside: "Outside this planner",
     provisional: "Provisional list: it may change when the title is released.",
-    standalone: "You don't need to have watched anything else: you can start right away.",
+    standalone: "Nothing to watch first. You can start here.",
   },
   postCredits: {
     heading: "Post-credits scenes",

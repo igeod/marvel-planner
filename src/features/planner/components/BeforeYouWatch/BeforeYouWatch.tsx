@@ -30,6 +30,26 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
     guide.prerequisites.filter((item) => item.level === level),
   );
 
+  // Nothing to watch first: one reassuring box instead of the heading and the list.
+  if (guide.prerequisites.length === 0) {
+    return (
+      <section className="before-you-watch" aria-label={t("prerequisites.heading")}>
+        {title.status === "upcoming" && (
+          <p className="before-you-watch__status muted">{t("prerequisites.provisional")}</p>
+        )}
+        <p className="prereq-none">
+          <Check aria-hidden />
+          <strong>{t("prerequisites.standalone")}</strong>
+        </p>
+        {guide.outside && (
+          <p className="before-you-watch__outside">
+            <strong>{t("prerequisites.outside")}:</strong> {guide.outside[language]}
+          </p>
+        )}
+      </section>
+    );
+  }
+
   return (
     <section className="before-you-watch" aria-labelledby={headingId}>
       <div className="before-you-watch__header">
@@ -57,10 +77,6 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
 
       {title.status === "upcoming" && (
         <p className="before-you-watch__status muted">{t("prerequisites.provisional")}</p>
-      )}
-
-      {guide.prerequisites.length === 0 && (
-        <p className="before-you-watch__status muted">{t("prerequisites.standalone")}</p>
       )}
 
       {ordered.length > 0 && (

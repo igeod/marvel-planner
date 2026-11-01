@@ -444,7 +444,7 @@ export const it = {
     warning: "Attenzione, segreti della trama in arrivo",
     outside: "Fuori dal planner",
     provisional: "Elenco provvisorio: potrebbe cambiare quando il titolo uscirà.",
-    standalone: "Non serve aver visto altro: puoi guardarlo subito.",
+    standalone: "Niente da guardare prima. Puoi iniziare da qui.",
   },
   postCredits: {
     heading: "Scene post credits",

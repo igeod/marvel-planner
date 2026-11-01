@@ -4,11 +4,11 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: 10px 12px 14px 4px;
+  padding: 14px 14px 14px 12px;
   border-radius: @radius-row;
   background: var(--row);
 
-  .desktop({ gap: 12px; padding: 10px 16px 10px 12px; });
+  .desktop({ gap: 12px; padding: 10px 16px 10px 8px; });
 
   // Hover and pressed follow the summary only, so the open content does not flash.
   @media (hover: hover) and (pointer: fine) {
@@ -28,6 +28,9 @@
 }
 
 .title-row--open {
+  // Open rows are 4px taller at the bottom than closed ones (mobile: see the media block below).
+  .desktop({ padding: 10px 16px 14px 8px; });
+
   --bg: var(--panel);
   --row: var(--panel);
   --ink: var(--panel-ink);
