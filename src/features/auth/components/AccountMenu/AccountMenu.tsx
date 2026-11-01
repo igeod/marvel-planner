@@ -1,18 +1,13 @@
-import { LogOut, Settings } from "lucide-react";
-import { Link } from "react-router";
-import { PATHS } from "../../../../app/paths";
-import { buttonClass, Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button";
 import { useI18n } from "../../../../i18n/useI18n";
-import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { initials } from "../../utils/initials";
 
 export function AccountMenu() {
   const { t } = useI18n();
-  const { user, status, logout } = useAuth();
+  const { user, status } = useAuth();
   const { open } = useAuthDialog();
-  const { isAdmin } = useSiteStatus();
 
   if (status === "loading") return null;
 
@@ -38,23 +33,6 @@ export function AccountMenu() {
         </span>
         <span>{user.name}</span>
       </button>
-      {isAdmin && (
-        <Link
-          to={PATHS.admin}
-          className={buttonClass("panel", "md", true)}
-          title={t("nav.admin")}
-          aria-label={t("nav.admin")}
-        >
-          <Settings aria-hidden />
-        </Link>
-      )}
-      <Button
-        variant="panel"
-        icon={<LogOut aria-hidden />}
-        aria-label={t("nav.logout")}
-        title={t("nav.logout")}
-        onClick={logout}
-      />
     </div>
   );
 }
