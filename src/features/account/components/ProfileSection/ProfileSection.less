@@ -29,9 +29,12 @@
   gap: var(--sp-3);
   margin-top: var(--sp-4);
 
-  [role] {
-    font-size: var(--fs-label);
-    font-weight: 400;
-    color: var(--ink-2);
+  .status {
+    flex: 1 1 200px;
+    min-width: 0;
+
+    @media (max-width: 639px) {
+      flex-basis: 100%;
+    }
   }
 }

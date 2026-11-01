@@ -327,7 +327,7 @@ export const fr: Messages = {
     },
     errors: {
       invalidCredentials: "E-mail ou mot de passe incorrect.",
-      invalidEmail: "L'adresse e-mail n'est pas valide.",
+      invalidEmail: "Saisissez une adresse comme nom@exemple.fr.",
       wrongPassword: "Le mot de passe est incorrect.",
       invalidName: "Saisissez un nom valide.",
       nameTaken: "Ce nom de super-héros est déjà pris. Choisissez-en un autre.",
@@ -338,6 +338,9 @@ export const fr: Messages = {
       passwordLong: "Le mot de passe est trop long.",
       reauthenticate: "Par sécurité, déconnectez-vous puis reconnectez-vous avant de continuer.",
       tooManyRequests: "Trop de tentatives. Patientez quelques minutes puis réessayez.",
+      emailTaken:
+        "Cette adresse e-mail est déjà utilisée par un autre compte. Saisissez-en une autre.",
+      network: "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
       required: "Remplissez ce champ.",
       generic: "L'opération a échoué. Réessayez plus tard.",
     },
@@ -383,9 +386,14 @@ export const fr: Messages = {
       email: "E-mail",
       save: "Enregistrer le nom",
       saving: "Enregistrement…",
-      saved: "Nom mis à jour.",
+      saved: "Nom mis à jour : {name}",
       emailSave: "Mettre à jour l'e-mail",
-      emailSaved: "E-mail mis à jour.",
+      emailSaved: "E-mail mis à jour : {email}",
+      errors: {
+        nameShort: "Le nom doit contenir au moins {min} caractères.",
+        nameUnchanged: "C'est déjà votre nom.",
+        emailUnchanged: "C'est déjà votre adresse e-mail.",
+      },
     },
     password: {
       heading: "Mot de passe",
@@ -405,16 +413,16 @@ export const fr: Messages = {
       mismatch: "Les mots de passe ne correspondent pas.",
       change: "Changer le mot de passe",
       changing: "Mise à jour…",
-      changed: "Mot de passe mis à jour.",
+      changed: "Mot de passe modifié. Vous avez été déconnecté de vos autres appareils.",
+      errors: {
+        currentWrong: "Le mot de passe actuel est incorrect. Réessayez.",
+      },
+      errorSummary: "Corrigez ces champs avant de continuer :",
     },
     dialog: {
       unsaved: "Vous avez des modifications non enregistrées.",
       keep: "Continuer à modifier",
       discard: "Abandonner",
-      invalidName: "Saisissez au moins 3 caractères et un nom différent de celui enregistré.",
-      invalidEmail: "Saisissez une adresse e-mail valide et différente de l'actuelle.",
-      invalidPassword:
-        "Remplissez tous les champs. Le nouveau mot de passe doit comporter au moins {min} caractères et les deux nouveaux mots de passe doivent correspondre.",
       invalidDelete: "Saisissez votre mot de passe pour continuer.",
       typeLabel: "Saisissez {word} pour confirmer.",
     },

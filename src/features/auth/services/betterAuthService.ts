@@ -30,6 +30,8 @@ interface ClientError {
 
 function toAuthError({ code, status }: ClientError): AuthError {
   if (status === 429) return new AuthError("auth.errors.tooManyRequests");
+  // No HTTP status at all: the request never reached the server.
+  if (!status) return new AuthError("auth.errors.network");
   return new AuthError((code && ERROR_KEYS[code]) || "auth.errors.generic");
 }
 
@@ -73,11 +75,15 @@ export const betterAuthService: AuthService = {
 
   async updateEmail(email) {
     const { error } = await client.changeEmail({ newEmail: email });
-    if (error) throw toAuthError(error);
+    if (error) {
+      if (error.code?.startsWith("USER_ALREADY_EXISTS"))
+        throw new AuthError("auth.errors.emailTaken");
+      throw toAuthError(error);
+    }
     const user = await requireCurrentUser();
     // The server answers 200 without changing anything when the address belongs to someone else.
     if (user.email.toLowerCase() !== email.toLowerCase()) {
-      throw new AuthError("auth.errors.userExists");
+      throw new AuthError("auth.errors.emailTaken");
     }
     return user;
   },

@@ -23,7 +23,7 @@ import { useAuth } from "../../../auth/hooks/useAuth";
 import type { User } from "../../../auth/types";
 import { initials } from "../../../auth/utils/initials";
 import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
-import { UnsavedChangesContext } from "../../hooks/useReportDirty";
+import { PendingContext, RevealContext, UnsavedChangesContext } from "../../hooks/useReportDirty";
 import { DeleteAccountSection } from "../DeleteAccountSection";
 import { ExportSection } from "../ExportSection";
 import { PasswordSection } from "../PasswordSection";
@@ -95,6 +95,10 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   const navRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const dirtyForms = useRef(new Set<string>());
+  // Forms with a request in flight: closing is ignored until they finish, so a discard cannot race a save.
+  const pendingForms = useRef(new Set<string>());
+  const [isBusy, setIsBusy] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
 
   const tabId = (id: Tab) => `${baseId}-tab-${id}`;
 
@@ -108,13 +112,21 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
     else dirtyForms.current.delete(id);
   }, []);
 
+  const reportPending = useCallback((id: string, isPending: boolean) => {
+    if (isPending) pendingForms.current.add(id);
+    else pendingForms.current.delete(id);
+    setIsBusy(pendingForms.current.size > 0);
+  }, []);
+
   const tryClose = () => {
+    if (pendingForms.current.size > 0) return;
     if (dirtyForms.current.size === 0) return onClose();
     setIsBannerLeaving(false);
     setIsAskingDiscard(true);
   };
 
   const handleAdminClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pendingForms.current.size > 0) return event.preventDefault();
     if (dirtyForms.current.size > 0) {
       event.preventDefault();
       tryClose();
@@ -176,25 +188,52 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
     selectTab(TABS[(target + TABS.length) % TABS.length].id);
   };
 
-  // Scroll the content, not the page, so a focused field clears the keyboard.
+  // Scroll the content, not the page, so a focused field or a message clears the keyboard.
+  const scrollIntoBox = useCallback((box: HTMLElement, target: HTMLElement) => {
+    const viewport = window.visualViewport;
+    const f = target.getBoundingClientRect();
+    const b = box.getBoundingClientRect();
+    const visibleBottom = Math.min(
+      b.bottom,
+      viewport ? viewport.offsetTop + viewport.height : b.bottom,
+    );
+    if (f.top < b.top + FIELD_MARGIN) box.scrollTop -= b.top + FIELD_MARGIN - f.top;
+    else if (f.bottom > visibleBottom - FIELD_MARGIN) {
+      box.scrollTop += f.bottom - (visibleBottom - FIELD_MARGIN);
+    }
+  }, []);
+
   const keepFieldVisible = (event: FocusEvent<HTMLElement>) => {
     const field = event.target;
     const box = event.currentTarget;
     if (!isSheet || !(field instanceof HTMLInputElement)) return;
-    window.setTimeout(() => {
-      const viewport = window.visualViewport;
-      const f = field.getBoundingClientRect();
-      const b = box.getBoundingClientRect();
-      const visibleBottom = Math.min(
-        b.bottom,
-        viewport ? viewport.offsetTop + viewport.height : b.bottom,
-      );
-      if (f.top < b.top + FIELD_MARGIN) box.scrollTop -= b.top + FIELD_MARGIN - f.top;
-      else if (f.bottom > visibleBottom - FIELD_MARGIN) {
-        box.scrollTop += f.bottom - (visibleBottom - FIELD_MARGIN);
-      }
-    }, FIELD_SCROLL_DELAY);
+    window.setTimeout(() => scrollIntoBox(box, field), FIELD_SCROLL_DELAY);
   };
+
+  // After a save, a message under the button must not stay behind the keyboard or the banner.
+  const revealInPanel = useCallback(
+    (element: HTMLElement | null) => {
+      const box = scrollRef.current;
+      if (!isSheet || !element || !box) return;
+      window.requestAnimationFrame(() => scrollIntoBox(box, element));
+    },
+    [isSheet, scrollIntoBox],
+  );
+
+  // The banner covers the bottom of the panel: the panel keeps that much room under its content.
+  useEffect(() => {
+    const banner = bannerRef.current;
+    const panel = scrollRef.current;
+    if (!banner || !panel) return;
+    const sync = () => panel.style.setProperty("--unsaved-h", `${banner.offsetHeight}px`);
+    sync();
+    const observer = new ResizeObserver(sync);
+    observer.observe(banner);
+    return () => {
+      observer.disconnect();
+      panel.style.removeProperty("--unsaved-h");
+    };
+  }, [isAskingDiscard]);
 
   // The banner fades out (--dur-hover) before it leaves the DOM.
   const keepEditing = () => {
@@ -206,119 +245,129 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
 
   return (
     <UnsavedChangesContext value={reportDirty}>
-      <div className="profile" ref={rootRef}>
-        <aside className="profile__side">
-          <div className="profile__id">
-            <div className="profile__avatar" aria-hidden="true">
-              {initials(user.name).slice(0, 1)}
-              {isAdmin && <AdminBadge />}
-            </div>
-            <div className="profile__who">
-              <p className="profile__name">{user.name}</p>
-              {isAdmin && (
-                <p className="profile__role">
-                  <ShieldCheck aria-hidden />
-                  {t("account.admin.role")}
-                </p>
-              )}
-            </div>
-          </div>
-          {isAdmin && <AdminEntry onClick={handleAdminClick} />}
-          <nav
-            className="profile__nav"
-            role="tablist"
-            aria-label={t("account.nav")}
-            aria-orientation={isSheet ? "horizontal" : "vertical"}
-            ref={navRef}
-            onKeyDown={handleTabKeys}
-          >
-            {TABS.map(({ id, labelKey, icon: Icon }) => (
-              <button
-                key={id}
-                id={tabId(id)}
-                type="button"
-                role="tab"
-                className="profile__tab"
-                aria-selected={tab === id}
-                aria-controls={`${baseId}-panel`}
-                tabIndex={tab === id ? 0 : -1}
-                onClick={() => setTab(id)}
-              >
-                <Icon aria-hidden />
-                {t(labelKey)}
-              </button>
-            ))}
-          </nav>
-        </aside>
-
-        <section className="profile__content">
-          <div
-            id={`${baseId}-panel`}
-            role="tabpanel"
-            aria-labelledby={tabId(tab)}
-            className="profile__inner"
-            data-tab={tab}
-            ref={scrollRef}
-            onFocus={keepFieldVisible}
-          >
-            <h2 id={PROFILE_TITLE_ID} className="profile__title">
-              {t(TITLE_KEYS[tab])}
-            </h2>
-            {/* Every panel stays mounted so unsaved edits survive switching tabs. */}
-            <div className="profile__panel profile__scroll scroll-y" hidden={tab !== "progress"}>
-              <ProgressStatsSection />
-            </div>
-            <div className="profile__panel" hidden={tab !== "profile"}>
-              <ProfileSection user={user} />
-            </div>
-            <div className="profile__panel" hidden={tab !== "password"}>
-              <PasswordSection />
-            </div>
-            <div className="profile__panel" hidden={tab !== "account"}>
-              <section className="profile__logout">
-                <div>
-                  <h3>{t("account.logout.heading")}</h3>
-                  <p className="muted">{t("account.logout.note")}</p>
+      <PendingContext value={reportPending}>
+        <RevealContext value={revealInPanel}>
+          <div className="profile" ref={rootRef}>
+            <aside className="profile__side">
+              <div className="profile__id">
+                <div className="profile__avatar" aria-hidden="true">
+                  {initials(user.name).slice(0, 1)}
+                  {isAdmin && <AdminBadge />}
                 </div>
-                <button type="button" className="btn btn--ink" onClick={logout}>
-                  <LogOut aria-hidden />
-                  {t("account.logout.heading")}
-                </button>
-              </section>
-              <hr className="profile__rule" />
-              <ExportSection />
-              <DeleteAccountSection />
-            </div>
-          </div>
-        </section>
+                <div className="profile__who">
+                  <p className="profile__name">{user.name}</p>
+                  {isAdmin && (
+                    <p className="profile__role">
+                      <ShieldCheck aria-hidden />
+                      {t("account.admin.role")}
+                    </p>
+                  )}
+                </div>
+              </div>
+              {isAdmin && <AdminEntry onClick={handleAdminClick} />}
+              <nav
+                className="profile__nav"
+                role="tablist"
+                aria-label={t("account.nav")}
+                aria-orientation={isSheet ? "horizontal" : "vertical"}
+                ref={navRef}
+                onKeyDown={handleTabKeys}
+              >
+                {TABS.map(({ id, labelKey, icon: Icon }) => (
+                  <button
+                    key={id}
+                    id={tabId(id)}
+                    type="button"
+                    role="tab"
+                    className="profile__tab"
+                    aria-selected={tab === id}
+                    aria-controls={`${baseId}-panel`}
+                    tabIndex={tab === id ? 0 : -1}
+                    onClick={() => setTab(id)}
+                  >
+                    <Icon aria-hidden />
+                    {t(labelKey)}
+                  </button>
+                ))}
+              </nav>
+            </aside>
 
-        <button
-          type="button"
-          className="dialog__close profile__close"
-          aria-label={t("common.close")}
-          onClick={tryClose}
-        >
-          <X aria-hidden />
-        </button>
+            <section className="profile__content">
+              <div
+                id={`${baseId}-panel`}
+                role="tabpanel"
+                aria-labelledby={tabId(tab)}
+                className="profile__inner"
+                data-tab={tab}
+                data-unsaved={isAskingDiscard || undefined}
+                ref={scrollRef}
+                onFocus={keepFieldVisible}
+              >
+                <h2 id={PROFILE_TITLE_ID} className="profile__title">
+                  {t(TITLE_KEYS[tab])}
+                </h2>
+                {/* Every panel stays mounted so unsaved edits survive switching tabs. */}
+                <div
+                  className="profile__panel profile__scroll scroll-y"
+                  hidden={tab !== "progress"}
+                >
+                  <ProgressStatsSection />
+                </div>
+                <div className="profile__panel" hidden={tab !== "profile"}>
+                  <ProfileSection user={user} isActive={tab === "profile"} />
+                </div>
+                <div className="profile__panel" hidden={tab !== "password"}>
+                  <PasswordSection isActive={tab === "password"} />
+                </div>
+                <div className="profile__panel" hidden={tab !== "account"}>
+                  <section className="profile__logout">
+                    <div>
+                      <h3>{t("account.logout.heading")}</h3>
+                      <p className="muted">{t("account.logout.note")}</p>
+                    </div>
+                    <button type="button" className="btn btn--ink" onClick={logout}>
+                      <LogOut aria-hidden />
+                      {t("account.logout.heading")}
+                    </button>
+                  </section>
+                  <hr className="profile__rule" />
+                  <ExportSection />
+                  <DeleteAccountSection />
+                </div>
+              </div>
+            </section>
 
-        {isAskingDiscard && (
-          <div
-            className="profile__unsaved"
-            role="alert"
-            data-leaving={isBannerLeaving || undefined}
-          >
-            <p>{t("account.dialog.unsaved")}</p>
-            <div className="profile__unsaved-actions">
-              <button type="button" className="profile__keep" onClick={keepEditing}>
-                {t("account.dialog.keep")}
-              </button>
-              <button type="button" className="profile__discard" onClick={onClose}>
-                {t("account.dialog.discard")}
-              </button>
-            </div>
+            <button
+              type="button"
+              className={`dialog__close profile__close${isBusy ? " profile__close--busy" : ""}`}
+              aria-label={t("common.close")}
+              aria-disabled={isBusy || undefined}
+              onClick={tryClose}
+            >
+              <X aria-hidden />
+            </button>
+
+            {isAskingDiscard && (
+              <div
+                ref={bannerRef}
+                className="profile__unsaved"
+                role="alert"
+                data-leaving={isBannerLeaving || undefined}
+              >
+                <p>{t("account.dialog.unsaved")}</p>
+                <div className="profile__unsaved-actions">
+                  <button type="button" className="profile__keep" onClick={keepEditing}>
+                    {t("account.dialog.keep")}
+                  </button>
+                  <button type="button" className="profile__discard" onClick={onClose}>
+                    {t("account.dialog.discard")}
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </RevealContext>
+      </PendingContext>
     </UnsavedChangesContext>
   );
 }

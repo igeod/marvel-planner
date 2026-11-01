@@ -329,7 +329,7 @@ export const de: Messages = {
     },
     errors: {
       invalidCredentials: "E-Mail oder Passwort sind nicht korrekt.",
-      invalidEmail: "Die E-Mail-Adresse ist ungültig.",
+      invalidEmail: "Gib eine Adresse wie name@beispiel.de ein.",
       wrongPassword: "Das Passwort ist nicht korrekt.",
       invalidName: "Gib einen gültigen Namen ein.",
       nameTaken: "Dieser Superheldenname ist bereits vergeben. Wähle einen anderen.",
@@ -339,6 +339,9 @@ export const de: Messages = {
       passwordLong: "Das Passwort ist zu lang.",
       reauthenticate: "Melde dich aus Sicherheitsgründen ab und erneut an, bevor du fortfährst.",
       tooManyRequests: "Zu viele Versuche. Warte einige Minuten und versuche es erneut.",
+      emailTaken:
+        "Diese E-Mail-Adresse wird bereits von einem anderen Konto verwendet. Gib eine andere ein.",
+      network: "Der Server ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.",
       required: "Fülle dieses Feld aus.",
       generic: "Der Vorgang ist fehlgeschlagen. Versuche es später erneut.",
     },
@@ -384,9 +387,14 @@ export const de: Messages = {
       email: "E-Mail",
       save: "Namen speichern",
       saving: "Wird gespeichert …",
-      saved: "Name aktualisiert.",
+      saved: "Name aktualisiert: {name}",
       emailSave: "E-Mail aktualisieren",
-      emailSaved: "E-Mail aktualisiert.",
+      emailSaved: "E-Mail aktualisiert: {email}",
+      errors: {
+        nameShort: "Der Name muss mindestens {min} Zeichen lang sein.",
+        nameUnchanged: "Das ist bereits dein Name.",
+        emailUnchanged: "Das ist bereits deine E-Mail-Adresse.",
+      },
     },
     password: {
       heading: "Passwort",
@@ -405,16 +413,16 @@ export const de: Messages = {
       mismatch: "Die Passwörter stimmen nicht überein.",
       change: "Passwort ändern",
       changing: "Wird aktualisiert …",
-      changed: "Passwort aktualisiert.",
+      changed: "Passwort geändert. Du wurdest auf deinen anderen Geräten abgemeldet.",
+      errors: {
+        currentWrong: "Das aktuelle Passwort ist nicht korrekt. Versuche es erneut.",
+      },
+      errorSummary: "Korrigiere diese Felder, bevor du fortfährst:",
     },
     dialog: {
       unsaved: "Du hast ungespeicherte Änderungen.",
       keep: "Weiter bearbeiten",
       discard: "Verwerfen",
-      invalidName: "Gib mindestens 3 Zeichen und einen vom gespeicherten abweichenden Namen ein.",
-      invalidEmail: "Gib eine gültige E-Mail-Adresse ein, die von der aktuellen abweicht.",
-      invalidPassword:
-        "Fülle alle Felder aus. Das neue Passwort braucht mindestens {min} Zeichen und beide neuen Passwörter müssen übereinstimmen.",
       invalidDelete: "Gib dein Passwort ein, um fortzufahren.",
       typeLabel: "Gib {word} ein, um zu bestätigen.",
     },

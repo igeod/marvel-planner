@@ -157,3 +157,45 @@ describe("regola della password dal database", () => {
     expect(await codeOf(withPassword("un-altra-password-mai-vista"))).toBeNull();
   });
 });
+
+describe("cambio della password", () => {
+  const signIn = async (email: string, password: string) => {
+    const response = await auth.api.signInEmail({
+      body: { email, password },
+      returnHeaders: true,
+    });
+    return new Headers({
+      cookie: response.headers
+        .getSetCookie()
+        .map((c) => c.split(";")[0])
+        .join("; "),
+    });
+  };
+
+  it("chiude le sessioni degli altri dispositivi e lascia aperta quella appena creata", async () => {
+    await register("Iron Fan", "a@example.com");
+    const first = await signIn("a@example.com", "una-password-lunga-10");
+    const second = await signIn("a@example.com", "una-password-lunga-10");
+    expect(await auth.api.getSession({ headers: second })).not.toBeNull();
+
+    // The server replaces every session with a fresh one and sends its cookie back.
+    const response = await auth.api.changePassword({
+      body: {
+        currentPassword: "una-password-lunga-10",
+        newPassword: "un-altra-password-lunga-11",
+        revokeOtherSessions: true,
+      },
+      headers: first,
+      returnHeaders: true,
+    });
+    const current = new Headers({
+      cookie: response.headers
+        .getSetCookie()
+        .map((c) => c.split(";")[0])
+        .join("; "),
+    });
+
+    expect(await auth.api.getSession({ headers: current })).not.toBeNull();
+    expect(await auth.api.getSession({ headers: second })).toBeNull();
+  });
+});

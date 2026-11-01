@@ -1,8 +1,10 @@
 import { CircleAlert, Eye, EyeOff, X } from "lucide-react";
 import {
   useId,
+  useImperativeHandle,
   useRef,
   useState,
+  type Ref,
   type HTMLInputTypeAttribute,
   type MouseEvent,
   type ReactNode,
@@ -24,6 +26,15 @@ export interface FieldProps {
   readOnly?: boolean;
   disabled?: boolean;
   onBlur?: () => void;
+  // Neutral line under the field in place of the hint: no icon, no ring.
+  note?: string;
+  // Focus the input from outside, e.g. after a refused submit.
+  inputRef?: Ref<HTMLInputElement>;
+  // The error is not announced on its own (a summary above already is).
+  isQuiet?: boolean;
+  // Marks the field invalid when its error is shown elsewhere (the password length row).
+  invalid?: boolean;
+  describedBy?: string;
 }
 
 // The label names the field for assistive technology, but a click on it does not move focus.
@@ -31,23 +42,38 @@ function keepFocus(event: MouseEvent<HTMLLabelElement>) {
   event.preventDefault();
 }
 
-// One status line under the field: reserves its height so the layout never jumps.
+// One status line under the field: reserves its height so the layout never jumps. An error is a new
+// element (role="alert") so screen readers announce it when it appears.
 function FieldMessage({
   id,
   hint,
   error,
   notice,
+  isQuiet,
 }: {
   id: string;
   hint?: string;
   error?: string | null;
   notice?: string | false;
+  isQuiet?: boolean;
 }) {
-  const text = error || notice || hint;
+  if (error) {
+    return (
+      <p
+        key="error"
+        id={id}
+        role={isQuiet ? "status" : "alert"}
+        className="field__message field__error"
+      >
+        <CircleAlert aria-hidden />
+        {error}
+      </p>
+    );
+  }
   return (
-    <p id={id} role="status" className={error ? "field__message field__error" : "field__message"}>
-      {(error || notice) && <CircleAlert aria-hidden />}
-      {text}
+    <p key="message" id={id} role="status" className="field__message">
+      {notice && <CircleAlert aria-hidden />}
+      {notice || hint}
     </p>
   );
 }
@@ -67,11 +93,15 @@ export function TextField({
   readOnly,
   disabled,
   onBlur,
+  note,
+  inputRef: externalRef,
+  isQuiet,
 }: FieldProps) {
   const { t } = useI18n();
   const id = useId();
   const messageId = `${id}-message`;
   const inputRef = useRef<HTMLInputElement>(null);
+  useImperativeHandle(externalRef, () => inputRef.current as HTMLInputElement);
   const isEmail = type === "email";
   const hasClear = isEmail && value !== "" && !readOnly && !disabled;
 
@@ -123,7 +153,7 @@ export function TextField({
           </button>
         )}
       </div>
-      <FieldMessage id={messageId} hint={hint} error={error} />
+      <FieldMessage id={messageId} hint={note ?? hint} error={error} isQuiet={isQuiet} />
     </div>
   );
 }
@@ -170,8 +200,8 @@ export function PasswordField(props: PasswordFieldProps) {
           required={required}
           minLength={minLength}
           readOnly={props.readOnly}
-          aria-invalid={Boolean(error)}
-          aria-describedby={messageId}
+          aria-invalid={Boolean(error) || props.invalid}
+          aria-describedby={[messageId, props.describedBy].filter(Boolean).join(" ")}
           data-clearable={props.hideToggle ? undefined : true}
           onChange={(event) => onChange(event.target.value)}
           onKeyUp={(event) => setIsCapsLock(event.getModifierState("CapsLock"))}
@@ -198,6 +228,7 @@ export function PasswordField(props: PasswordFieldProps) {
         hint={hint}
         error={error}
         notice={isCapsLock && t("auth.capsLock")}
+        isQuiet={props.isQuiet}
       />
       {props.after}
     </div>

@@ -397,3 +397,80 @@ dialog.dialog--profile {
   color: var(--surface);
   box-shadow: inset 0 0 0 2px var(--surface);
 }
+
+// The close button while a request is running: closing is ignored until it ends.
+.profile__close--busy {
+  background: var(--disabled);
+  color: var(--on-disabled);
+  cursor: progress;
+}
+
+// The banner sits over the bottom of the panel; the panel keeps room for it.
+.profile__inner[data-unsaved] {
+  padding-bottom: calc(var(--unsaved-h, 0px) + var(--sp-3));
+}
+
+.form-summary {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: flex-start;
+  padding: var(--sp-4);
+  border-radius: var(--r-input);
+  background: var(--bg);
+
+  > svg {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    color: var(--danger);
+    stroke-width: 2.4;
+  }
+
+  p {
+    font-size: var(--fs-label);
+    line-height: 20px;
+    font-weight: 700;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1);
+    margin: var(--sp-2) 0 0;
+    padding-left: 18px;
+    font-size: var(--fs-label);
+    line-height: 20px;
+  }
+
+  a {
+    color: var(--ink);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  &:focus-visible {
+    outline: var(--focus);
+    outline-offset: var(--focus-offset);
+  }
+}
+
+// An error that belongs to the form and not to one field.
+.form-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-label);
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--danger);
+
+  svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    stroke-width: 2.4;
+  }
+}
