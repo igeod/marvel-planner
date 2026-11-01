@@ -159,10 +159,13 @@
   --popover-w: 360px;
   --popover-gap: 8px;
 
-  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   // Five durations; an exit runs one step shorter than its entrance (240 to 180, 180 to 120, 120 to 80).
   --dur-press: 80ms;
-  --dur-hover: 120ms;
+  --dur-hover: 200ms;
+  --dur-row: 350ms;
+  --dur-chevron: 400ms;
+  --dur-reveal: 380ms;
   --dur-ui: 180ms;
   --dur-enter: 240ms;
   --dur-progress: 600ms;
@@ -187,6 +190,7 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-hover: 80ms;
+    --dur-row: 80ms;
     --dur-ui: 80ms;
     --dur-enter: 80ms;
     --dur-progress: 0ms;

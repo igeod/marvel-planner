@@ -64,8 +64,8 @@ a {
 // Hover and unmarking take 120ms; a row just marked by the user takes 180ms.
 .title-row {
   transition:
-    background-color var(--dur-hover) var(--ease-out),
-    color var(--dur-hover) var(--ease-out);
+    background-color var(--dur-row) var(--ease-out),
+    color var(--dur-row) var(--ease-out);
 
   &[data-just-marked] {
     transition-duration: var(--dur-ui);
@@ -248,7 +248,11 @@ dialog.menu-panel {
   }
 
   .chevron {
-    transition: transform var(--dur-ui) var(--ease-out);
+    transition: transform var(--dur-chevron) var(--ease-out);
+  }
+
+  .select-field__trigger .chevron {
+    transition-duration: var(--dur-ui);
   }
 
   .switch__track::after {
@@ -319,6 +323,11 @@ dialog.menu-panel {
 
   .title-row[data-just-marked] .title-row__name s {
     animation: strike-in var(--dur-ui) var(--ease-out);
+  }
+
+  // Content that appears when a row opens (watched button, synopsis) fades in and drops into place.
+  .title-row__content > :is(.mark-watched, .title-summary) {
+    animation: reveal-in var(--dur-reveal) var(--ease-out) both;
   }
 
   .next-card__swap {
@@ -464,6 +473,13 @@ dialog.menu-panel {
 @keyframes strike-in {
   from {
     text-decoration-color: transparent;
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
   }
 }
 
