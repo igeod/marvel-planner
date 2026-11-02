@@ -98,7 +98,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
         <summary className="title-row__summary">
           <span className="title-row__heading">
             <span lang="en" className="title-row__name">
-              {isWatched ? <s>{title.name}</s> : title.name}
+              {isWatched && !isOpen ? <s>{title.name}</s> : title.name}
             </span>
             <span className="title-row__meta">{meta}</span>
           </span>
