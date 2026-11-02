@@ -173,7 +173,7 @@ input[type="email"],
 input[type="password"],
 select {
   width: 100%;
-  min-height: 48px;
+  min-height: 3rem;
   padding: 0 var(--sp-4);
   border: 0;
   border-radius: var(--r-input);
@@ -186,7 +186,7 @@ select {
     box-shadow var(--dur-hover) var(--ease-out);
 
   &[data-clearable] {
-    padding-right: 56px;
+    padding-right: 3.5rem;
   }
 
   &::placeholder {
@@ -227,30 +227,30 @@ label {
 
 [role="alert"] {
   font-weight: 700;
-  color: var(--accent-text);
+  color: var(--danger-text);
 }
 
 progress {
   width: 100%;
-  height: var(--sp-2h);
+  height: var(--bar-h);
   border: 0;
   border-radius: var(--r-pill);
   overflow: hidden;
   appearance: none;
   background: var(--row-hover);
-  accent-color: var(--accent);
+  accent-color: var(--primary);
 
   &::-webkit-progress-bar {
     background: var(--row-hover);
   }
 
   &::-webkit-progress-value {
-    background: var(--accent);
+    background: var(--primary);
     border-radius: var(--r-pill);
   }
 
   &::-moz-progress-bar {
-    background: var(--accent);
+    background: var(--primary);
     border-radius: var(--r-pill);
   }
 }
@@ -269,7 +269,7 @@ progress {
 
 .card {
   .block();
-  padding: 24px;
+  padding: 1.5rem;
   background: var(--surface);
   box-shadow: var(--shadow-card);
 }

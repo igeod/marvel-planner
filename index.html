@@ -9,9 +9,21 @@
       content="Marvel Cinematic Universe watch planner: every film and series by saga and phase, with what to watch first."
     />
     <script>
-      // Splash on every full load; the fallback frees the page if the bundle never starts.
+      // Splash on the first load of a session; later loads only run the intro. The fallback frees the
+      // page if the bundle never starts.
       (function () {
         var d = document.documentElement;
+        var seen = false;
+        try {
+          seen = sessionStorage.getItem("splash-seen") === "1";
+        } catch (e) {}
+        if (seen) {
+          d.dataset.intro = "";
+          setTimeout(function () {
+            delete d.dataset.intro;
+          }, 450);
+          return;
+        }
         d.dataset.splash = "on";
         d.dataset.splashStart = String(performance.now());
         d.dataset.splashFallback = String(
@@ -24,6 +36,9 @@
       })();
     </script>
     <style>
+      html {
+        scrollbar-gutter: stable;
+      }
       #splash {
         display: none;
       }
@@ -38,9 +53,9 @@
         place-items: center;
         padding: 24px;
         background: var(--accent, #c8202b);
-        color: #fff;
+        color: var(--white, #fff);
         font-family: var(--font-display, "Anton", "Impact", "Arial Narrow", sans-serif);
-        font-size: clamp(56px, 11vw, 144px);
+        font-size: clamp(3.5rem, 11vw, 9rem);
         line-height: 1.02;
         letter-spacing: 0.02em;
         text-align: center;

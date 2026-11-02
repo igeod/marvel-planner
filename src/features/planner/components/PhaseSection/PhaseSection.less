@@ -1,25 +1,21 @@
 @import (reference) "mixins";
 
 .phase.card {
-  padding: 8px;
+  padding: 0.5rem;
 }
 
 .phase__summary {
   display: flex;
   align-items: center;
   gap: var(--sp-3h);
-  min-height: 64px;
-  padding: var(--sp-2h) 16px var(--sp-2h) 20px;
+  min-height: 4rem;
+  padding: var(--sp-2h) 1rem var(--sp-2h) 1.25rem;
   border-radius: var(--r-md);
   .tones(var(--row-hover), var(--row-press));
 
   &:focus-visible {
     outline-offset: -3px;
   }
-}
-
-.phase[open] > .phase__summary {
-  margin-bottom: var(--sp-1h);
 }
 
 .phase__heading {
@@ -45,8 +41,9 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-1h);
+  padding-top: var(--sp-1h);
 }
 
 .phase__empty {
-  padding: 8px 20px 16px;
+  padding: 0.5rem 1.25rem 1rem;
 }

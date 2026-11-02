@@ -1,6 +1,6 @@
 import { useCallback, useState, useSyncExternalStore } from "react";
 
-export const DESKTOP_QUERY = "(min-width: 1024px)";
+export const DESKTOP_QUERY = "(min-width: 64em)";
 
 export function useMediaQuery(query: string): boolean {
   const subscribe = useCallback(

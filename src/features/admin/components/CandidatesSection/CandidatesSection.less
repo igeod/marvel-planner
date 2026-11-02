@@ -3,7 +3,7 @@
 .candidates__list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .candidate__head {
@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px 12px;
+  gap: 0.5rem 0.75rem;
 }
 
 .candidate__title {
@@ -24,9 +24,9 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
 
-  @media (max-width: 639px) {
+  @media (max-width: 39.9375em) {
     .candidate__copy {
       flex: 1 1 100%;
     }
@@ -42,11 +42,11 @@
 .snippet-panel {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 
   pre {
     margin: 0;
-    padding: 12px 16px;
+    padding: 0.75rem 1rem;
     border-radius: @radius-sub;
     background: var(--row-hover);
     overflow-x: auto;
@@ -61,7 +61,7 @@
   display: flex;
   align-items: flex-start;
   gap: var(--sp-3);
-  padding: 16px 20px;
+  padding: 1rem 1.25rem;
   border-radius: @radius-row;
   background: var(--bg);
 }
@@ -72,7 +72,7 @@
   align-items: center;
   justify-content: center;
   width: 32px;
-  height: 32px;
+  min-height: 2rem;
   .pill();
   background: var(--row-hover);
   color: var(--ink);

@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer;text-align:inherit}@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}p,li{text-wrap:pretty}h1,h2{text-wrap:balance}:focus-visible{outline:3px solid var(--highlight)!important;outline-offset:2px!important;box-shadow:0 0 0 2px var(--ink)!important}</style>
+<style>button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer;text-align:inherit}@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}}body{overflow-wrap:anywhere}p,li{text-wrap:pretty}h1,h2{text-wrap:balance}:focus-visible{outline:3px solid var(--highlight)!important;outline-offset:2px!important;box-shadow:0 0 0 2px var(--ink)!important}</style>
 </helmet>
 <div style="width:100%;max-width:1180px;overflow-x:auto;background:radial-gradient(900px 420px at 90% -4%,var(--surface),rgba(247,248,250,0) 70%),var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
   <div>
-    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,56px);line-height:1;text-transform:uppercase;letter-spacing:.01em">Toast and empty state</h1>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(2.5rem,8vw,3.5rem);line-height:1;text-transform:uppercase;letter-spacing:.01em">Toast and empty state</h1>
     <p style="margin:var(--sp-3) 0 0;max-width:66ch;color:var(--ink-2)">Feedback that does not interrupt. A toast confirms an action and offers Undo. An empty state explains a list with no results and offers the way out.</p>
   </div>
   <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-2)">
@@ -33,7 +33,7 @@
         <div style="width:56px;height:var(--row-h);border-radius:var(--r-pill);background:var(--surface);display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg></div>
         <div style="font-size:var(--fs-h3);font-weight:800;line-height:1.2">No titles match these filters</div>
         <div style="color:var(--ink-2);max-width:34ch">Try another type or show unreleased titles.</div>
-        <button type="button" style="height:48px;padding:0 22px;border-radius:var(--r-pill);background:var(--panel);color:var(--on-dark);font-weight:800" style-hover="background:var(--raised)">Remove filters</button>
+        <button type="button" style="min-height:3rem;padding:0 22px;border-radius:var(--r-pill);background:var(--panel);color:var(--on-dark);font-weight:800" style-hover="background:var(--raised)">Remove filters</button>
       </div>
       <p style="margin:0;font-size:var(--fs-label);color:var(--ink-2)">Replaces the list inside its container. Icon tile 56px, title 20px / 800, one line of help, one action. Announced with <code>role="status"</code> when filters empty the list.</p>
     </div>

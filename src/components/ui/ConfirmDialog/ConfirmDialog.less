@@ -1,10 +1,10 @@
 @import (reference) "mixins";
 
 .dialog--confirm {
-  max-width: min(480px, calc(100vw - 16px));
+  max-width: min(30rem, calc(100vw - 16px));
 
   .dialog__body {
-    padding-top: 24px;
+    padding-top: 1.5rem;
   }
 
   h2 {
@@ -18,7 +18,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .dialog__head {
@@ -74,7 +74,7 @@
   }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 39.9375em) {
   .dialog--confirm .dialog__actions {
     flex-direction: column;
     flex-wrap: nowrap;

@@ -17,9 +17,9 @@
     align-items: flex-end;
     gap: var(--sp-3);
 
-    // 160px, not wider: the Italian button label is long, and field and button must share a row.
+    // 10rem, not wider: the Italian button label is long, and field and button must share a row.
     .field {
-      flex: 1 1 160px;
+      flex: 1 1 10rem;
     }
   }
 
@@ -63,7 +63,7 @@
   align-items: center;
   justify-content: center;
   width: 40px;
-  height: 40px;
+  min-height: 2.5rem;
   .pill();
   background: var(--danger);
   color: var(--on-danger);

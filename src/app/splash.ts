@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-const MIN_MS = 600;
-const MAX_MS = 3000;
-const INTRO_MS = 700;
+const MIN_MS = 450;
+const MAX_MS = 2000;
+const INTRO_MS = 450;
 const REMOVE_FALLBACK_MS = 600;
 
 // The splash waits for these keys: fonts, "site" (auth + site status, via AppLayout) and any page that
@@ -15,6 +15,13 @@ let startedAt = 0;
 function finish() {
   if (!active) return;
   active = false;
+  // Past the cap the page shows without its data: skeletons appear at once (no --delay-pending).
+  if (pending.size > 0) html.dataset.splashCapped = "";
+  try {
+    sessionStorage.setItem("splash-seen", "1");
+  } catch {
+    // Storage blocked: the splash simply shows again next load.
+  }
   const splash = document.getElementById("splash");
   const root = document.getElementById("root");
   html.dataset.intro = "";

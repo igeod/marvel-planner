@@ -15,7 +15,7 @@
   display: inline-flex;
   align-items: center;
   gap: var(--gap);
-  height: var(--tap);
+  min-height: var(--tap);
   padding: 0 var(--sp-5) 0 var(--sp-3h);
   .pill();
   box-shadow: inset 0 0 0 2px var(--ink);
@@ -108,8 +108,8 @@
   flex-wrap: wrap;
   align-items: flex-end;
   justify-content: space-between;
-  gap: 28px var(--sp-8);
-  padding: var(--film-inner) var(--film-inner) clamp(160px, 17cqw, 200px);
+  gap: 1.75rem var(--sp-8);
+  padding: var(--film-inner) var(--film-inner) clamp(10rem, 17cqw, 12.5rem);
 }
 
 .film__heading {
@@ -121,7 +121,7 @@
 
   h1 {
     .display-font();
-    font-size: clamp(60px, 11cqw, 144px);
+    font-size: clamp(3.75rem, 11cqw, 9rem);
     line-height: 0.9;
     letter-spacing: 0.012em;
     overflow-wrap: anywhere;
@@ -160,7 +160,7 @@
   flex: 0 1 400px;
   gap: var(--sp-5);
   min-width: min(100%, 300px);
-  padding: 22px;
+  padding: 1.375rem;
   border-radius: var(--r-lg);
   background: rgba(20, 23, 31, 0.5);
   backdrop-filter: blur(18px);
@@ -172,9 +172,9 @@
   z-index: 2;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
-  gap: 24px clamp(24px, 4cqw, 56px);
-  margin-top: -72px;
-  padding: 0 var(--film-inner) clamp(24px, 3cqw, 40px);
+  gap: 1.5rem clamp(1.5rem, 4cqw, 3.5rem);
+  margin-top: -4.5rem;
+  padding: 0 var(--film-inner) clamp(1.5rem, 3cqw, 2.5rem);
 }
 
 .film__story {
@@ -188,7 +188,7 @@
   flex-wrap: wrap;
   align-items: baseline;
   gap: var(--sp-1) var(--sp-4);
-  padding-top: 20px;
+  padding-top: 1.25rem;
   border-top: 1px solid var(--line);
 
   p {
@@ -223,7 +223,7 @@
   li {
     display: flex;
     flex-direction: column;
-    padding: 7px 0;
+    padding: 0.4375rem 0;
     border-bottom: 1px solid var(--line);
     line-height: 1.25;
   }
@@ -254,11 +254,11 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-6);
-  padding: clamp(20px, 3cqw, 36px);
+  padding: clamp(1.25rem, 3cqw, 2.25rem);
 
   h2 {
     .display-font();
-    font-size: clamp(44px, 6cqw, 76px);
+    font-size: clamp(2.75rem, 6cqw, 4.75rem);
     line-height: 0.95;
     color: var(--highlight);
   }

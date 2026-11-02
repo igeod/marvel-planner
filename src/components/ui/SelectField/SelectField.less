@@ -3,7 +3,7 @@
 .select-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .select-field--popover,
@@ -24,9 +24,9 @@
 .select-field__trigger {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-height: 48px;
-  padding: 0 16px;
+  gap: 0.5rem;
+  min-height: 3rem;
+  padding: 0 1rem;
   .pill();
   background: var(--row-hover);
   color: var(--ink);
@@ -71,8 +71,8 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    min-height: 52px;
-    padding: 0 20px;
+    min-height: 3.25rem;
+    padding: 0 1.25rem;
 
     .chevron {
       width: 22px;
@@ -84,7 +84,7 @@
 .select-field--native .select-field__trigger select {
   width: auto;
   min-height: 0;
-  padding: 0 4px;
+  padding: 0 0.25rem;
   border-radius: 0;
   appearance: none;
   background: transparent;
@@ -102,7 +102,7 @@
   display: flex;
   flex-direction: column;
   gap: 2px;
-  padding: 8px;
+  padding: 0.5rem;
   border-radius: var(--r-md);
   outline: none;
 }
@@ -112,7 +112,7 @@
   inset: auto;
   margin: 0;
   width: max-content;
-  min-width: 260px;
+  min-width: 16.25rem;
   max-width: calc(100vw - 16px);
   max-height: min(320px, calc(100dvh - 16px));
   overflow-x: hidden;
@@ -139,9 +139,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  min-height: 52px;
-  padding: 0 16px;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0 1rem;
   border-radius: var(--r-sm);
   font-weight: 600;
   cursor: pointer;

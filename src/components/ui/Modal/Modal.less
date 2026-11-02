@@ -4,14 +4,14 @@
 .dialog {
   --field-bg: var(--bg);
   width: 100%;
-  max-width: min(560px, calc(100vw - 32px));
+  max-width: min(35rem, calc(100vw - 32px));
   max-height: calc(100dvh - 64px);
   padding: 0;
   border: 0;
   border-radius: var(--r-xl);
   background: var(--surface);
   color: var(--ink);
-  box-shadow: var(--shadow-popup);
+  box-shadow: var(--shadow-pop);
   overflow: hidden;
 
   &::backdrop {
@@ -20,7 +20,7 @@
 }
 
 .dialog--lg {
-  max-width: min(720px, calc(100vw - 32px));
+  max-width: min(45rem, calc(100vw - 32px));
 }
 
 .dialog__scroll {
@@ -30,7 +30,7 @@
 .dialog__header {
   position: relative;
   // Keeps the title clear of the fixed close button: tap + offset + gap.
-  padding: 28px calc(var(--tap) + 12px + var(--sp-3)) 8px 32px;
+  padding: 1.75rem calc(var(--tap) + 0.75rem + var(--sp-3)) 0.5rem 2rem;
 
   h2 {
     font-size: 1.5rem;
@@ -49,8 +49,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: var(--tap);
-  height: var(--tap);
+  width: var(--hit);
+  height: var(--hit);
   .pill();
   background: var(--bg);
   color: var(--ink);
@@ -80,8 +80,8 @@
 .dialog__body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 8px 32px 32px;
+  gap: 1.25rem;
+  padding: 0.5rem 2rem 2rem;
 
   h3,
   h4,
@@ -92,7 +92,7 @@
   }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 39.9375em) {
   dialog.dialog {
     width: 100%;
     max-width: 100%;
@@ -106,7 +106,7 @@
   }
 
   .dialog__header {
-    padding: 28px calc(var(--tap) + 12px + var(--sp-3)) 8px 24px;
+    padding: 1.75rem calc(var(--tap) + 0.75rem + var(--sp-3)) 0.5rem 1.5rem;
 
     &::before {
       content: "";
@@ -121,6 +121,6 @@
   }
 
   .dialog__body {
-    padding: 8px 24px calc(24px + env(safe-area-inset-bottom, 0px));
+    padding: 0.5rem 1.5rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
   }
 }

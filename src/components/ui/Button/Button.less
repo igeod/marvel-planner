@@ -12,8 +12,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--sp-2h);
-  min-height: 48px;
-  padding: 0 22px;
+  min-height: 3rem;
+  padding: 0 1.375rem;
   .pill();
   font-size: var(--fs-body);
   font-weight: 800;
@@ -84,13 +84,13 @@
 }
 
 .btn--lg {
-  min-height: 52px;
+  min-height: 3.25rem;
   font-size: 1.0625rem;
 }
 
 .btn--sm {
-  min-height: 44px;
-  padding: 0 18px;
+  min-height: 2.75rem;
+  padding: 0 1.125rem;
 }
 
 .btn--icon {
@@ -117,16 +117,10 @@
   .tones(var(--highlight-hover), var(--highlight-active));
 }
 
-.btn--dark {
-  --btn-ring: var(--ink-static);
-  background: var(--ink-static);
-  color: var(--on-dark);
-  .tones(var(--raised), var(--deepest));
-}
-
 .btn--ink {
+  --btn-ring: var(--ink);
   background: var(--ink);
-  color: var(--surface);
+  color: var(--bg);
   .tones(var(--ink-hover), var(--ink-press));
 }
 
@@ -148,7 +142,7 @@
   background: var(--row-hover);
   color: var(--ink);
   font-weight: 700;
-  .tones(var(--disabled), color-mix(in srgb, var(--disabled), var(--ink) 14%));
+  .tones(var(--disabled), var(--soft-press));
 }
 
 .btn--panel {
@@ -160,7 +154,7 @@
 
 .btn--text {
   .touch-target();
-  padding: 0 4px;
+  padding: 0 0.25rem;
   background: none;
   color: var(--accent-text);
   font-weight: 700;

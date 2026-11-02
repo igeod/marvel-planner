@@ -2,14 +2,16 @@
 
 .progress-card {
   display: flex;
-  gap: 24px;
-  padding: 24px 20px;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1.5rem 1.25rem;
 
   .desktop({ padding: 32px 36px; });
 }
 
 .progress-card__main {
-  flex: 1;
+  flex: 1 1 20rem;
+  container-type: inline-size;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2h);
@@ -20,12 +22,10 @@
 
 .progress-card__percent {
   font-family: var(--font-display);
-  font-size: 5.5rem;
+  font-size: clamp(5.5rem, 45cqi, 10.5rem);
   line-height: 0.9;
   color: var(--highlight);
   letter-spacing: 0.01em;
-
-  .desktop({ font-size: 10.5rem; });
 }
 
 .progress-card__count {
@@ -37,9 +37,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  min-height: 60px;
-  padding: 0 24px;
+  gap: 0.75rem;
+  min-height: 3.75rem;
+  padding: 0 1.5rem;
   .pill();
   background: var(--highlight);
   color: var(--ink-static);
@@ -59,8 +59,9 @@
 
 .progress-card__share-label {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 12px;
+  gap: 0.75rem;
 
   svg {
     width: 24px;
@@ -72,9 +73,9 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  min-height: 52px;
-  padding: 0 20px;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0 1.25rem;
   .pill();
   background: var(--panel-2);
   font-weight: 700;
@@ -83,9 +84,10 @@
 
 .progress-card__footer {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75rem;
   margin-top: auto;
   font-size: var(--fs-label);
 }
@@ -95,9 +97,9 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
-  width: 250px;
-  padding: 22px;
+  gap: 1.25rem;
+  width: 15.625rem;
+  padding: 1.375rem;
   border-radius: var(--r-md);
   background: var(--highlight);
   color: var(--ink-static);
@@ -109,7 +111,7 @@
   .display-font();
   font-size: 2.5rem;
   line-height: 0.95;
-  margin-bottom: 12px;
+  margin-bottom: 0.75rem;
 }
 
 .share-poster .btn {

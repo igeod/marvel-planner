@@ -3,8 +3,8 @@
 .title-row {
   display: flex;
   align-items: flex-start;
-  gap: 8px;
-  padding: var(--sp-3h) var(--sp-3h) var(--sp-3h) 12px;
+  gap: 0.5rem;
+  padding: var(--sp-3h) var(--sp-3h) var(--sp-3h) 0.75rem;
   border-radius: @radius-row;
   background: var(--row);
 
@@ -57,8 +57,8 @@
   isolation: isolate;
   overflow: hidden;
   --pt: var(--sp-2h);
-  --pl: 116px;
-  --pr: 16px;
+  --pl: 7.25rem;
+  --pr: 1rem;
   --fade: var(--sp-3h);
 
   .title-row__summary {
@@ -133,34 +133,34 @@
 // Open row below the desktop breakpoint: the poster floats left, so the title and the "Mark as
 // watched" button sit beside it, and everything after them clears the poster to run full width.
 // A float rather than a grid, because the summary and the content live inside one <details>.
-@media (max-width: 1023px) {
+@media (max-width: 63.9375em) {
   .title-row--open {
     display: block;
-    padding: var(--sp-3h) var(--sp-3h) 16px 12px;
+    padding: var(--sp-3h) var(--sp-3h) 1rem 0.75rem;
     --pt: var(--sp-3h);
-    --pl: 92px;
+    --pl: 5.75rem;
     --pr: var(--sp-3h);
     --fade: 5px;
 
     .poster-thumb {
       float: left;
-      margin: 0 8px 0 0;
+      margin: 0 0.5rem 0 0;
     }
 
     // 69px = poster 108 - the 34px pill - the 5px the button's hit area adds above it, so the pill's
     // bottom edge lines up with the poster's bottom edge. A longer title pushes the button down.
     .title-row__summary {
       align-items: flex-start;
-      min-height: 69px;
+      min-height: 4.3125rem;
       padding-top: 0;
     }
 
     .title-row__content {
       display: block;
-      margin-top: 0;
+      padding-top: 0;
 
       > * + * {
-        margin-top: 16px;
+        margin-top: 1rem;
       }
 
       > :not(.mark-watched) {
@@ -180,8 +180,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
+  width: var(--hit);
+  min-height: var(--hit);
   margin-top: var(--sp-2h);
   cursor: pointer;
 
@@ -201,7 +201,7 @@
   align-items: center;
   justify-content: center;
   width: 26px;
-  height: 26px;
+  min-height: 1.625rem;
   border: 3px solid var(--ink);
   border-radius: var(--r-chip);
   color: var(--white);
@@ -236,8 +236,8 @@
 .title-row__summary {
   display: flex;
   align-items: center;
-  gap: 12px;
-  min-height: 64px;
+  gap: 0.75rem;
+  min-height: 4rem;
 }
 
 .title-row__heading {
@@ -272,14 +272,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-3h);
-  margin-top: var(--sp-3h);
+  padding-top: var(--sp-3h);
 }
 
 .title-row__actions {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .title-row__check {

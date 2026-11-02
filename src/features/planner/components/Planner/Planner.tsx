@@ -83,7 +83,14 @@ export function Planner({ shareCode }: PlannerProps) {
   const catalog = useResolvedCatalog();
   const sagas = useMemo(() => filterCatalog(catalog, filters, needle), [catalog, filters, needle]);
   const { watched, isLoading, error, storage, toggle, reset, importTitles } = useWatched();
-  useSplashReady("planner", !isLoading);
+  // Ready once the list has committed and painted (two frames), so its render cost stays behind the splash.
+  const [hasPainted, setHasPainted] = useState(false);
+  useEffect(() => {
+    if (isLoading) return;
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setHasPainted(true)));
+    return () => cancelAnimationFrame(id);
+  }, [isLoading]);
+  useSplashReady("planner", hasPainted);
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
 

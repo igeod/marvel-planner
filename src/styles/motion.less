@@ -27,6 +27,10 @@ a {
   animation: skeleton-reveal 0s linear var(--delay-pending) forwards;
 }
 
+:root[data-splash-capped] .skeleton {
+  animation-delay: 0s;
+}
+
 @keyframes skeleton-reveal {
   to {
     visibility: visible;
@@ -36,7 +40,7 @@ a {
 .details-skeleton {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
   max-width: 62ch;
 }
 
@@ -329,6 +333,9 @@ dialog.menu-panel {
 
   // Title rows still use the native pseudo-element; phases are driven by data-motion below.
   details:not(.phase)::details-content {
+    // flow-root keeps the content's top margin inside the box; otherwise it hangs out while closing and
+    // vanishes in one frame when content-visibility flips.
+    display: flow-root;
     block-size: 0;
     overflow: clip;
     opacity: 0;
@@ -409,7 +416,8 @@ dialog.menu-panel {
     }
   }
 
-  // Intro after the splash: runs once (html[data-intro] is removed ~700ms later), opacity and transform only.
+  // Intro after the splash: runs once (html[data-intro] is removed ~450ms later), opacity and transform only.
+  // Six items cascade (header, progress, rail or search, next up, first phase); everything else just appears.
   // --i is the step; the delay is capped at --stagger-max.
   :root[data-intro] {
     .site-header,
@@ -417,8 +425,8 @@ dialog.menu-panel {
     .planner > .phase-strip,
     .planner__body > :is(.planner__rail, .planner-search, .mobile-toolbar),
     .planner__hero > .next-card,
-    .phase:not([data-motion]),
-    .site-footer {
+    .planner__list > :nth-child(1) .phase:nth-child(2):not([data-motion]) {
+      will-change: opacity, transform;
       animation: swap-in var(--dur-enter) var(--ease-out) backwards;
       animation-delay: min(calc(var(--stagger-step) * var(--i, 0)), var(--stagger-max));
     }
@@ -440,38 +448,8 @@ dialog.menu-panel {
       --i: 3;
     }
 
-    // Phases past the fifth start with the list and do not cascade.
-    .phase {
+    .planner__list > :nth-child(1) .phase:nth-child(2) {
       --i: 4;
-    }
-
-    // The saga header is child 1, so its phases start at child 2.
-    .planner__list > :nth-child(1) .phase {
-      &:nth-child(2) {
-        --i: 4;
-      }
-
-      &:nth-child(3) {
-        --i: 5;
-      }
-
-      &:nth-child(4) {
-        --i: 6;
-      }
-    }
-
-    .planner__list > :nth-child(2) .phase {
-      &:nth-child(2) {
-        --i: 7;
-      }
-
-      &:nth-child(3) {
-        --i: 8;
-      }
-    }
-
-    .site-footer {
-      --i: 9;
     }
   }
 
@@ -565,7 +543,7 @@ dialog.menu-panel {
 
     &[data-open] {
       block-size: auto;
-      padding-block: 8px;
+      padding-block: 0.5rem;
       margin-top: var(--sp-1h);
       transform: none;
       transition-duration:
@@ -680,7 +658,7 @@ dialog.menu-panel {
   }
 
   // Under 640px the popup is a bottom sheet that slides up.
-  @media (max-width: 639px) {
+  @media (max-width: 39.9375em) {
     dialog.dialog {
       --enter: translateY(100%);
     }

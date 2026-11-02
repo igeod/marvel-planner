@@ -1,67 +1,73 @@
-# CHANGES_FOR_CODE.md (secondo giro: solo modifiche nuove)
+# CHANGES_FOR_CODE.md (quarto giro)
 
-Nota: la cartella `marvel-planner/` che vedo è ancora lo stato precedente al tuo primo giro (tokens.less ha ancora `--dur-hover: 200ms`, `--dur-row`, `--ease-out .22`). I riferimenti `file:riga` sono di quel snapshot: se hai già spostato le righe, cerca per nome.
-Una riga per modifica: componente | file | valore attuale | valore nuovo | token.
+Confrontato con `igeod/marvel-planner@8a4c146`. Solo differenze nuove. Una riga per modifica: componente | file | attuale nel codice | nuovo | token.
+Correzione al terzo giro: `--bar-h-lg` è eliminato (nel codice non c'è nessuna barra da 16px). La barra dell'hero resta `--bar-h` (10px). Non creare `--bar-h-lg`.
 
-## 1. Correzioni ai valori che avevi già applicato
-
-| Componente | File | Attuale | Nuovo | Token |
-|---|---|---|---|---|
-| Tooltip, testo base | Tooltip.less (`.tooltip`) | `--tip-fg: var(--on-dark)` se l'hai applicato | **`--tip-fg: var(--bg)`** (il mio file era sbagliato: in scuro `--ink` e `--on-dark` coincidono, 1:1). Resta `--tip-bg: var(--ink)` | `--tip-bg`, `--tip-fg` |
-| Tooltip, contrasti | — | — | base 15.1:1 chiaro / 17.6:1 scuro; su pannello (`--on-dark` su `--panel`) 16.3 / 9.0; warning (`--highlight` su `--ink-static`) 9.4 / 9.4 | — |
-| Select, direzione ingresso | SelectField.less (blocco popover del primo giro) | `translateY(4px)` sempre | sotto: `translateY(-4px)`; sopra: `translateY(4px)`. `transform-origin`: sotto `top right`, sopra `bottom right` | — |
-| Select, placement | SelectField.tsx | `computeListPosition` restituisce `placement` ma non si usa | `list.dataset.placement = result.placement` in `position()`; CSS: `.select-field--popover .select-field__list { --pop-from: -4px; transform-origin: top right } [data-placement="above"] { --pop-from: 4px; transform-origin: bottom right }` e `translateY(var(--pop-from))` | — |
-| Select, gutter | SelectField.less (lista popover) | `scrollbar-gutter: stable` nello snapshot, `auto` per te | **`auto`** (decisione: la lista non usa `.scroll-y`; resta `overflow-y: auto`, `overscroll-behavior: contain`) | — |
-| Select inline, opacità in entrata | motion.less (pannello inline) | 200ms | `--dur-hover` (120ms). Resta: altezza/padding/margin `--dur-enter` in, `--dur-ui` out; opacità out `--dur-press` | `--dur-hover` |
-| Select, chevron con reduced motion | motion.less (`.chevron`) | transition solo in `no-preference` | **invariato**: il chevron cambia posizione subito (nessuna rotazione animata); non va nascosto né lasciato fermo | — |
-| Select, opzione selezionata | SelectField.less | `.tones(var(--ink-hover), var(--ink-press))`, testo `var(--bg)` | invariato: contrasti 15.1 / 10.8 / 7.1 (chiaro) e 17.6 / 14.0 / 10.8 (scuro), tutti ≥ 4.5:1 | `--ink-hover`, `--ink-press` |
-| Campo di testo, offset focus | base.less `input[type=…]:focus-visible` | `outline-offset: 2px` | `var(--focus-offset)` (3px) | `--focus-offset` |
-| Popup di conferma, scheda icona | ConfirmDialog.less | 40×40, `--danger` / `--highlight` | **invariato** (il design si è allineato: 40, icona 20, larghezza 480) | — |
-| Commento | motion.less:1 | `(README section 11)` | togliere: il README non esiste. Non c'è in tokens.css né nelle pagine di design | — |
-
-## 2. Nuove modifiche
+## 1. Larghezze con testo ingrandito
+Regola: ciò che contiene testo ha larghezza in `rem` (o `ch` per la prosa) e cresce con il testo; ciò che disegna un oggetto resta in px (icone, poster, avatar, interruttore, barre, `--content-max`, bordi). Resta in px anche la parte `100vw − …` dei `min()`/`calc()`: è un margine dal bordo dello schermo. Le aree cliccabili di sole icone usano `--hit` (44px), non `--tap`: non devono crescere col testo. I popup e il profilo passano al layout compatto con i breakpoint in `em` (a 200% su uno schermo da 1280 px il layout compatto è già attivo).
 
 | Componente | File | Attuale | Nuovo | Token |
 |---|---|---|---|---|
-| Tab selezionata, hover | AccountSettings.less:248 | `color-mix(in srgb, var(--ink) 82%, #000)` | `var(--ink-hover)` | `--ink-hover` |
-| Pulsante elimina account, hover | DeleteAccountSection.less:94 | `color-mix(in srgb, var(--danger) 88%, #000)` | usare `.btn--danger` (`--accent-hover` / `--accent-active`) | `--accent-hover`, `--accent-active` |
-| Switch, hover | Switch.less:73, :77 | `color-mix(... #000 12%)` | **eliminare** il cambio colore in hover (nessun token nuovo); resta focus ring | — |
-| Barra compatta, uscita | CompactProgress.less:11-14 | `--dur-enter` in entrambe le direzioni | entra `--dur-enter`, esce `--dur-ui` (nello stato chiuso) | `--dur-ui` |
-| Barra di progresso | base.less:233, CompactProgress.less:53,58 | `height: 10px`, `min-width: 10px` | `var(--sp-2h)` | `--sp-2h` |
-| Barra di progresso | base.less:230-253 | `--red` / `--surface` | invariato: `<progress>` nativo confermato, il design si è adattato | — |
+| Tooltip | Tooltip.less:28 | `max-width: 240px` | `15rem` | — |
+| Tooltip warning | Tooltip.less:72 | `max-width: 320px` | `20rem` | — |
+| Field | Field.less:7 `.form` | `max-width: 480px` | `30rem` | — |
+| Select, lista | SelectField.less:115 | `min-width: 260px` | `16.25rem` (resta `max-width: calc(100vw - 16px)`) | — |
+| Popup | Modal.less:7 | `min(560px, calc(100vw - 32px))` | `min(35rem, calc(100vw - 32px))` | — |
+| Popup grande | Modal.less:23 | `min(720px, calc(100vw - 32px))` | `min(45rem, calc(100vw - 32px))` | — |
+| Popup, padding | Modal.less `.dialog__header`, `.dialog__body` | `28px … 32px`, `8px 32px 32px` | `1.75rem … 2rem`, `.5rem 2rem 2rem` (mobile `1.5rem`) | `--pad-popup` |
+| ConfirmDialog | ConfirmDialog.less:4 | `min(480px, calc(100vw - 16px))` | `min(30rem, calc(100vw - 16px))` | — |
+| Profilo, finestra | AccountSettings.less:6 | `width: 800px` | `width: 50rem` | — |
+| Profilo, barra laterale | AccountSettings.less:41 | `width: 260px` | `16.25rem` | — |
+| Profilo, altezza | AccountSettings.less:7 | `height: 640px` | `height: min(40rem, calc(100dvh - 64px))` | — |
+| Prerequisiti | BeforeYouWatch.less (desktop) | `grid-template-columns: 110px …` | `6.875rem …` | — |
+| Elimina account, campo | DeleteAccountSection.less:20 | `160px` | `10rem` | — |
+| Poster di condivisione | PlannerSummary.less `.share-poster` | `width: 250px` | `15.625rem` | — |
+| Admin | AdminDashboard.less:7 | `max-width: 880px` | `55rem` | — |
+| Aree di sole icone | Modal.less `.dialog__close`, Field.less `.field__button`, TitleItem.less `.title-row__check`, InfoTip.less `.info-tip__trigger` | `width/height: var(--tap)` o `44px` | `var(--hit)` | `--hit` (nuovo, 44px) |
+| Quadrati e icone | tutti | px | invariati | — |
 
-### Spazi intermedi: sostituzioni (stessa regola, un colpo solo)
+### Card "Condividi il tuo planner" e percentuale
+| Componente | File | Attuale | Nuovo | Token |
+|---|---|---|---|---|
+| Contenitore progresso | PlannerSummary.less `.progress-card__main` | — | `container-type: inline-size` | — |
+| Percentuale | PlannerSummary.less `.progress-card__percent` | `font-size: 5.5rem` (desktop `10.5rem`) | `clamp(5.5rem, 45cqi, 10.5rem)`: mai più larga di metà colonna | — |
+| Poster di condivisione | PlannerSummary.less `.progress-card` | affiancato, `flex: none` | `flex-wrap: wrap`; `.progress-card__main { flex: 1 1 20rem }`: sotto 20rem di colonna il poster passa sotto, rotazione compresa | — |
+| Pulsante condividi | PlannerSummary.less `.progress-card__share` | `min-height: 60px`, etichetta su una riga | `min-height: 3.75rem`; etichetta con `flex-wrap` (va a capo, il sottotesto non sparisce) | — |
+| Riga "Saved on this device / Reset" | PlannerSummary.less `.progress-card__footer` | senza a capo | `flex-wrap: wrap` | — |
+Soglia: 20rem di larghezza della colonna principale, non una soglia di schermo. Non ho potuto riprodurre la sovrapposizione che vedi con il testo grande: il Planner del design ora segue queste regole, ma verifica nel browser.
 
-`--sp-1h` (6px)
-- gap: ChoiceGroup.less:54; Field.less:35; ProgressMeter.less:4; SpoilerBox.less:77; AccountSettings.less:108; ProgressStatsSection.less:110; AdminDashboard.less:54; MaintenanceSection.less:28,39; BeforeYouWatch.less:24; ChronologicalList.less:26; KeyScenes.less:4; MarkWatchedButton.less:23; PhaseSection.less:47; PhaseStrip.less:36,62 e `gap: 6px 16px` (:30) → `var(--sp-1h) var(--sp-4)`; PlotSection.less:19; WhereToWatch.less:63; PrivacyPage.less:35
-- margin: SelectField.less:128; SpoilerBox.less:120; ProgressStatsSection.less:104; PhaseSection.less:22; NextToWatch.less:78; TitleDetailsPanel.less:214
-- padding: ChoiceGroup.less:56 `6px 12px` → `var(--sp-1h) var(--sp-3)`; MobileToolbar.less:34 `0 6px`; AccountMenu.less:14 `0 16px 0 6px`; Planner.less:43 `padding: 6px; margin: -6px`
+## 2. Riga titolo: chiusura e apertura (sequenza in `Title row`)
+| Componente | File | Attuale | Nuovo | Token |
+|---|---|---|---|---|
+| Spazio sopra il contenuto | TitleItem.less `.title-row__content` | `margin-top: var(--sp-3h)` | `padding-top: var(--sp-3h)` dentro il box animato; `display: flow-root` resta | `--sp-3h` |
+| Fase, distanza testata-righe | PhaseSection.less `.phase[open] > .phase__summary` | `margin-bottom: var(--sp-1h)` (fuori dal box animato) | togliere; `.phase__titles { padding-top: var(--sp-1h); display: flow-root }` | `--sp-1h` |
+| Fase vuota | PhaseSection.less `.phase__empty` | `padding: 8px 20px 16px` | invariato, già dentro il box animato | — |
+| Durate | motion.less | altezza `--dur-enter` / `--dur-ui` | invariate (aperta 240, chiusa 180); opacità `--dur-hover` / `--dur-press`; spostamento 4px come l'altezza | — |
 
-`--sp-2h` (10px)
-- gap: Button.less:14,79; AccountMenu.less:12; FloatingProgress.less:11; MissingNote.less:4; MobileToolbar.less:20; PlannerSearch.less:12; PlannerSummary.less:15; ProgressStatsSection.less:120; AdminDashboard.less:45; TitleDetailsPanel.less:270,277,283
-- padding: AppHeader.less:45,47 (`10px 8px`, `10px 32px`); HeaderMenu.less:23; AccountMenu.less:25; BeforeYouWatch.less:34,41,50,54 (`10px 14px` → `var(--sp-2h) var(--sp-3h)`; `10px 16px` → `var(--sp-2h) var(--sp-4)`); PhaseSection.less:12; PlotSection.less:34,70; ProgressStatsSection.less:71,81,121; StorageTable.less:11; Tooltip.less:29 (`10px 14px`); TitleItem.less:11,33 (`10px 16px …`)
-- margin / variabili: NextToWatch.less:72; TitleItem.less:59 (`--pt: 10px`), :201
+## 3. Elementi confrontati
+| Componente | File | Design | Codice | Cosa cambiare |
+|---|---|---|---|---|
+| Bottone chiudi | Modal.less | 44, hover `--row-hover`, premuto `--row-press`, scala .94 | uguale | nessuna differenza di colori e scala; solo `var(--tap)` → `var(--hit)` (sez. 1) |
+| Ombra del popup | Modal.less:15 | `--shadow-pop` | `var(--shadow-popup)` (token eliminato al primo giro) | `box-shadow: var(--shadow-pop)` |
+| Compact pill | MarkWatchedButton.less | altezza visibile 34, area 44, hover `--raised-2`, premuto `--raised-3`; guardato: sfondo `--panel-2` | uguale; `height: 34px` / `44px` | `min-height: 2.125rem` e `2.75rem` (altezza con testo) |
+| Compact pill, "Watched" | MarkWatchedButton.less | solo la spunta diventa `--highlight` (design allineato) | uguale | nessuna |
+| Ghost gold | BeforeYouWatch.less `.why-toggle` | 44, padding 0 12, gap 8, `--r-row`, hover sfondo del pannello, premuto `--raised-2` | hover `var(--row-hover)` (nel pannello vale `--panel-2`), premuto `--raised-2` | nessuna (design allineato) |
 
-`--sp-3h` (14px)
-- gap: PhaseSection.less:10; PhaseStrip.less:12,54; PlannerSummary.less:18; ProgressStatsSection.less:79; TitleItem.less:290
-- padding: FloatingProgress.less:22 (`14px 24px 16px`); MarkWatchedButton.less:25 (`0 14px`); MissingNote.less:23 e SpoilerBox.less:84 (`14px 18px` → `var(--sp-3h) 18px`); TitleDetailsPanel.less:19; TitleItem.less:7, :155 (`--pt: 14px`, `--pr: 14px` a :156-158)
-- margin: PhaseStrip.less:20; PlannerSearch.less:83 (`-14px`); TitleItem.less:291
-
-`--sp-10` (40px): AppFooter.less:7,8; PlannerGuide.less:15,16; PrivacyPage.less:13
-`--sp-14` (56px): AppFooter.less:11 (`margin-top` desktop)
-
-Non diventano token (non sono spazi): tooltip `width/height 10px` della freccia; `translateY(±6px)` in motion.less:613,620 (offset di movimento); icone 14px (`--badge-icon`); `18px` (padding destro in MissingNote, SpoilerBox, ProgressStatsSection: resta letterale, nessun altro uso).
-
-## 3. Cose che non mi tornano nel codice
-
-| Dove | Cosa | Proposta |
+## 4. Token
+| Token | Valore | Dove |
 |---|---|---|
-| tokens.less / tokens.css | `.scroll-y` ha `scrollbar-gutter: stable` ma `.profile__inner` e altri contenitori lo ripetono a mano (AccountSettings.less:~275, mixins.less:77 `sheet-surface`) | usare `.scroll-y` o il mixin, non righe sparse |
-| PlannerSearch.less / TitleItem.less | `.on-hover` e `:has(:hover)` duplicano la logica di hover della riga | un solo mixin per hover delle righe |
-| TitleItem.less:74-92 | due gradienti identici (`-webkit-mask-image`, `mask-image`) | `var(--row-open-fade)` (già in tokens.css) |
-| base.less input focus | `outline-offset: 2px` mentre tutto il resto usa 3 | `--focus-offset` (già in sezione 1) |
-| Progress | l'altezza 10px sta in `base.less` generico `progress`, non in un componente | invariato; solo documentata |
+| `--bar-h-lg` | eliminato | non usarlo |
+| `--hit` | `44px` (nuovo) | aree cliccabili di sole icone (sez. 1) |
+| `--soft-press` | `color-mix(in srgb, var(--disabled), var(--ink) 14%)` (nuovo, un solo punto in tokens.less, vale per chiaro e scuro) | Button.less `.btn--soft` pressione: `.tones(var(--disabled), var(--soft-press))` |
 
-## 4. Fatti da sapere
-- Le specifiche admin (AdminDashboard e schermate admin) stavano nelle cartelle `handoff_admin_completo`, `handoff_pagina_admin` e simili: le ho eliminate con la ristrutturazione. Admin resta fuori dal design finché non lo chiedi.
-- ProgressStatsSection resta documentata nella schermata Profile Popup (tab Progress), non in una pagina propria.
+Note: l'hover delle righe (PlannerSearch e TitleItem) usa già la stessa mixin `.on-hover`, nessuna regola nuova. `scrollbar-gutter: stable` ripetuto in `.sheet-surface()` e in `.profile__inner`: tienilo come è (stesso valore, due contesti), l'eccezione `auto` sul dialog profilo resta.
+
+## 5. Apertura del sito: frame lunghi
+I tre frame (82, 60, 50 ms a 965–1190 ms) sono accettabili perché la splash è opaca: il minimo di 450 ms e il tetto di 2000 ms non li coprono se non c'è la condizione sotto.
+
+| Componente | File | Attuale | Nuovo | Token |
+|---|---|---|---|---|
+| Quando il Planner è pronto | planner page, `useSplashReady("planner", …)` | pronto al primo render | pronto dopo il primo commit e due `requestAnimationFrame` | — |
+| Lavoro dopo l'uscita | PhaseSection / lista fasi | tutto renderizzato insieme | fasi sotto la prima schermata in `startTransition` o con `content-visibility: auto`; compaiono senza animazione | — |
+| Spazio riservato | PhaseSection.less | altezza del contenuto | `contain-intrinsic-size: auto 4.5rem` sulla testata della fase finché non c'è il contenuto | — |
+| Budget | — | — | nessun frame oltre 100 ms dopo l'uscita; sotto 16 ms durante l'intro; se superato: meno elementi in cascata, mai una splash più lunga | — |

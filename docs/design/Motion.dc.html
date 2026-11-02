@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>p,li{text-wrap:pretty}button,input{font:inherit;color:inherit}button{border:0;background:none;padding:0;cursor:pointer;text-align:inherit}a{color:var(--accent-text)}a:hover{color:var(--accent-hover)}@keyframes mo-pulse{50%{opacity:.6}}@keyframes mo-spin{to{transform:rotate(360deg)}}</style>
+<style>body{overflow-wrap:anywhere}p,li{text-wrap:pretty}button,input{font:inherit;color:inherit}button{border:0;background:none;padding:0;cursor:pointer;text-align:inherit}a{color:var(--accent-text)}a:hover{color:var(--accent-hover)}@keyframes mo-pulse{50%{opacity:.6}}@keyframes mo-spin{to{transform:rotate(360deg)}}</style>
 </helmet>
 <div style="width:100%;max-width:1440px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
   <div>
-    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase">Movimento</h1>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(2.5rem,8vw,4rem);line-height:1;text-transform:uppercase">Movimento</h1>
     <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">Il movimento conferma un’azione, non decora. Durate brevi, una sola curva ease-out, mai <code>transition: all</code>, tutto disattivato o ridotto con prefers-reduced-motion. Una curva e cinque durate; l’uscita è sempre un gradino sotto l’entrata.</p>
   </div>
 
@@ -101,7 +101,7 @@
       </div>
 
       <div data-theme="{{ demoTheme }}" style="background:var(--bg);color:var(--ink);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3);transition:{{ themeTr }}">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)"><div><b>Cambio tema</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Crossfade 180ms solo su sfondi e testo</div></div><button type="button" onClick="{{ toggleTheme }}" style="flex:none;height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--bg);font-weight:700;font-size:var(--fs-label)">Chiaro / scuro</button></div>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:var(--sp-3)"><div><b>Cambio tema</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Crossfade 180ms solo su sfondi e testo</div></div><button type="button" onClick="{{ toggleTheme }}" style="flex:none;min-height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--bg);font-weight:700;font-size:var(--fs-label)">Chiaro / scuro</button></div>
         <div style="background:var(--surface);border-radius:var(--r-sm);padding:var(--sp-4);height:96px;transition:{{ themeTr }}">Card di esempio</div>
       </div>
     </div>
@@ -203,7 +203,7 @@ class Component extends DCLogic {
     const names = ['Progress', 'Account', 'Password'];
     const tabs = names.map((name, i) => ({ name, bg: s.tab === i ? 'var(--ink)' : 'transparent', fg: s.tab === i ? 'var(--surface)' : 'var(--ink)', tr: `background-color ${ms(120)}ms ${E},color ${ms(120)}ms ${E}`,
       go: () => { this.setState({ tab: i, ph: 0 }); requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ ph: 1 }))); } }));
-    const panelStyle = `background:var(--surface);border-radius:var(--r-sm);padding:var(--sp-4);min-height:76px;opacity:${s.ph};transform:${s.ph || rm ? 'none' : 'translateY(6px)'};transition:${s.ph ? `opacity ${ms(180)}ms ${E},transform ${ms(180)}ms ${E}` : 'none'}`;
+    const panelStyle = `background:var(--surface);border-radius:var(--r-sm);padding:var(--sp-4);min-height:4.75rem;opacity:${s.ph};transform:${s.ph || rm ? 'none' : 'translateY(6px)'};transition:${s.ph ? `opacity ${ms(180)}ms ${E},transform ${ms(180)}ms ${E}` : 'none'}`;
     const accO = s.acc, accD = rm ? 0 : accO ? 240 : 180;
     const tipD = s.tip ? ms(120) : ms(80);
     const swD = ms(180);

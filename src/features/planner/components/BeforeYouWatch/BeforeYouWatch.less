@@ -3,7 +3,7 @@
 .before-you-watch {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 }
 
 .before-you-watch__header {
@@ -11,7 +11,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
-  gap: 4px 12px;
+  gap: 0.25rem 0.75rem;
 }
 
 .before-you-watch__status {
@@ -30,15 +30,15 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  gap: 0 12px;
+  gap: 0 0.75rem;
   padding: var(--sp-2h) var(--sp-3h);
   border-radius: @radius-sub;
   background: var(--row-hover);
 
   .desktop({
-    grid-template-columns: 110px minmax(0, 1fr) auto;
-    gap: 4px 12px;
-    padding: var(--sp-2h) 16px;
+    grid-template-columns: 6.875rem minmax(0, 1fr) auto;
+    gap: 0.25rem 0.75rem;
+    padding: var(--sp-2h) 1rem;
   });
 }
 
@@ -46,7 +46,7 @@
 .prereq-none {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   padding: var(--sp-2h) var(--sp-3h);
   border-radius: var(--r-input);
   background: var(--row-hover);
@@ -80,7 +80,7 @@
   display: flex;
   align-items: center;
   justify-self: end;
-  gap: 8px;
+  gap: 0.5rem;
   white-space: nowrap;
   font-size: var(--fs-label);
   font-weight: 700;
@@ -118,9 +118,9 @@
 .why-toggle {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 0.5rem;
   .touch-target();
-  padding: 0 12px;
+  padding: 0 0.75rem;
   border-radius: var(--r-row);
   color: var(--highlight);
   font-weight: 700;

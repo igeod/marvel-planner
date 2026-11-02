@@ -99,29 +99,29 @@
 
   --on-accent: var(--white);
 
-  --sp-1: 4px;
-  --sp-1h: 6px;
-  --sp-2: 8px;
-  --sp-2h: 10px;
-  --sp-3: 12px;
-  --sp-3h: 14px;
-  --sp-4: 16px;
-  --sp-5: 20px;
-  --sp-6: 24px;
-  --sp-8: 32px;
-  --sp-10: 40px;
-  --sp-12: 48px;
-  --sp-14: 56px;
+  --sp-1: 0.25rem;
+  --sp-1h: 0.375rem;
+  --sp-2: 0.5rem;
+  --sp-2h: 0.625rem;
+  --sp-3: 0.75rem;
+  --sp-3h: 0.875rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-14: 3.5rem;
   --sb-size: 12px;
-  --pad-popup: 28px;
-  --gap: 8px;
-  --gap-section: 32px;
-  --page-margin: 48px;
+  --pad-popup: 1.75rem;
+  --gap: 0.5rem;
+  --gap-section: 2rem;
+  --page-margin: 3rem;
   --content-max: 1440px;
-  --fs-display: clamp(48px, 8vw, 96px);
-  --pad-hero: 32px 36px;
-  --pad-strip: 24px 36px;
-  --pad-card: 8px;
+  --fs-display: clamp(3rem, 8vw, 6rem);
+  --pad-hero: 2rem 2.25rem;
+  --pad-strip: 1.5rem 2.25rem;
+  --pad-card: 0.5rem;
   --row-open-fade: linear-gradient(
     #000,
     rgba(0, 0, 0, 0.92) 20%,
@@ -144,21 +144,25 @@
   --r-tiny: 6px;
   --r-hair: 2px;
 
-  --fs-h1: clamp(36px, 5vw, 64px);
-  --fs-h2: 28px;
-  --fs-h3: 20px;
-  --fs-title: 18px;
-  --fs-body: 16px;
-  --fs-button: 15px;
-  --fs-label: 14px;
-  --fs-caption: 13px;
-  --fs-overline: 13px;
+  --fs-h1: clamp(2.25rem, 5vw, 4rem);
+  --fs-h2: 1.75rem;
+  --fs-h3: 1.25rem;
+  --fs-title: 1.125rem;
+  --fs-body: 1rem;
+  --fs-button: 0.9375rem;
+  --fs-label: 0.875rem;
+  --fs-caption: 0.8125rem;
+  --fs-overline: 0.8125rem;
 
-  --row-h: 56px;
-  --header-h: 76px;
-  --tap: 44px;
+  --row-h: 3.5rem;
+  --bar-h: 10px;
+  --bar-h-lg: 16px;
+  --header-h: 4.75rem;
+  --tap: 2.75rem;
+  --hit: 44px;
   --focus: 3px solid var(--accent);
   --focus-offset: 3px;
+  --soft-press: color-mix(in srgb, var(--disabled), var(--ink) 14%);
   --popover-w: 360px;
   --popover-gap: 8px;
 
@@ -204,16 +208,16 @@
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 63.9375em) {
   :root {
-    --page-margin: 32px;
+    --page-margin: 2rem;
   }
 }
 
-@media (max-width: 639px) {
+@media (max-width: 39.9375em) {
   :root {
-    --page-margin: 16px;
-    --gap-section: 24px;
+    --page-margin: 1rem;
+    --gap-section: 1.5rem;
   }
 }
 

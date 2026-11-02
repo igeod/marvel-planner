@@ -3,14 +3,14 @@
 .planner {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
   padding-bottom: var(--floating-progress-clearance);
 }
 
 .planner__hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
+  gap: 0.5rem;
 
   .desktop({ grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); });
 }
@@ -18,7 +18,7 @@
 .planner__body {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 8px;
+  gap: 0.5rem;
   align-items: start;
 
   .desktop({
@@ -26,7 +26,7 @@
     grid-template-areas:
       "list rail"
       "guide .";
-    margin-top: 8px;
+    margin-top: 0.5rem;
   });
 }
 
@@ -38,7 +38,7 @@
 .planner__rail-content {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 
   .desktop({ position: sticky; top: 16px; z-index: 10; max-height: calc(100dvh - 20px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 6px; margin: -6px; });
 }
@@ -46,7 +46,7 @@
 .planner__list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 1rem;
   min-width: 0;
 
   .desktop({ grid-area: list; gap: 24px; });

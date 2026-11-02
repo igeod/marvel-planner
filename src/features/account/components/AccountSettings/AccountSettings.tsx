@@ -32,7 +32,7 @@ import { ProgressStatsSection } from "../ProgressStatsSection";
 
 export const PROFILE_TITLE_ID = "profile-title";
 
-const SHEET_QUERY = "(max-width: 639px)";
+const SHEET_QUERY = "(max-width: 39.9375em)";
 // Space kept between a focused field and the edge of the visible area.
 const FIELD_MARGIN = 16;
 const FIELD_SCROLL_DELAY = 250;

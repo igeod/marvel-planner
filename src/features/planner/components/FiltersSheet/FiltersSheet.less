@@ -5,7 +5,7 @@ dialog.filters-sheet {
   inset: auto 0 0 0;
   width: 100%;
   max-height: calc(100dvh - 24px);
-  border-radius: @radius-block @radius-block 0 0;
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
   background: var(--surface);
   color: var(--ink);
 }
@@ -13,19 +13,19 @@ dialog.filters-sheet {
 .filters-sheet__body {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px 16px 24px;
+  gap: var(--sp-5);
+  padding: 1.25rem var(--sp-6) 1.5rem;
 }
 
 .filters-sheet__header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 0.75rem;
 }
 
 .filters-sheet .switch {
-  min-height: 56px;
+  min-height: 3.5rem;
 }
 
 .filters-sheet__title {
@@ -36,7 +36,7 @@ dialog.filters-sheet {
 
 .filters-sheet__actions {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
 
   .btn {
     flex: 1;

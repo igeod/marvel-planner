@@ -11,11 +11,11 @@
 <link rel="stylesheet" href="tokens.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}</style>
+<style>@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}body{overflow-wrap:anywhere}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}</style>
 </helmet>
 <div style="width:100%;max-width:1440px;overflow-x:auto;background:radial-gradient(900px 420px at 90% -4%,var(--surface),rgba(247,248,250,0) 70%),var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
   <div>
-    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase;letter-spacing:.01em">Spazio e forma</h1>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(2.5rem,8vw,4rem);line-height:1;text-transform:uppercase;letter-spacing:.01em">Spazio e forma</h1>
     <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">Base 8px, un solo sistema di raggi, nessun bordo. Le superfici si separano per tono e per gap. Scala spazi, raggi, tipi di box, padding e dimensioni dei controlli. Valori solo in tokens.css; qui si usano i nomi.</p>
   </div>
 
@@ -51,7 +51,7 @@
         <div style="height:120px;background:var(--panel);border-radius:var(--r-xl);color:var(--on-dark);padding:var(--sp-4);font-weight:700;display:flex;align-items:flex-end">Your progress, padding 32 / 36</div>
         <div style="height:120px;background:var(--accent);border-radius:var(--r-xl);color:var(--white);padding:var(--sp-4);font-weight:700;display:flex;align-items:flex-end">Next up, gap 8 to its neighbour</div>
       </div>
-      <div style="height:64px;background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-4);font-weight:700;display:flex;align-items:center;margin-bottom:8px">All 71 titles strip, padding 24 / 36</div>
+      <div style="min-height:4rem;background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-4);font-weight:700;display:flex;align-items:center;margin-bottom:8px">All 71 titles strip, padding 24 / 36</div>
       <div style="display:flex;gap:var(--sp-2);align-items:flex-start;margin-top:8px">
         <div style="flex:1;display:flex;flex-direction:column;gap:var(--sp-2)">
           <div style="font-family:var(--font-display);font-size:var(--fs-h2);text-transform:uppercase;padding:var(--sp-2) 0 var(--sp-1)">Infinity Saga</div>
@@ -63,7 +63,7 @@
         </div>
         <div style="width:240px;display:flex;flex-direction:column;gap:var(--sp-2)">
           <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-4) var(--sp-5);font-weight:700;height:170px">Right rail 320px, gap 8, sticky top 16</div>
-          <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-3) var(--sp-5);font-weight:700;height:48px;display:flex;align-items:center">Collapse all</div>
+          <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-3) var(--sp-5);font-weight:700;min-height:3rem;display:flex;align-items:center">Collapse all</div>
         </div>
       </div>
     </div>
@@ -78,10 +78,10 @@
     <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
       <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Row and phase measurements</h2>
       <div style="background:var(--bg);border-radius:var(--r-xl);padding:var(--sp-2);display:flex;flex-direction:column;gap:6px">
-        <div style="position:relative;height:64px;padding:0 var(--sp-5);display:flex;align-items:center;font-weight:800;font-size:var(--fs-h3)">Phase One<span style="position:absolute;right:16px;top:0;bottom:0;display:flex;align-items:center;font-size:var(--fs-overline);font-weight:700;color:var(--accent)">h 64 min</span></div>
+        <div style="position:relative;min-height:4rem;padding:0 var(--sp-5);display:flex;align-items:center;font-weight:800;font-size:var(--fs-h3)">Phase One<span style="position:absolute;right:16px;top:0;bottom:0;display:flex;align-items:center;font-size:var(--fs-overline);font-weight:700;color:var(--accent)">h 64 min</span></div>
         <div style="position:relative;background:var(--surface);border-radius:var(--r-row);padding:10px var(--sp-4) 14px var(--sp-2);display:flex;gap:var(--sp-3);align-items:flex-start">
           <span style="width:44px;height:var(--tap);margin-top:10px;background:rgba(200,32,43,.18);border-radius:var(--r-chip);display:flex;align-items:center;justify-content:center;font-size:var(--fs-caption);font-weight:700;color:var(--accent);flex:none">44</span>
-          <span style="width:44px;height:64px;border-radius:var(--r-xs);background:var(--row-hover);flex:none;display:flex;align-items:center;justify-content:center;font-size:var(--fs-caption);font-weight:700">44x64</span>
+          <span style="width:44px;min-height:4rem;border-radius:var(--r-xs);background:var(--row-hover);flex:none;display:flex;align-items:center;justify-content:center;font-size:var(--fs-caption);font-weight:700">44x64</span>
           <div style="flex:1;padding-top:2px"><div style="font-size:var(--fs-title);font-weight:800">Thor</div><div style="font-size:var(--fs-label);color:var(--ink-2)">Film, 2011</div></div>
           <span style="width:24px;height:24px;margin-top:20px;background:rgba(200,32,43,.18);border-radius:var(--r-tiny);display:flex;align-items:center;justify-content:center;font-size:var(--fs-caption);font-weight:700;color:var(--accent)">24</span>
         </div>
@@ -138,6 +138,7 @@
   </section>
 
   
+<section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)"><h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Unità: rem o px</h2><ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink-2);max-width:90ch"><li>rem: testo (<code>--fs-*</code>), spazi (<code>--sp-*</code>, <code>--gap*</code>, <code>--page-margin</code>, <code>--pad-*</code>) e altezze dei controlli con testo (<code>--tap</code>, <code>--row-h</code>, <code>--header-h</code>). Sempre <code>min-height</code>, mai <code>height</code>.</li><li>px: raggi, bordi, anelli, ombre, linee da 1px, icone, miniature, barre (<code>--bar-h</code>, <code>--hit</code>) e i quadrati con sola icona.</li><li>Breakpoint in em: 40em (640px) e 64em (1024px) a 16px. Con il testo ingrandito il layout compatto arriva prima.</li><li>A 16px l’aspetto non cambia.</li></ul></section>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:2600}}">

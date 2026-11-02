@@ -3,10 +3,10 @@
 .choice-group {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 0.5rem;
 
   legend {
-    margin-bottom: 8px;
+    margin-bottom: 0.5rem;
     font-size: var(--fs-label);
     font-weight: 700;
     color: var(--ink-2);
@@ -15,7 +15,7 @@
 
 .choice-group__options {
   display: grid;
-  gap: 4px;
+  gap: 0.25rem;
 }
 
 .choice-group__options--2 {
@@ -52,8 +52,8 @@
   align-items: center;
   justify-content: center;
   gap: var(--sp-1h);
-  min-height: 52px;
-  padding: var(--sp-1h) 12px;
+  min-height: 3.25rem;
+  padding: var(--sp-1h) 0.75rem;
   .pill();
   background: var(--row-hover);
   color: var(--ink);
@@ -76,8 +76,8 @@
 }
 
 .choice__input:focus-visible + .choice__face {
-  outline: 3px solid var(--accent);
-  outline-offset: 2px;
+  outline: var(--focus);
+  outline-offset: var(--focus-offset);
 }
 
 .on-panel .choice__face {

@@ -12,11 +12,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer;text-align:inherit}</style>
-<style>@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}</style>
+<style>@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}body{overflow-wrap:anywhere}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}</style>
 </helmet>
 <div style="width:100%;max-width:1440px;overflow-x:auto;background:radial-gradient(900px 420px at 90% -4%,var(--surface),rgba(247,248,250,0) 70%),var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
   <div>
-    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase;letter-spacing:.01em">Popup</h1>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(2.5rem,8vw,4rem);line-height:1;text-transform:uppercase;letter-spacing:.01em">Popup</h1>
     <p style="margin:var(--sp-3) 0 0;max-width:70ch;color:var(--ink-2)">Generic modal dialogs: message, confirmation and destructive confirmation, plus the bottom sheet used on mobile. A popup interrupts the page, so it asks for one decision and nothing else. Confirmation, error, account and notification popups are catalogued below; movie and user detail popups extend this base.</p>
   </div>
 
@@ -27,12 +27,12 @@
         <button type="button" aria-label="Close" style="position:absolute;top:12px;right:12px;width:44px;height:var(--tap);border-radius:var(--r-pill);background:var(--bg);display:flex;align-items:center;justify-content:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button>
         <div style="width:56px;height:var(--row-h);border-radius:var(--r-pill);background:var(--bg);display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></div>
         <div style="display:flex;flex-direction:column;gap:var(--sp-2);padding-right:32px">
-          <h3 style="margin:0;font-size:24px;line-height:1.2;font-weight:800">Title in one line</h3>
+          <h3 style="margin:0;font-size:1.5rem;line-height:1.2;font-weight:800">Title in one line</h3>
           <p style="margin:0;color:var(--ink-2)">Body text, one to three sentences. It explains the choice, it does not repeat the title.</p>
         </div>
         <div style="display:flex;justify-content:flex-end;gap:var(--sp-2)">
-          <span style="height:48px;padding:0 22px;border-radius:var(--r-pill);background:var(--row-hover);font-weight:700;display:flex;align-items:center">Secondary</span>
-          <span style="height:48px;padding:0 22px;border-radius:var(--r-pill);background:var(--accent);color:var(--white);font-weight:800;display:flex;align-items:center">Primary</span>
+          <span style="min-height:3rem;padding:0 22px;border-radius:var(--r-pill);background:var(--row-hover);font-weight:700;display:flex;align-items:center">Secondary</span>
+          <span style="min-height:3rem;padding:0 22px;border-radius:var(--r-pill);background:var(--accent);color:var(--white);font-weight:800;display:flex;align-items:center">Primary</span>
         </div>
       </div>
       <ol style="margin:0;padding-left:22px;color:var(--on-dark);display:flex;flex-direction:column;gap:10px">
@@ -101,7 +101,7 @@
         <div role="dialog" aria-label="Sheet" style="background:var(--surface);border-radius:var(--r-lg) var(--r-lg) 0 0;padding:var(--sp-3) var(--sp-5) var(--sp-5);display:flex;flex-direction:column;gap:14px;width:340px;box-sizing:border-box">
           <span style="align-self:center;width:40px;height:5px;border-radius:var(--r-hair);background:var(--disabled)"></span>
           <div><div style="font-size:var(--fs-h3);font-weight:800;line-height:1.2">Reset your progress?</div><p style="margin:6px 0 0;font-size:var(--fs-button);color:var(--ink-2)">All watched marks will be removed.</p></div>
-          <div style="display:flex;flex-direction:column;gap:var(--sp-2)"><span style="height:48px;border-radius:var(--r-pill);background:var(--panel);color:var(--on-dark);font-weight:800;display:flex;align-items:center;justify-content:center">Keep</span><span style="height:48px;border-radius:var(--r-pill);background:var(--row-hover);color:var(--accent-active);font-weight:800;display:flex;align-items:center;justify-content:center">Reset</span></div>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-2)"><span style="min-height:3rem;border-radius:var(--r-pill);background:var(--panel);color:var(--on-dark);font-weight:800;display:flex;align-items:center;justify-content:center">Keep</span><span style="min-height:3rem;border-radius:var(--r-pill);background:var(--row-hover);color:var(--accent-active);font-weight:800;display:flex;align-items:center;justify-content:center">Reset</span></div>
         </div>
       </div>
       <p style="margin:0;font-size:var(--fs-label);color:var(--ink-2)">Below 640px every popup becomes a sheet: full width, top radius 28px, grabber, stacked full-width actions, safe-area padding.</p>
@@ -111,7 +111,7 @@
   <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-5)">
     <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Live: open, close, Esc</h2>
     <div style="position:relative;height:320px;border-radius:var(--r-md);overflow:hidden;background:var(--bg);display:flex;align-items:center;justify-content:center">
-      <button type="button" onClick="{{ open }}" style="height:48px;padding:0 var(--sp-6);border-radius:var(--r-pill);background:var(--accent);color:var(--white);font-weight:800;transition:background-color var(--dur-hover) var(--ease-out),transform var(--dur-press) var(--ease-out)" style-hover="background:var(--accent-on-dark)" style-active="background:var(--accent-hover);transform:translateY(1px) scale(.98)" style-focus="outline:3px solid var(--ink);outline-offset:3px">Reset progress</button>
+      <button type="button" onClick="{{ open }}" style="min-height:3rem;padding:0 var(--sp-6);border-radius:var(--r-pill);background:var(--accent);color:var(--white);font-weight:800;transition:background-color var(--dur-hover) var(--ease-out),transform var(--dur-press) var(--ease-out)" style-hover="background:var(--accent-on-dark)" style-active="background:var(--accent-hover);transform:translateY(1px) scale(.98)" style-focus="outline:3px solid var(--ink);outline-offset:3px">Reset progress</button>
       <div onClick="{{ close }}" style="position:absolute;inset:0;background:var(--scrim);display:flex;align-items:center;justify-content:center;opacity:{{ scrimOp }};pointer-events:{{ scrimPe }};transition:opacity var(--dur-ui) var(--ease-out)">
         <div role="alertdialog" aria-modal="true" aria-labelledby="pp-t" onClick="{{ stop }}" style="background:var(--surface);border-radius:var(--r-xl);padding:var(--pad-popup);display:flex;flex-direction:column;gap:var(--sp-4);width:400px;box-sizing:border-box;transform:{{ dlgTf }};opacity:{{ scrimOp }};transition:transform var(--dur-ui) var(--ease-out),opacity var(--dur-ui) var(--ease-out)">
           <div style="width:40px;height:40px;border-radius:var(--r-pill);background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"></path></svg></div>
