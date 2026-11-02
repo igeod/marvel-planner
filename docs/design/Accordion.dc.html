@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer;text-align:inherit}</style>
+<style>@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}</style>
+</helmet>
+<div style="width:100%;max-width:1440px;overflow-x:auto;background:radial-gradient(900px 420px at 90% -4%,var(--surface),rgba(247,248,250,0) 70%),var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
+
+  <div>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase;letter-spacing:.01em">Accordion</h1>
+    <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">The planner has two nested accordions, both native <code>&lt;details&gt;/&lt;summary&gt;</code>. The <b>phase</b> groups its titles in one container. The <b>title</b> row opens into a dark panel with poster, synopsis and prerequisites. Open state lives only while the page stays open.</p>
+  </div>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Anatomy</h2>
+      <div style="background:var(--surface);border:0;border-radius:var(--r-xl);padding:10px;display:flex;flex-direction:column;gap:6px;outline:2px dashed var(--disabled);outline-offset:6px">
+        <div style="display:flex;align-items:center;gap:14px;padding:10px var(--sp-4) 10px 18px;min-height:64px;box-sizing:border-box"><div style="flex:1"><div style="font-size:var(--fs-h3);font-weight:800;line-height:1.2">Phase One</div><div style="font-size:var(--fs-label);color:var(--ink-2)">2008 to 2012</div></div><div style="font-weight:700">2 of 6</div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="transform:rotate(180deg)"><path d="M6 9l6 6 6-6"></path></svg></div>
+        <div style="background:var(--bg);border-radius:var(--r-row);padding:10px var(--sp-4) 14px var(--sp-2);display:flex;gap:var(--sp-3);align-items:flex-start"><span style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center"><span style="width:26px;height:26px;border-radius:var(--r-chip);border:3px solid var(--accent);background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></span></span><span style="width:44px;height:64px;border-radius:var(--r-xs);background:var(--row-hover)"></span><div style="flex:1;padding-top:2px"><div style="font-size:var(--fs-title);font-weight:800;text-decoration:line-through">Iron Man</div><div style="font-size:var(--fs-label);color:var(--ink-2)">Film, 2008</div></div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="margin-top:20px"><path d="M6 9l6 6 6-6"></path></svg></div>
+        <div style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-row);padding:10px var(--sp-4) 14px var(--sp-2);display:flex;gap:var(--sp-3);align-items:flex-start"><span style="width:44px;height:var(--tap)"></span><span style="width:96px;height:144px;border-radius:var(--r-xs);background:var(--raised)"></span><div style="flex:1;display:flex;flex-direction:column;gap:10px"><div style="padding-top:2px;display:flex;justify-content:space-between"><div><div style="font-size:var(--fs-title);font-weight:800">Iron Man 2</div><div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Film, 2010</div></div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="transform:rotate(180deg);margin-top:10px"><path d="M6 9l6 6 6-6"></path></svg></div><div style="height:34px;width:150px;border-radius:var(--r-sm);background:var(--raised)"></div><div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Synopsis, Before you watch, Full details</div></div></div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:10px;font-size:var(--fs-button)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Dimensions and tokens</h2>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px">
+        <li><b>Phase container</b> (<code>&lt;details&gt;</code>): bg <code>--surface</code>, radius 32px, padding 10px, gap 6px between header and rows. Header and rows are one visual group, never separate cards.</li>
+        <li><b>Phase header</b> (<code>&lt;summary&gt;</code>): min-height 64px, padding 10px 16px 10px 18px (mobile 10px 12px 10px 14px), radius 22px (visible on hover). Name 20px 800, years 14px <code>--ink-2</code>, count "2 of 6" 16px 700, chevron 24px (stroke 2.6) vertically centered at the right.</li>
+        <li><b>Title row closed</b> (<code>&lt;details&gt;</code> inside the row): bg <code>--bg</code>, radius 22px, padding 10px 16px 14px 8px (mobile 10px 12px 14px 4px), gap 12px (mobile 8px). Container padding 10px minus row radius 22px gives the 32px outer radius: inner radius = outer radius minus padding, so header and rows stay concentric. Checkbox hit area 44x44 (centered on the 64px thumbnail: margin-top 10px), thumbnail 44x64 radius 14px, name 18px 800 + meta 14px, chevron 24px centered.</li>
+        <li><b>Title row open</b>: bg <code>--panel</code>, text <code>--on-dark</code>. Thumbnail grows to 96x144 (mobile 72x108). Everything in the right column shares one left edge: header, "Mark as watched" pill, synopsis, Before you watch, Full details (right-aligned). The checkbox is hidden while open (kept in the DOM).</li>
+        <li><b>Chevron</b>: lucide <code>chevron-down</code>, rotates 180deg when open. It is decorative (<code>aria-hidden</code>); state is exposed natively by <code>&lt;details open&gt;</code>.</li>
+        <li><b>Empty phase</b>: container with header only plus one line "No titles in this phase" 14px <code>--ink-2</code> padding 12px 20px.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Phase header states</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ phaseStates }}" as="s" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <div style="font-size:var(--fs-label);font-weight:700;color:var(--ink-2)">{{ s.label }}</div>
+          <div style="background:var(--surface);border-radius:var(--r-xl);padding:10px;outline:1px solid var(--row-hover)">
+            <div style="display:flex;align-items:center;gap:14px;padding:10px var(--sp-4) 10px 18px;min-height:64px;box-sizing:border-box;border-radius:var(--r-row);background:{{ s.bg }};outline:{{ s.outline }};outline-offset:-3px">
+              <div style="flex:1;min-width:0"><div style="font-size:var(--fs-h3);font-weight:800;line-height:1.2">Phase Two</div><div style="font-size:var(--fs-label);color:var(--ink-2)">2013 to 2015</div></div>
+              <div style="font-weight:700">0 of 6</div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="transform:{{ s.rot }}"><path d="M6 9l6 6 6-6"></path></svg>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Title row states (closed)</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ rowStates }}" as="s" hint-placeholder-count="5">
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <div style="font-size:var(--fs-label);font-weight:700;color:var(--ink-2)">{{ s.label }}</div>
+          <div style="background:var(--surface);border-radius:var(--r-xl);padding:10px;outline:1px solid var(--row-hover)">
+            <div style="background:{{ s.bg }};border-radius:var(--r-row);padding:10px var(--sp-3) 14px var(--sp-1);display:flex;gap:var(--sp-2);align-items:flex-start;outline:{{ s.outline }};outline-offset:-3px;opacity:{{ s.op }}">
+              <span style="width:44px;height:var(--tap);flex:none;margin-top:10px;display:flex;align-items:center;justify-content:center"><span style="width:26px;height:26px;border-radius:var(--r-chip);border:3px solid {{ s.box }};background:{{ s.boxBg }};color:var(--white);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" style="opacity:{{ s.tick }}"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></span></span>
+              <span style="width:44px;height:64px;flex:none;border-radius:var(--r-xs);background:var(--row-hover)"></span>
+              <div style="flex:1;min-width:0;padding-top:2px"><div lang="en" style="font-size:var(--fs-title);font-weight:800;line-height:1.25;text-decoration:{{ s.deco }};color:{{ s.nameC }}">Thor</div><div style="font-size:var(--fs-label);color:var(--ink-2)">Film, 2011</div></div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="flex:none;margin-top:20px"><path d="M6 9l6 6 6-6"></path></svg>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Open title: header states and content states</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ openStates }}" as="s" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <div style="font-size:var(--fs-label);font-weight:700;color:var(--ink-2)">{{ s.label }}</div>
+          <div style="background:var(--surface);border-radius:var(--r-xl);padding:10px;outline:1px solid var(--row-hover)">
+            <div style="background:{{ s.bg }};color:var(--on-dark);border-radius:var(--r-row);padding:10px var(--sp-3) 14px var(--sp-1);display:flex;gap:var(--sp-2);align-items:flex-start;outline:{{ s.outline }};outline-offset:-3px">
+              <span style="width:44px;flex:none"></span>
+              <span style="width:72px;height:108px;flex:none;border-radius:var(--r-xs);background:var(--raised)"></span>
+              <div style="flex:1;min-width:0;padding-top:2px"><div lang="en" style="font-size:var(--fs-title);font-weight:800;line-height:1.25">Iron Man 2</div><div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Film, 2010</div></div>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="flex:none;transform:rotate(180deg);margin-top:10px"><path d="M6 9l6 6 6-6"></path></svg>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--sp-2);margin-top:8px">
+      <div style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:var(--fs-label);font-weight:700;color:var(--muted-on-dark)">Content loading (first open)</div>
+        <div style="display:flex;gap:var(--sp-3)"><span style="width:72px;height:108px;border-radius:var(--r-xs);background:var(--raised-2);flex:none"></span><div style="flex:1;display:flex;flex-direction:column;gap:10px;padding-top:6px"><span style="height:14px;border-radius:var(--r-tiny);background:var(--raised-2)"></span><span style="height:14px;border-radius:var(--r-tiny);background:var(--raised-2);width:90%"></span><span style="height:14px;border-radius:var(--r-tiny);background:var(--raised-2);width:70%"></span></div></div>
+        <div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Flat blocks, same size as final content, opacity pulse 1.2s. Container keeps <code>aria-busy="true"</code>.</div>
+      </div>
+      <div style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3);align-items:flex-start">
+        <div style="font-size:var(--fs-label);font-weight:700;color:var(--muted-on-dark)">Content error</div>
+        <div role="alert" style="font-weight:600">We could not load the details for this title.</div>
+        <span style="height:var(--tap);border-radius:var(--r-row);padding:0 var(--sp-5);display:flex;align-items:center;background:var(--highlight);color:var(--ink);font-weight:800">Try again</span>
+        <div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Inline, no toast. The row stays open.</div>
+      </div>
+      <div style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:10px">
+        <div style="font-size:var(--fs-label);font-weight:700;color:var(--muted-on-dark)">Missing pieces</div>
+        <div style="font-weight:600">No synopsis available yet.</div>
+        <div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Standalone title: no "Before you watch" block, only the status line.</div>
+        <div style="font-size:var(--fs-label);color:var(--muted-on-dark)">Each missing part simply disappears, layout never leaves an empty box. Poster states are in the Planner board (3a to 3d).</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Live demo: click the headers, tab through, press Enter or Space</h2>
+    <div style="max-width:720px;background:var(--surface);border-radius:var(--r-xl);outline:1px solid var(--row-hover);padding:var(--sp-2);display:flex;flex-direction:column;gap:6px;outline:1px solid var(--row-hover)">
+      <button type="button" aria-expanded="{{ ph }}" onClick="{{ togglePh }}" style-hover="background:var(--bg)" style-active="background:var(--row-hover)" style-focus="outline:3px solid var(--accent);outline-offset:-3px" style="display:flex;align-items:center;gap:14px;padding:10px var(--sp-4) 10px 18px;min-height:64px;box-sizing:border-box;border-radius:var(--r-md);width:100%;transition:background-color var(--dur-hover) var(--ease-out)">
+        <span style="flex:1;min-width:0"><span style="display:block;font-size:var(--fs-h3);font-weight:800;line-height:1.2">Phase One</span><span style="display:block;font-size:var(--fs-label);color:var(--ink-2)">2008 to 2012</span></span>
+        <span style="font-weight:700">2 of 6</span>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="transform:{{ phRot }};transition:transform var(--dur-ui) var(--ease-out)"><path d="M6 9l6 6 6-6"></path></svg>
+      </button>
+      <div style="display:grid;grid-template-rows:{{ phRows }};transition:grid-template-rows var(--dur-enter) var(--ease-out)">
+        <div style="min-height:0;overflow:hidden">
+          <div style="display:flex;flex-direction:column;gap:6px;opacity:{{ phOp }};transform:translateY({{ phY }});transition:opacity var(--dur-hover) var(--ease-out),transform var(--dur-enter) var(--ease-out)">
+            <div style="background:var(--bg);border-radius:var(--r-row);padding:10px var(--sp-4) 14px var(--sp-2);display:flex;gap:var(--sp-3);align-items:flex-start"><span style="width:44px;height:var(--tap);margin-top:10px;display:flex;align-items:center;justify-content:center"><span style="width:26px;height:26px;border-radius:var(--r-chip);border:3px solid var(--accent);background:var(--accent);color:var(--white);display:flex;align-items:center;justify-content:center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></span></span><span style="width:44px;height:64px;border-radius:var(--r-xs);background:var(--row-hover)"></span><div style="flex:1;padding-top:2px"><div style="font-size:var(--fs-title);font-weight:800;text-decoration:line-through">Iron Man</div><div style="font-size:var(--fs-label);color:var(--ink-2)">Film, 2008</div></div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="margin-top:20px"><path d="M6 9l6 6 6-6"></path></svg></div>
+            <div style="background:{{ rBg }};color:{{ rFg }};border-radius:var(--r-row);transition:background-color var(--dur-ui) var(--ease-out),color var(--dur-ui) var(--ease-out)">
+              <button type="button" aria-expanded="{{ rw }}" onClick="{{ toggleRw }}" style-focus="outline:3px solid var(--accent);outline-offset:-3px" style="display:flex;gap:var(--sp-3);align-items:flex-start;width:100%;padding:10px var(--sp-4) 14px var(--sp-2);border-radius:var(--r-row)">
+                <span style="width:44px;height:var(--tap);margin-top:10px;display:flex;align-items:center;justify-content:center;flex:none"><span style="width:26px;height:26px;border-radius:var(--r-chip);border:3px solid {{ rFg }};opacity:{{ cbOp }};transition:opacity var(--dur-hover)"></span></span>
+                <span style="width:{{ thW }};height:{{ thH }};flex:none;border-radius:var(--r-xs);background:{{ thBg }};transition:width var(--dur-enter) var(--ease-out),height var(--dur-enter) var(--ease-out),background-color var(--dur-ui)"></span>
+                <span style="flex:1;min-width:0;padding-top:2px"><span style="display:block;font-size:var(--fs-title);font-weight:800;line-height:1.25">Iron Man 2</span><span style="display:block;font-size:var(--fs-label);opacity:.75">Film, 2010</span></span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="flex:none;margin-top:{{ chMt }};transform:{{ rwRot }};transition:transform var(--dur-ui) var(--ease-out)"><path d="M6 9l6 6 6-6"></path></svg>
+              </button>
+              <div style="display:grid;grid-template-rows:{{ rwRows }};transition:grid-template-rows var(--dur-enter) var(--ease-out)">
+                <div style="min-height:0;overflow:hidden">
+                  <div style="padding:0 var(--sp-4) var(--sp-4) 164px;display:flex;flex-direction:column;gap:var(--sp-3);opacity:{{ rwOp }};transform:translateY({{ rwY }});transition:opacity var(--dur-hover) var(--ease-out),transform var(--dur-enter) var(--ease-out)">
+                    <p style="margin:0;max-width:56ch">Tony Stark faces pressure from the government and a new rival while his own invention threatens his health.</p>
+                    <span style="align-self:flex-end;height:48px;border-radius:var(--r-md);padding:0 22px;display:flex;align-items:center;background:var(--accent);color:var(--white);font-weight:800">Full details</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:14px">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Behavior and motion specification</h2>
+    <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:100ch;font-size:var(--fs-button)">
+      <li><b>Markup:</b> keep native <code>&lt;details&gt;/&lt;summary&gt;</code>. Phase: <code>details &gt; summary</code> plus the list. Title: row <code>li</code> with the checkbox outside the summary, so toggling the state never opens or closes the row. The whole summary is clickable, min 44px. Never nest the checkbox inside the summary.</li>
+      <li><b>Keyboard:</b> Tab reaches each summary and each checkbox, Enter and Space toggle, no custom arrow-key model. Focus ring: 3px inset outline (offset -3px) so it is never clipped by the container radius; <code>--red</code> on light rows, <code>--gold</code> on dark rows.</li>
+      <li><b>State:</b> phase open/closed persists while the page is open (<code>useCollapsedPhases</code>); title rows are independent, several can be open. "Collapse all / Expand all" acts only on phases. Opening a title for the first time lazy loads its content (loading, error with retry, loaded), see the content states above.</li>
+      <li><b>Hover</b> (<code>@media (hover:hover)</code>): header and row background step one tone (phase header <code>var(--bg)</code> on light, closed row one step darker, open row one step lighter). <b>Pressed:</b> one more step, no scale (rows are large). <b>Disabled:</b> not applicable.</li>
+      <li><b>Open animation:</b> three things at once. (1) Chevron rotates 180deg, var(--dur-ui) var(--ease-out). (2) Height: var(--dur-enter) var(--ease-out) via the Chromium/Safari <code>details::details-content { transition: block-size var(--dur-enter) var(--ease-out), content-visibility var(--dur-enter) allow-discrete; } details { interpolate-size: allow-keywords; }</code>; where unsupported the content simply appears (no polyfill). (3) Content fades and rises: opacity 0 to 1 in --dur-hover and <code>translateY(4px)</code> to 0 in --dur-enter. Open title also changes color: row bg and text crossfade <code>--bg</code> to <code>--panel</code> in --dur-ui and the thumbnail grows (44x64 to 96x144) in --dur-enter. If growing the thumbnail causes layout jank, snap it and keep the others.</li>
+      <li><b>Close animation:</b> faster than open: --dur-ui height, var(--dur-press) fade.</li>
+      <li><b>Collapse all / Expand all:</b> phases animate together with a --stagger-step stagger (capped at --stagger-max) from top to bottom, maximum 6 steps; none under reduced motion.</li>
+      <li><b>Watched:</b> the checkbox fills in --dur-ui; the name strike-through shows only while the row is closed and fades in --dur-ui. Strip cells in the progress block crossfade in --dur-hover.</li>
+      <li><b>Scroll behavior:</b> opening a title never scrolls the page by itself unless the opened panel's bottom is below the viewport, then scroll it into view smoothly with <code>scrollIntoView({block:"nearest"})</code> (reduced motion: instant) after the open animation ends.</li>
+      <li><b>Reduced motion:</b> no height, rotation, translate or thumbnail growth: content appears at once; keep the --dur-press background crossfade and the focus ring. Loading skeleton pulse becomes static.</li>
+      <li><b>Mobile:</b> same behavior; padding and thumbnail sizes in the anatomy list. Content column starts after the thumbnail; if the title is very long, wrap to 3 lines max with no truncation of the name.</li>
+      <li><b>Tokens:</b> <code>--ease-out: var(--ease-out)</code>. Never <code>transition: all</code> and never animate <code>height</code> directly with fixed pixel values.</li>
+    </ul>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:3300}}">
+class Component extends DCLogic {
+  state = { ph: true, rw: false };
+  renderVals() {
+    const S = this.state;
+    const phaseStates = [
+      { label: 'Closed, default', bg: 'transparent', outline: 'none', rot: 'none' },
+      { label: 'Closed, hover', bg: 'var(--bg)', outline: 'none', rot: 'none' },
+      { label: 'Closed, focus', bg: 'transparent', outline: '3px solid var(--accent)', rot: 'none' },
+      { label: 'Closed, pressed', bg: 'var(--row-hover)', outline: 'none', rot: 'none' },
+      { label: 'Open, default', bg: 'transparent', outline: 'none', rot: 'rotate(180deg)' }
+    ];
+    const rowStates = [
+      { label: 'Default', bg: 'var(--bg)', outline: 'none', op: 1, box: 'var(--ink)', boxBg: 'transparent', tick: 0, deco: 'none', nameC: 'var(--ink)' },
+      { label: 'Hover', bg: 'var(--row-hover)', outline: 'none', op: 1, box: 'var(--ink)', boxBg: 'transparent', tick: 0, deco: 'none', nameC: 'var(--ink)' },
+      { label: 'Focus', bg: 'var(--bg)', outline: '3px solid var(--accent)', op: 1, box: 'var(--ink)', boxBg: 'transparent', tick: 0, deco: 'none', nameC: 'var(--ink)' },
+      { label: 'Pressed', bg: 'var(--disabled)', outline: 'none', op: 1, box: 'var(--ink)', boxBg: 'transparent', tick: 0, deco: 'none', nameC: 'var(--ink)' },
+      { label: 'Watched', bg: 'var(--bg)', outline: 'none', op: 1, box: 'var(--accent)', boxBg: 'var(--accent)', tick: 1, deco: 'line-through', nameC: 'var(--ink-2)' }
+    ];
+    const openStates = [
+      { label: 'Open, default', bg: 'var(--ink)', outline: 'none' },
+      { label: 'Open, hover', bg: 'var(--raised)', outline: 'none' },
+      { label: 'Open, focus', bg: 'var(--ink)', outline: '3px solid var(--highlight)' },
+      { label: 'Open, pressed', bg: 'var(--raised)', outline: 'none' }
+    ];
+    return {
+      phaseStates, rowStates, openStates,
+      ph: S.ph, togglePh: () => this.setState({ ph: !S.ph }),
+      phRot: S.ph ? 'rotate(180deg)' : 'none', phRows: S.ph ? '1fr' : '0fr', phOp: S.ph ? 1 : 0, phY: S.ph ? '0' : '-4px',
+      rw: S.rw, toggleRw: () => this.setState({ rw: !S.rw }),
+      rwRot: S.rw ? 'rotate(180deg)' : 'none', rwRows: S.rw ? '1fr' : '0fr', rwOp: S.rw ? 1 : 0, rwY: S.rw ? '0' : '4px',
+      rBg: S.rw ? 'var(--ink)' : 'var(--bg)', rFg: S.rw ? 'var(--on-dark)' : 'var(--ink)',
+      cbOp: S.rw ? 0 : 1, thW: S.rw ? '96px' : '44px', thH: S.rw ? '144px' : '64px', thBg: S.rw ? 'var(--raised)' : 'var(--row-hover)', chMt: S.rw ? '10px' : '20px'
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -16,7 +16,7 @@
   align-items: center;
   gap: var(--gap);
   height: var(--tap);
-  padding: 0 var(--sp-5) 0 14px;
+  padding: 0 var(--sp-5) 0 var(--sp-3h);
   .pill();
   box-shadow: inset 0 0 0 2px var(--ink);
   font-weight: 700;
@@ -143,7 +143,7 @@
 
 .film__meta-missing {
   font-weight: 600;
-  color: var(--panel-muted);
+  color: var(--muted-on-dark);
 }
 
 .film__meta {
@@ -211,7 +211,7 @@
   gap: var(--gap);
 
   h2 {
-    margin-bottom: 6px;
+    margin-bottom: var(--sp-1h);
   }
 
   ul {
@@ -267,20 +267,20 @@
 .spoiler-zone__boxes {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--sp-2h);
 }
 
 .spoiler-zone__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
   align-items: stretch;
-  gap: 10px;
+  gap: var(--sp-2h);
 }
 
 .spoiler-zone__side {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--sp-2h);
 }
 
 .spoiler-box--plot {

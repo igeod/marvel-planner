@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}</style>
+</helmet>
+<div style="width:100%;max-width:1440px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
+  <div>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase">Typography</h1>
+    <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">Due famiglie: Anton per titoli e numeri display, Hanken Grotesk per tutto il resto. Anton si usa solo maiuscolo, mai sotto 24px e mai per paragrafi.</p>
+  </div>
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--sp-6)">
+    <div><div style="font-family:var(--font-display);font-size:96px;line-height:1;text-transform:uppercase">Aa</div><b>Anton 400</b><div style="color:var(--ink-2);font-size:var(--fs-label)">Display, titoli pagina, titoli saga, numeri grandi. Maiuscolo, letter-spacing .01em.</div></div>
+    <div><div style="font-size:96px;line-height:1;font-weight:800;letter-spacing:-.02em">Aa</div><b>Hanken Grotesk 400 / 500 / 600 / 700 / 800</b><div style="color:var(--ink-2);font-size:var(--fs-label)">400 testo corrente, 500 meta, 600 etichette e righe, 700 bottoni, 800 titoli di card e sezione.</div></div>
+  </section>
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)">
+    <h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Scala tipografica (desktop / mobile)</h2>
+    <sc-for list="{{ scale }}" as="t" hint-placeholder-count="10">
+      <div style="display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr);gap:var(--sp-6);align-items:center;background:var(--bg);border-radius:var(--r-row);padding:var(--sp-4) var(--sp-6)">
+        <div style="font-family:{{ t.family }};font-weight:{{ t.weight }};font-size:{{ t.size }};line-height:{{ t.lh }};letter-spacing:{{ t.ls }};text-transform:{{ t.tt }};overflow:hidden;white-space:nowrap;text-overflow:ellipsis;padding:.12em 0">{{ t.sample }}</div>
+        <div style="font-size:var(--fs-label);color:var(--ink-2)"><code style="font-weight:700;color:var(--ink)">{{ t.token }}</code>, {{ t.spec }}<br>{{ t.use }}</div>
+      </div>
+    </sc-for>
+  </section>
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Regole</h2>
+    <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink-2);max-width:90ch">
+      <li>Testo corrente 16px minimo, interlinea 1.5, lunghezza riga massima 72ch.</li>
+      <li>Colori testo: var(--ink) su chiaro, var(--ink-2) per secondario (contrasto 4.5:1), var(--on-dark) su scuro, var(--white) su rosso var(--accent).</li>
+      <li>Gerarchia con peso e dimensione, non con il colore. Massimo 3 livelli per card.</li>
+      <li>Titoli: text-wrap balance. Paragrafi: text-wrap pretty. Niente corsivo, niente sottolineato tranne i link.</li>
+      <li>Numeri in colonna: font-variant-numeric tabular-nums.</li>
+      <li>Mobile: display e H1 scalano con clamp(); gli altri livelli scendono di uno step al massimo.</li>
+      <li>Fallback: system-ui, sans-serif; per Anton Impact, sans-serif.</li>
+    </ul>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const A = "'Anton',sans-serif", H = "'Hanken Grotesk',system-ui,sans-serif";
+    const r = (token, family, weight, size, lh, ls, tt, spec, use, sample) => ({ token, family, weight, size, lh, ls, tt, spec, use, sample });
+    return { scale: [
+      r('display', A, 400, 'clamp(48px,8vw,96px)', 1, '.01em', 'uppercase', '48–96 / 1.0', 'Hero, numeri grandi', 'Marvel Planner'),
+      r('h1', A, 400, 'clamp(36px,5vw,64px)', 1, '.01em', 'uppercase', '36–64 / 1.0', 'Titolo pagina', 'Pagina film'),
+      r('h2', A, 400, '28px', 1.1, '.01em', 'uppercase', '28 / 1.1', 'Titolo saga', 'Infinity Saga'),
+      r('h3', H, 800, '20px', 1.25, '-.01em', 'none', '20 / 1.25, 800', 'Titolo sezione e card', 'Spacing scale'),
+      r('title', H, 700, '18px', 1.3, '0', 'none', '18 / 1.3, 700', 'Titolo film in riga', 'Iron Man'),
+      r('body', H, 400, '16px', 1.5, '0', 'none', '16 / 1.5, 400', 'Testo corrente', 'Trama e descrizioni del film.'),
+      r('label', H, 600, '14px', 1.4, '0', 'none', '14 / 1.4, 600', 'Etichette, righe, meta', 'Fase 1, 2008'),
+      r('button', H, 700, '15px', 1, '.01em', 'none', '15 / 1, 700', 'Bottoni', 'Segna come visto'),
+      r('caption', H, 500, '13px', 1.4, '.02em', 'none', '13 / 1.4, 500', 'Didascalie, tooltip (minimo assoluto)', 'Aggiornato oggi'),
+      r('overline', H, 800, '12px', 1.2, '.12em', 'uppercase', '12 / 1.2, 800', 'Eyebrow, tag (solo maiuscolo)', 'Prossimo')
+    ] };
+  }
+}
+</script>
+</body>
+</html>

@@ -12,7 +12,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--sp-2h);
   min-width: 0;
 
   .desktop({ gap: 14px; });
@@ -22,7 +22,7 @@
   font-family: var(--font-display);
   font-size: 5.5rem;
   line-height: 0.9;
-  color: var(--gold);
+  color: var(--highlight);
   letter-spacing: 0.01em;
 
   .desktop({ font-size: 10.5rem; });
@@ -41,8 +41,8 @@
   min-height: 60px;
   padding: 0 24px;
   .pill();
-  background: var(--gold);
-  color: var(--on-gold);
+  background: var(--highlight);
+  color: var(--ink-static);
   font-size: var(--fs-title);
   font-weight: 800;
   .tones(var(--highlight-hover), var(--highlight-active));
@@ -99,8 +99,8 @@
   width: 250px;
   padding: 22px;
   border-radius: var(--r-md);
-  background: var(--gold);
-  color: var(--on-gold);
+  background: var(--highlight);
+  color: var(--ink-static);
   font-weight: 500;
   transform: rotate(2deg);
 }

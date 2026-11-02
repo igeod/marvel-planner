@@ -7,9 +7,9 @@
 .phase__summary {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--sp-3h);
   min-height: 64px;
-  padding: 10px 16px 10px 20px;
+  padding: var(--sp-2h) 16px var(--sp-2h) 20px;
   border-radius: var(--r-md);
   .tones(var(--row-hover), var(--row-press));
 
@@ -19,7 +19,7 @@
 }
 
 .phase[open] > .phase__summary {
-  margin-bottom: 6px;
+  margin-bottom: var(--sp-1h);
 }
 
 .phase__heading {
@@ -44,7 +44,7 @@
 .phase__titles {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--sp-1h);
 }
 
 .phase__empty {

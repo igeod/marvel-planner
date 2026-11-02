@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}</style>
+<style>@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}</style>
+</helmet>
+<div style="width:100%;max-width:1180px;overflow-x:auto;background:radial-gradient(900px 420px at 90% -4%,var(--surface),rgba(247,248,250,0) 70%),var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
+  <div>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,56px);line-height:1;text-transform:uppercase;letter-spacing:.01em">Tooltip</h1>
+    <p style="margin:var(--sp-3) 0 0;max-width:62ch;color:var(--ink-2)">One info icon opens a short hint. It opens on hover, on keyboard focus and on tap, closes on Esc, leave, blur or a second tap. Use it for a single sentence of context, never for information the user needs to act.</p>
+  </div>
+
+  <section style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-2)">
+    <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-5)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">On a light surface</h2>
+      <div style="display:flex;align-items:center;gap:0;padding-top:64px">
+        <div style="font-size:var(--fs-title);font-weight:700">Section title</div>
+        <span style="position:relative;display:flex">
+          <button type="button" aria-label="Info" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--ink-2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+          <span role="tooltip" style="position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);width:max-content;max-width:240px;background:var(--ink);color:var(--bg);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:600;line-height:1.35">Short hint in one sentence.<span aria-hidden="true" style="position:absolute;left:50%;bottom:-4px;width:10px;height:10px;background:var(--ink);border-radius:var(--r-hair);transform:translateX(-50%) rotate(45deg)"></span></span>
+        </span>
+      </div>
+      <p style="margin:0;font-size:var(--fs-label);color:var(--ink-2)">Tooltip is the inverse of the surface: bubble <b>--tip-bg: var(--ink)</b>, text <b>--tip-fg: var(--bg)</b> (in scuro la bolla è chiara e il testo scuro).</p>
+    </div>
+    <div style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-5)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">On a dark panel</h2>
+      <div style="display:flex;align-items:center;gap:0;padding-top:64px">
+        <div style="font-size:var(--fs-title);font-weight:700">Before you watch</div>
+        <span style="position:relative;display:flex">
+          <button type="button" aria-label="Spoiler warning" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--muted-on-dark)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+          <span role="tooltip" style="position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);width:max-content;max-width:240px;background:var(--on-dark);color:var(--panel);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:600;line-height:1.35">The reasons reveal story details.<span aria-hidden="true" style="position:absolute;left:50%;bottom:-4px;width:10px;height:10px;background:var(--on-dark);border-radius:var(--r-hair);transform:translateX(-50%) rotate(45deg)"></span></span>
+        </span>
+      </div>
+      <p style="margin:0;font-size:var(--fs-label);color:var(--muted-on-dark)">Dark panel (in both themes): light bubble <b style="color:var(--on-dark)">var(--on-dark)</b>, text <b style="color:var(--on-dark)">var(--ink)</b>.</p>
+    </div>
+  </section>
+
+  <section style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-5)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Spoiler alert variant</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-8);align-items:end">
+      <div style="display:flex;align-items:center;gap:0;padding-top:72px">
+        <div style="font-size:var(--fs-title);font-weight:700">Before you watch</div>
+        <span style="position:relative;display:flex">
+          <button type="button" aria-label="Spoiler warning" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--highlight)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"></path><path d="M12 9v4M12 17h.01"></path></svg></button>
+          <span role="tooltip" style="position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);width:max-content;max-width:240px;background:var(--highlight);color:var(--ink-static);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:700;line-height:1.35">Spoiler alert! Peek only if you dare.<span aria-hidden="true" style="position:absolute;left:50%;bottom:-4px;width:10px;height:10px;background:var(--highlight);border-radius:var(--r-hair);transform:translateX(-50%) rotate(45deg)"></span></span>
+        </span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <div style="font-size:var(--fs-label);font-weight:700;color:var(--muted-on-dark)">Other lines to choose from</div>
+        <div style="background:var(--raised);border-radius:var(--r-input);padding:10px var(--sp-4);font-weight:600">Spoiler alert! Even heroes look away here.</div>
+        <div style="background:var(--raised);border-radius:var(--r-input);padding:10px var(--sp-4);font-weight:600">Careful, the plot twist is behind this eye.</div>
+        <div style="background:var(--raised);border-radius:var(--r-input);padding:10px var(--sp-4);font-weight:600">Heads up, story secrets ahead.</div>
+      </div>
+    </div>
+    <p style="margin:0;font-size:var(--fs-label);color:var(--muted-on-dark);max-width:80ch">Used wherever something hides spoilers (reasons, plot, post-credits scenes, key scenes). Trigger is the warning-triangle icon in gold (<b style="color:var(--on-dark)">var(--highlight)</b>), bubble is gold with ink text <b style="color:var(--on-dark)">var(--ink)</b> and weight 700. Copy rules: one short line, light humor, max 8 words, same wording for every spoiler spot, translated (not literal) in each language.</p>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-5)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Placements</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:var(--sp-2)">
+      <div style="min-height:150px;background:var(--bg);border-radius:var(--r-row);display:flex;align-items:flex-end;justify-content:center;padding:var(--sp-4)">
+        <span style="position:relative;display:flex"><button type="button" aria-label="Top" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--ink-2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+        <span role="tooltip" style="position:absolute;left:50%;bottom:calc(100% + 4px);transform:translateX(-50%);width:max-content;background:var(--ink);color:var(--bg);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:600">Top (default)<span aria-hidden="true" style="position:absolute;left:50%;bottom:-4px;width:10px;height:10px;background:var(--ink);border-radius:var(--r-hair);transform:translateX(-50%) rotate(45deg)"></span></span></span>
+      </div>
+      <div style="min-height:150px;background:var(--bg);border-radius:var(--r-row);display:flex;align-items:flex-start;justify-content:center;padding:var(--sp-4)">
+        <span style="position:relative;display:flex"><button type="button" aria-label="Bottom" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--ink-2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+        <span role="tooltip" style="position:absolute;left:50%;top:calc(100% + 4px);transform:translateX(-50%);width:max-content;background:var(--ink);color:var(--bg);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:600">Bottom (no room above)<span aria-hidden="true" style="position:absolute;left:50%;top:-4px;width:10px;height:10px;background:var(--ink);border-radius:var(--r-hair);transform:translateX(-50%) rotate(45deg)"></span></span></span>
+      </div>
+      <div style="min-height:150px;background:var(--bg);border-radius:var(--r-row);display:flex;align-items:center;justify-content:flex-start;padding:var(--sp-4) var(--sp-4) var(--sp-4) 190px">
+        <span style="position:relative;display:flex"><button type="button" aria-label="Left" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--ink-2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+        <span role="tooltip" style="position:absolute;right:calc(100% + 4px);top:50%;transform:translateY(-50%);width:max-content;background:var(--ink);color:var(--bg);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:600">Left<span aria-hidden="true" style="position:absolute;right:-4px;top:50%;width:10px;height:10px;background:var(--ink);border-radius:var(--r-hair);transform:translateY(-50%) rotate(45deg)"></span></span></span>
+      </div>
+      <div style="min-height:150px;background:var(--bg);border-radius:var(--r-row);display:flex;align-items:center;justify-content:flex-end;padding:var(--sp-4) var(--sp-4) var(--sp-4) var(--sp-4)">
+        <span style="position:relative;display:flex;margin-right:170px"><button type="button" aria-label="Right" style="width:44px;height:var(--tap);display:flex;align-items:center;justify-content:center;border-radius:var(--r-pill);color:var(--ink-2)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4M12 8h.01"></path></svg></button>
+        <span role="tooltip" style="position:absolute;left:calc(100% + 4px);top:50%;transform:translateY(-50%);width:max-content;background:var(--ink);color:var(--bg);border-radius:var(--r-xs);padding:10px 14px;font-size:var(--fs-label);font-weight:600">Right<span aria-hidden="true" style="position:absolute;left:-4px;top:50%;width:10px;height:10px;background:var(--ink);border-radius:var(--r-hair);transform:translateY(-50%) rotate(45deg)"></span></span></span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Specification</h2>
+    <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:80ch">
+      <li><b>Trigger:</b> button, 44x44 hit area, 20px lucide <code>info</code> icon (circle with i), stroke 2.2, color muted (<code>--ink-2</code> / <code>--muted-on-dark</code>), fully round. Needs a text <code>aria-label</code> naming what the hint is about, and <code>aria-describedby</code> pointing at the bubble.</li>
+      <li><b>Bubble:</b> <code>role="tooltip"</code>, radius 14px, padding 10px 14px, 14px / 1.35, weight 600, max width 240px, left aligned, 4px gap from the trigger, 10px rotated square tail (radius 2px). No shadow, no border. Contrast at least 4.5:1.</li>
+      <li><b>Open:</b> hover (only <code>@media (hover:hover)</code>, --delay-tooltip delay), keyboard focus (no delay), tap on touch (toggle). <b>Close:</b> Esc, mouse leave, blur, tap outside, second tap. Hovering the bubble keeps it open.</li>
+      <li><b>Placement:</b> top by default, flips to bottom when there is no room, then left/right. Keep inside the viewport (8px margin). Implement with the Popover API plus CSS anchor positioning, with a measured <code>position: fixed</code> fallback so it is never clipped by <code>overflow</code>.</li>
+      <li><b>Motion:</b> fade and 4px translate toward its final position, --dur-hover in, --dur-press out, --ease-out; none under <code>prefers-reduced-motion</code>.</li>
+      <li><b>Content:</b> one sentence, plain text, no links, no spoilers. If the user must act on it, it is not a tooltip: show it inline.</li>
+      <li><b>Component:</b> <code>InfoTip</code> (props: <code>label</code>, <code>children</code> text, optional <code>placement</code>, <code>tone</code> auto-detected by surface: <code>inverse-light</code> or <code>inverse-dark</code>).</li>
+    </ul>
+  </section>
+<section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)"><h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Colori e contrasto</h2><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-2) var(--sp-4);padding:0 var(--sp-5);font-size:var(--fs-label);font-weight:700;color:var(--ink-2)"><span>Tono</span><span>Sfondo → testo</span><span>Chiaro</span><span>Scuro</span></div><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-2) var(--sp-4);background:var(--bg);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label)"><b>Base</b><span style="color:var(--ink-2)">--tip-bg: --ink → --tip-fg: --bg</span><span style="color:var(--ink-2)">15.1:1</span><span style="color:var(--ink-2)">17.6:1</span></div><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-2) var(--sp-4);background:var(--bg);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label)"><b>Su pannello scuro (.on-panel, .spoiler-zone)</b><span style="color:var(--ink-2)">--on-dark → --panel</span><span style="color:var(--ink-2)">16.3:1</span><span style="color:var(--ink-2)">9.0:1</span></div><div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:var(--sp-2) var(--sp-4);background:var(--bg);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label)"><b>Warning</b><span style="color:var(--ink-2)">--highlight → --ink-static</span><span style="color:var(--ink-2)">9.4:1</span><span style="color:var(--ink-2)">9.4:1</span></div><p style="margin:var(--sp-2) 0 0;font-size:var(--fs-label);color:var(--ink-2);max-width:90ch">Il tooltip è l’inverso della superficie. Non usare --on-dark come testo sulla base: in scuro coincide con lo sfondo (1:1). Codice: --tip-bg e --tip-fg sono variabili del componente.</p></section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1180,&quot;height&quot;:1250}}"></script>
+</body>
+</html>

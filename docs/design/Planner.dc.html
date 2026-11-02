@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer;text-align:inherit}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}a{color:inherit}a:hover{opacity:.8}input[type=search]::-webkit-search-cancel-button{display:none}</style>
+</helmet>
+<div data-theme="{{ theme }}" style="{{ rootVars }}background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;min-height:100%;transition:background-color var(--dur-ui) var(--ease-out),color var(--dur-ui) var(--ease-out)">
+
+<header style="color:var(--ink)">
+  <div style="max-width:var(--content-max);margin:0 auto;box-sizing:border-box;min-height:var(--header-h);padding:var(--sp-2h) var(--sp-8);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)">
+    <span style="font-family:var(--font-display);font-size:1.875rem;letter-spacing:.03em;text-transform:uppercase;line-height:1;color:{{ wordColor }}">Marvel Planner</span>
+    <div style="display:flex;align-items:center;gap:var(--sp-2)">
+      <button type="button" aria-label="Theme: {{ themeName }}" onClick="{{ toggleTheme }}" style-hover="background:var(--row-hover)" style-active="background:var(--row-press);transform:{{ pressTf }}" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="width:48px;height:48px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;box-shadow:inset 0 0 0 2px var(--ink);transition:background-color var(--dur-hover) var(--ease-out),transform var(--dur-press) var(--ease-out)">
+        <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path></svg></sc-if>
+        <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"></path></svg></sc-if>
+      </button>
+      <span style="position:relative;display:flex" onKeyDown="{{ onLangKey }}">
+        <button type="button" aria-haspopup="listbox" aria-expanded="{{ langOpen }}" aria-activedescendant="{{ langActiveId }}" onClick="{{ toggleLang }}" style-hover="background:var(--row-hover)" style-active="background:var(--row-press);transform:{{ pressTf }}" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="height:48px;padding:0 var(--sp-4);border-radius:var(--r-pill);display:flex;align-items:center;gap:var(--sp-2);background:{{ trigBg }};font-weight:600;box-shadow:inset 0 0 0 2px var(--ink);transition:background-color var(--dur-hover) var(--ease-out),transform var(--dur-press) var(--ease-out)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"></path></svg>{{ langName }}<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="margin-right:-4px;transform:{{ langRot }};transition:transform var(--dur-ui) var(--ease-out)"><path d="M6 9l6 6 6-6"></path></svg></button>
+        <div role="listbox" aria-label="Language" style="position:absolute;right:0;top:calc(100% + var(--popover-gap));min-width:260px;background:var(--surface);color:var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-pop);padding:var(--sp-2);display:flex;flex-direction:column;gap:2px;z-index:30;opacity:{{ lOp }};transform:{{ lTf }};visibility:{{ lVis }};pointer-events:{{ lPe }};transition:{{ lTr }}">
+          <sc-for list="{{ langs }}" as="lg" hint-placeholder-count="5"><div role="option" id="{{ lg.id }}" aria-selected="{{ lg.sel }}" lang="{{ lg.code }}" onClick="{{ lg.pick }}" onMouseEnter="{{ lg.over }}" style-hover="background:{{ lg.hover }}" style-active="background:{{ lg.press }}" style="min-height:52px;padding:0 var(--sp-4);border-radius:var(--r-sm);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);cursor:pointer;background:{{ lg.bg }};color:{{ lg.fg }};font-weight:{{ lg.w }};outline:{{ lg.ring }};outline-offset:-3px;transition:background-color var(--dur-hover) var(--ease-out)">{{ lg.name }}<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true" style="opacity:{{ lg.tick }}"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></div></sc-for>
+        </div>
+      </span>
+    </div>
+  </div>
+</header>
+
+<div style="max-width:var(--content-max);margin:0 auto;box-sizing:border-box;padding:var(--sp-2) var(--sp-8) 0;display:flex;flex-direction:column;gap:var(--gap)">
+
+  <div style="display:flex;flex-wrap:wrap;gap:var(--gap)">
+    <section style="flex:1.7 1 420px;min-width:0;background:var(--panel);color:var(--on-dark);border-radius:var(--r-xl);padding:var(--pad-hero);display:flex;flex-direction:column;gap:var(--sp-3h);box-sizing:border-box">
+      <h1 style="margin:0;font-size:var(--fs-title);font-weight:700;line-height:1.3">Your progress</h1>
+      <div style="font-family:var(--font-display);font-size:clamp(88px,12vw,168px);line-height:.9;color:var(--highlight);letter-spacing:.01em">{{ pct }}%</div>
+      <div role="status" aria-live="polite" style="font-size:var(--fs-title);font-weight:600">{{ seenCount }} of {{ total }} watched</div>
+      <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ pct }}" aria-label="Progress" style="height:var(--sp-2h);border-radius:var(--r-pill);background:var(--panel-2);overflow:hidden"><div style="width:{{ barW }};min-width:{{ barMin }};height:100%;border-radius:var(--r-pill);background:var(--highlight);transition:{{ barTr }}"></div></div>
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);font-size:var(--fs-label);color:var(--muted-on-dark);margin-top:auto">
+        <span>Saved on this device.</span>
+        <button type="button" onClick="{{ resetAll }}" style-hover="opacity:.85" style-focus="outline:var(--focus-on-inverse);outline-offset:var(--focus-offset)" style="min-height:var(--tap);padding:0 var(--sp-1);text-decoration:underline;font-weight:600;color:var(--on-dark)">Reset</button>
+      </div>
+    </section>
+    <section style="flex:1 1 300px;min-width:0;background:var(--accent);color:var(--white);border-radius:var(--r-xl);padding:var(--pad-hero);display:flex;flex-direction:column;gap:var(--sp-5);box-sizing:border-box;min-height:280px">
+      <div style="font-size:var(--fs-title);font-weight:700">Next up</div>
+      <div style="opacity:{{ nextOp }};transform:{{ nextTf }};transition:opacity var(--dur-ui) var(--ease-out),transform var(--dur-ui) var(--ease-out)">
+        <div lang="en" style="font-family:var(--font-display);font-size:clamp(40px,5vw,56px);line-height:.95;text-transform:uppercase;letter-spacing:.01em">{{ nextName }}</div>
+        <div style="font-size:var(--fs-title);font-weight:500;margin-top:var(--sp-2h)">{{ nextMeta }}</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:flex-end;gap:var(--sp-5);flex-wrap:wrap;margin-top:auto">
+        <sc-if value="{{ hasNext }}" hint-placeholder-val="{{ true }}">
+          <button type="button" onClick="{{ markNext }}" style-hover="background:var(--highlight-hover)" style-active="background:var(--highlight-active);transform:{{ pressTf }}" style-focus="outline:var(--focus-on-inverse);outline-offset:var(--focus-offset)" style="height:52px;border-radius:var(--r-pill);padding:0 var(--sp-6);display:flex;align-items:center;gap:var(--sp-2h);background:var(--highlight);color:var(--ink-static);font-weight:800;font-size:1.0625rem;transition:background-color var(--dur-hover) var(--ease-out),transform var(--dur-press) var(--ease-out)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>Mark as watched</button>
+        </sc-if>
+      </div>
+    </section>
+  </div>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--pad-strip);box-sizing:border-box">
+    <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--sp-3);margin-bottom:var(--sp-3h)">
+      <h2 style="margin:0;font-size:var(--fs-title);font-weight:700">All {{ total }} titles</h2>
+      <div style="display:flex;flex-wrap:wrap;align-items:center;gap:var(--sp-4);font-size:var(--fs-label);color:var(--ink-2)">
+        <span style="display:flex;align-items:center;gap:var(--sp-1h)"><span style="width:14px;height:14px;border-radius:var(--r-tiny);background:var(--highlight)"></span>Watched</span>
+        <span style="display:flex;align-items:center;gap:var(--sp-1h)"><span style="width:14px;height:14px;border-radius:var(--r-tiny);background:var(--accent)"></span>Next</span>
+        <span style="display:flex;align-items:center;gap:var(--sp-1h)"><span style="width:14px;height:14px;border-radius:var(--r-tiny);background:var(--disabled)"></span>To watch</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--sp-3h)">
+      <sc-for list="{{ strip }}" as="sp" hint-placeholder-count="6">
+        <div style="flex:{{ sp.flex }} 1 0;min-width:96px;display:flex;flex-direction:column;gap:var(--sp-2)">
+          <div style="display:flex;flex-wrap:wrap;gap:3px">
+            <sc-for list="{{ sp.cells }}" as="c" hint-placeholder-count="6"><span title="{{ c.title }}" style="flex:1 0 8px;height:44px;border-radius:var(--r-tiny);background:{{ c.bg }};transition:background-color var(--dur-hover) var(--ease-out)"></span></sc-for>
+          </div>
+          <div style="display:flex;flex-direction:column;white-space:nowrap;font-size:var(--fs-label)"><span style="font-weight:700">{{ sp.name }}</span><span style="color:var(--ink-2)">{{ sp.count }}</span></div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <div style="display:flex;flex-wrap:wrap;gap:var(--gap);align-items:flex-start">
+    <main style="flex:1 1 560px;min-width:0;display:flex;flex-direction:column;gap:var(--sp-6)">
+      <sc-if value="{{ empty }}" hint-placeholder-val="{{ false }}">
+        <div style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-12);display:flex;flex-direction:column;align-items:center;gap:var(--sp-2);text-align:center"><div style="font-size:var(--fs-h3);font-weight:800">No titles match</div><div style="color:var(--ink-2)">Try another search or remove the filters.</div><button type="button" onClick="{{ clearFilters }}" style-hover="background:var(--ink-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="margin-top:var(--sp-3);min-height:48px;padding:0 var(--sp-6);border-radius:var(--r-pill);background:var(--ink);color:var(--bg);font-weight:800;transition:background-color var(--dur-hover) var(--ease-out)">Remove filters</button></div>
+      </sc-if>
+      <sc-for list="{{ sagas }}" as="saga" hint-placeholder-count="2">
+      <section style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3);padding:var(--sp-2) 0 var(--sp-1)">
+          <h2 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(34px,3.2vw,44px);letter-spacing:.02em;text-transform:uppercase;line-height:1.05">{{ saga.name }}</h2>
+          <span style="font-size:var(--fs-body);color:var(--ink-2);white-space:nowrap">{{ saga.count }}</span>
+        </div>
+        <sc-for list="{{ saga.phases }}" as="p" hint-placeholder-count="3">
+        <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-2h);display:flex;flex-direction:column;gap:var(--sp-1h)">
+          <button type="button" aria-expanded="{{ p.open }}" onClick="{{ p.toggle }}" style-hover="background:var(--row-hover)" style-active="background:var(--row-press)" style-focus="outline:var(--focus);outline-offset:-3px" style="width:100%;display:flex;align-items:center;gap:var(--sp-3h);padding:var(--sp-2h) var(--sp-4) var(--sp-2h) 18px;border-radius:var(--r-row);min-height:64px;box-sizing:border-box;transition:background-color var(--dur-hover) var(--ease-out)">
+            <span style="flex:1;min-width:0"><span style="display:block;font-size:var(--fs-h3);font-weight:800;line-height:1.2">{{ p.name }}</span><span style="display:block;font-size:var(--fs-label);color:var(--ink-2)">{{ p.years }}</span></span>
+            <span style="font-size:var(--fs-body);font-weight:700;font-variant-numeric:tabular-nums">{{ p.count }}</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="flex:none;transform:{{ p.rot }};transition:{{ p.chTr }}"><path d="M6 9l6 6 6-6"></path></svg>
+          </button>
+          <div style="display:grid;grid-template-rows:{{ p.rows }};transition:{{ p.gTr }};visibility:{{ p.vis }}">
+            <div style="min-height:0;overflow:hidden">
+              <div style="display:flex;flex-direction:column;gap:var(--sp-1h);opacity:{{ p.cOp }};transform:{{ p.cTf }};transition:{{ p.cTr }}">
+                <sc-for list="{{ p.rowsList }}" as="r" hint-placeholder-count="3">
+                <div style="position:relative;isolation:isolate;overflow:hidden;background:{{ r.bg }};color:{{ r.fg }};border-radius:var(--r-row);padding:{{ r.pad }};transition:{{ r.bgTr }}" style-hover="background:{{ r.hoverBg }}" style-active="background:{{ r.pressBg }}">
+                  <div style="display:flex;align-items:flex-start;gap:var(--sp-3)">
+                    <sc-if value="{{ r.closed }}" hint-placeholder-val="{{ true }}">
+                      <button type="button" aria-pressed="{{ r.seen }}" aria-label="Mark {{ r.name }} as watched" onClick="{{ r.mark }}" style-focus="outline:var(--focus);outline-offset:-3px" style="width:var(--tap);height:var(--tap);flex:none;display:flex;align-items:center;justify-content:center;margin-top:var(--sp-2h)"><span style="width:26px;height:26px;border-radius:var(--r-chip);border:3px solid {{ r.boxBorder }};background:{{ r.boxBg }};color:var(--white);display:flex;align-items:center;justify-content:center;transition:{{ r.boxTr }}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="square" aria-hidden="true" style="opacity:{{ r.tick }};transition:opacity var(--dur-hover) var(--ease-out)"><path d="M5 12.5l4.5 4.5L19 7"></path></svg></span></button>
+                    </sc-if>
+                    <div role="img" aria-label="Poster" style="width:{{ r.thW }};height:{{ r.thH }};flex:none;border-radius:var(--r-xs);background:{{ r.thBg }};display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,monospace;font-size:var(--fs-caption);color:{{ r.muted }};transition:width var(--dur-enter) var(--ease-out),height var(--dur-enter) var(--ease-out)">{{ r.thLabel }}</div>
+                    <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:var(--sp-3h)">
+                      <button type="button" aria-expanded="{{ r.open }}" onClick="{{ r.toggle }}" onMouseEnter="{{ r.hoverOn }}" onMouseLeave="{{ r.hoverOff }}" style-focus="outline:{{ r.focus }};outline-offset:2px" style="width:100%;display:flex;align-items:center;gap:var(--sp-3);min-height:{{ r.sumH }};border-radius:var(--r-xs);position:relative">
+                        <span aria-hidden="true" style="position:absolute;z-index:-1;pointer-events:none;top:calc(-1 * var(--sp-2h));left:-116px;right:-16px;bottom:-14px;background:var(--row-open-hover);opacity:{{ r.glow }};-webkit-mask-image:var(--row-open-fade);mask-image:var(--row-open-fade);transition:opacity var(--dur-hover) var(--ease-out)"></span>
+                        <span style="flex:1;min-width:0;padding-top:2px"><span lang="en" style="display:block;font-size:var(--fs-title);font-weight:800;line-height:1.25;overflow-wrap:anywhere"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">{{ r.srSeen }}</span><sc-if value="{{ r.struck }}" hint-placeholder-val="{{ false }}"><s style="color:var(--ink-2);text-decoration-color:var(--ink-2)">{{ r.name }}</s></sc-if><sc-if value="{{ r.notStruck }}" hint-placeholder-val="{{ true }}">{{ r.name }}</sc-if></span><span style="display:block;font-size:var(--fs-label);color:{{ r.muted }};margin-top:2px">{{ r.type }}, {{ r.year }}</span></span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="square" aria-hidden="true" style="flex:none;transform:{{ r.rot }};transition:{{ r.chTr }}"><path d="M6 9l6 6 6-6"></path></svg>
+                      </button>
+                      <div style="display:grid;grid-template-rows:{{ r.rows }};transition:{{ r.gTr }};visibility:{{ r.vis }}">
+                        <div style="min-height:0;overflow:hidden">
+                          <div style="display:flex;flex-direction:column;gap:var(--sp-3h);opacity:{{ r.cOp }};transform:{{ r.cTf }};transition:{{ r.cTr }}">
+                            <div style="display:flex"><button type="button" aria-pressed="{{ r.seen }}" onClick="{{ r.mark }}" style-focus="outline:var(--focus-on-inverse);outline-offset:0" style="min-height:var(--tap);border-radius:var(--r-row);display:flex;align-items:center"><span style="min-height:var(--sp-8);border-radius:var(--r-sm);padding:0 var(--sp-3h);display:flex;align-items:center;gap:var(--sp-1h);background:{{ r.pillBg }};color:{{ r.pillFg }};font-weight:700;font-size:var(--fs-label);transition:background-color var(--dur-ui) var(--ease-out),color var(--dur-ui) var(--ease-out)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>{{ r.pillLabel }}</span></button></div>
+                            <p style="margin:0;max-width:62ch">{{ r.syn }}</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </sc-for>
+              </div>
+            </div>
+          </div>
+        </div>
+        </sc-for>
+      </section>
+      </sc-for>
+    </main>
+
+    <aside style="flex:0 1 320px;min-width:260px;align-self:flex-start;position:sticky;top:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-2)">
+      <label style="display:flex;align-items:center;gap:var(--sp-2h);height:var(--row-h);border-radius:var(--r-pill);padding:0 var(--sp-5);background:var(--surface);box-shadow:var(--shadow-card);cursor:text;transition:box-shadow var(--dur-hover) var(--ease-out)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg><input type="search" value="{{ query }}" onInput="{{ onQuery }}" aria-label="Search all titles" placeholder="Search titles…" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;height:100%;border:0;background:transparent;font:inherit;font-weight:600;color:inherit;outline:none"></label>
+      <div style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-5)">
+        <div style="display:flex;align-items:baseline;justify-content:space-between;gap:var(--sp-3)">
+          <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Filters</h2>
+          <button type="button" onClick="{{ clearFilters }}" style-hover="color:var(--accent-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="min-height:var(--tap);display:flex;align-items:center;gap:var(--sp-1h);font-weight:700;color:var(--accent-text)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="square" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>Remove</button>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <div style="font-size:var(--fs-label);font-weight:700;color:var(--ink-2)">Order</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-1)">
+            <sc-for list="{{ orders }}" as="o" hint-placeholder-count="2"><button type="button" aria-pressed="{{ o.on }}" onClick="{{ o.set }}" style-hover="background:{{ o.hover }}" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="height:48px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;background:{{ o.bg }};color:{{ o.fg }};font-weight:{{ o.w }};text-align:center;transition:background-color var(--dur-ui) var(--ease-out),color var(--dur-ui) var(--ease-out)">{{ o.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <div style="font-size:var(--fs-label);font-weight:700;color:var(--ink-2)">Type</div>
+          <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--sp-1)">
+            <sc-for list="{{ types }}" as="ty" hint-placeholder-count="3"><button type="button" aria-pressed="{{ ty.on }}" onClick="{{ ty.set }}" style-hover="background:{{ ty.hover }}" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="height:48px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;gap:var(--sp-1h);background:{{ ty.bg }};color:{{ ty.fg }};font-weight:700;transition:background-color var(--dur-ui) var(--ease-out),color var(--dur-ui) var(--ease-out)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="square" aria-hidden="true" style="opacity:{{ ty.tick }};margin-left:-4px"><path d="M5 12.5l4.5 4.5L19 7"></path></svg>{{ ty.label }}</button></sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <sc-for list="{{ toggles }}" as="tg" hint-placeholder-count="2"><button type="button" role="switch" aria-checked="{{ tg.on }}" onClick="{{ tg.set }}" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);min-height:52px;border-radius:var(--r-pill);font-weight:500;width:100%"><span>{{ tg.label }}</span><span style="flex:none;width:48px;height:28px;border-radius:var(--r-xs);background:{{ tg.track }};position:relative;transition:background-color var(--dur-ui) var(--ease-out)"><span style="position:absolute;left:var(--sp-1);top:var(--sp-1);width:20px;height:20px;border-radius:var(--r-chip);background:var(--white);transform:{{ tg.knob }};transition:transform var(--dur-ui) var(--ease-out)"></span></span></button></sc-for>
+        </div>
+        <div role="status" style="font-size:var(--fs-label);color:var(--ink-2)">Showing {{ shownCount }} of {{ total }}</div>
+      </div>
+      <button type="button" onClick="{{ bulkToggle }}" style-hover="background:var(--row-hover)" style-active="background:var(--row-press);transform:{{ pressTf }}" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="height:52px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;gap:var(--sp-2);background:var(--surface);box-shadow:var(--shadow-card);font-weight:700;transition:background-color var(--dur-hover) var(--ease-out),transform var(--dur-press) var(--ease-out)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="square" aria-hidden="true" style="transform:{{ bulkRot }};transition:transform var(--dur-ui) var(--ease-out)"><path d="M7 11l5-5 5 5M7 18l5-5 5 5"></path></svg>{{ bulkLabel }}</button>
+      <button type="button" aria-pressed="{{ rm }}" onClick="{{ toggleRm }}" style-hover="background:var(--row-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)" style="min-height:var(--tap);border-radius:var(--r-pill);padding:0 var(--sp-5);font-size:var(--fs-label);font-weight:600;color:var(--ink-2);display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3);transition:background-color var(--dur-hover) var(--ease-out)"><span>Simulate reduced motion</span><b>{{ rmLabel }}</b></button>
+    </aside>
+  </div>
+</div>
+
+<footer style="background:var(--panel);color:var(--on-dark);margin-top:var(--sp-14);padding:var(--sp-12) var(--sp-8) var(--sp-10)">
+  <div style="max-width:var(--content-max);margin:0 auto;display:flex;flex-wrap:wrap;gap:var(--sp-8);justify-content:space-between">
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3);max-width:58ch"><div style="font-family:var(--font-display);font-size:clamp(36px,4vw,56px);line-height:1;letter-spacing:.02em;text-transform:uppercase">Marvel Planner</div><div style="color:var(--muted-on-dark)">Unofficial site. Not affiliated with Marvel Studios or The Walt Disney Company.</div></div>
+    <div style="color:var(--muted-on-dark);max-width:52ch">This product uses the TMDB API but is not endorsed or certified by <a href="#">TMDB</a>. Made in Italy.</div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1600},&quot;theme&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;light&quot;,&quot;tsType&quot;:&quot;'light'|'dark'&quot;,&quot;options&quot;:[&quot;light&quot;,&quot;dark&quot;]},&quot;reducedMotion&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { dark: null, rmT: null, rmSys: false, langOpen: false, lang: 'en', active: 1, phaseOpen: { p1: true }, rowOpen: { t3: true }, seen: { t1: true, t2: true }, types: { Film: true, Series: true, Special: true }, alt: false, unrel: false, order: 'release', query: '', hover: null, just: null, bulk: false, first: true, filled: false, nextKey: 0 };
+  componentDidMount() {
+    this.setState({ rmSys: window.matchMedia('(prefers-reduced-motion: reduce)').matches });
+    this.down = e => { if (this.state.langOpen && !e.target.closest('[role=listbox],[aria-haspopup]')) this.setState({ langOpen: false }); };
+    document.addEventListener('pointerdown', this.down);
+    setTimeout(() => this.setState({ filled: true }), 60);
+    setTimeout(() => this.setState({ first: false }), 900);
+  }
+  componentWillUnmount() { document.removeEventListener('pointerdown', this.down); }
+  T = [
+    ['t1','Iron Man',2008,'Film','p1','Tony Stark builds a suit of armor to escape captivity and then decides to use it.',1],
+    ['t2','The Incredible Hulk',2008,'Film','p1','Bruce Banner searches for a cure while the army hunts him.',2],
+    ['t3','Iron Man 2',2010,'Film','p1','Tony Stark faces pressure from the government and a new rival while his own invention threatens his health.',3],
+    ['t4','Thor',2011,'Film','p1','An arrogant god is exiled to Earth and has to earn back his power.',4],
+    ['t5','Captain America: The First Avenger',2011,'Film','p1','A frail volunteer becomes a super-soldier and fights a secret Nazi weapons program.',0],
+    ['t6','The Avengers',2012,'Film','p1','Earth’s heroes unite against Loki and an alien army.',5],
+    ['t7','Iron Man 3',2013,'Film','p2','Tony Stark, shaken after New York, faces a terrorist called the Mandarin.'],
+    ['t8','Thor: The Dark World',2013,'Film','p2','Thor and Loki face the Dark Elves and an ancient weapon.'],
+    ['t9','Captain America: The Winter Soldier',2014,'Film','p2','Steve Rogers uncovers a conspiracy inside S.H.I.E.L.D.'],
+    ['t10','Guardians of the Galaxy',2014,'Film','p2','A thief and a band of outcasts fight over a powerful orb.'],
+    ['t11','Avengers: Age of Ultron',2015,'Film','p2','The Avengers face an AI that wants to end humanity.'],
+    ['t12','Ant-Man',2015,'Film','p2','A thief inherits a suit that shrinks him and a heist to pull off.'],
+    ['t13','Captain America: Civil War',2016,'Film','p3','The Avengers split over government oversight.'],
+    ['t14','Doctor Strange',2016,'Film','p3','A surgeon loses his hands and finds the mystic arts.'],
+    ['t15','Guardians of the Galaxy Vol. 2',2017,'Film','p3','Star-Lord meets his father and the team faces new threats.'],
+    ['t16','Spider-Man: Homecoming',2017,'Film','p3','Peter Parker balances high school and a mentor’s expectations.'],
+    ['t17','Thor: Ragnarok',2017,'Film','p3','Thor is stranded on a gladiator planet while Hela attacks Asgard.'],
+    ['t18','Black Panther',2018,'Film','p3','T’Challa returns to Wakanda as king and faces a challenger.'],
+    ['t19','Avengers: Infinity War',2018,'Film','p3','The Avengers and Guardians try to stop Thanos.'],
+    ['t20','Ant-Man and the Wasp',2018,'Film','p3','Scott Lang is pulled into a mission to the quantum realm.'],
+    ['t21','Captain Marvel',2019,'Film','p3','A pilot with cosmic powers uncovers her past in the 1990s.',-1],
+    ['t22','Avengers: Endgame',2019,'Film','p3','The surviving heroes attempt to undo Thanos’s snap.'],
+    ['t23','Spider-Man: Far From Home',2019,'Film','p3','Peter Parker goes on a school trip across Europe.'],
+    ['t24','WandaVision',2021,'Series','p4','Wanda and Vision live inside a sitcom that isn’t what it seems.'],
+    ['t25','The Falcon and the Winter Soldier',2021,'Series','p4','Sam Wilson and Bucky Barnes take on a global threat.'],
+    ['t26','Loki',2021,'Series','p4','Loki is caught by the Time Variance Authority.'],
+    ['t27','Black Widow',2021,'Film','p4','Natasha Romanoff confronts her past.'],
+    ['t28','Shang-Chi and the Legend of the Ten Rings',2021,'Film','p4','Shang-Chi is drawn back into his father’s organization.'],
+    ['t29','Eternals',2021,'Film','p4','Immortal beings return to protect Earth.'],
+    ['t30','Spider-Man: No Way Home',2021,'Film','p4','A spell goes wrong and opens the multiverse.'],
+    ['t31','Doctor Strange in the Multiverse of Madness',2022,'Film','p4','Strange meets a teenager who can cross universes.'],
+    ['t32','Werewolf by Night',2022,'Special','p4','Monster hunters gather for a deadly contest.'],
+    ['t33','Ant-Man and the Wasp: Quantumania',2023,'Film','p5','The Pym family is pulled into the quantum realm.'],
+    ['t34','X-Men ’97',2024,'Series','p5','The X-Men return in an animated continuation of the 90s series.',0,'alt'],
+    ['t35','Deadpool & Wolverine',2024,'Film','p5','Deadpool recruits Wolverine for a mission across timelines.'],
+    ['t36','Avengers: Doomsday',2026,'Film','p6','Announced. No synopsis yet.',0,'unrel']
+  ].map(([id,name,year,type,phase,syn,ch,flag]) => ({ id, name, year, type, phase, syn, ch: ch || 0, flag }));
+  P = [
+    { id: 'p1', saga: 0, name: 'Phase One', years: '2008 to 2012' }, { id: 'p2', saga: 0, name: 'Phase Two', years: '2013 to 2015' }, { id: 'p3', saga: 0, name: 'Phase Three', years: '2016 to 2019' },
+    { id: 'p4', saga: 1, name: 'Phase Four', years: '2021 to 2022' }, { id: 'p5', saga: 1, name: 'Phase Five', years: '2023 to 2025' }, { id: 'p6', saga: 1, name: 'Phase Six', years: '2026 to 2027' }
+  ];
+  L = [['it','Italiano'],['en','English'],['fr','Français'],['es','Español'],['de','Deutsch']];
+  renderVals() {
+    const S = this.state, P = this.props;
+    const dark = S.dark === null ? P.theme === 'dark' : S.dark;
+    const rm = S.rmT === null ? (P.reducedMotion === true || S.rmSys) : S.rmT;
+    const set = o => () => this.setState(o);
+    const enter = 'var(--dur-enter)', ui = 'var(--dur-ui)', hov = 'var(--dur-hover)', ease = 'var(--ease-out)';
+    const pressTf = rm ? 'none' : 'translateY(1px) scale(.98)';
+    // data
+    const base = this.T.filter(t => (S.alt || t.flag !== 'alt') && (S.unrel || t.flag !== 'unrel'));
+    const q = S.query.trim().toLowerCase();
+    const shown = base.filter(t => S.types[t.type] && (!q || t.name.toLowerCase().includes(q)));
+    const total = base.length, seenCount = base.filter(t => S.seen[t.id]).length, pct = total ? Math.round(seenCount / total * 100) : 0;
+    const next = base.find(t => !S.seen[t.id]);
+    const ord = arr => S.order === 'chrono' ? arr.map((t, i) => [t, t.ch || i + 1]).sort((a, b) => a[1] - b[1]).map(x => x[0]) : arr;
+    // language
+    const lOpen = S.langOpen, ldur = lOpen ? ui : hov;
+    const langs = this.L.map(([code, name], i) => { const sel = code === S.lang; return { code, name, id: 'pl-' + code, sel, tick: sel ? 1 : 0, w: sel ? 800 : 600, bg: sel ? 'var(--ink)' : 'transparent', fg: sel ? 'var(--bg)' : 'var(--ink)', hover: sel ? 'var(--ink-hover)' : 'var(--row-hover)', press: sel ? 'var(--ink-press)' : 'var(--row-press)', ring: lOpen && S.active === i ? 'var(--focus)' : 'none', pick: () => this.setState({ lang: code, langOpen: false }), over: () => this.setState({ active: i }) }; });
+    const openLang = () => this.setState({ langOpen: true, active: this.L.findIndex(l => l[0] === S.lang) });
+    const onLangKey = e => {
+      const k = e.key, last = this.L.length - 1;
+      if (!lOpen) { if (k === 'ArrowDown' || k === 'ArrowUp') { e.preventDefault(); openLang(); } return; }
+      if (k === 'ArrowDown') { e.preventDefault(); this.setState({ active: Math.min(S.active + 1, last) }); }
+      else if (k === 'ArrowUp') { e.preventDefault(); this.setState({ active: Math.max(S.active - 1, 0) }); }
+      else if (k === 'Home') { e.preventDefault(); this.setState({ active: 0 }); }
+      else if (k === 'End') { e.preventDefault(); this.setState({ active: last }); }
+      else if (k === 'Enter' || k === ' ') { e.preventDefault(); langs[S.active].pick(); }
+      else if (k === 'Escape' || k === 'Tab') this.setState({ langOpen: false });
+    };
+    // accordion transition helpers
+    const gTr = (open, delay) => rm ? 'none' : `grid-template-rows ${open ? enter : ui} ${ease} ${delay || '0ms'}, visibility 0s linear ${open ? '0s' : ui}`;
+    const cTr = open => rm ? `opacity var(--dur-press) ${ease}` : `opacity ${open ? hov : 'var(--dur-press)'} ${ease}, transform ${open ? enter : ui} ${ease}`;
+    // phases
+    const allOpen = this.P.every(p => S.phaseOpen[p.id]);
+    const sagaNames = ['Infinity Saga', 'Multiverse Saga'];
+    let pi = 0;
+    const sagas = [0, 1].map(si => {
+      const phases = this.P.filter(p => p.saga === si).map(p => {
+        const rowsAll = ord(shown.filter(t => t.phase === p.id));
+        const baseP = base.filter(t => t.phase === p.id);
+        const open = !!S.phaseOpen[p.id];
+        const delay = S.bulk && !rm ? `min(calc(var(--stagger-step) * ${pi}), var(--stagger-max))` : '0ms'; pi++;
+        const rowsList = rowsAll.map(t => {
+          const ro = !!S.rowOpen[t.id], seen = !!S.seen[t.id], hoverOn = S.hover === t.id;
+          const mark = () => this.setState(s => { const on = !s.seen[t.id]; return { seen: { ...s.seen, [t.id]: on }, just: t.id, nextKey: s.nextKey + 1 }; }, () => setTimeout(() => this.setState({ just: null }), 260));
+          return { name: t.name, type: t.type, year: t.year, syn: t.syn, open: ro, closed: !ro, seen, mark,
+            toggle: () => this.setState(s => ({ rowOpen: { ...s.rowOpen, [t.id]: !s.rowOpen[t.id] } })),
+            hoverOn: () => this.setState({ hover: t.id }), hoverOff: () => this.setState({ hover: null }),
+            bg: ro ? 'var(--panel)' : 'var(--row)', fg: ro ? 'var(--on-dark)' : 'var(--ink)', muted: ro ? 'var(--muted-on-dark)' : 'var(--ink-2)',
+            hoverBg: ro ? 'var(--panel)' : 'var(--row-hover)', pressBg: ro ? 'var(--panel)' : 'var(--row-press)',
+            bgTr: `background-color ${S.just === t.id ? ui : hov} ${ease}, color ${S.just === t.id ? ui : hov} ${ease}`,
+            pad: ro ? 'var(--sp-2h) var(--sp-4) var(--sp-3h) var(--sp-2)' : 'var(--sp-2h) var(--sp-4) var(--sp-2h) var(--sp-2)',
+            boxBorder: seen ? 'var(--accent)' : 'var(--ink)', boxBg: seen ? 'var(--accent)' : 'transparent', tick: seen ? 1 : 0,
+            boxTr: `background-color ${S.just === t.id ? ui : hov} ${ease}, border-color ${S.just === t.id ? ui : hov} ${ease}`,
+            thW: ro ? '96px' : '44px', thH: ro ? '144px' : '64px', thBg: ro ? 'var(--raised-2)' : 'var(--row-hover)', thLabel: ro ? 'poster' : '',
+            sumH: ro ? '0px' : '64px', glow: ro && hoverOn ? 1 : 0, focus: ro ? 'var(--highlight) solid 3px' : 'var(--focus)',
+            struck: seen && !ro, notStruck: !(seen && !ro), srSeen: seen ? 'Watched, ' : '',
+            rot: ro ? 'rotate(180deg)' : 'none', chTr: rm ? 'none' : `transform ${ui} ${ease}`,
+            rows: ro ? '1fr' : '0fr', vis: ro ? 'visible' : 'hidden', gTr: gTr(ro), cOp: ro ? 1 : 0, cTf: ro || rm ? 'none' : 'translateY(4px)', cTr: cTr(ro),
+            pillBg: seen ? 'var(--accent)' : 'var(--panel-2)', pillFg: seen ? 'var(--white)' : 'var(--on-dark)', pillLabel: seen ? 'Watched' : 'Mark as watched' };
+        });
+        return { name: p.name, years: p.years, count: `${baseP.filter(t => S.seen[t.id]).length} of ${baseP.length}`, open, rowsList, hasRows: rowsAll.length > 0,
+          toggle: () => this.setState(s => ({ phaseOpen: { ...s.phaseOpen, [p.id]: !s.phaseOpen[p.id] } })),
+          rot: open ? 'rotate(180deg)' : 'none', chTr: rm ? 'none' : `transform ${ui} ${ease} ${delay}`,
+          rows: open ? '1fr' : '0fr', vis: open ? 'visible' : 'hidden', gTr: gTr(open, delay), cOp: open ? 1 : 0, cTf: open || rm ? 'none' : 'translateY(4px)', cTr: cTr(open) };
+      });
+      const vis = phases.filter(p => p.hasRows || (!q && Object.values(S.types).every(Boolean)));
+      const sb = base.filter(t => this.P.find(p => p.id === t.phase).saga === si);
+      return { name: sagaNames[si], count: `${sb.filter(t => S.seen[t.id]).length} of ${sb.length} watched`, phases: vis };
+    }).filter(s => s.phases.length);
+    // strip
+    let nextHit = false;
+    const strip = this.P.map(p => { const items = base.filter(t => t.phase === p.id); return { name: p.name.replace('Phase ', 'Phase '), flex: items.length, count: `${items.filter(t => S.seen[t.id]).length} of ${items.length}`, cells: items.map(t => { const s = !!S.seen[t.id]; const nx = !s && next && next.id === t.id; return { title: t.name, bg: s ? 'var(--highlight)' : nx ? 'var(--accent)' : 'var(--disabled)' }; }) }; }).filter(s => s.flex);
+    const seg = (on, label, set2) => ({ on, label, set: set2, bg: on ? 'var(--ink)' : 'var(--row)', fg: on ? 'var(--bg)' : 'var(--ink)', hover: on ? 'var(--ink-hover)' : 'var(--row-hover)', w: on ? 700 : 600 });
+    const tgl = (label, on, set2) => ({ label, on, set: set2, track: on ? 'var(--primary)' : 'var(--disabled)', knob: on ? 'translateX(20px)' : 'none' });
+    const barPct = S.filled ? pct : 0;
+    return {
+      theme: dark ? 'dark' : 'light', isDark: dark, isLight: !dark, themeName: dark ? 'Dark' : 'Light', toggleTheme: () => this.setState({ dark: !dark }),
+      rootVars: rm ? '--dur-hover:80ms;--dur-ui:80ms;--dur-enter:80ms;--dur-progress:.01ms;--stagger-step:0ms;--stagger-max:0ms;' : '', rm, rmLabel: rm ? 'On' : 'Off', toggleRm: () => this.setState({ rmT: !rm }),
+      wordColor: dark ? 'var(--accent)' : 'var(--accent-hover)', pressTf,
+      langs, langName: this.L.find(l => l[0] === S.lang)[1], langOpen: lOpen, langActiveId: lOpen ? 'pl-' + this.L[S.active][0] : '', toggleLang: () => lOpen ? this.setState({ langOpen: false }) : openLang(), onLangKey,
+      langRot: lOpen ? 'rotate(180deg)' : 'none', trigBg: lOpen ? 'var(--row-hover)' : 'transparent',
+      lOp: lOpen ? 1 : 0, lVis: lOpen ? 'visible' : 'hidden', lPe: lOpen ? 'auto' : 'none', lTf: lOpen || rm ? 'none' : 'translateY(4px)',
+      lTr: rm ? `opacity var(--dur-press) ${ease}, visibility 0s linear ${lOpen ? '0s' : 'var(--dur-press)'}` : `opacity ${ldur} ${ease}, transform ${ldur} ${ease}, visibility 0s linear ${lOpen ? '0s' : hov}`,
+      pct, seenCount, total, barW: barPct + '%', barMin: seenCount && S.filled ? 'var(--sp-2h)' : '0px', barTr: rm ? 'none' : (S.first ? `width var(--dur-progress) ${ease}` : `width ${enter} ${ease}`),
+      hasNext: !!next, nextName: next ? next.name : 'All caught up', nextMeta: next ? `${next.type}, ${next.year}, ${this.P.find(p => p.id === next.phase).name}` : `${total} of ${total} watched`,
+      nextOp: 1, nextTf: 'none', markNext: () => next && this.setState(s => ({ seen: { ...s.seen, [next.id]: true }, just: next.id }), () => setTimeout(() => this.setState({ just: null }), 260)),
+      resetAll: set({ seen: {}, rowOpen: {} }), strip, sagas, empty: shown.length === 0,
+      query: S.query, onQuery: e => this.setState({ query: e.target.value }),
+      orders: [seg(S.order === 'release', 'By release', set({ order: 'release' })), seg(S.order === 'chrono', 'Chronological', set({ order: 'chrono' }))],
+      types: ['Film', 'Series', 'Special'].map(t => ({ ...seg(S.types[t], t === 'Special' ? 'Specials' : t, () => this.setState(s => ({ types: { ...s.types, [t]: !s.types[t] } }))), tick: S.types[t] ? 1 : 0 })),
+      toggles: [tgl('Show alternate continuity', S.alt, () => this.setState(s => ({ alt: !s.alt }))), tgl('Show unreleased titles', S.unrel, () => this.setState(s => ({ unrel: !s.unrel })))],
+      shownCount: shown.length, clearFilters: set({ query: '', types: { Film: true, Series: true, Special: true }, alt: false, unrel: false, order: 'release' }),
+      bulkLabel: allOpen ? 'Collapse all' : 'Expand all', bulkRot: allOpen ? 'none' : 'rotate(180deg)',
+      bulkToggle: () => { this.setState(s => { const o = {}; this.P.forEach(p => { o[p.id] = !allOpen; }); return { phaseOpen: o, bulk: true }; }); setTimeout(() => this.setState({ bulk: false }), 600); }
+    };
+  }
+}
+</script>
+</body>
+</html>

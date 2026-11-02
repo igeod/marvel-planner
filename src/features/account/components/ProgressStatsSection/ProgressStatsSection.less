@@ -68,7 +68,7 @@
 }
 
 .progress-group {
-  padding: 10px;
+  padding: var(--sp-2h);
   border-radius: var(--r-xl);
   background: var(--bg);
 }
@@ -76,9 +76,9 @@
 .progress-group__summary {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: var(--sp-3h);
   min-height: 64px;
-  padding: 10px var(--sp-4) 10px 18px;
+  padding: var(--sp-2h) var(--sp-4) var(--sp-2h) 18px;
   border-radius: var(--r-row);
   font-size: var(--fs-h3);
   font-weight: 800;
@@ -101,13 +101,13 @@
 }
 
 .progress-group[open] > .progress-group__summary {
-  margin-bottom: 6px;
+  margin-bottom: var(--sp-1h);
 }
 
 .progress-group__rows {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
-  gap: 6px;
+  gap: var(--sp-1h);
 }
 
 .progress-group--year .progress-group__rows {
@@ -117,8 +117,8 @@
 .progress-row {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  padding: 12px var(--sp-4) 14px;
+  gap: var(--sp-2h);
+  padding: 12px var(--sp-4) var(--sp-3h);
   border-radius: var(--r-row);
   background: var(--surface);
 }

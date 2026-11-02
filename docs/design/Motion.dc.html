@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>p,li{text-wrap:pretty}button,input{font:inherit;color:inherit}button{border:0;background:none;padding:0;cursor:pointer;text-align:inherit}a{color:var(--accent-text)}a:hover{color:var(--accent-hover)}@keyframes mo-pulse{50%{opacity:.6}}@keyframes mo-spin{to{transform:rotate(360deg)}}</style>
+</helmet>
+<div style="width:100%;max-width:1440px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
+  <div>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase">Movimento</h1>
+    <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">Il movimento conferma un’azione, non decora. Durate brevi, una sola curva ease-out, mai <code>transition: all</code>, tutto disattivato o ridotto con prefers-reduced-motion. Una curva e cinque durate; l’uscita è sempre un gradino sotto l’entrata.</p>
+  </div>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-4);flex-wrap:wrap">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Prova dal vivo</h2>
+      <button type="button" role="switch" aria-checked="{{ rm }}" onClick="{{ toggleRm }}" style="display:flex;align-items:center;gap:var(--sp-3);min-height:var(--tap);padding:0 var(--sp-4) 0 var(--sp-2);border-radius:var(--r-pill);background:var(--bg);font-weight:700;font-size:var(--fs-label)" style-hover="background:var(--row-hover)"><span style="width:44px;height:26px;border-radius:var(--r-pill);background:{{ rmTrack }};position:relative;flex:none;transition:background-color 120ms cubic-bezier(.23,1,.32,1)"><span style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:var(--r-pill);background:var(--white);transform:{{ rmThumb }}"></span></span>Simula reduced motion</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ overlays }}" as="o" hint-placeholder-count="6">
+        <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)"><div><b>{{ o.title }}</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">{{ o.timing }}</div></div>
+            <button type="button" onClick="{{ o.go }}" style="flex:none;height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--surface);font-weight:700;font-size:var(--fs-label);transition:background-color 120ms cubic-bezier(.23,1,.32,1)" style-hover="background:var(--accent);color:var(--on-accent)">{{ o.label }}</button></div>
+          <div style="position:relative;height:200px;overflow:hidden;border-radius:var(--r-sm);background:var(--row-hover)">
+            <div style="{{ o.velo }}"></div>
+            <div style="{{ o.el }}"><b style="font-size:var(--fs-label)">{{ o.elTitle }}</b><span style="font-size:var(--fs-caption);color:var(--ink-2)">{{ o.elText }}</span></div>
+          </div>
+        </div>
+      </sc-for>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Cambio tab</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Pill 120ms, pannello 180ms, nessuna uscita</div></div>
+        <div style="display:flex;gap:var(--sp-1)"><sc-for list="{{ tabs }}" as="t" hint-placeholder-count="3"><button type="button" onClick="{{ t.go }}" style="height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);font-weight:700;font-size:var(--fs-label);background:{{ t.bg }};color:{{ t.fg }};transition:{{ t.tr }}">{{ t.name }}</button></sc-for></div>
+        <div style="{{ panelStyle }}"><b style="font-size:var(--fs-label)">{{ panelTitle }}</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Il pannello vecchio sparisce subito, il nuovo appare.</div></div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Accordion e chevron</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Apre 240ms, chiude 180ms; chevron 180ms</div></div>
+        <div style="background:var(--surface);border-radius:var(--r-row);padding:var(--sp-2)">
+          <button type="button" aria-expanded="{{ acc }}" onClick="{{ toggleAcc }}" style="width:100%;min-height:var(--tap);display:flex;align-items:center;justify-content:space-between;padding:0 var(--sp-3);border-radius:var(--r-sm);font-weight:800;transition:background-color 120ms cubic-bezier(.23,1,.32,1)" style-hover="background:var(--row-hover)">Phase One<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" aria-hidden="true" style="{{ chevStyle }}"><path d="m6 9 6 6 6-6"></path></svg></button>
+          <div style="{{ accWrap }}"><div style="overflow:hidden;min-height:0"><div style="{{ accBody }}">Iron Man, The Incredible Hulk, Iron Man 2. Il contenuto cresce da 0, sale di 4px e compare.</div></div></div>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Tooltip</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Ritardo 400ms, entra 120ms, esce 80ms</div></div>
+        <div style="position:relative;display:flex;justify-content:center;padding-top:44px">
+          <span style="{{ tipStyle }}" role="tooltip">Segna come visto</span>
+          <button type="button" onMouseEnter="{{ tipIn }}" onMouseLeave="{{ tipOut }}" onFocus="{{ tipFocus }}" onBlur="{{ tipOut }}" style="height:var(--tap);padding:0 var(--sp-5);border-radius:var(--r-pill);background:var(--ink);color:var(--surface);font-weight:700">Passa il mouse</button>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Switch e spunta “visto”</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Switch 180ms; spunta si disegna in 180ms, si toglie senza animazione</div></div>
+        <div style="display:flex;align-items:center;gap:var(--sp-6);min-height:var(--tap)">
+          <button type="button" role="switch" aria-checked="{{ sw }}" aria-label="Switch" onClick="{{ toggleSw }}" style="width:52px;height:var(--tap);display:flex;align-items:center"><span style="{{ swTrack }}"><span style="{{ swThumb }}"></span></span></button>
+          <button type="button" role="checkbox" aria-checked="{{ chk }}" aria-label="Visto" onClick="{{ toggleChk }}" style="width:var(--tap);height:var(--tap);display:flex;align-items:center;justify-content:center"><span style="{{ chkBox }}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" style="{{ chkPath }}"></path></svg></span></button>
+          <span style="{{ strike }}">Iron Man</span>
+        </div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Barra di progresso</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Primo riempimento 600ms, aggiornamenti 240ms</div></div>
+        <div style="height:12px;border-radius:var(--r-pill);background:var(--row-hover);overflow:hidden"><div style="{{ barStyle }}"></div></div>
+        <div style="display:flex;gap:var(--sp-2);flex-wrap:wrap"><button type="button" onClick="{{ progLoad }}" style="height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--surface);font-weight:700;font-size:var(--fs-label)">Carica</button><button type="button" onClick="{{ progAdd }}" style="height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--row-hover);font-weight:700;font-size:var(--fs-label)">+10%</button></div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Skeleton e spinner</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Pulse 1.4s, spinner 0.8s lineare. Reduced: statici</div></div>
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)"><span style="{{ skel }};width:70%"></span><span style="{{ skel }};width:45%"></span></div>
+        <button type="button" aria-busy="{{ busy }}" onClick="{{ runBusy }}" style="width:180px;height:var(--tap);display:flex;align-items:center;justify-content:center;gap:var(--sp-2);border-radius:var(--r-pill);background:var(--accent);color:var(--on-accent);font-weight:700;font-size:var(--fs-label)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true" style="{{ spinStyle }}"><path d="M21 12a9 9 0 1 1-6.2-8.55"></path></svg>{{ busyLabel }}</button>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)"><div><b>Skeleton → contenuto</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Fade 180ms, barre 600ms, nessuno stagger</div></div><button type="button" onClick="{{ ldGo }}" style="flex:none;height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--surface);font-weight:700;font-size:var(--fs-label)">Ricarica</button></div>
+        <div style="{{ ldSkelBox }}"><span style="{{ skel }};width:60%"></span><span style="{{ skel }};height:12px"></span><span style="{{ skel }};height:12px;width:80%"></span></div>
+        <div style="{{ ldBox }}"><b>49 of 71 watched</b>
+          <div style="height:12px;border-radius:var(--r-pill);background:var(--row-hover);overflow:hidden"><div style="{{ ldBar1 }}"></div></div>
+          <div style="height:12px;border-radius:var(--r-pill);background:var(--row-hover);overflow:hidden"><div style="{{ ldBar2 }}"></div></div></div>
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div><b>Hover, active, focus</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Colore 120ms; pressione 80ms, rilascio 120ms; focus istantaneo</div></div>
+        <button type="button" onMouseDown="{{ pDown }}" onMouseUp="{{ pUp }}" onMouseLeave="{{ pUp }}" style="{{ pressStyle }}" style-hover="background:var(--accent-hover)">Premi</button>
+        <div style="min-height:var(--tap);display:flex;align-items:center;padding:0 var(--sp-4);border-radius:var(--r-row);background:var(--surface);transition:background-color {{ hoverMs }}ms cubic-bezier(.23,1,.32,1);font-weight:600" style-hover="background:var(--row-hover)">Riga con hover</div>
+        <input type="text" placeholder="Campo con hover e focus…" autocomplete="off" spellcheck="false" style="height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-input);background:var(--surface);border:0;transition:box-shadow {{ hoverMs }}ms cubic-bezier(.23,1,.32,1)" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)">
+      </div>
+
+      <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3)">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)"><div><b>Messaggio sotto il campo</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Entra 180ms, sparisce subito, spazio riservato</div></div><button type="button" onClick="{{ toggleErr }}" style="flex:none;height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--surface);font-weight:700;font-size:var(--fs-label)">{{ errLabel }}</button></div>
+        <input type="email" value="mario@" aria-label="Email" aria-invalid="{{ err }}" style="{{ errInput }}">
+        <div role="status" style="min-height:24px"><div style="{{ errMsg }}">Enter a valid email address.</div></div>
+      </div>
+
+      <div data-theme="{{ demoTheme }}" style="background:var(--bg);color:var(--ink);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-3);transition:{{ themeTr }}">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:var(--sp-3)"><div><b>Cambio tema</b><div style="font-size:var(--fs-caption);color:var(--ink-2)">Crossfade 180ms solo su sfondi e testo</div></div><button type="button" onClick="{{ toggleTheme }}" style="flex:none;height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-pill);background:var(--ink);color:var(--bg);font-weight:700;font-size:var(--fs-label)">Chiaro / scuro</button></div>
+        <div style="background:var(--surface);border-radius:var(--r-sm);padding:var(--sp-4);height:96px;transition:{{ themeTr }}">Card di esempio</div>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)">
+    <h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Token</h2>
+    <p style="margin:0 0 var(--sp-2);color:var(--ink-2);max-width:80ch">Una sola curva: <code>--ease-out: cubic-bezier(.23,1,.32,1)</code>. Vale per entrata, uscita e stati. Cicli infiniti (spinner lineare, skeleton ease-in-out) sono le uniche eccezioni.</p>
+    <sc-for list="{{ tokens }}" as="r" hint-placeholder-count="8">
+      <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.5fr) minmax(0,2fr) minmax(0,1fr);gap:var(--sp-2) var(--sp-4);background:var(--bg);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label);align-items:center">
+        <code style="font-weight:700;color:var(--accent-text);overflow-wrap:anywhere">{{ r.a }}</code><b>{{ r.b }}</b><span style="color:var(--ink-2)">{{ r.c }}</span><span style="color:var(--ink-2)">{{ r.d }}</span>
+      </div>
+    </sc-for>
+  </section>
+
+  <sc-for list="{{ groups }}" as="g" hint-placeholder-count="7">
+    <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">{{ g.title }}</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:var(--sp-2)">
+        <sc-for list="{{ g.items }}" as="i" hint-placeholder-count="3">
+          <div style="background:var(--bg);border-radius:var(--r-row);padding:var(--sp-5);display:flex;flex-direction:column;gap:var(--sp-2);font-size:var(--fs-label)">
+            <b style="font-size:var(--fs-title)">{{ i.n }}</b>
+            <div style="display:grid;grid-template-columns:104px minmax(0,1fr);gap:var(--sp-1) var(--sp-3)">
+              <span style="color:var(--ink-2)">Entrata</span><span><code style="font-weight:700">{{ i.enter }}</code></span>
+              <span style="color:var(--ink-2)">Uscita</span><span><code style="font-weight:700">{{ i.exit }}</code></span>
+              <span style="color:var(--ink-2)">Curva</span><span><code>{{ i.curve }}</code></span>
+              <span style="color:var(--ink-2)">Anima</span><span>{{ i.props }}</span>
+              <span style="color:var(--ink-2)">Reduced</span><span>{{ i.rm }}</span>
+              <span style="color:var(--accent-text);font-weight:700">Non animare</span><span>{{ i.no }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+  </sc-for>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)">
+    <h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Mappa dai valori attuali ai token</h2>
+    <sc-for list="{{ mapping }}" as="r" hint-placeholder-count="10">
+      <div style="display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,2fr) minmax(0,1.3fr);gap:var(--sp-2) var(--sp-4);background:var(--bg);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label);align-items:center">
+        <b>{{ r.a }}</b><span style="color:var(--ink-2)">{{ r.b }}</span><code style="font-weight:700;color:var(--accent-text);overflow-wrap:anywhere">{{ r.c }}</code>
+      </div>
+    </sc-for>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)">
+    <h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Verifica manuale: valori attesi</h2>
+    <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2fr) minmax(0,1fr);gap:var(--sp-4);padding:0 var(--sp-5);font-size:var(--fs-caption);font-weight:700;color:var(--ink-2)"><span>Elemento</span><span>Normale</span><span>Reduced</span></div>
+    <sc-for list="{{ checks }}" as="r" hint-placeholder-count="12">
+      <div style="display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,2fr) minmax(0,1fr);gap:var(--sp-2) var(--sp-4);background:var(--bg);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label);align-items:center">
+        <b>{{ r.a }}</b><span style="color:var(--ink-2)">{{ r.b }}</span><span style="color:var(--ink-2)">{{ r.c }}</span>
+      </div>
+    </sc-for>
+  </section>
+
+  <sc-for list="{{ rulesGroups }}" as="g" hint-placeholder-count="3">
+    <section style="background:var(--surface);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">{{ g.title }}</h2>
+      <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink-2);max-width:90ch">
+        <sc-for list="{{ g.rules }}" as="x" hint-placeholder-count="5"><li>{{ x }}</li></sc-for>
+      </ul>
+    </section>
+  </sc-for>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { ld: 2, ldPh: 1, rm: false, open: {}, tab: 0, ph: 1, acc: false, tip: false, sw: false, chk: false, prog: 17, progMs: 600, busy: false, err: false, press: false, dark: false };
+  E = 'cubic-bezier(.23,1,.32,1)';
+  tm = {};
+  set(k, v) { this.setState(s => ({ [k]: typeof v === 'function' ? v(s[k]) : v })); }
+  later(k, ms, fn) { clearTimeout(this.tm[k]); this.tm[k] = setTimeout(fn, ms); }
+  renderVals() {
+    const s = this.state, rm = s.rm, E = this.E;
+    const ms = n => (rm ? 80 : n);
+    const tf = v => (rm ? 'none' : v);
+    const ov = (open, en, ex, from) => {
+      const d = ms(open ? en : ex);
+      return `opacity:${open ? 1 : 0};transform:${open ? 'none' : tf(from)};pointer-events:${open ? 'auto' : 'none'};transition:opacity ${d}ms ${E},transform ${d}ms ${E},visibility 0s linear ${open ? 0 : d}ms;visibility:${open ? 'visible' : 'hidden'}`;
+    };
+    const velo = (open, en, ex) => `position:absolute;inset:0;background:${open ? 'rgba(20,23,31,.6)' : 'rgba(20,23,31,0)'};transition:background-color ${ms(open ? en : ex)}ms ${E};pointer-events:none`;
+    const card = 'position:absolute;background:var(--surface);box-shadow:var(--shadow-card);padding:var(--sp-4);display:flex;flex-direction:column;gap:2px;box-sizing:border-box;';
+    const defs = [
+      { k: 'popup', title: 'Popup desktop', en: 240, ex: 180, from: 'translateY(8px) scale(.96)', v: 1, pos: 'left:50%;top:50%;width:220px;margin:-44px 0 0 -110px;border-radius:var(--r-lg);', t: 'Reset your progress?', x: 'Velo e dialog insieme.' },
+      { k: 'sheet', title: 'Bottom sheet mobile', en: 240, ex: 180, from: 'translateY(100%)', v: 1, pos: 'left:0;right:0;bottom:0;border-radius:var(--r-lg) var(--r-lg) 0 0;padding-bottom:var(--sp-8);', t: 'Filters', x: 'Sale dal bordo, esce più veloce.' },
+      { k: 'menu', title: 'Menu a tendina / filtri desktop', en: 180, ex: 120, from: 'translateY(-8px)', v: 0, pos: 'left:12px;top:12px;width:200px;border-radius:var(--r-md);', t: 'Account', x: 'Nessuna animazione sulle voci.' },
+      { k: 'banner', title: 'Banner “unsaved changes”', en: 180, ex: 120, from: 'translateY(12px)', v: 0, pos: 'left:12px;right:12px;bottom:12px;border-radius:var(--r-md);background:var(--ink);color:var(--surface);', t: 'You have unsaved changes', x: 'Overlay: il contenuto sotto non si sposta.' },
+      { k: 'toast', title: 'Toast', en: 240, ex: 180, from: 'translateY(12px)', v: 0, pos: 'left:50%;bottom:12px;width:240px;margin-left:-120px;border-radius:var(--r-pill);padding:var(--sp-3) var(--sp-5);', t: 'Link copied', x: 'Si chiude da solo dopo 3s (4s in prod.).' },
+      { k: 'bar', title: 'Barra fissa di progresso (mobile)', en: 240, ex: 180, from: 'translateY(100%)', v: 0, pos: 'left:0;right:0;bottom:0;border-radius:var(--r-md) var(--r-md) 0 0;', t: '49 of 71 watched', x: 'Il valore non si anima all’apparire.' },
+    ];
+    const overlays = defs.map(d => {
+      const o = !!s.open[d.k];
+      return { title: d.title, timing: `entra ${ms(d.en)}ms · esce ${ms(d.ex)}ms${rm ? ' (reduced)' : ''}`, label: o ? 'Chiudi' : 'Apri',
+        go: () => { this.setState(st => ({ open: { ...st.open, [d.k]: !st.open[d.k] } })); if (d.k === 'toast' && !o) this.later('toast', 3000, () => this.setState(st => ({ open: { ...st.open, toast: false } }))); },
+        velo: d.v ? velo(o, d.en, d.ex) : 'display:none',
+        el: card + d.pos + ov(o, d.en, d.ex, d.from), elTitle: d.t, elText: d.x };
+    });
+    const names = ['Progress', 'Account', 'Password'];
+    const tabs = names.map((name, i) => ({ name, bg: s.tab === i ? 'var(--ink)' : 'transparent', fg: s.tab === i ? 'var(--surface)' : 'var(--ink)', tr: `background-color ${ms(120)}ms ${E},color ${ms(120)}ms ${E}`,
+      go: () => { this.setState({ tab: i, ph: 0 }); requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ ph: 1 }))); } }));
+    const panelStyle = `background:var(--surface);border-radius:var(--r-sm);padding:var(--sp-4);min-height:76px;opacity:${s.ph};transform:${s.ph || rm ? 'none' : 'translateY(6px)'};transition:${s.ph ? `opacity ${ms(180)}ms ${E},transform ${ms(180)}ms ${E}` : 'none'}`;
+    const accO = s.acc, accD = rm ? 0 : accO ? 240 : 180;
+    const tipD = s.tip ? ms(120) : ms(80);
+    const swD = ms(180);
+    const chk = s.chk;
+    const bar = `height:100%;width:${s.prog}%;border-radius:var(--r-pill);background:var(--accent);transition:${rm ? 'none' : `width ${s.progMs}ms ${E}`}`;
+    const pulse = rm ? 'animation:none' : 'animation:mo-pulse 1.4s ease-in-out infinite';
+    const errD = ms(180);
+    return {
+      rm: s.rm, toggleRm: () => this.set('rm', v => !v), rmTrack: s.rm ? 'var(--accent)' : 'var(--disabled)', rmThumb: s.rm ? 'translateX(18px)' : 'none',
+      overlays, tabs, panelStyle, panelTitle: names[s.tab],
+      acc: accO, toggleAcc: () => this.set('acc', v => !v),
+      chevStyle: `flex:none;transform:${accO && !rm ? 'rotate(180deg)' : 'none'};transition:${rm ? 'none' : `transform ${ms(180)}ms ${E}`}`,
+      accWrap: `display:grid;grid-template-rows:${accO ? '1fr' : '0fr'};transition:${rm ? 'none' : `grid-template-rows ${accD}ms ${E}`}`,
+      accBody: `padding:var(--sp-3) var(--sp-3) var(--sp-4);font-size:var(--fs-label);color:var(--ink-2);opacity:${accO ? 1 : 0};transform:${accO || rm ? 'none' : 'translateY(4px)'};transition:opacity ${accO ? ms(120) : ms(80)}ms ${E},transform ${accD}ms ${E}`,
+      tipStyle: `position:absolute;top:0;background:var(--ink);color:var(--surface);font-size:var(--fs-caption);font-weight:600;padding:6px 10px;border-radius:var(--r-chip);opacity:${s.tip ? 1 : 0};transform:${s.tip || rm ? 'none' : 'translateY(4px)'};transition:opacity ${tipD}ms ${E},transform ${tipD}ms ${E};pointer-events:none`,
+      tipIn: () => this.later('tip', rm ? 0 : 400, () => this.set('tip', true)), tipFocus: () => this.set('tip', true), tipOut: () => { clearTimeout(this.tm.tip); this.set('tip', false); },
+      sw: s.sw, toggleSw: () => this.set('sw', v => !v),
+      swTrack: `width:52px;height:30px;border-radius:var(--r-pill);background:${s.sw ? 'var(--accent)' : 'var(--disabled)'};display:flex;align-items:center;padding:3px;box-sizing:border-box;transition:background-color ${swD}ms ${E}`,
+      swThumb: `width:24px;height:24px;border-radius:var(--r-pill);background:var(--white);transform:${s.sw ? 'translateX(22px)' : 'none'};transition:${rm ? 'none' : `transform ${swD}ms ${E}`}`,
+      chk, toggleChk: () => this.set('chk', v => !v),
+      chkBox: `width:28px;height:28px;border-radius:var(--r-chip);display:flex;align-items:center;justify-content:center;box-sizing:border-box;background:${chk ? 'var(--accent)' : 'transparent'};color:var(--on-accent);box-shadow:inset 0 0 0 2px ${chk ? 'var(--accent)' : 'var(--ink-2)'};transition:background-color ${ms(120)}ms ${E},box-shadow ${ms(120)}ms ${E}`,
+      chkPath: `stroke-dasharray:24;stroke-dashoffset:${chk ? 0 : 24};transition:${chk && !rm ? `stroke-dashoffset ${ms(180)}ms ${E}` : 'none'}`,
+      strike: `font-weight:700;text-decoration:line-through;text-decoration-thickness:2px;text-decoration-color:${chk ? 'currentColor' : 'transparent'};transition:text-decoration-color ${ms(180)}ms ${E}`,
+      barStyle: bar,
+      progLoad: () => { this.setState({ prog: 0, progMs: 0 }); requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ prog: 62, progMs: 600 }))); },
+      progAdd: () => this.setState(st => ({ prog: Math.min(100, st.prog + 10), progMs: 240 })),
+      skel: `display:block;height:20px;border-radius:var(--r-xs);background:var(--row-hover);${pulse}`,
+      ldGo: () => { this.setState({ ld: 0, ldPh: 0 }); this.later('ld1', rm ? 0 : 200, () => this.setState({ ld: 1 })); this.later('ld2', 1400, () => { this.setState({ ld: 2, ldPh: 0 }); requestAnimationFrame(() => requestAnimationFrame(() => this.setState({ ldPh: 1 }))); }); },
+      ldSkelBox: `display:${s.ld === 1 ? 'flex' : 'none'};flex-direction:column;gap:var(--sp-2);min-height:108px`,
+      ldBox: `display:${s.ld === 2 ? 'flex' : s.ld === 0 ? 'none' : 'none'};flex-direction:column;gap:var(--sp-3);min-height:108px;background:var(--surface);border-radius:var(--r-sm);padding:var(--sp-4);box-sizing:border-box;opacity:${s.ldPh};transition:${s.ldPh ? `opacity ${ms(180)}ms ${E}` : 'none'}`,
+      ldBar1: `height:100%;border-radius:var(--r-pill);background:var(--accent);width:${s.ldPh ? 69 : 0}%;transition:${rm ? 'none' : s.ldPh ? `width 600ms ${E}` : 'none'}`,
+      ldBar2: `height:100%;border-radius:var(--r-pill);background:var(--accent);width:${s.ldPh ? 34 : 0}%;transition:${rm ? 'none' : s.ldPh ? `width 600ms ${E}` : 'none'}`,
+      busy: s.busy, busyLabel: s.busy ? 'Saving…' : 'Save', runBusy: () => { this.set('busy', true); this.later('busy', 2000, () => this.set('busy', false)); },
+      spinStyle: `flex:none;display:${s.busy ? 'block' : 'none'};${rm ? 'animation:none' : 'animation:mo-spin .8s linear infinite'}`,
+      pDown: () => this.set('press', true), pUp: () => this.set('press', false),
+      pressStyle: `height:var(--tap);padding:0 var(--sp-6);border-radius:var(--r-pill);background:var(--accent);color:var(--on-accent);font-weight:700;align-self:flex-start;transform:${s.press && !rm ? 'translateY(1px) scale(.98)' : 'none'};transition:background-color ${ms(120)}ms ${E},transform ${s.press ? 80 : ms(120)}ms ${E}`,
+      hoverMs: ms(120),
+      err: s.err, errLabel: s.err ? 'Nascondi' : 'Mostra errore', toggleErr: () => this.set('err', v => !v),
+      errInput: `height:var(--tap);padding:0 var(--sp-4);border-radius:var(--r-input);background:var(--surface);border:0;box-shadow:inset 0 0 0 2px ${s.err ? 'var(--accent-text)' : 'transparent'};transition:box-shadow ${errD}ms ${E}`,
+      errMsg: `font-size:var(--fs-label);font-weight:600;color:var(--accent-text);opacity:${s.err ? 1 : 0};transform:${s.err || rm ? 'none' : 'translateY(-4px)'};transition:${s.err ? `opacity ${errD}ms ${E},transform ${errD}ms ${E}` : 'none'}`,
+      demoTheme: s.dark ? 'dark' : 'light', toggleTheme: () => this.set('dark', v => !v),
+      themeTr: `background-color ${ms(180)}ms ${E},color ${ms(180)}ms ${E}`,
+      tokens: [
+        { a: '--ease-out', b: '.23, 1, .32, 1', c: 'Unica curva: entrata, uscita, stati. Nessuna ease-in.', d: 'invariata' },
+        { a: '--dur-press', b: '80ms', c: 'Pressione (:active), uscita del tooltip, fade di chiusura accordion', d: '80ms, senza transform' },
+        { a: '--dur-hover', b: '120ms', c: 'Hover, colore, sfondo riga, pill tab, entrata tooltip, uscita select, dropdown e banner', d: '80ms' },
+        { a: '--dur-ui', b: '180ms', c: 'Cambio di stato: switch, chevron, spunta, pannello tab, messaggi, tema, entrata select, dropdown e banner, uscita popup, sheet, toast, barra fissa', d: '80ms, solo opacità e colore' },
+        { a: '--dur-enter', b: '240ms', c: 'Entrata di popup, bottom sheet, toast, barra fissa; apertura accordion; aggiornamento barre', d: '80ms, solo opacità' },
+        { a: '--dur-progress', b: '600ms', c: 'Solo primo riempimento di una barra (da 0 al valore)', d: 'nessuna transizione' },
+        { a: '--delay-tooltip', b: '400ms', c: 'Ritardo del tooltip all’hover (0 con focus da tastiera)', d: '0ms' },
+        { a: '--delay-pending', b: '200ms', c: 'Attesa prima di mostrare skeleton, pulse del poster o spinner del pulsante: con risposte più rapide non compaiono', d: '200ms (non è movimento)' },
+        { a: '--stagger-step / -max', b: '30ms / 150ms', c: 'Sfasamento tra elementi e tempo massimo totale di ritardo', d: '0ms' },
+      ],
+      groups: [
+        { title: '1. Popup (desktop)', items: [
+          { n: 'Velo', enter: '--dur-enter 240ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'background-color da trasparente allo scrim', rm: '80ms, resta il fade', no: 'backdrop-filter / blur, larghezza, scroll sotto il velo' },
+          { n: 'Dialog', enter: '--dur-enter 240ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'opacity 0→1, transform translateY(8px) scale(.96)→none. Parte da scala .96, mai da 0', rm: '80ms, solo opacity, nessun transform', no: 'contenuto interno (niente stagger), dimensioni, ombra, focus ring. Il focus passa subito all’inizio dell’entrata e torna al trigger all’inizio dell’uscita' }] },
+        { title: '2. Bottom sheet, menu a tendina, pannello filtri', items: [
+          { n: 'Bottom sheet mobile (<640px)', enter: '--dur-enter 240ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'transform translateY(100%)→0 (dal bordo inferiore); velo come il popup. Trascinamento: nessuna transizione, il sheet segue il dito; al rilascio prosegue o torna in 180ms dalla posizione corrente', rm: '80ms, solo opacity; il gesto di swipe resta, senza rientro animato', no: 'altezza del sheet, contenuti, maniglia, rimbalzi o spring' },
+          { n: 'Menu a tendina dell’header', enter: '--dur-ui 180ms', exit: '--dur-hover 120ms', curve: '--ease-out', props: 'opacity, transform translateY(-8px)→none, origine in alto', rm: '80ms, solo opacity', no: 'altezza, singole voci (niente stagger), morph hamburger→X (cambia subito), ombra' },
+          { n: 'Pannello filtri, mobile (<640px)', enter: '--dur-enter 240ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'È il bottom sheet qui sopra, con velo e focus trap. Sotto il velo i risultati NON cambiano: si aggiornano alla pressione di Apply, nello stesso frame in cui il sheet inizia a chiudersi (il fade della lista 120ms parte insieme). Chiudere con X o swipe scarta le modifiche. Reset azzera i controlli subito', rm: '80ms, solo opacity', no: 'altezza, controlli, contatore del pulsante Apply (n) (cambia subito), lista dietro il velo' }, { n: 'Pannello filtri, desktop', enter: '--dur-ui 180ms', exit: '--dur-hover 120ms', curve: '--ease-out', props: 'Popover ancorato sotto il pulsante Filters: opacity, transform translateY(-8px)→none, origine sull’angolo del trigger. Distanza 8px, verso il basso. Nessun velo (non modale): chiude con Esc, clic fuori o focus fuori. I risultati si aggiornano subito a ogni modifica, senza aspettare la chiusura', rm: '80ms, solo opacity', no: 'velo, altezza, singoli controlli, larghezza del pannello, il pulsante Filters' }, { n: 'Lista risultati quando cambiano i filtri', enter: '--dur-hover 120ms', exit: 'nessuna', curve: '--ease-out', props: 'opacity .6→1 (non da 0, per non lampeggiare a ogni checkbox). Se arriva un altro cambio durante il fade, il fade in corso non riparte. Lo scroll torna in cima subito', rm: '80ms, o nessun fade', no: 'riordino e spostamento delle righe, contatori, altezza della lista' }, { n: 'Chip dei filtri attivi', enter: 'compare --dur-hover 120ms', exit: 'nessuna: il chip sparisce subito e gli altri si ricompongono senza animazione', curve: '--ease-out', props: 'opacity 0→1 sul chip nuovo', rm: '80ms', no: 'scala, larghezza, riposizionamento e a capo degli altri chip, badge con il conteggio' }] },
+        { title: '3. Tab del popup Profilo e banner “unsaved changes”', items: [
+          { n: 'Pannello della tab', enter: '--dur-ui 180ms', exit: 'nessuna: il pannello vecchio sparisce subito', curve: '--ease-out', props: 'opacity 0→1, transform translateY(6px)→none', rm: '80ms, solo opacity', no: 'altezza del dialog, sidebar, scroll, crossfade tra due pannelli' },
+          { n: 'Pill selezionata', enter: '--dur-hover 120ms', exit: '--dur-hover 120ms', curve: '--ease-out', props: 'background-color, color', rm: '80ms', no: 'indicatore che scorre tra le tab, scala, cambio di peso del font (sposta la larghezza)' },
+          { n: 'Banner “You have unsaved changes”', enter: '--dur-ui 180ms', exit: '--dur-hover 120ms', curve: '--ease-out', props: 'opacity, transform translateY(12px)→none', rm: '80ms, solo opacity', no: 'layout sotto (il banner è in overlay), shake, rimbalzo. role=alert subito, senza attendere' }] },
+        { title: '4. Accordion, chevron, tooltip, select, switch, spunta', items: [
+          { n: 'Accordion (details)', enter: 'apre --dur-enter 240ms (opacity --dur-hover 120ms)', exit: 'chiude --dur-ui 180ms (opacity --dur-press 80ms)', curve: '--ease-out', props: 'block-size 0→auto (interpolate-size), opacity, transform translateY(4px)→none. Unico caso con altezza animata, insieme alla barra compatta', rm: 'nessuna transizione: apre e chiude di scatto', no: 'padding, margini, contenuto annidato, header' },
+          { n: 'Chevron', enter: '--dur-ui 180ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'transform rotate(180deg)', rm: 'ruota senza transizione (lo stato resta visibile)', no: 'colore, dimensione' },
+          { n: 'Tooltip', enter: 'ritardo 400ms, poi --dur-hover 120ms', exit: '--dur-press 80ms', curve: '--ease-out', props: 'opacity, transform translateY(4px)→none. Con focus da tastiera nessun ritardo', rm: '80ms, solo opacity, ritardo 0', no: 'posizione che segue il cursore, scala, freccia' },
+          { n: 'Select', enter: 'lista --dur-ui; trigger e opzioni --dur-hover; chevron --dur-ui', exit: 'lista --dur-hover (resta nel DOM, visibility ritardata); chevron --dur-ui', curve: '--ease-out', props: 'lista: opacity, translateY(4px)→none. Trigger e opzioni: background-color. Chevron: rotate 180°. Trigger premuto: scale(.98) in --dur-press', rm: 'lista solo opacity 80ms; nessuna rotazione né scala; colori 80ms', no: 'rimbalzo, scala della lista, uscita più lunga di --dur-hover' }, { n: 'Espandi / Comprimi tutto', enter: 'le fasi si aprono in sequenza: --dur-enter ciascuna', exit: 'si chiudono in sequenza: --dur-ui ciascuna', curve: '--ease-out', props: 'altezza, contenuto e chevron con transition-delay = min(--stagger-step × indice, --stagger-max)', rm: 'nessuna sequenza: --stagger-step e --stagger-max valgono 0', no: 'ritardo oltre --stagger-max' }, { n: 'Ingresso dopo lo splash', enter: '--dur-enter, una sola volta (html[data-intro])', exit: '—', curve: '--ease-out', props: 'opacity + translateY(6px → 0) su header, progresso, strip, rail, prime fasi, footer; ritardo min(--stagger-step × i, --stagger-max)', rm: 'nessun ingresso animato', no: 'ripetere dopo il primo caricamento' }, { n: 'Barra compatta', enter: 'grid-template-rows, margin-bottom, opacity: --dur-enter', exit: '--dur-ui', curve: '--ease-out', props: 'compare sotto la strip quando il progresso esce dalla vista; visibility ritardata in uscita', rm: 'nessuna transizione', no: 'animare il valore all’apparire' }, { n: 'Switch', enter: '--dur-ui 180ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'track background-color; thumb transform translateX', rm: 'colore 80ms, thumb si sposta subito', no: 'larghezza del thumb (rimuovere lo stretch attuale), rimbalzo, ombra' },
+          { n: 'Spunta “visto” e riga vista: quando segni', enter: 'tratto --dur-ui 180ms; riga --dur-ui 180ms; casella --dur-hover 120ms; barra del titolo --dur-ui 180ms', exit: 'quando togli: immediata per spunta e barra; riga e casella tornano in --dur-hover 120ms', curve: '--ease-out', props: 'stroke-dashoffset 24→0, text-decoration-color, background-color e color della riga. Parte da un attributo data-just-marked messo dal clic e tolto a fine animazione (180ms); mai dallo stato “visto” salvato', rm: 'nessun tratto né barra animata, colori 80ms', no: 'caricamento della pagina, “segna tutti”, righe che entrano in viewport o dopo un filtro, altezza o posizione della riga, scala con rimbalzo' }, { n: 'Spunta “visto”: casi limite', enter: 'ogni clic anima la propria riga: nessuna coda, nessuno stagger, nessun limite', exit: 'segna e togli in rapida successione: al nuovo segna il tratto riparte da 0; il togli interrompe subito', curve: '--ease-out', props: 'attributo data-just-marked per riga, indipendente dalle altre. La riga non cambia mai posizione quando la segni. Con un filtro che nasconde i visti, la riga resta al suo posto fino al prossimo cambio di filtro o ricarica, senza uscita. A ogni cambio di filtro o ordinamento l’attributo si toglie subito: nessuna animazione a metà nella nuova lista', rm: 'come sopra', no: 'riordino o rimozione animata della riga, animazione portata nella lista filtrata, conteggi (le barre sì, 240ms)' }] },
+        { title: '5. Barre di progresso, skeleton, spinner dei pulsanti', items: [
+          { n: 'Barre di progresso', enter: 'primo riempimento --dur-progress 600ms; aggiornamenti --dur-enter 240ms', exit: 'nessuna', curve: '--ease-out', props: 'width (o scaleX con origine a sinistra)', rm: 'nessuna transizione, il valore salta', no: 'numero che conta, strisce o shine, colore, barra fissa all’apparire' },
+          { n: 'Skeleton', enter: 'compare solo dopo --delay-pending 200ms di attesa; pulse 1.4s ease-in-out, ciclo', exit: 'nessuna: viene smontato nello stesso frame in cui arrivano i dati', curve: 'ease-in-out solo per il ciclo', props: 'opacity 1→.6→1. Con dati in meno di 200ms non si vede nulla', rm: 'statico', no: 'shimmer che attraversa, stagger tra blocchi, dimensioni diverse dal contenuto reale (niente salto di layout)' }, { n: 'Skeleton → contenuto (popup Profilo > Progress)', enter: '--dur-ui 180ms', exit: 'nessuna', curve: '--ease-out', props: 'opacity 0→1 su tutto il pannello, un solo fade. Nessun translate: non è una navigazione. Card riepilogo e gruppi entrano insieme, senza stagger (lo stagger è solo per Collapse/Expand all e per la prima schermata di una lista, non per i pannelli). Stesse dimensioni dello skeleton. Con errore: stesso fade 180ms con il messaggio', rm: '80ms, solo opacity', no: 'stagger tra card e gruppi, transform, altezza del pannello, scroll' }, { n: 'Barre dei gruppi: primo riempimento', enter: '--dur-progress 600ms, da 0 al valore, alla prima volta che il pannello è visibile con i dati', exit: 'nessuna', curve: '--ease-out', props: 'width. Se i dati arrivano mentre la tab è nascosta o il popup chiuso, le barre restano a 0 e si riempiono alla prima visualizzazione (2 frame dopo il mount). Dopo la prima volta, rimostrare la tab o riaprire il popup non le rianima. Un refetch le aggiorna in --dur-enter 240ms', rm: 'nessuna transizione, valore subito', no: 'numeri che contano, riempimento mentre il pannello è nascosto, rianimazione a ogni riapertura' }, { n: 'Spinner del pulsante', enter: 'rotate 0.8s lineare, ciclo', exit: 'nessuna: etichetta e spinner si scambiano subito', curve: 'lineare solo per il ciclo', props: 'transform rotate sull’icona', rm: 'icona ferma con etichetta “Saving…”', no: 'larghezza del pulsante (fissa), più di uno spinner per vista, spinner su cambio tab' },
+          ] },
+        { title: '6. Hover, active, focus, messaggi sotto i campi', items: [
+          { n: 'Pulsanti', enter: 'hover --dur-hover 120ms; active --dur-press 80ms', exit: 'rilascio e fine hover 120ms', curve: '--ease-out', props: 'background-color, color; active: transform translateY(1px) scale(.98). Pulsanti testo: solo colore. Icon: scale .96. Hover solo con (hover:hover)', rm: 'colore 80ms, nessun transform', no: 'box-shadow, larghezza, bordo, letter-spacing. Il focus ring compare subito, senza transizione' },
+          { n: 'Righe', enter: 'hover --dur-hover 120ms; stato visto/selezionata --dur-ui 180ms', exit: 'stessi valori', curve: '--ease-out', props: 'background-color, color', rm: '80ms', no: 'altezza, padding, spostamenti, focus ring' },
+          { n: 'Campi', enter: 'hover --dur-hover 120ms; bordo errore --dur-ui 180ms', exit: 'stessi valori', curve: '--ease-out', props: 'box-shadow inset (anello), background-color', rm: '80ms', no: 'label flottante, scala, caret. Focus: outline subito' },
+          { n: 'Messaggi di errore e di stato', enter: '--dur-ui 180ms', exit: 'nessuna: spariscono subito', curve: '--ease-out', props: 'opacity, transform translateY(-4px)→none, dentro uno spazio riservato (min-height)', rm: '80ms, solo opacity', no: 'altezza (niente salto del form), shake, lampeggio del colore. Il role=status annuncia a prescindere dal movimento' }] },
+        { title: '7. Toast, cambio tema, barra fissa su mobile', items: [
+          { n: 'Toast', enter: '--dur-enter 240ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'opacity, transform translateY(12px)→none. Visibile 4s, pausa su hover e focus. Un nuovo toast sostituisce il precedente', rm: '80ms, solo opacity', no: 'riposizionamento di altri toast, barra del conto alla rovescia, swipe animato' },
+          { n: 'Cambio tema chiaro/scuro', enter: '--dur-ui 180ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'background-color e color su body, card, header, footer. Attivo dopo il primo paint', rm: '80ms, resta il cambio colore', no: 'selettore *, immagini e poster, fill SVG, bordi, ombre, primo caricamento, View Transitions' },
+          { n: 'Barra fissa di progresso (mobile)', enter: '--dur-enter 240ms', exit: '--dur-ui 180ms', curve: '--ease-out', props: 'transform translateY(100%)→0, opacity, display discreto', rm: '80ms, solo opacity', no: 'il valore all’apparire, safe-area, scroll della pagina' }] },
+        { title: '8. Stati combinati, touch, focus e casi aggiuntivi', items: [
+          { n: 'Selezionato + hover / active', enter: 'nessuna: hover non cambia il selezionato', exit: 'nessuna', curve: '--ease-out', props: 'active: scale .98 in 80ms, rilascio 120ms. Switch e righe: nessun transform. Il disabilitato selezionato cambia colore, mai con transizione di opacity', rm: 'colore 80ms, nessun transform', no: 'colore in hover sul selezionato, stretch del thumb, opacity per il disabilitato' },
+          { n: 'Touch', enter: ':active: colore di hover + translateY(1px) scale(.98), 80ms', exit: 'rilascio 120ms', curve: '--ease-out', props: 'background-color, transform. Hover solo con (hover:hover) and (pointer:fine); tap highlight di sistema spento', rm: 'solo colore 80ms', no: 'hover appiccicato dopo il tocco, ritardi sul tocco' },
+          { n: 'Focus ring', enter: 'nessuna: compare subito', exit: 'nessuna: sparisce subito', curve: 'nessuna', props: 'outline e outline-offset non sono mai in una transition, nemmeno nel passaggio hover → focus', rm: 'identico', no: 'outline, outline-offset, box-shadow usata come ring' },
+          { n: '“Segna tutti”', enter: 'righe --dur-hover 120ms (sfondo e colore)', exit: 'quando togli tutti: 120ms', curve: '--ease-out', props: 'background-color e color; spunta subito; barre di progresso 240ms', rm: '80ms', no: 'tratto, barra del titolo, stagger, posizione e altezza delle righe' },
+          { n: 'Barre rimontate (cambio filtro)', enter: 'nessuna: la barra monta già al valore', exit: 'nessuna', curve: '--ease-out', props: 'Il primo riempimento 600ms è una volta per barra e per sessione (chiave = id del gruppo, non l’istanza DOM). Se il valore cambia: 240ms', rm: 'nessuna transizione', no: 'riempimento da 0 a ogni rimontaggio, riapertura del popup o cambio tab' },
+          { n: 'Poster in caricamento', enter: 'segnaposto piatto subito, senza ritardo e senza pulse; pulse e anello dopo --delay-pending 200ms; immagine in fade-in --dur-ui 180ms', exit: 'nessuna', curve: '--ease-out', props: 'opacity dell’immagine; pulse 1.4s e anello 0.8s solo se ancora in attesa dopo 200ms', rm: 'segnaposto fermo, immagine con fade 80ms', no: 'spazio del poster (riservato), pulse su poster già caricati' },
+          { n: 'Pulsante con spinner', enter: 'aria-busy subito; spinner dopo --delay-pending 200ms', exit: 'nessuna: etichetta e spinner si scambiano subito', curve: 'lineare solo per il ciclo', props: 'rotate 0.8s sull’icona; larghezza fissa', rm: 'icona ferma con etichetta Saving…', no: 'larghezza, colore del pulsante (resta pieno, non grigio)' },
+          { n: 'Indicatore “At least 8 characters”', enter: 'nessuna', exit: 'nessuna', curve: '--ease-out', props: 'Il segno cambia subito (trattino, spunta, X). Nessuna animazione sul passaggio', rm: 'identico', no: 'rotazione, scala o fade del segno' },
+          { n: 'Errore “Confirm new password”', enter: '--dur-ui 180ms (opacity + translateY(-4px))', exit: 'nessuna: sparisce subito', curve: '--ease-out', props: 'come i messaggi sotto i campi; una volta mostrato è valutato live', rm: '80ms, solo opacity', no: 'altezza, shake' },
+          { n: 'Swipe-down del foglio e del popup Profilo', enter: 'segue il dito: nessuna transizione durante il gesto', exit: 'rilascio --dur-ui 180ms', curve: '--ease-out', props: 'transform translateY; velo background-color in proporzione al gesto', rm: 'il gesto resta; rientro senza animazione', no: 'rimbalzo, spring, trascinamento verso l’alto oltre 12px' },
+        ] },
+      ],
+      mapping: [
+        { a: '--ease-out .22,1,.36,1', b: 'tokens.less:162, Planner.dc.html (vecchia)', c: '--ease-out .23,1,.32,1, una sola curva' },
+        { a: '--dur-hover 200ms', b: 'tokens.less:165; pulsanti (@color-hover), link, Field, Modal, AccountSettings, PlannerSearch, base.less:183, pop-in lista select', c: '--dur-hover 120ms' },
+        { a: '--dur-row 350ms', b: 'tokens.less:166, motion.less:67-68, TitleItem.less:101-102 (sfumatura riga aperta)', c: 'hover e rilascio → --dur-hover; riga appena segnata → --dur-ui; token eliminato' },
+        { a: '--dur-chevron 400ms', b: 'tokens.less:167, motion.less:271', c: '--dur-ui 180ms; token eliminato' },
+        { a: '--dur-reveal 380ms', b: 'tokens.less:168, motion.less:446 (splash-out), 460 (reveal-in)', c: '--dur-enter 240ms; token eliminato' },
+        { a: 'Select: lista senza uscita', b: 'SelectField.tsx (isOpen && list), motion.less:485 pop-in', c: 'entra --dur-ui, esce --dur-hover; lista sempre montata (popover manual)' },
+        { a: 'Loop', b: 'skeleton 1.2s / 1.4s / 1.6s; spinner 0.7s / 0.8s / 0.9s', c: 'skeleton 1.4s; spinner 0.8s' },
+        { a: 'Ease-in', b: 'copie vecchie di tokens.css (.4,0,1,1)', c: 'non esiste: nessuna uscita con curva diversa' },
+      ],
+      checks: [{"a":"1 Popup: velo","b":"240 entra · 180 esce, background-color, ease-out","c":"80ms, solo colore"},{"a":"1 Popup: dialog","b":"240 · 180, opacity + transform (translateY 8px, scale .96)","c":"80ms, nessun transform"},{"a":"2 Bottom sheet","b":"240 · 180, transform translateY(100%)→0; durante lo swipe nessuna transizione","c":"80ms, solo opacity"},{"a":"2 Filtri mobile","b":"come il sheet; lista cambia a Apply, non prima","c":"come il sheet"},{"a":"2 Filtri desktop / menu header","b":"180 · 120, opacity + translateY(-8px), nessun velo sui filtri","c":"80ms, solo opacity"},{"a":"2 Lista dopo filtro","b":"120, opacity .6→1, nessun movimento righe","c":"80 o nessun fade"},{"a":"2 Chip filtri","b":"entra 120 opacity; esce subito","c":"80, esce subito"},{"a":"3 Pannello tab","b":"180, opacity + translateY(6px); nessuna uscita","c":"80, solo opacity"},{"a":"3 Pill tab","b":"120, background-color e color","c":"80ms"},{"a":"3 Banner unsaved","b":"180 entra · 120 esce, opacity + translateY(12px)","c":"80ms, solo opacity"},{"a":"4 Accordion","b":"apre 240, chiude 180; block-size, opacity (120 / 80), translateY(4px)","c":"nessuna transizione"},{"a":"4 Chevron","b":"180, transform rotate","c":"nessuna transizione"},{"a":"4 Tooltip","b":"ritardo 400 (0 con focus); entra 120 · esce 80, opacity + translateY(4px)","c":"ritardo 0, 80ms, solo opacity"},{"a":"4 Select","b":"lista entra 180 · esce 120, opacity + translateY(4px); chevron 180; opzioni 120","c":"lista 80, solo opacity; chevron senza transizione"},{"a":"4 Switch","b":"180, track background-color + thumb translateX; nessuna transizione di width","c":"colore 80, thumb subito"},{"a":"4 Spunta visto","b":"segna: tratto 180, riga 180, casella 120. Togli: tratto subito, riga e casella 120. Niente al caricamento né con “segna tutti”","c":"nessun tratto, colori 80"},{"a":"5 Barre progresso","b":"primo riempimento 600, aggiornamenti 240; width","c":"nessuna transizione"},{"a":"5 Skeleton","b":"compare dopo 200ms; pulse 1.4s ciclo","c":"statico"},{"a":"5 Skeleton → contenuto","b":"fade opacity 180 sul pannello, senza stagger","c":"80ms"},{"a":"5 Spinner pulsante","b":"rotate 0.8s linear infinite","c":"fermo"},{"a":"6 Pulsanti","b":"hover 120 colore; active 80 in, 120 rilascio, translateY(1px) scale(.98); focus ring subito","c":"colore 80, nessun transform"},{"a":"6 Righe e campi","b":"hover 120; stato visto 180; anello campo 120; focus subito","c":"80ms"},{"a":"6 Messaggi sotto i campi","b":"180, opacity + translateY(-4px); nessuna uscita; altezza riservata","c":"80, solo opacity"},{"a":"7 Toast","b":"240 entra · 180 esce, opacity + translateY(12px)","c":"80ms, solo opacity"},{"a":"7 Cambio tema","b":"180, background-color e color solo su body, card, header, footer","c":"80ms"},{"a":"7 Barra fissa mobile","b":"240 · 180, translateY(100%) + opacity","c":"80ms, solo opacity"},{"a":"8 Selezionato + hover","b":"nessun cambio colore; active scala .98, 80ms","c":"colore 80, nessun transform"},{"a":"8 Touch","b":"active: colore + translateY(1px) scale(.98), 80 in · 120 rilascio","c":"solo colore 80"},{"a":"8 Focus ring","b":"nessuna transizione, nemmeno su outline-offset","c":"identico"},{"a":"8 Segna tutti","b":"righe 120, nessun tratto, barre 240","c":"80ms"},{"a":"8 Barre rimontate","b":"nessun riempimento da 0 al rimontaggio; cambio valore 240","c":"nessuna transizione"},{"a":"8 Poster in caricamento","b":"segnaposto subito; pulse dopo 200ms; immagine fade 180","c":"segnaposto fermo, fade 80"},{"a":"8 Pulsante spinner","b":"spinner dopo 200ms, 0.8s linear","c":"icona ferma"},{"a":"8 Errore Confirm","b":"180, opacity + translateY(-4px), poi live","c":"80, solo opacity"},{"a":"8 Swipe sheet / popup Profilo","b":"nessuna transizione col dito; rilascio 180; velo proporzionale","c":"gesto resta, rientro senza animazione"}],
+      rulesGroups: [
+        { title: 'Verifica manuale: come', rules: [
+          'Apri il sito in Chrome, DevTools > More tools > Animations: ogni azione registra una riga con durata e curva. Confronta con la colonna “Normale”.',
+          'Per reduced motion: DevTools > Rendering > Emulate CSS media feature prefers-reduced-motion: reduce. Ripeti la tabella con la colonna “Reduced”. Non devono comparire transform, cicli infiniti né altezze animate.',
+          'Controlla anche: focus che torna al trigger all’inizio dell’uscita, riapertura a metà uscita, nessun salto di layout, tema senza flash al primo caricamento.',
+          'Durata attesa = valore del token; se vedi 150, 200, 220, 250 o 280ms c’è un valore vecchio rimasto.' ] },
+        { title: 'Animazioni di uscita: quando servono', rules: [
+          'Servono quando l’elemento sta sopra il contenuto e l’utente lo ha invocato: popup, bottom sheet, menu, toast, banner, tooltip, barra fissa. Senza uscita sembrano un taglio.',
+          'Non servono quando l’elemento viene sostituito sul posto: pannello di una tab, skeleton che diventa contenuto, messaggio di errore che sparisce, spunta tolta, riga rimossa, loghi e immagini che cambiano.',
+          'Durata dell’uscita: un gradino sotto l’entrata (240→180, 180→120, 120→80). Stessa curva, spostamento uguale o più corto, nessun ritardo.',
+          'L’uscita non blocca: l’elemento ha pointer-events none appena parte, il focus torna al trigger all’inizio, e si può riaprire a metà (transizioni, non keyframe, per i toggle).',
+          'Elementi montati solo da aperti (menu non nativi): nessuna uscita, a qualunque altezza. L’uscita si fa solo se l’elemento è nativo (dialog, popover) o resta nel DOM durante l’uscita. Nessuna regola basata sull’altezza.',
+          'Nessuna uscita su azioni da tastiera ripetute o su elementi sotto i 40px che cambiano solo colore.' ] },
+        { title: 'Stagger', rules: [
+          'Passo 30ms (--stagger-step), tempo massimo di ritardo 150ms (--stagger-max): al massimo 6 elementi sfasati, dal sesto in poi partono insieme al sesto. Con la durata, la sequenza finisce in meno di 400ms.',
+          'Ammesso solo per “Collapse all / Expand all” delle fasi e per l’ingresso della prima schermata di una lista. Mai su scroll, filtri, skeleton, voci di menu, campi di un form, tab.',
+          'Reduced motion: stagger a 0.' ] },
+        { title: 'Regole generali', rules: [
+          'Si animano opacity, transform e colori. Altezza e larghezza solo per accordion, barra compatta e riempimento delle barre di progresso.',
+          'Sempre proprietà elencate, mai transition: all. Una sola curva, --ease-out; solo i cicli infiniti (spinner lineare, skeleton ease-in-out) fanno eccezione.',
+          'Reduced motion: --dur-hover, --dur-ui e --dur-enter scendono a 80ms, --dur-progress a 0, tooltip e stagger senza ritardo. Restano solo cambi di colore e opacità; transform, altezze, keyframe e cicli sono disattivati (i componenti li dichiarano dentro @media (prefers-reduced-motion: no-preference)).',
+          'Mai animare al primo caricamento della pagina, dopo azioni da tastiera ripetute, né bloccare l’interazione durante una transizione.',
+          'Il focus ring non si anima: compare subito.' ] },
+      ],
+    };
+  }
+}
+
+</script>
+</body>
+</html>

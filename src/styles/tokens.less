@@ -1,7 +1,6 @@
 @import "variables";
 
-// Source of truth: the design system tokens.css. Legacy names (--red, --gold, --muted, --surface-2)
-// stay as aliases so existing components keep working.
+// Source of truth: the design system tokens.css (docs/design/tokens.css).
 .light-tokens() {
   color-scheme: light;
   --bg: #e9ecf1;
@@ -9,7 +8,6 @@
   --row: #e9ecf1;
   --row-hover: #dce0e8;
   --row-press: #cdd2dc;
-  --surface-2: var(--row-hover);
   --disabled: #cdd2dc;
   --ink: #14171f;
   --ink-2: #4d5465;
@@ -17,7 +15,7 @@
   --accent: #c8202b;
   --accent-hover: #b01b25;
   --accent-active: #8f1520;
-  --red-text: #b01b25;
+  --accent-text: #b01b25;
   --danger: #b3261e;
   --danger-text: #a11f18;
   --on-danger: #ffffff;
@@ -27,8 +25,8 @@
   --panel: #14171f;
   --panel-2: #262b38;
   --panel-3: #14171f;
-  --phase-hover: var(--row-hover);
-  --phase-press: var(--row-press);
+  --ink-hover: color-mix(in srgb, var(--ink), var(--surface) 12%);
+  --ink-press: color-mix(in srgb, var(--ink), var(--surface) 24%);
   --row-open-hover: #262b38;
   --row-open-press: #323a50;
   --primary: var(--accent);
@@ -39,7 +37,6 @@
   --shadow-card:
     inset 0 0 0 1px rgba(20, 23, 31, 0.05), 0 1px 2px rgba(20, 23, 31, 0.05),
     0 16px 32px -20px rgba(20, 23, 31, 0.18);
-  --shadow-popup: 0 24px 64px rgba(20, 23, 31, 0.28);
   --scrim: rgba(20, 23, 31, 0.6);
   --sb-thumb: rgba(20, 23, 31, 0.5);
   --sb-thumb-hover: rgba(20, 23, 31, 0.7);
@@ -57,7 +54,7 @@
   --ink: #f2f4f8;
   --ink-2: #b4bbcc;
   --line: rgba(242, 244, 248, 0.18);
-  --red-text: #f05a63;
+  --accent-text: #f05a63;
   --danger: #f2766e;
   --danger-text: #f2766e;
   --on-danger: #14171f;
@@ -67,6 +64,8 @@
   --panel: #3a4260;
   --panel-2: #2c3346;
   --panel-3: #1b202c;
+  --ink-hover: color-mix(in srgb, var(--ink), var(--surface) 12%);
+  --ink-press: color-mix(in srgb, var(--ink), var(--surface) 24%);
   --row-open-hover: #2c3346;
   --row-open-press: #1b202c;
   --primary: var(--highlight);
@@ -75,7 +74,6 @@
   --primary-hover-on-panel: var(--highlight-hover);
   --on-primary: #0b0d12;
   --shadow-card: inset 0 0 0 1px rgba(242, 244, 248, 0.1);
-  --shadow-popup: none;
   --scrim: rgba(0, 0, 0, 0.55);
   --focus: 3px solid var(--highlight);
   --sb-thumb: rgba(242, 244, 248, 0.5);
@@ -99,26 +97,21 @@
   --muted-on-dark: #a9b0c2;
   --deepest: #0b0d12;
 
-  // Legacy aliases.
-  --muted: var(--ink-2);
-  --red: var(--accent);
-  --accent-text: var(--red-text);
   --on-accent: var(--white);
-  --gold: var(--highlight);
-  --cell-off: var(--disabled);
-  --panel-ink: var(--on-dark);
-  --panel-muted: var(--muted-on-dark);
-  --on-gold: var(--ink-static);
-  --on-red: var(--white);
 
   --sp-1: 4px;
+  --sp-1h: 6px;
   --sp-2: 8px;
+  --sp-2h: 10px;
   --sp-3: 12px;
+  --sp-3h: 14px;
   --sp-4: 16px;
   --sp-5: 20px;
   --sp-6: 24px;
   --sp-8: 32px;
+  --sp-10: 40px;
   --sp-12: 48px;
+  --sp-14: 56px;
   --sb-size: 12px;
   --pad-popup: 28px;
   --gap: 8px;
@@ -129,6 +122,15 @@
   --pad-hero: 32px 36px;
   --pad-strip: 24px 36px;
   --pad-card: 8px;
+  --row-open-fade: linear-gradient(
+    #000,
+    rgba(0, 0, 0, 0.92) 20%,
+    rgba(0, 0, 0, 0.72) 42%,
+    rgba(0, 0, 0, 0.42) 62%,
+    rgba(0, 0, 0, 0.18) 80%,
+    rgba(0, 0, 0, 0.05) 92%,
+    transparent
+  );
 
   --r-pill: 999px;
   --r-xl: 32px;
@@ -153,19 +155,17 @@
   --fs-overline: 13px;
 
   --row-h: 56px;
+  --header-h: 76px;
   --tap: 44px;
   --focus: 3px solid var(--accent);
   --focus-offset: 3px;
   --popover-w: 360px;
   --popover-gap: 8px;
 
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   // Five durations; an exit runs one step shorter than its entrance (240 to 180, 180 to 120, 120 to 80).
   --dur-press: 80ms;
-  --dur-hover: 200ms;
-  --dur-row: 350ms;
-  --dur-chevron: 400ms;
-  --dur-reveal: 380ms;
+  --dur-hover: 120ms;
   --dur-ui: 180ms;
   --dur-enter: 240ms;
   --dur-progress: 600ms;
@@ -174,7 +174,6 @@
   --delay-pending: 200ms;
   --stagger-step: 30ms;
   --stagger-max: 150ms;
-  --strip-on-panel-off: #3a4260;
   --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
   --font-body: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
   --floating-progress-height: 5rem;
@@ -190,7 +189,6 @@
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-hover: 80ms;
-    --dur-row: 80ms;
     --dur-ui: 80ms;
     --dur-enter: 80ms;
     --dur-progress: 0ms;

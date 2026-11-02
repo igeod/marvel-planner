@@ -21,7 +21,7 @@
 .before-you-watch__list {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: var(--sp-1h);
 }
 
 // Mobile: level on its own line, then the title on the left and its state on the right, so a
@@ -31,14 +31,14 @@
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 0 12px;
-  padding: 10px 14px;
+  padding: var(--sp-2h) var(--sp-3h);
   border-radius: @radius-sub;
-  background: var(--surface-2);
+  background: var(--row-hover);
 
   .desktop({
     grid-template-columns: 110px minmax(0, 1fr) auto;
     gap: 4px 12px;
-    padding: 10px 16px;
+    padding: var(--sp-2h) 16px;
   });
 }
 
@@ -47,9 +47,9 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 10px 14px;
+  padding: var(--sp-2h) var(--sp-3h);
   border-radius: var(--r-input);
-  background: var(--surface-2);
+  background: var(--row-hover);
 
   .desktop({ padding: 10px 16px; });
 
@@ -58,7 +58,7 @@
     width: 18px;
     height: 18px;
     stroke-width: 3;
-    color: var(--gold);
+    color: var(--highlight);
   }
 }
 
@@ -94,11 +94,11 @@
 }
 
 .prereq__state--done {
-  color: var(--gold);
+  color: var(--highlight);
 }
 
 .prereq__state--todo {
-  color: var(--muted);
+  color: var(--ink-2);
 }
 
 .prereq__reason {
@@ -122,10 +122,10 @@
   .touch-target();
   padding: 0 12px;
   border-radius: var(--r-row);
-  color: var(--gold);
+  color: var(--highlight);
   font-weight: 700;
 
-  .on-hover({ background: var(--surface-2); });
+  .on-hover({ background: var(--row-hover); });
 
   &:active {
     background: var(--raised-2);

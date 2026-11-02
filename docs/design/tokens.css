@@ -1,0 +1,63 @@
+/* Design tokens: Marvel Planner. Fonte: Typography, Colors, Spacing, Boxes. */
+:root{color-scheme:light;
+  --font-display:'Anton',Impact,sans-serif;
+  --font-body:'Hanken Grotesk',system-ui,sans-serif;
+  --ink:#14171F;--ink-static:#14171F;--line:rgba(20,23,31,.12);--panel:#14171F;--panel-2:#262B38;--panel-3:#14171F;--ink-2:#4D5465;--on-dark:#F2F4F8;--white:#fff;
+  --accent:#C8202B;--accent-hover:#B01B25;--accent-active:#8F1520;
+  --accent-on-dark:#E0343E;--accent-text:#B01B25;--on-accent:#fff;--highlight:#F2B01E;--highlight-hover:#FFC23D;--highlight-active:#E09F10;
+  --bg:#E9ECF1;--surface:#F7F8FA;--row:#E9ECF1;--row-hover:#DCE0E8;--disabled:#CDD2DC;
+  --raised:#262B38;--raised-2:#323A50;--raised-3:#3A4260;--muted-on-dark:#A9B0C2;--deepest:#0B0D12;
+  --sp-1:4px;--sp-1h:6px;--sp-2:8px;--sp-2h:10px;--sp-3:12px;--sp-3h:14px;--sp-4:16px;--sp-5:20px;--sp-6:24px;--sp-8:32px;--sp-10:40px;--sp-12:48px;--sp-14:56px;
+  --gap:8px;--gap-section:32px;--page-margin:48px;--content-max:1440px;
+  --r-pill:999px;--r-xl:32px;--r-lg:28px;--r-md:24px;--r-row:22px;--r-sm:18px;--r-input:16px;--r-xs:14px;--r-chip:10px;--r-tiny:6px;--r-hair:2px;
+  --pad-hero:32px 36px;--pad-strip:24px 36px;--pad-card:8px;--pad-popup:28px;--row-h:56px;--header-h:76px;--tap:44px;
+  --fs-display:clamp(48px,8vw,96px);--fs-h1:clamp(36px,5vw,64px);--fs-h2:28px;--fs-h3:20px;--fs-title:18px;--fs-body:16px;--fs-label:14px;--fs-button:15px;--fs-caption:13px;--fs-overline:13px;
+  --row-open-fade:linear-gradient(#000,rgba(0,0,0,.92) 20%,rgba(0,0,0,.72) 42%,rgba(0,0,0,.42) 62%,rgba(0,0,0,.18) 80%,rgba(0,0,0,.05) 92%,transparent);
+  --shadow-card:inset 0 0 0 1px rgba(20,23,31,.05),0 1px 2px rgba(20,23,31,.05),0 16px 32px -20px rgba(20,23,31,.18);
+  /* Movimento: una curva, cinque durate, nessun ease-in. Uscita = un gradino sotto l'entrata (240→180, 180→120, 120→80). Vedi Motion.dc.html */
+  --ease-out:cubic-bezier(.23,1,.32,1);
+  --dur-press:80ms;--dur-hover:120ms;--dur-ui:180ms;--dur-enter:240ms;--dur-progress:600ms;
+  --delay-tooltip:400ms;--delay-pending:200ms;--stagger-step:30ms;--stagger-max:150ms;
+  --focus:3px solid var(--accent);--focus-offset:3px;--focus-on-inverse:3px solid var(--highlight);
+  --danger:#B3261E;--danger-text:#A11F18;--on-danger:#fff;--on-disabled:#4D5465;
+  --primary:var(--accent);--primary-hover:var(--accent-hover);--primary-press:#A81A24;--primary-hover-on-panel:#DC3039;--on-primary:var(--white);
+  --ink-hover:color-mix(in srgb,var(--ink),var(--surface) 12%);--ink-press:color-mix(in srgb,var(--ink),var(--surface) 24%);--row-press:#CDD2DC;--row-open-hover:#262B38;--row-open-press:#323A50;--scrim:rgba(20,23,31,.6);
+  --shadow-pop:0 2px 4px rgba(20,23,31,.08),0 20px 40px -16px rgba(20,23,31,.32);--popover-w:360px;--popover-gap:8px;
+  --sb-size:12px;--sb-thumb:rgba(20,23,31,.5);--sb-thumb-hover:rgba(20,23,31,.7);--sb-track:transparent;
+}
+@media (max-width:1023px){:root{--page-margin:32px}}
+@media (max-width:639px){:root{--page-margin:16px;--gap-section:24px}}
+[data-theme="dark"]{color-scheme:dark;
+  --sb-thumb:rgba(242,244,248,.5);--sb-thumb-hover:rgba(242,244,248,.75);
+  --accent-text:#F05A63;--focus:3px solid var(--highlight);--focus-on-inverse:3px solid var(--ink-static);
+  --danger:#F2766E;--danger-text:#F2766E;--on-danger:#14171F;
+  --primary:var(--highlight);--primary-hover:var(--highlight-hover);--primary-press:var(--highlight-active);--primary-hover-on-panel:var(--highlight-hover);--on-primary:var(--deepest);
+  --ink-hover:color-mix(in srgb,var(--ink),var(--surface) 12%);--ink-press:color-mix(in srgb,var(--ink),var(--surface) 24%);--row-press:#454E70;--row-open-hover:#2C3346;--row-open-press:#1B202C;--scrim:rgba(0,0,0,.55);--on-disabled:#F2F4F8;--shadow-pop:inset 0 0 0 1px rgba(242,244,248,.12),0 20px 40px -16px rgba(0,0,0,.6);
+  --bg:#0B0D12;--surface:#1B202C;--row:#2C3346;--row-hover:#3A4260;--disabled:#454E70;
+  --ink:#F2F4F8;--line:rgba(242,244,248,.18);--panel:#3A4260;--panel-2:#2C3346;--panel-3:#1B202C;--ink-2:#B4BBCC;--shadow-card:inset 0 0 0 1px rgba(242,244,248,.1);
+}
+/* Reduced motion: restano solo cambi di colore e opacità, brevi. Transform, altezze e keyframe si disattivano nei componenti (@media no-preference) */
+@media (prefers-reduced-motion:reduce){:root{--dur-hover:80ms;--dur-ui:80ms;--dur-enter:80ms;--dur-progress:.01ms;--delay-tooltip:0ms;--stagger-step:0ms;--stagger-max:0ms}}
+/* Base: focus visibile, link accessibili, tap target */
+:focus-visible{outline:var(--focus);outline-offset:var(--focus-offset)}
+a{color:var(--accent-text)}a:hover{color:var(--accent-hover)}
+[data-theme="dark"] a:hover{color:var(--accent-on-dark)}
+button,[role="button"]{min-height:var(--tap);min-width:var(--tap)}
+a,button,[role="button"],[role="switch"],input,select{touch-action:manipulation}
+/* Rete di sicurezza: nessun keyframe né ciclo infinito (spinner, skeleton) con reduced motion */
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+/* Scrollbar: sottile, a pillola, senza frecce, solo con mouse (su touch resta quella nativa). Firefox usa le proprietà standard; dove esiste ::-webkit-scrollbar le proprietà standard tornano ad auto, altrimenti Chromium rimette la barra di sistema con le frecce. Vedi Scrollbar.dc.html */
+@media (hover:hover) and (pointer:fine){
+  *{scrollbar-width:thin;scrollbar-color:var(--sb-thumb) var(--sb-track)}
+  @supports selector(::-webkit-scrollbar){
+    *{scrollbar-width:auto;scrollbar-color:auto}
+    ::-webkit-scrollbar{width:var(--sb-size);height:var(--sb-size)}
+    ::-webkit-scrollbar-track{background:var(--sb-track)}
+    ::-webkit-scrollbar-thumb{background:var(--sb-thumb);border-radius:var(--r-pill);border:3px solid transparent;background-clip:content-box}
+    ::-webkit-scrollbar-thumb:hover{background:var(--sb-thumb-hover);background-clip:content-box}
+    ::-webkit-scrollbar-button{display:none;width:0;height:0}
+    ::-webkit-scrollbar-corner{background:transparent}
+  }
+}
+.scroll-y{overflow-y:auto;overscroll-behavior:contain;scrollbar-gutter:stable}
+.scroll-x{overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain}

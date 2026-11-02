@@ -105,7 +105,7 @@ dialog.dialog--profile {
 .profile__role {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--sp-1h);
   font-size: var(--fs-label);
   font-weight: 700;
   color: var(--ink-2);
@@ -245,7 +245,7 @@ dialog.dialog--profile {
     color: var(--surface);
 
     // Darkens on hover instead of turning grey.
-    .on-hover({ background: color-mix(in srgb, var(--ink) 82%, #000); });
+    .on-hover({ background: var(--ink-hover); });
   }
 
   @media (max-width: 639px) {

@@ -38,7 +38,7 @@
   width: 48px;
   height: 28px;
   border-radius: var(--r-xs);
-  background: var(--cell-off);
+  background: var(--disabled);
 
   &::after {
     content: "";
@@ -48,12 +48,12 @@
     width: 20px;
     height: 20px;
     border-radius: var(--r-chip);
-    background: var(--muted);
+    background: var(--ink-2);
   }
 }
 
 .switch__input:checked + .switch__track {
-  background: var(--red);
+  background: var(--accent);
 
   &::after {
     background: var(--white);
@@ -66,19 +66,6 @@
   outline-offset: var(--focus-offset);
 }
 
-// Hover, on the toggle only: track 12% darker.
-.switch__control {
-  .on-hover({
-    .switch__track {
-      background: color-mix(in srgb, var(--cell-off), #000 12%);
-    }
-
-    .switch__input:checked + .switch__track {
-      background: color-mix(in srgb, var(--red), #000 12%);
-    }
-  });
-}
-
 .switch__input:checked + .switch__track {
-  background: var(--red);
+  background: var(--accent);
 }

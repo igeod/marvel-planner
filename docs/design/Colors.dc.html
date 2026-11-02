@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>p,li{text-wrap:pretty}a{color:var(--accent-text)}a:hover{color:var(--accent-hover)}</style>
+</helmet>
+<div style="width:100%;max-width:var(--content-max);background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--gap-section);box-sizing:border-box">
+  <div>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:var(--fs-h1);line-height:1;text-transform:uppercase">Colori</h1>
+    <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">Base neutra fredda, un solo accento rosso, giallo per evidenziazione. I valori si leggono da tokens.css (questa pagina li mostra, non li ripete): cambiano lì e qui si aggiornano.</p>
+  </div>
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Palette</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ colors }}" as="c" hint-placeholder-count="8">
+        <div style="background:{{ c.bg }};color:{{ c.fg }};border-radius:var(--r-row);padding:var(--sp-5);min-height:150px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-3);box-sizing:border-box">
+          <div><b style="font-size:var(--fs-title)">{{ c.name }}</b><div style="font-size:var(--fs-label);font-weight:600">{{ c.hex }}</div></div>
+          <div style="font-size:var(--fs-label);font-weight:500"><code style="font-weight:700">{{ c.token }}</code><br>{{ c.use }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Derivati</h2>
+    <p style="margin:0;color:var(--ink-2);max-width:80ch;font-size:var(--fs-label)">Tinte per hover, premuto e superfici scure. Sono gli unici valori oltre alla palette.</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ derived }}" as="c" hint-placeholder-count="12">
+        <div style="background:{{ c.bg }};color:{{ c.fg }};border-radius:var(--r-row);padding:var(--sp-4);min-height:96px;display:flex;flex-direction:column;justify-content:space-between;gap:var(--sp-2);box-sizing:border-box"><b style="font-size:var(--fs-label)">{{ c.token }}</b><div style="font-size:var(--fs-caption);font-weight:600">{{ c.hex }}, {{ c.use }}</div></div>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:var(--panel);color:var(--on-dark);border-radius:var(--r-xl);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)">
+    <h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Ruoli: chiaro e scuro</h2>
+    <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.6fr);gap:var(--sp-2) var(--sp-4);padding:0 var(--sp-5);font-size:var(--fs-label);font-weight:700;color:var(--muted-on-dark)"><span>Token</span><span>Chiaro</span><span>Scuro</span><span>Uso</span></div>
+    <sc-for list="{{ roles }}" as="d" hint-placeholder-count="26">
+      <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) minmax(0,1fr) minmax(0,1.6fr);gap:var(--sp-2) var(--sp-4);background:var(--panel-2);border-radius:var(--r-input);padding:var(--sp-3) var(--sp-5);font-size:var(--fs-label);align-items:center"><code style="font-weight:700">{{ d.token }}</code><span style="display:flex;align-items:center;gap:var(--sp-2);min-width:0"><span style="flex:none;width:20px;height:20px;border-radius:var(--r-tiny);background:{{ d.lightBg }};box-shadow:inset 0 0 0 1px var(--line)"></span><code style="color:var(--muted-on-dark);overflow-wrap:anywhere">{{ d.light }}</code></span><span style="display:flex;align-items:center;gap:var(--sp-2);min-width:0"><span style="flex:none;width:20px;height:20px;border-radius:var(--r-tiny);background:{{ d.darkBg }};box-shadow:inset 0 0 0 1px var(--line)"></span><code style="color:var(--highlight-hover);overflow-wrap:anywhere">{{ d.dark }}</code></span><span style="color:var(--muted-on-dark)">{{ d.use }}</span></div>
+    </sc-for>
+  </section>
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Ombre</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ shadows }}" as="s" hint-placeholder-count="2">
+        <div style="background:var(--bg);border-radius:var(--r-md);padding:var(--sp-8) var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-4)"><div style="background:var(--surface);border-radius:var(--r-row);box-shadow:{{ s.shadow }};padding:var(--sp-5);font-weight:800">{{ s.token }}</div><div style="font-size:var(--fs-label);color:var(--ink-2)">{{ s.use }}</div><code style="font-size:var(--fs-caption);overflow-wrap:anywhere;color:var(--ink-2)">chiaro: {{ s.light }}</code><code style="font-size:var(--fs-caption);overflow-wrap:anywhere;color:var(--ink-2)">scuro: {{ s.dark }}</code></div>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-2)">
+    <h2 style="margin:0 0 var(--sp-2);font-size:var(--fs-h3);font-weight:800">Coppie testo e sfondo</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:var(--sp-2)">
+      <sc-for list="{{ pairs }}" as="p" hint-placeholder-count="6">
+        <div style="background:{{ p.bg }};color:{{ p.fg }};border-radius:var(--r-row);padding:var(--sp-4) var(--sp-5);display:flex;justify-content:space-between;align-items:center;gap:var(--sp-3)"><b>{{ p.label }}</b><span style="font-size:var(--fs-label);font-weight:700">{{ p.ratio }}</span></div>
+      </sc-for>
+    </div>
+  </section>
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800">Regole</h2>
+    <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;color:var(--ink-2);max-width:90ch">
+      <li>Un solo blocco rosso pieno per vista (il prossimo da vedere). Il rosso non si usa per errori: errori in <code>--danger</code> / <code>--danger-text</code> con icona.</li>
+      <li><code>--highlight</code> per selezione testo, barre su blocchi scuri e badge; testo sopra sempre <code>--ink-static</code>.</li>
+      <li><code>--primary</code> è l’azione principale: rosso su chiaro, giallo su scuro (il rosso su sfondi scuri non raggiunge 3:1). Il pulsante distruttivo resta <code>--accent</code> in entrambi i temi.</li>
+      <li>Superfici: pagina <code>--bg</code>, card <code>--surface</code>, riga dentro la card <code>--row</code>. Blocchi scuri <code>--panel</code> con testo <code>--on-dark</code>.</li>
+      <li>Testo secondario <code>--ink-2</code> non scende mai sotto 4.5:1; mai opacità per attenuare il testo.</li>
+      <li>Stato mai affidato solo al colore: sempre icona o etichetta.</li>
+      <li>Focus: <code>--focus</code> (rosso su chiaro, giallo su scuro), offset <code>--focus-offset</code>; su sfondi scuri <code>--focus-on-inverse</code>.</li>
+    </ul>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  probe(theme) {
+    const el = document.createElement('div');
+    if (theme) el.setAttribute('data-theme', theme);
+    el.style.cssText = 'position:absolute;visibility:hidden;pointer-events:none';
+    document.body.appendChild(el);
+    const cs = getComputedStyle(el);
+    const get = t => cs.getPropertyValue(t).trim();
+    return { get, done: () => el.remove() };
+  }
+  renderVals() {
+    const L = this.probe('light'), D = this.probe('dark');
+    const v = (t) => 'var(' + t + ')';
+    const c = (name, token, fg, use) => ({ name, token, bg: v(token), fg: v(fg), hex: L.get(token), use });
+    const d = (token, fg, use) => ({ token, bg: v(token), fg: v(fg), hex: L.get(token), use });
+    const r = (token, use) => ({ token, use, light: L.get(token), dark: D.get(token), lightBg: 'var(' + token + ')', darkBg: D.get(token) });
+    const p = (label, bg, fg, ratio) => ({ label, bg: v(bg), fg: v(fg), ratio });
+    const s = (token, use) => ({ token, use, shadow: v(token), light: L.get(token), dark: D.get(token) });
+    const out = {
+      colors: [c('Ink', '--ink', '--on-dark', 'Testo primario, blocchi di rilievo'), c('Slate', '--ink-2', '--white', 'Testo secondario, meta'), c('Rosso', '--accent', '--white', 'Accento, prossimo da vedere'), c('Giallo', '--highlight', '--ink-static', 'Selezione, barre su scuro, badge'), c('Sfondo', '--bg', '--ink', 'Pagina e righe interne'), c('Card', '--surface', '--ink', 'Card e contenitori'), c('Bianco', '--white', '--ink', 'Testo su rosso'), c('Testo su scuro', '--on-dark', '--ink-static', 'Testo su --panel')],
+      derived: [d('--accent-hover', '--white', 'hover rosso'), d('--accent-active', '--white', 'premuto rosso'), d('--highlight-hover', '--ink-static', 'hover giallo'), d('--highlight-active', '--ink-static', 'premuto giallo'), d('--row-hover', '--ink', 'hover riga'), d('--disabled', '--on-disabled', 'disabilitato, tracce'), d('--raised', '--on-dark', 'superficie su scuro'), d('--raised-2', '--on-dark', 'hover su scuro'), d('--raised-3', '--on-dark', 'premuto su scuro'), d('--muted-on-dark', '--ink-static', 'secondario su scuro'), d('--deepest', '--on-dark', 'sfondo scuro estremo'), d('--accent-on-dark', '--white', 'rosso su scuro')],
+      roles: [r('--bg', 'pagina'), r('--surface', 'card'), r('--row', 'riga'), r('--row-hover', 'hover riga, opzione'), r('--row-press', 'premuta riga, opzione'), r('--disabled', 'disabilitato'), r('--ink', 'testo primario'), r('--ink-2', 'testo secondario'), r('--ink-hover', 'hover su sfondo --ink'), r('--ink-press', 'premuto su sfondo --ink'), r('--line', 'linee sottili'), r('--accent-text', 'testo e link rossi'), r('--danger', 'errore'), r('--danger-text', 'testo errore'), r('--primary', 'azione principale'), r('--primary-hover', 'hover principale'), r('--primary-press', 'premuto principale'), r('--primary-hover-on-panel', 'hover principale su blocco scuro'), r('--on-primary', 'testo sul principale'), r('--panel', 'blocco scuro'), r('--panel-2', 'elemento su blocco scuro'), r('--panel-3', 'terzo livello scuro'), r('--row-open-hover', 'sfumatura riga aperta'), r('--row-open-press', 'sfumatura riga aperta, premuta'), r('--scrim', 'sfondo di popup e sheet'), r('--on-disabled', 'testo disabilitato'), r('--focus', 'anello di focus')],
+      shadows: [s('--shadow-card', 'card a riposo'), s('--shadow-pop', 'select, menu, popup')],
+      pairs: [p('Ink su Sfondo', '--bg', '--ink', '15:1'), p('Ink su Card', '--surface', '--ink', '16:1'), p('Slate su Card', '--surface', '--ink-2', '7:1'), p('Slate su Sfondo', '--bg', '--ink-2', '6:1'), p('On-dark su Panel', '--panel', '--on-dark', '16:1'), p('Bianco su Rosso', '--accent', '--white', '5.7:1'), p('Ink su Giallo', '--highlight', '--ink-static', '9:1')]
+    };
+    L.done(); D.done();
+    return out;
+  }
+}
+</script>
+</body>
+</html>

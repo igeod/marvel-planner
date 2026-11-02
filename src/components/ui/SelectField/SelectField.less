@@ -14,11 +14,11 @@
 .select-field__label {
   font-size: var(--fs-label);
   font-weight: 700;
-  color: var(--muted);
+  color: var(--ink-2);
 }
 
 .on-panel .select-field__label {
-  color: var(--panel-muted);
+  color: var(--muted-on-dark);
 }
 
 .select-field__trigger {
@@ -28,13 +28,13 @@
   min-height: 48px;
   padding: 0 16px;
   .pill();
-  background: var(--surface-2);
+  background: var(--row-hover);
   color: var(--ink);
   font-weight: 600;
   text-align: left;
 
   &:focus-visible {
-    outline-color: var(--gold);
+    outline-color: var(--highlight);
     outline-offset: 3px;
   }
 
@@ -58,7 +58,7 @@
 
 .on-panel .select-field__trigger {
   background: var(--panel-2);
-  color: var(--panel-ink);
+  color: var(--on-dark);
   .tones(var(--raised-2), var(--raised-3));
 
   &[aria-expanded="true"] {
@@ -118,16 +118,21 @@
   overflow-x: hidden;
   overflow-y: auto;
   overscroll-behavior: contain;
-  scrollbar-gutter: stable;
+  scrollbar-gutter: auto;
   border: 0;
+  box-shadow: var(--shadow-pop);
   background: var(--surface);
   color: var(--ink);
 }
 
+.select-field--popover .select-field__list:not(:popover-open) {
+  display: none;
+}
+
 .select-field--inline .select-field__list {
-  margin-top: 6px;
+  margin-top: var(--sp-1h);
   background: var(--panel-2);
-  color: var(--panel-ink);
+  color: var(--on-dark);
 }
 
 .select-field__option {
@@ -150,7 +155,7 @@
 }
 
 .select-field__option {
-  .tones(var(--row-hover), var(--disabled));
+  .tones(var(--row-hover), var(--row-press));
 }
 
 .select-field--inline .select-field__option {
@@ -158,32 +163,36 @@
 }
 
 .select-field__option[data-active="true"] {
-  outline: 3px solid var(--red);
+  outline: var(--focus);
   outline-offset: -3px;
 }
 
 .select-field--inline .select-field__option[data-active="true"] {
-  outline-color: var(--gold);
+  outline-color: var(--highlight);
 }
 
 .select-field__option[aria-selected="true"] {
   background: var(--ink);
   color: var(--bg);
   font-weight: 800;
-  .tones(var(--raised), var(--raised));
+  .tones(var(--ink-hover), var(--ink-press));
 }
 
 .select-field--inline .select-field__option[aria-selected="true"] {
-  background: var(--gold);
-  color: var(--on-gold);
-  .tones(var(--gold), var(--gold));
+  background: var(--highlight);
+  color: var(--ink-static);
+  .tones(var(--highlight), var(--highlight));
 }
 
 .select-field__list:focus-visible {
-  outline: 3px solid var(--red);
+  outline: var(--focus);
   outline-offset: 2px;
 }
 
 .select-field--inline .select-field__list:focus-visible {
-  outline-color: var(--gold);
+  outline-color: var(--highlight);
+}
+
+.select-field__trigger[aria-expanded="true"] {
+  background: var(--row-hover);
 }

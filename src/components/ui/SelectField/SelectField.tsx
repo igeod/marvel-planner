@@ -100,11 +100,16 @@ function CustomSelect({
     );
     list.style.left = `${result.left}px`;
     list.style.top = `${result.top}px`;
+    list.dataset.placement = result.placement;
   }, [isPopover]);
 
   useEffect(() => {
     const list = listRef.current;
-    if (!isOpen || !list) return;
+    if (!list) return;
+    if (!isOpen) {
+      if (isPopover && list.matches(":popover-open")) list.hidePopover();
+      return;
+    }
 
     if (isPopover) {
       list.showPopover();
@@ -127,7 +132,6 @@ function CustomSelect({
       document.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("resize", position);
       window.removeEventListener("scroll", position, true);
-      if (isPopover && list.matches(":popover-open")) list.hidePopover();
     };
   }, [isOpen, isPopover, position, close]);
 
@@ -200,6 +204,7 @@ function CustomSelect({
       aria-labelledby={labelId}
       aria-activedescendant={optionId(activeIndex)}
       popover={isPopover ? "manual" : undefined}
+      data-open={!isPopover && isOpen ? "" : undefined}
       onKeyDown={onListKeyDown}
       onBlur={(event) => {
         if (!wrapperRef.current?.contains(event.relatedTarget as Node | null)) close(false);
@@ -254,7 +259,7 @@ function CustomSelect({
         </span>
         <Chevron />
       </button>
-      {isOpen && list}
+      {list}
     </div>
   );
 }

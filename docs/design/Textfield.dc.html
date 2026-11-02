@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>button,input{font:inherit;color:inherit}button{border:0;background:none;padding:0;cursor:pointer;text-align:inherit}@media (prefers-reduced-motion:reduce){*,*::before,*::after{transition-duration:.01ms!important}}p,li{text-wrap:pretty}h1,h2,h3{text-wrap:balance}:focus-visible{outline:3px solid var(--accent);outline-offset:3px}::selection{background:var(--highlight);color:var(--ink)}::placeholder{color:var(--ink-2);opacity:1}</style>
+</helmet>
+<div style="width:100%;max-width:1440px;overflow-x:auto;background:radial-gradient(900px 420px at 90% -4%,var(--surface),rgba(247,248,250,0) 70%),var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-8);box-sizing:border-box">
+  <div>
+    <h1 style="margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(40px,8vw,64px);line-height:1;text-transform:uppercase;letter-spacing:.01em">Textfield</h1>
+    <p style="margin:var(--sp-3) 0 0;max-width:72ch;color:var(--ink-2)">Single-line text input: nickname, email, password. A visible label sits above the field, the field sits one step off the surface it is on, and there is no border. The search pill in the planner is the one variant.</p>
+  </div>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Anatomy</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2);outline:2px dashed var(--disabled);outline-offset:8px;margin:8px">
+        <div style="display:flex;justify-content:space-between;gap:var(--sp-3)"><span style="font-size:var(--fs-label);font-weight:600">Label</span><span style="font-size:var(--fs-label);color:var(--ink-2)">13/30</span></div>
+        <div style="height:48px;border-radius:var(--r-input);background:var(--bg);padding:0 var(--sp-4);display:flex;align-items:center">Value</div>
+        <span style="font-size:var(--fs-caption);color:var(--ink-2)">Helper text, 13px.</span>
+      </div>
+    </div>
+    <ol style="margin:0;padding-left:22px;display:flex;flex-direction:column;gap:10px;font-size:var(--fs-button)">
+      <li><b>Label</b> 14px / 600, always visible above the field, linked with <code>for</code>. A placeholder never replaces it.</li>
+      <li><b>Counter</b> optional, right of the label, 14px muted, <code>current/max</code>. Use it when the field has a max length.</li>
+      <li><b>Field</b> height 48px, radius <code>--r-input</code> (16px), padding 0 16px, text 16px. No border.</li>
+      <li><b>Helper or error</b> 13px below the field, gap 8px. Errors add an icon and say how to fix it.</li>
+    </ol>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">States</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--sp-6) var(--sp-4)">
+      <sc-for list="{{ states }}" as="s" hint-placeholder-count="6">
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <span style="font-size:var(--fs-label);font-weight:600;color:{{ s.labelC }}">Label</span>
+          <div style="height:48px;border-radius:var(--r-input);background:{{ s.bg }};padding:0 var(--sp-4);display:flex;align-items:center;gap:var(--sp-2);box-shadow:{{ s.shadow }};outline:{{ s.outline }};outline-offset:var(--focus-offset);color:{{ s.fg }};opacity:{{ s.op }}">{{ s.val }}</div>
+          <div style="font-size:var(--fs-caption);color:var(--ink);display:flex;gap:6px;align-items:center;min-height:20px">{{ s.helper }}</div>
+          <span style="font-size:var(--fs-caption);font-weight:700;color:var(--ink-2)">{{ s.name }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-8)">
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Live</h2>
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <div style="display:flex;justify-content:space-between;gap:var(--sp-3)"><label for="tf-n" style="font-size:var(--fs-label);font-weight:600">Superhero name</label><span style="font-size:var(--fs-label);color:var(--ink-2);font-variant-numeric:tabular-nums">{{ len }}/30</span></div>
+        <input id="tf-n" type="text" name="nome" autocomplete="off" maxlength="30" value="{{ val }}" onInput="{{ set }}" aria-invalid="{{ bad }}" aria-describedby="tf-h" style="height:48px;border-radius:var(--r-input);background:{{ liveBg }};border:0;padding:0 var(--sp-4);width:100%;box-sizing:border-box;transition:box-shadow var(--dur-hover)" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)">
+        <div id="tf-h" role="status" style="font-size:var(--fs-caption);display:flex;gap:6px;align-items:center;min-height:20px">{{ liveHelp }}</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:var(--sp-3)">
+      <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Search variant</h2>
+      <label style="display:flex;align-items:center;gap:10px;height:var(--row-h);border-radius:var(--r-pill);padding:0 var(--sp-5);background:var(--bg);cursor:text" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true" style="flex:none"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-4-4"></path></svg><input type="search" aria-label="Search titles" placeholder="Search titles…" autocomplete="off" spellcheck="false" style="flex:1;min-width:0;height:100%;border:0;background:transparent;font-weight:600;outline-offset:6px"></label>
+      <p style="margin:0;font-size:var(--fs-label);color:var(--ink-2)">Pill, height <code>--row-h</code> (56px), 20px icon, aria-label instead of a visible label because the icon and placeholder state the purpose.</p>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-6)">
+    <div><h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Email and password</h2>
+    <p style="margin:var(--sp-2) 0 0;max-width:72ch;color:var(--ink-2)">Same field as above (48px, no border). Both add one control inside the right edge and a fixed validation pattern. Try them: type, leave the field, show the password.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:var(--sp-8)">
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <label for="tf-e" style="font-size:var(--fs-label);font-weight:600">Email</label>
+        <div style="position:relative;border-radius:var(--r-input)" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)">
+          <input id="tf-e" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="name@example.com" value="{{ em }}" onInput="{{ setEm }}" onBlur="{{ blurEm }}" aria-invalid="{{ emBad }}" aria-describedby="tf-eh" style="height:48px;border-radius:var(--r-input);background:{{ emBg }};border:0;padding:0 56px 0 var(--sp-4);width:100%;box-sizing:border-box;transition:background-color var(--dur-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)">
+          <sc-if value="{{ emFilled }}" hint-placeholder-val="{{ false }}"><button type="button" aria-label="Clear email" onClick="{{ clearEm }}" style="position:absolute;top:2px;right:2px;width:44px;height:44px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;color:var(--ink-2);transition:background-color var(--dur-hover)" style-hover="background:var(--row-hover);color:var(--ink)" style-active="transform:scale(.94)" style-focus="outline:var(--focus);outline-offset:0"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg></button></sc-if>
+        </div>
+        <div id="tf-eh" role="status" style="font-size:var(--fs-caption);display:flex;gap:6px;align-items:center;min-height:20px">{{ emHelp }}</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <div style="display:flex;justify-content:space-between;gap:var(--sp-3);align-items:baseline"><label for="tf-p" style="font-size:var(--fs-label);font-weight:600">Password</label><a href="#tf-p" style="font-size:var(--fs-label);font-weight:600">Forgot password?</a></div>
+        <div style="position:relative;border-radius:var(--r-input)" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)">
+          <input id="tf-p" type="{{ pType }}" autocomplete="current-password" autocapitalize="none" spellcheck="false" value="{{ pw }}" onInput="{{ setPw }}" onKeyUp="{{ capsCheck }}" onBlur="{{ blurPw }}" aria-invalid="{{ pwBad }}" aria-describedby="tf-ph" style="height:48px;border-radius:var(--r-input);background:{{ pwBg }};border:0;padding:0 56px 0 var(--sp-4);width:100%;box-sizing:border-box;transition:background-color var(--dur-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)">
+          <button type="button" aria-label="Show password" aria-pressed="{{ show }}" aria-controls="tf-p" onClick="{{ toggleShow }}" style="position:absolute;top:2px;right:2px;width:44px;height:44px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;color:var(--ink-2);transition:background-color var(--dur-hover)" style-hover="background:var(--row-hover);color:var(--ink)" style-active="transform:scale(.94)" style-focus="outline:var(--focus);outline-offset:0">
+            <sc-if value="{{ isHidden }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></sc-if>
+            <sc-if value="{{ show }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.9 4.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M2 2l20 20"></path></svg></sc-if>
+          </button>
+        </div>
+        <div id="tf-ph" role="status" style="font-size:var(--fs-caption);display:flex;gap:6px;align-items:center;min-height:20px">{{ pwHelp }}</div>
+        <span style="font-size:var(--fs-caption);color:var(--ink-2)">Log in: no rules shown, just the field, the toggle and the recovery link.</span>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <label for="tf-n1" style="font-size:var(--fs-label);font-weight:600">New password</label>
+        <div style="position:relative;border-radius:var(--r-input)" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)">
+          <input id="tf-n1" type="{{ nType }}" autocomplete="new-password" autocapitalize="none" spellcheck="false" value="{{ np }}" onInput="{{ setNp }}" onKeyUp="{{ capsCheck }}" aria-describedby="tf-rules tf-caps" style="height:48px;border-radius:var(--r-input);background:var(--bg);border:0;padding:0 56px 0 var(--sp-4);width:100%;box-sizing:border-box" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)">
+          <button type="button" aria-label="Show new password" aria-pressed="{{ showN }}" aria-controls="tf-n1" onClick="{{ toggleShowN }}" style="position:absolute;top:2px;right:2px;width:44px;height:44px;border-radius:var(--r-pill);display:flex;align-items:center;justify-content:center;color:var(--ink-2);transition:background-color var(--dur-hover)" style-hover="background:var(--row-hover);color:var(--ink)" style-active="transform:scale(.94)" style-focus="outline:var(--focus);outline-offset:0">
+            <sc-if value="{{ isHiddenN }}" hint-placeholder-val="{{ true }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg></sc-if>
+            <sc-if value="{{ showN }}" hint-placeholder-val="{{ false }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.9 4.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2M2 2l20 20"></path></svg></sc-if>
+          </button>
+        </div>
+        <ul id="tf-rules" style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px">
+          <sc-for list="{{ rules }}" as="r" hint-placeholder-count="3"><li style="display:flex;align-items:center;gap:var(--sp-2);font-size:var(--fs-caption);color:var(--ink)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex:none;color:{{ r.c }}"><path d="{{ r.d }}"></path></svg><span>{{ r.t }}</span><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)">{{ r.sr }}</span></li></sc-for>
+        </ul>
+        <div id="tf-caps" role="status" style="font-size:var(--fs-caption);display:flex;gap:6px;align-items:center;min-height:20px">{{ capsMsg }}</div>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+        <label for="tf-n2" style="font-size:var(--fs-label);font-weight:600">Confirm new password</label>
+        <div style="position:relative;border-radius:var(--r-input)" style-hover="box-shadow:inset 0 0 0 2px var(--row-hover)">
+          <input id="tf-n2" type="{{ nType }}" autocomplete="new-password" autocapitalize="none" spellcheck="false" value="{{ np2 }}" onInput="{{ setNp2 }}" onBlur="{{ blurNp2 }}" aria-invalid="{{ np2Bad }}" aria-describedby="tf-n2h" style="height:48px;border-radius:var(--r-input);background:{{ np2Bg }};border:0;padding:0 var(--sp-4);width:100%;box-sizing:border-box;transition:background-color var(--dur-hover)" style-focus="outline:var(--focus);outline-offset:var(--focus-offset)">
+        </div>
+        <div id="tf-n2h" role="status" style="font-size:var(--fs-caption);display:flex;gap:6px;align-items:center;min-height:20px">{{ np2Help }}</div>
+        <span style="font-size:var(--fs-caption);color:var(--ink-2)">Follows the show/hide state of the field above, so there is no second toggle.</span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-4)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Email and password: states</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--sp-6) var(--sp-4)">
+      <sc-for list="{{ epStates }}" as="s" hint-placeholder-count="8">
+        <div style="display:flex;flex-direction:column;gap:var(--sp-2)">
+          <span style="font-size:var(--fs-label);font-weight:600">{{ s.label }}</span>
+          <div style="height:48px;border-radius:var(--r-input);background:{{ s.bg }};padding:0 var(--sp-2) 0 var(--sp-4);display:flex;align-items:center;gap:var(--sp-2);box-shadow:{{ s.shadow }};outline:{{ s.outline }};outline-offset:var(--focus-offset);color:{{ s.fg }}"><span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:{{ s.ls }}">{{ s.val }}</span><span style="width:44px;height:44px;flex:none;display:flex;align-items:center;justify-content:center;color:var(--ink-2)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="{{ s.icon }}"></path></svg></span></div>
+          <div style="font-size:var(--fs-caption);min-height:20px">{{ s.helper }}</div>
+          <span style="font-size:var(--fs-caption);font-weight:700;color:var(--ink-2)">{{ s.name }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Email and password: rules</h2>
+    <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:100ch;font-size:var(--fs-button)">
+      <li><b>Email attributes:</b> <code>type="email"</code>, <code>inputmode="email"</code>, <code>autocomplete="email"</code>, <code>autocapitalize="none"</code>, <code>spellcheck="false"</code>. Placeholder is an example address, never "Enter your email".</li>
+      <li><b>Email filled:</b> text <code>--ink</code>, 16px, one line, ellipsis at the end when long. A <b>clear button</b> appears at the right edge only while there is text: 44x44, pill, icon X 18px stroke 2.4 in <code>--ink-2</code>; hover <code>--row-hover</code> and icon <code>--ink</code>; <code>aria-label="Clear email"</code>. It empties the field and returns focus to it. The input has <code>padding-right: 56px</code> so text never runs under the button. No clear button on password fields.</li>
+      <li><b>Email validation:</b> on blur and on submit, not while typing, and never before the first blur. Empty: "Enter your email." Malformed: "Use an address like name@example.com." Error clears as soon as the value becomes valid. Do not trim silently: trim whitespace on submit only. No green "valid" state; a valid field looks like a normal filled field.</li>
+      <li><b>Email in a profile:</b> an email that cannot change is disabled (<code>--disabled</code>, text <code>--ink-2</code>) with helper "Email cannot be changed here." When it can change, the submit button stays disabled until the value is different and valid.</li>
+      <li><b>Password attributes:</b> <code>type="password"</code> and <code>autocomplete="current-password"</code> to log in or confirm identity, <code>new-password</code> to create or change. Always <code>autocapitalize="none"</code>, <code>spellcheck="false"</code>. Never block paste or password managers, never <code>autocomplete="off"</code>. Placeholder empty.</li>
+      <li><b>Show / hide toggle (the eye):</b> 44x44 button, pill, inside the field at <code>top:2px; right:2px</code>; the input has <code>padding-right: 56px</code>. Icon Lucide eye (password hidden) or eye-off (password visible), 20px, stroke 2.2, <code>--ink-2</code>; hover background <code>--row-hover</code> and icon <code>--ink</code>; active <code>scale(.94)</code>; focus <code>outline: var(--focus)</code> offset 0. The icon shows the current state of the field, the button states the action.</li>
+      <li><b>Toggle accessibility:</b> <code>aria-label="Show password"</code> stays constant, <code>aria-pressed</code> switches true or false, <code>aria-controls</code> points at the input. Switching only changes <code>type</code> between <code>password</code> and <code>text</code>: keep the value, the caret position and the focus. Tab order: field, then toggle, then recovery link.</li>
+      <li><b>Visible state resets:</b> the password hides again after a successful submit, when the dialog closes and when the page is left. It stays visible while the user moves between fields.</li>
+      <li><b>Log-in password:</b> label on the left, "Forgot password?" link on the right of the label row (13px, 600, <code>--accent-text</code>, underline on hover). No rules, no counter, no strength. Error is generic and does not say which of email or password is wrong: "Email or password is incorrect."</li>
+      <li><b>New password:</b> the rules are always visible under the field as a list (13px). Each item has an icon and text, never color alone: not met is a dash in <code>--ink-2</code>, met is a check in <code>--ink</code> with a visually hidden "Met" or "Not met" for screen readers. Rules: at least 8 characters, a letter, a number. The field shows no error while typing; the list is the feedback. On submit with unmet rules, the field gets the error tint and the message "Use at least 8 characters with a letter and a number."</li>
+      <li><b>Confirm password:</b> no toggle of its own, it follows the field above. Validate on blur: "Passwords do not match." Re-check when the first field changes. <code>autocomplete="new-password"</code> on both.</li>
+      <li><b>Caps Lock:</b> while a password field has focus and Caps Lock is on, show "Caps Lock is on." in 13px with an alert icon under the field (<code>role="status"</code>). It disappears when Caps Lock is off or on blur.</li>
+      <li><b>Error look:</b> same as the base field: background tinted from <code>--accent</code> at 12%, message in <code>--ink</code> 13px with an alert icon, <code>aria-invalid="true"</code> and <code>aria-describedby</code>. The toggle and clear button keep their normal colors on the tint.</li>
+      <li><b>Submit:</b> pill 48px, disabled until the form is valid; Enter submits from any field. While sending, spinner inside the button and fields stay editable-looking but read-only. Messages from the server go in the helper line of the field they refer to, and focus moves to it.</li>
+      <li><b>Dark theme and mobile:</b> same tokens swap automatically. The toggle and clear buttons stay 44px on mobile; the keyboard is the email keyboard for email, and the first-letter capitalization is off.</li>
+    </ul>
+  </section>
+
+  <section style="background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-8);display:flex;flex-direction:column;gap:var(--sp-3)">
+    <h2 style="margin:0;font-size:var(--fs-h3);font-weight:800;letter-spacing:-.01em">Specification</h2>
+    <ul style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:6px;max-width:100ch;font-size:var(--fs-button)">
+      <li><b>Background:</b> one step off the surface behind it. On <code>--surface</code> (cards, popups) the field is <code>--bg</code>; on <code>--bg</code> (a panel inside a popup) the field is <code>--surface</code>. Never the same color as its container, never <code>--row</code> on <code>--bg</code>.</li>
+      <li><b>Size:</b> 48px high, radius 16px, padding 0 16px, text 16px (never smaller, so iOS does not zoom). Full width of its column; max 480px in forms. Search pill: 56px, radius pill.</li>
+      <li><b>No border.</b> Hover: inset 2px ring <code>--row-hover</code>. Focus: <code>outline: var(--focus)</code>, offset 2px, via <code>:focus-visible</code>. Pressing or typing does not change the surface.</li>
+      <li><b>Filled:</b> text <code>--ink</code>. Empty: placeholder in <code>--ink-2</code>, an example of the value, never an instruction that replaces the label.</li>
+      <li><b>Error:</b> background tinted from <code>--accent</code> at 12% over the base (<code>color-mix</code>), message below in <code>--ink</code> 13px with an alert icon, <code>aria-invalid="true"</code> and <code>aria-describedby</code> on the field. The message says what to do ("Use at least 3 characters"), never only "Invalid". Validate on blur or submit, not on the first keystroke.</li>
+      <li><b>Disabled:</b> background <code>--disabled</code>, text <code>--ink-2</code>, <code>cursor:not-allowed</code>. Prefer a disabled submit button over a disabled field; a field is disabled only when the value cannot change.</li>
+      <li><b>Counter:</b> shown when <code>maxlength</code> is set: 14px <code>--ink-2</code> tabular numbers, right of the label. Nickname max 30.</li>
+      <li><b>Types:</b> <code>text</code> with <code>autocomplete="nickname"</code>, <code>email</code> with <code>autocomplete="email"</code>, <code>password</code> with <code>current-password</code> or <code>new-password</code>. Password helper states the rule ("At least 8 characters"). A show or hide toggle is a 44x44 button inside the right edge, with <code>aria-pressed</code>.</li>
+      <li><b>Forms:</b> label to field gap 8px, field to field gap 20px, group to submit 24px. Submit is a pill, 48px, disabled until the form is valid; Enter submits.</li>
+      <li><b>Dark theme:</b> same tokens swap: field <code>--bg</code> on <code>--surface</code>, hover ring <code>--row-hover</code>, focus ring stays <code>--accent</code> on the dialog and <code>--highlight</code> on dark headers.</li>
+      <li><b>Mobile:</b> same height and text size. Full width, keyboard type matches the field type, labels never turn into floating placeholders.</li>
+    </ul>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1100,&quot;height&quot;:1500}}">
+class Component extends DCLogic {
+  state = { v: 'Capt', em: '', emT: false, pw: '', pwT: false, show: false, np: '', showN: false, np2: '', np2T: false, caps: false };
+  renderVals() {
+    const S = this.state, errBg = 'color-mix(in srgb,var(--accent) 12%,var(--bg))';
+    const ic2 = '! ';
+    const emOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(S.em.trim());
+    const emErr = S.emT && !emOk, emMsg = S.em.trim() === '' ? 'Enter your email.' : 'Use an address like name@example.com.';
+    const pwErr = S.pwT && S.pw === '';
+    const chk = 'M5 12l5 5L20 7', dash = 'M7 12h10';
+    const mkR = (t, ok) => ({ t, d: ok ? chk : dash, c: ok ? 'var(--ink)' : 'var(--ink-2)', sr: ok ? 'Met' : 'Not met' });
+    const np = S.np;
+    const np2Err = S.np2T && S.np2 !== np;
+    const mk2 = (label, name, o) => Object.assign({ label, name, bg: 'var(--bg)', shadow: 'none', outline: 'none', fg: 'var(--ink)', val: '', ls: 'normal', icon: '', helper: '' }, o);
+    const x = 'M6 6l12 12M18 6L6 18', eye = 'M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z', eyeOff = 'M2 2l20 20M9.9 9.9a3 3 0 0 0 4.2 4.2M6.6 6.6A17 17 0 0 0 2 12s3.5 7 10 7a9.7 9.7 0 0 0 5.4-1.6M9.9 4.2A10 10 0 0 1 12 5c6.5 0 10 7 10 7a17 17 0 0 1-3.2 4.2';
+    const ep = {
+      epStates: [
+        mk2('Email', 'Empty', { fg: 'var(--ink-2)', val: 'name@example.com' }),
+        mk2('Email', 'Filled, with clear button', { val: 'steve@example.com', icon: x }),
+        mk2('Email', 'Hover', { val: 'steve@example.com', shadow: 'inset 0 0 0 2px var(--row-hover)', icon: x }),
+        mk2('Email', 'Focus', { val: 'steve@example.com', outline: 'var(--focus)', icon: x }),
+        mk2('Email', 'Error', { bg: errBg, val: 'steve@', icon: x, helper: ic2 + 'Use an address like name@example.com.' }),
+        mk2('Email', 'Disabled', { bg: 'var(--disabled)', fg: 'var(--ink-2)', val: 'steve@example.com', helper: 'Email cannot be changed here.' }),
+        mk2('Password', 'Empty', { icon: eye }),
+        mk2('Password', 'Filled, hidden', { val: '••••••••••', ls: '.08em', icon: eye }),
+        mk2('Password', 'Filled, visible', { val: 'Avengers2026', icon: eyeOff }),
+        mk2('Password', 'Focus', { val: '••••••••••', ls: '.08em', outline: 'var(--focus)', icon: eye }),
+        mk2('Password', 'Caps Lock on', { val: '••••••••••', ls: '.08em', outline: 'var(--focus)', icon: eye, helper: ic2 + 'Caps Lock is on.' }),
+        mk2('Password', 'Error', { bg: errBg, val: '••••', ls: '.08em', icon: eye, helper: ic2 + 'Email or password is incorrect.' })
+      ],
+      em: S.em, emFilled: S.em.length > 0, emBad: emErr ? 'true' : 'false', emBg: emErr ? errBg : 'var(--bg)',
+      emHelp: emErr ? ic2 + emMsg : 'We never share it.',
+      setEm: e => this.setState({ em: e.target.value }), blurEm: () => this.setState({ emT: true }),
+      clearEm: () => { this.setState({ em: '', emT: false }); const i = document.getElementById('tf-e'); i && i.focus(); },
+      pw: S.pw, pType: S.show ? 'text' : 'password', show: S.show, isHidden: !S.show,
+      pwBad: pwErr ? 'true' : 'false', pwBg: pwErr ? errBg : 'var(--bg)',
+      pwHelp: pwErr ? ic2 + 'Enter your password.' : '',
+      setPw: e => this.setState({ pw: e.target.value }), blurPw: () => this.setState({ pwT: true, caps: false }),
+      toggleShow: () => this.setState(s => ({ show: !s.show })),
+      np, nType: S.showN ? 'text' : 'password', showN: S.showN, isHiddenN: !S.showN,
+      setNp: e => this.setState({ np: e.target.value }), toggleShowN: () => this.setState(s => ({ showN: !s.showN })),
+      rules: [mkR('At least 8 characters', np.length >= 8), mkR('A letter', /[A-Za-z]/.test(np)), mkR('A number', /\d/.test(np))],
+      np2: S.np2, np2Bad: np2Err ? 'true' : 'false', np2Bg: np2Err ? errBg : 'var(--bg)',
+      np2Help: np2Err ? ic2 + 'Passwords do not match.' : '',
+      setNp2: e => this.setState({ np2: e.target.value }), blurNp2: () => this.setState({ np2T: true }),
+      capsCheck: e => { const on = e.getModifierState && e.getModifierState('CapsLock'); if (on !== this.state.caps) this.setState({ caps: !!on }); },
+      capsMsg: S.caps ? ic2 + 'Caps Lock is on.' : ''
+    };
+    return Object.assign(ep, this.baseVals());
+  }
+  baseVals() {
+    const v = this.state.v, bad = v.trim().length < 3;
+    const err = 'color-mix(in srgb,var(--accent) 12%,var(--bg))';
+    const ic = '! ';
+    const mk = (name, o) => Object.assign({ name, bg: 'var(--bg)', shadow: 'none', outline: 'none', fg: 'var(--ink)', val: 'Captain Pizza', helper: '', labelC: 'var(--ink)', op: 1 }, o);
+    return {
+      states: [
+        mk('Default', { val: 'Captain Pizza', helper: 'At least 3 characters.' }),
+        mk('Placeholder', { fg: 'var(--ink-2)', val: 'e.g. Captain Pizza', helper: 'At least 3 characters.' }),
+        mk('Hover', { shadow: 'inset 0 0 0 2px var(--row-hover)', helper: 'At least 3 characters.' }),
+        mk('Focus', { outline: 'var(--focus)', helper: 'At least 3 characters.' }),
+        mk('Error', { bg: err, val: 'Ca', helper: ic + 'Use at least 3 characters.' }),
+        mk('Disabled', { bg: 'var(--disabled)', fg: 'var(--ink-2)', val: 'steve@example.com', helper: 'Email cannot be changed here.' })
+      ],
+      val: v, len: v.length, bad: bad ? 'true' : 'false',
+      liveBg: bad ? err : 'var(--bg)',
+      liveHelp: bad ? ic + 'Use at least 3 characters.' : 'Shown on your profile.',
+      set: e => this.setState({ v: e.target.value })
+    };
+  }
+}
+</script>
+</body>
+</html>

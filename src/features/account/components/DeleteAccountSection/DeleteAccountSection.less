@@ -87,12 +87,8 @@
   }
 }
 
-// The destructive button uses the danger token, which is not the brand red.
+// Colors come from .btn--danger; only the disabled look is set here.
 .delete-account .delete-account__button {
-  background: var(--danger);
-  color: var(--on-danger);
-  .on-hover({ background: color-mix(in srgb, var(--danger) 88%, #000); });
-
   &[aria-disabled="true"] {
     background: var(--disabled);
     color: var(--on-disabled);

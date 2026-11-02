@@ -1,6 +1,7 @@
-// All motion in one place (README section 11). Never `transition: all`, never ease-in.
+// All motion in one place. Never `transition: all`, never ease-in.
 // Color and opacity changes always run; transform, height and keyframe motion are skipped
 // under prefers-reduced-motion.
+// Select list: popover 180ms in, 120ms out; inline height 240ms in, 180ms out.
 
 @color-hover:
   background-color var(--dur-hover) var(--ease-out),
@@ -20,7 +21,7 @@ a {
   display: block;
   height: 1.5rem;
   border-radius: var(--r-xs);
-  background: var(--poster-bg, var(--surface-2));
+  background: var(--poster-bg, var(--row-hover));
   // Shown only after --delay-pending.
   visibility: hidden;
   animation: skeleton-reveal 0s linear var(--delay-pending) forwards;
@@ -64,8 +65,8 @@ a {
 // Hover and unmarking take 120ms; a row just marked by the user takes 180ms.
 .title-row {
   transition:
-    background-color var(--dur-row) var(--ease-out),
-    color var(--dur-row) var(--ease-out);
+    background-color var(--dur-hover) var(--ease-out),
+    color var(--dur-hover) var(--ease-out);
 
   &[data-just-marked] {
     transition-duration: var(--dur-ui);
@@ -155,6 +156,44 @@ dialog.dialog {
 
     @starting-style {
       background: transparent;
+    }
+  }
+}
+
+// Select list. Popover: 180ms in, 80ms out. Inline: height 240ms in, 180ms out. Opacity runs under reduced motion too.
+.select-field--popover .select-field__list {
+  opacity: 0;
+  transition:
+    opacity var(--dur-hover) var(--ease-out),
+    display var(--dur-hover) allow-discrete,
+    overlay var(--dur-hover) allow-discrete;
+
+  &:popover-open {
+    opacity: 1;
+    transition-duration: var(--dur-ui);
+
+    @starting-style {
+      opacity: 0;
+    }
+  }
+}
+
+.select-field--inline .select-field__list {
+  opacity: 0;
+  transition:
+    opacity var(--dur-press) var(--ease-out),
+    display var(--dur-ui) allow-discrete;
+
+  &:not([data-open]) {
+    display: none;
+  }
+
+  &[data-open] {
+    opacity: 1;
+    transition-duration: var(--dur-hover), var(--dur-enter);
+
+    @starting-style {
+      opacity: 0;
     }
   }
 }
@@ -268,11 +307,7 @@ dialog.menu-panel {
   }
 
   .chevron {
-    transition: transform var(--dur-chevron) var(--ease-out);
-  }
-
-  .select-field__trigger .chevron {
-    transition-duration: var(--dur-ui);
+    transition: transform var(--dur-ui) var(--ease-out);
   }
 
   .switch__track::after {
@@ -443,7 +478,7 @@ dialog.menu-panel {
   // Splash exit: fade and slight scale.
   #splash[data-leaving] {
     animation-name: splash-out;
-    animation-duration: var(--dur-reveal);
+    animation-duration: var(--dur-enter);
   }
 
   .mark-watched__button--watched.mark-watched__button--pressed svg path {
@@ -457,7 +492,7 @@ dialog.menu-panel {
 
   // Content that appears when a row opens (watched button, synopsis) fades in and drops into place.
   .title-row__content > :is(.mark-watched, .title-summary) {
-    animation: reveal-in var(--dur-reveal) var(--ease-out) both;
+    animation: reveal-in var(--dur-enter) var(--ease-out) both;
   }
 
   .next-card__swap {
@@ -481,8 +516,69 @@ dialog.menu-panel {
     animation-name: message-in;
   }
 
+  // Select list: popover and inline variants (see the select block after the dialog rules).
+
+  // Select popover moves 4px toward its anchor; the flip (data-placement="above") reverses it.
   .select-field__list {
-    animation: pop-in var(--dur-hover) var(--ease-out);
+    animation: none;
+  }
+
+  .select-field--popover .select-field__list {
+    --pop-from: -4px;
+    transform-origin: top right;
+    transform: translateY(var(--pop-from));
+    transition:
+      opacity var(--dur-hover) var(--ease-out),
+      transform var(--dur-hover) var(--ease-out),
+      display var(--dur-hover) allow-discrete,
+      overlay var(--dur-hover) allow-discrete;
+
+    &[data-placement="above"] {
+      --pop-from: 4px;
+      transform-origin: bottom right;
+    }
+
+    &:popover-open {
+      transform: none;
+      transition-duration: var(--dur-ui);
+
+      @starting-style {
+        transform: translateY(var(--pop-from));
+      }
+    }
+  }
+
+  .select-field--inline .select-field__list {
+    interpolate-size: allow-keywords;
+    block-size: 0;
+    padding-block: 0;
+    margin-top: 0;
+    overflow: clip;
+    transform: translateY(-4px);
+    transition:
+      opacity var(--dur-press) var(--ease-out),
+      block-size var(--dur-ui) var(--ease-out),
+      padding-block var(--dur-ui) var(--ease-out),
+      margin-top var(--dur-ui) var(--ease-out),
+      transform var(--dur-ui) var(--ease-out),
+      display var(--dur-ui) allow-discrete;
+
+    &[data-open] {
+      block-size: auto;
+      padding-block: 8px;
+      margin-top: var(--sp-1h);
+      transform: none;
+      transition-duration:
+        var(--dur-hover), var(--dur-enter), var(--dur-enter), var(--dur-enter), var(--dur-enter),
+        var(--dur-enter);
+
+      @starting-style {
+        block-size: 0;
+        padding-block: 0;
+        margin-top: 0;
+        transform: translateY(-4px);
+      }
+    }
   }
 
   // Tooltip is a popover, so it can also animate out (display and overlay are discrete).
@@ -571,7 +667,7 @@ dialog.menu-panel {
     --enter: translateY(100%);
   }
 
-  // Header menu: 180ms in, 120ms out.
+  // Header menu: 180ms in, 200ms out (--dur-hover).
   dialog.menu-panel {
     --enter: translateY(-8px);
     --dur-in: var(--dur-ui);

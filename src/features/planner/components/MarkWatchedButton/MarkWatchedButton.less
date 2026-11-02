@@ -12,7 +12,7 @@
   border-radius: var(--r-pill);
 
   &:focus-visible {
-    outline: 3px solid var(--gold);
+    outline: 3px solid var(--highlight);
     outline-offset: 0;
   }
 }
@@ -20,12 +20,12 @@
 .mark-watched__pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: var(--sp-1h);
   height: 34px;
-  padding: 0 14px;
+  padding: 0 var(--sp-3h);
   border-radius: var(--r-pill);
   background: var(--panel-2);
-  color: var(--panel-ink);
+  color: var(--on-dark);
   font-size: var(--fs-label);
   font-weight: 700;
 
@@ -50,5 +50,5 @@
 }
 
 .mark-watched__button--watched svg {
-  color: var(--gold);
+  color: var(--highlight);
 }

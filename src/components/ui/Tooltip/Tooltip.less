@@ -9,15 +9,15 @@
 
 .on-panel .tooltip,
 .spoiler-zone .tooltip {
-  --tip-bg: var(--panel-ink);
+  --tip-bg: var(--on-dark);
   --tip-fg: var(--panel);
 }
 
 .tooltip--warning,
 .on-panel .tooltip--warning,
 .spoiler-zone .tooltip--warning {
-  --tip-bg: var(--gold);
-  --tip-fg: var(--on-gold);
+  --tip-bg: var(--highlight);
+  --tip-fg: var(--ink-static);
 }
 
 .tooltip__bubble {
@@ -26,7 +26,7 @@
   margin: 0;
   width: max-content;
   max-width: 240px;
-  padding: 10px 14px;
+  padding: var(--sp-2h) var(--sp-3h);
   border: 0;
   border-radius: var(--r-xs);
   background: var(--tip-bg);
