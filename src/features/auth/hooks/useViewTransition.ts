@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-
-export type ViewDirection = "forward" | "back";
+import { planViewChange, type ViewDirection } from "../utils/viewChange";
 
 interface Options<V> {
-  // The profile popup and a popup that was just closed swap at once, with no motion.
   isInstant: (from: V | null, to: V) => boolean;
   isBack: (from: V, to: V) => boolean;
   // Runs right before the new view replaces the old one: the moment to measure the old height.
@@ -31,15 +29,14 @@ export function useViewTransition<V, P>(view: V | null, payload: P, options: Opt
   // The view changed: either swap at once or start the old one leaving.
   if (view !== previous) {
     setPrevious(view);
-    if (view !== null) {
-      if (options.isInstant(previous, view)) {
-        setShown({ view, payload });
-        setLeaving(false);
-        setDirection(undefined);
-      } else if (previous !== null) {
-        setDirection(options.isBack(previous, view) ? "back" : "forward");
-        setLeaving(true);
-      }
+    const change = planViewChange(previous, view, options);
+    if (change.kind === "instant" && view !== null) {
+      setShown({ view, payload });
+      setLeaving(false);
+      setDirection(undefined);
+    } else if (change.kind === "animate") {
+      setDirection(change.direction);
+      setLeaving(true);
     }
   } else if (view !== null && !leaving && payload !== shown.payload) {
     // Same view, new data (an email carried over): no motion.

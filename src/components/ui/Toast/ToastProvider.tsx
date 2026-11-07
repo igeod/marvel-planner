@@ -3,15 +3,13 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import { useI18n } from "../../../i18n/useI18n";
 import { Button } from "../Button";
 import { ToastContext, type ToastContextValue, type ToastOptions } from "./ToastContext";
+import { addToast, type ToastItem } from "./toastQueue";
 
-type Item = ToastOptions & { id: string };
-
-const MAX_VISIBLE = 3;
 const DEFAULT_DURATION = 4000;
 let nextId = 0;
 
 interface ToastItemProps {
-  item: Item;
+  item: ToastItem;
   onDismiss: (id: string) => void;
 }
 
@@ -92,7 +90,7 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
 }
 
 export function ToastProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<Item[]>([]);
+  const [items, setItems] = useState<ToastItem[]>([]);
 
   const dismiss = useCallback(
     (id: string) => setItems((current) => current.filter((item) => item.id !== id)),
@@ -102,17 +100,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const show = useCallback(
     (options: ToastOptions) => {
       const id = options.id ?? `toast-${++nextId}`;
-      setItems((current) => {
-        if (current.some((item) => item.id === id)) {
-          return current.map((item) => (item.id === id ? { ...options, id } : item));
-        }
-        const next = [...current, { ...options, id }];
-        if (next.length <= MAX_VISIBLE) return next;
-        const evictable = next.findIndex((item) => !item.persistent && item.id !== id);
-        if (evictable >= 0) return next.filter((_, index) => index !== evictable);
-        // Only an error may push another persistent one out; an info toast waits its turn.
-        return options.persistent ? next.slice(1) : current;
-      });
+      setItems((current) => addToast(current, { ...options, id }));
       return () => dismiss(id);
     },
     [dismiss],
