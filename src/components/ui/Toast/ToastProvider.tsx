@@ -6,7 +6,9 @@ import { Button } from "../Button";
 import { ToastContext, type ToastContextValue, type ToastOptions } from "./ToastContext";
 import { addToast, type ToastItem } from "./toastQueue";
 
-const DEFAULT_DURATION = 4000;
+// From the design's Toast page: 6 s, 8 s when there is an action to reach.
+const DEFAULT_DURATION = 6000;
+const ACTION_DURATION = 8000;
 let nextId = 0;
 
 interface ToastItemProps {
@@ -21,13 +23,15 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
   const [isPaused, setIsPaused] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const { id, persistent, duration } = item;
+  const hasAction = Boolean(item.action);
 
   useEffect(() => {
     if (persistent || isPaused) return;
     // shortcut: the timer restarts in full after a pause, upgrade if a remaining-time timer matters.
-    const timer = setTimeout(() => onDismiss(id), Math.max(duration ?? DEFAULT_DURATION, 4000));
+    const base = hasAction ? ACTION_DURATION : DEFAULT_DURATION;
+    const timer = setTimeout(() => onDismiss(id), Math.max(duration ?? base, 4000));
     return () => clearTimeout(timer);
-  }, [id, persistent, duration, isPaused, onDismiss]);
+  }, [id, persistent, duration, hasAction, isPaused, onDismiss]);
 
   const close = () => {
     const target = previousFocus.current;
