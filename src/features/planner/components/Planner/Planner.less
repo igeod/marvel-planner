@@ -12,6 +12,11 @@
   grid-template-columns: minmax(0, 1fr);
   gap: 0.5rem;
 
+  // Tablet: progress and next title side by side, each still in its phone layout.
+  @media (min-width: 48em) {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  }
+
   .desktop({ grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); });
 }
 

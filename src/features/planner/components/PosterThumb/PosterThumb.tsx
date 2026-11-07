@@ -17,7 +17,7 @@ export function PosterThumb({ titleId, isLarge }: PosterThumbProps) {
   return (
     <div className="poster-thumb">
       <PosterImage
-        src={posterPath ? posterUrl(posterPath) : null}
+        src={posterPath ? posterUrl(posterPath, isLarge ? "w342" : "w154") : null}
         alt={t("details.posterAlt", { name })}
         isFetching={state.status === "loading"}
         showText={isLarge}

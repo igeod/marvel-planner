@@ -1,18 +1,18 @@
 import type { I18nContextValue } from "../../../i18n/I18nContext";
 
-const POSTER_BASE_URL = "/api/images/w342";
-const BACKDROP_BASE_URL = "/api/images/w780";
+const IMAGE_BASE_URL = "/api/images";
 
 const YEAR_MONTH = /^\d{4}-\d{2}$/;
 const FULL_DATE = /^\d{4}-\d{2}-\d{2}$/;
 const APPROXIMATE = /^(\d{4})-(mid|late)$/;
 
-export function posterUrl(path: string): string {
-  return `${POSTER_BASE_URL}${path}`;
+// w154 for the 44px row thumbnail, w342 for the larger poster of an open row.
+export function posterUrl(path: string, size: "w154" | "w342" = "w342"): string {
+  return `${IMAGE_BASE_URL}/${size}${path}`;
 }
 
 export function backdropUrl(path: string): string {
-  return `${BACKDROP_BASE_URL}${path}`;
+  return `${IMAGE_BASE_URL}/w780${path}`;
 }
 
 export function formatRelease(

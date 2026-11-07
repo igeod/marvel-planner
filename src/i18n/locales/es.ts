@@ -150,6 +150,10 @@ export const es: Messages = {
       progress: "Progreso de {name}",
       empty: "Ningún título coincide con los filtros.",
     },
+    empty: {
+      title: "Ningún título encontrado",
+      body: "Ningún título coincide con los filtros.",
+    },
     guide: {
       title: "Cómo leer el planificador",
       orderTerm: "Orden",
@@ -202,7 +206,6 @@ export const es: Messages = {
     title: "Planificador compartido",
     loading: "Cargando el planificador compartido…",
     notFound: "Este enlace no es válido, ha caducado o se ha desactivado.",
-    error: "No puedo cargar el planificador compartido. Inténtalo de nuevo.",
     summary: "Títulos vistos por {name}: {done} / {total} ({percent} %).",
     current: "Títulos vistos ahora en tu planificador: {count}.",
     currentEmpty: "Tu planificador aún está vacío.",

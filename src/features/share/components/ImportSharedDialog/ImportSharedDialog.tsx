@@ -1,5 +1,8 @@
 import { useState } from "react";
 import type { SharedPlanner } from "../../../../../shared/share";
+import { Button } from "../../../../components/ui/Button";
+import { FormError } from "../../../../components/ui/FormError";
+import { LoadError } from "../../../../components/ui/LoadError";
 import { Modal } from "../../../../components/ui/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
 import { ProgressMeter } from "../../../../components/ui/ProgressMeter";
@@ -113,28 +116,26 @@ function ImportContent({ code, onClose, ...preview }: ImportSharedDialogProps) {
 
   if (state.status === "loading") return <p role="status">{t("import.loading")}</p>;
 
+  // Nothing to import: the only way on is to close.
   if (state.status === "notFound") {
     return (
-      <div role="alert">
-        <p>{t("import.notFound")}</p>
-        <button type="button" className="btn btn--soft" onClick={onClose}>
-          {t("import.close")}
-        </button>
-      </div>
+      <>
+        <FormError>{t("import.notFound")}</FormError>
+        <Button variant="soft" onClick={onClose}>
+          {t("common.close")}
+        </Button>
+      </>
     );
   }
 
   if (state.status === "error") {
     return (
-      <div role="alert">
-        <p>{t("import.error")}</p>
-        <button type="button" className="btn btn--soft" onClick={state.retry}>
-          {t("common.retry")}
-        </button>
-        <button type="button" className="btn btn--soft" onClick={onClose}>
-          {t("import.close")}
-        </button>
-      </div>
+      <>
+        <LoadError onRetry={state.retry} />
+        <Button variant="text" onClick={onClose}>
+          {t("common.close")}
+        </Button>
+      </>
     );
   }
 

@@ -39,6 +39,7 @@ import { NextToWatch } from "../NextToWatch";
 import { PhaseStrip } from "../PhaseStrip";
 import { PlannerFilters } from "../PlannerFilters";
 import { PlannerGuide } from "../PlannerGuide";
+import { FiltersEmpty } from "../FiltersEmpty";
 import { PlannerSearch, SearchNoResults } from "../PlannerSearch";
 import { PlannerSummary } from "../PlannerSummary";
 import { SagaSection } from "../SagaSection";
@@ -232,8 +233,12 @@ export function Planner({ shareCode }: PlannerProps) {
           className={`planner__list${isBulkToggle ? " planner__list--bulk" : ""}`}
           aria-busy={isLoading}
         >
-          {needle && searchCount === 0 ? (
-            <SearchNoResults query={query} onClear={() => setQuery("")} />
+          {searchCount === 0 ? (
+            needle ? (
+              <SearchNoResults query={query} onClear={() => setQuery("")} />
+            ) : (
+              <FiltersEmpty onReset={() => setFilters(DEFAULT_FILTERS)} />
+            )
           ) : viewOrder === "release" ? (
             sagas.map((saga) => (
               <SagaSection

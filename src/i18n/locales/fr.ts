@@ -150,6 +150,10 @@ export const fr: Messages = {
       progress: "Progression {name}",
       empty: "Aucun titre ne correspond aux filtres.",
     },
+    empty: {
+      title: "Aucun titre trouvé",
+      body: "Aucun titre ne correspond aux filtres.",
+    },
     guide: {
       title: "Comment lire le planificateur",
       orderTerm: "Ordre",
@@ -202,7 +206,6 @@ export const fr: Messages = {
     title: "Planificateur partagé",
     loading: "Chargement du planificateur partagé…",
     notFound: "Ce lien n'est pas valide, a expiré ou a été désactivé.",
-    error: "Je ne peux pas charger le planificateur partagé. Réessayez.",
     summary: "Titres vus par {name} : {done} / {total} ({percent} %).",
     current: "Titres vus dans votre planificateur en ce moment : {count}.",
     currentEmpty: "Votre planificateur est encore vide.",

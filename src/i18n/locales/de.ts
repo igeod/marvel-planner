@@ -151,6 +151,10 @@ export const de: Messages = {
       progress: "Fortschritt {name}",
       empty: "Kein Titel entspricht den Filtern.",
     },
+    empty: {
+      title: "Keine Titel gefunden",
+      body: "Kein Titel passt zu den Filtern.",
+    },
     guide: {
       title: "So liest du den Planer",
       orderTerm: "Reihenfolge",
@@ -203,7 +207,6 @@ export const de: Messages = {
     title: "Geteilter Planer",
     loading: "Der geteilte Planer wird geladen…",
     notFound: "Dieser Link ist ungültig, abgelaufen oder wurde deaktiviert.",
-    error: "Ich kann den geteilten Planer nicht laden. Versuche es erneut.",
     summary: "Von {name} gesehene Titel: {done} / {total} ({percent} %).",
     current: "Aktuell gesehene Titel in deinem Planer: {count}.",
     currentEmpty: "Dein Planer ist noch leer.",

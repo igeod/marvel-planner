@@ -147,6 +147,10 @@ export const it = {
       progress: "Avanzamento {name}",
       empty: "Nessun titolo corrisponde ai filtri.",
     },
+    empty: {
+      title: "Metà dei titoli è svanita",
+      body: "Nessun titolo corrisponde ai filtri.",
+    },
     guide: {
       title: "Come leggere il planner",
       orderTerm: "Ordine",
@@ -199,7 +203,6 @@ export const it = {
     title: "Planner condiviso",
     loading: "Caricamento del planner condiviso…",
     notFound: "Questo link non è valido, è scaduto o è stato disattivato.",
-    error: "Non riesco a caricare il planner condiviso. Riprova.",
     summary: "Titoli visti da {name}: {done} / {total} ({percent}%).",
     current: "Nel tuo planner ora i titoli visti sono {count}.",
     currentEmpty: "Il tuo planner è ancora vuoto.",

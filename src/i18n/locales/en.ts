@@ -149,6 +149,10 @@ export const en: Messages = {
       progress: "{name} progress",
       empty: "No titles match the filters.",
     },
+    empty: {
+      title: "Half your titles vanished",
+      body: "No titles match these filters.",
+    },
     guide: {
       title: "How to read the planner",
       orderTerm: "Order",
@@ -201,7 +205,6 @@ export const en: Messages = {
     title: "Shared planner",
     loading: "Loading the shared planner…",
     notFound: "This link is not valid, has expired or was turned off.",
-    error: "I can't load the shared planner. Please try again.",
     summary: "Titles watched by {name}: {done} / {total} ({percent}%).",
     current: "Titles watched in your planner right now: {count}.",
     currentEmpty: "Your planner is still empty.",

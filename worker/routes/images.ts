@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import type { AppEnv } from "../types";
 
 const IMAGE_ORIGIN = "https://image.tmdb.org/t/p";
-const ALLOWED_SIZES = new Set(["w342", "w780"]);
+const ALLOWED_SIZES = new Set(["w154", "w342", "w780"]);
 const FILE_PATTERN = /^[A-Za-z0-9_-]{10,60}\.(jpg|png)$/;
 const CACHE_SECONDS = 60 * 60 * 24 * 30;
 

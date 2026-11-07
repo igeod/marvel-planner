@@ -56,7 +56,9 @@
 
 .film__cover {
   position: absolute;
-  inset: 0;
+  // One pixel past the hero: its last row falls on a fraction of a pixel, and the dark layers under the
+  // fade would show through as a thin line across the page in the light theme.
+  inset: 0 0 -1px;
   background: var(--panel);
 
   img {
