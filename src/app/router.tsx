@@ -6,19 +6,31 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 import { PlannerPage } from "../pages/PlannerPage";
 import { TitlePage } from "../pages/TitlePage";
 import { PrivacyPage } from "../pages/PrivacyPage";
+import { ResetPasswordEntry } from "../features/auth/components/ResetPasswordEntry";
+import { PASSWORD_RESET_ENABLED } from "../features/auth/passwordReset";
 import { PATHS } from "./paths";
 
 export const router = createBrowserRouter([
   {
     element: <AppLayout />,
-    errorElement: <ErrorPage />,
+    // A crash in the layout itself: no header or footer left to keep.
+    errorElement: <ErrorPage standalone />,
     children: [
-      { path: PATHS.home, element: <PlannerPage /> },
-      { path: PATHS.shared, element: <PlannerPage /> },
-      { path: PATHS.title, element: <TitlePage /> },
-      { path: PATHS.admin, element: <AdminPage /> },
-      { path: PATHS.privacy, element: <PrivacyPage /> },
-      { path: "*", element: <NotFoundPage /> },
+      {
+        // A crash in a page keeps the layout, so header and footer stay.
+        errorElement: <ErrorPage />,
+        children: [
+          { path: PATHS.home, element: <PlannerPage /> },
+          { path: PATHS.shared, element: <PlannerPage /> },
+          { path: PATHS.title, element: <TitlePage /> },
+          { path: PATHS.admin, element: <AdminPage /> },
+          { path: PATHS.privacy, element: <PrivacyPage /> },
+          ...(PASSWORD_RESET_ENABLED
+            ? [{ path: PATHS.resetPassword, element: <ResetPasswordEntry /> }]
+            : []),
+          { path: "*", element: <NotFoundPage /> },
+        ],
+      },
     ],
   },
 ]);

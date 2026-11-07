@@ -1,6 +1,8 @@
 import { createAuthClient } from "better-auth/client";
+import { PATHS } from "../../../app/paths";
 import type { TranslationKey } from "../../../i18n/types";
 import type { User } from "../types";
+import { retryAfterFromHeaders } from "../utils/authAction";
 import { AuthError, type AuthService } from "./authService";
 
 const client = createAuthClient({
@@ -28,8 +30,8 @@ interface ClientError {
   status: number;
 }
 
-function toAuthError({ code, status }: ClientError): AuthError {
-  if (status === 429) return new AuthError("auth.errors.tooManyRequests");
+function toAuthError({ code, status }: ClientError, retryAfter?: number): AuthError {
+  if (status === 429) return new AuthError("auth.errors.tooManyRequests", retryAfter);
   // No HTTP status at all: the request never reached the server.
   if (!status) return new AuthError("auth.errors.network");
   return new AuthError((code && ERROR_KEYS[code]) || "auth.errors.generic");
@@ -52,14 +54,24 @@ export const betterAuthService: AuthService = {
   },
 
   async login(credentials) {
-    const { data, error } = await client.signIn.email(credentials);
-    if (error) throw toAuthError(error);
+    let retryAfter: number | undefined;
+    const { data, error } = await client.signIn.email(credentials, {
+      onError: ({ response }) => {
+        retryAfter = retryAfterFromHeaders(response);
+      },
+    });
+    if (error) throw toAuthError(error, retryAfter);
     return toUser(data.user);
   },
 
   async register(registration) {
-    const { data, error } = await client.signUp.email(registration);
-    if (error) throw toAuthError(error);
+    let retryAfter: number | undefined;
+    const { data, error } = await client.signUp.email(registration, {
+      onError: ({ response }) => {
+        retryAfter = retryAfterFromHeaders(response);
+      },
+    });
+    if (error) throw toAuthError(error, retryAfter);
     return toUser(data.user);
   },
 
@@ -96,5 +108,26 @@ export const betterAuthService: AuthService = {
   async deleteAccount(password) {
     const { error } = await client.deleteUser({ password });
     if (error) throw toAuthError(error);
+  },
+
+  async requestPasswordReset(email) {
+    let retryAfter: number | undefined;
+    const { error } = await client.requestPasswordReset(
+      { email, redirectTo: `${window.location.origin}${PATHS.resetPassword}` },
+      {
+        onError: ({ response }) => {
+          retryAfter = retryAfterFromHeaders(response);
+        },
+      },
+    );
+    if (error) throw toAuthError(error, retryAfter);
+  },
+
+  async resetPassword(token, newPassword) {
+    const { error } = await client.resetPassword({ token, newPassword });
+    if (!error) return;
+    // Expired, used and unknown tokens all answer the same.
+    if (error.code === "INVALID_TOKEN") throw new AuthError("auth.reset.invalid.body");
+    throw toAuthError(error);
   },
 };

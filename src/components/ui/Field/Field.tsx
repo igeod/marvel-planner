@@ -200,6 +200,7 @@ export function PasswordField(props: PasswordFieldProps) {
           required={required}
           minLength={minLength}
           readOnly={props.readOnly}
+          disabled={props.disabled}
           aria-invalid={Boolean(error) || props.invalid}
           aria-describedby={[messageId, props.describedBy].filter(Boolean).join(" ")}
           data-clearable={props.hideToggle ? undefined : true}

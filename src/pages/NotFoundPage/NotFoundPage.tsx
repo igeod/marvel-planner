@@ -1,5 +1,8 @@
 import { Link } from "react-router";
 import { PATHS } from "../../app/paths";
+import errArt from "../../assets/err-404.webp";
+import { buttonClass } from "../../components/ui/Button";
+import { StatusPage } from "../../components/ui/StatusPage";
 import { useI18n } from "../../i18n/useI18n";
 import { usePageTitle } from "../../i18n/usePageTitle";
 
@@ -8,9 +11,16 @@ export function NotFoundPage() {
   const { t } = useI18n();
 
   return (
-    <section className="not-found" aria-labelledby="not-found-title">
-      <h1 id="not-found-title">{t("notFound.title")}</h1>
-      <Link to={PATHS.home}>{t("notFound.back")}</Link>
-    </section>
+    <StatusPage
+      art={errArt}
+      title={t("notFound.title")}
+      actions={
+        <Link to={PATHS.home} className={buttonClass("primary", "lg")}>
+          {t("notFound.back")}
+        </Link>
+      }
+    >
+      {t("notFound.body")}
+    </StatusPage>
   );
 }

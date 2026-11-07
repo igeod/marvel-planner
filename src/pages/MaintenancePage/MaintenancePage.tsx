@@ -1,4 +1,7 @@
 import { LogIn } from "lucide-react";
+import errArt from "../../assets/err-maintenance.webp";
+import { Button } from "../../components/ui/Button";
+import { StatusPage } from "../../components/ui/StatusPage";
 import { useAuth } from "../../features/auth/hooks/useAuth";
 import { useAuthDialog } from "../../features/auth/hooks/useAuthDialog";
 import { useI18n } from "../../i18n/useI18n";
@@ -11,20 +14,26 @@ export function MaintenancePage() {
   const { open } = useAuthDialog();
 
   return (
-    <section className="maintenance-page" aria-labelledby="maintenance-title">
-      <h1 id="maintenance-title">{t("maintenance.title")}</h1>
-      <p>{t("maintenance.body")}</p>
-      {!user && (
-        <button
-          type="button"
-          className="btn btn--primary btn--lg"
-          aria-haspopup="dialog"
-          onClick={() => open("login")}
-        >
-          <LogIn aria-hidden />
-          {t("maintenance.adminLogin")}
-        </button>
-      )}
-    </section>
+    <main className="status-screen">
+      <StatusPage
+        art={errArt}
+        title={t("maintenance.title")}
+        actions={
+          !user && (
+            <Button
+              variant="soft"
+              size="lg"
+              icon={<LogIn aria-hidden />}
+              aria-haspopup="dialog"
+              onClick={() => open("login")}
+            >
+              {t("maintenance.adminLogin")}
+            </Button>
+          )
+        }
+      >
+        {t("maintenance.body")}
+      </StatusPage>
+    </main>
   );
 }

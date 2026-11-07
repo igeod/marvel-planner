@@ -4,6 +4,7 @@ export const PATHS = {
   admin: "/admin",
   shared: "/s/:code",
   title: "/film/:id",
+  resetPassword: "/reset-password",
 } as const;
 
 export function sharedPath(code: string): string {

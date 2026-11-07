@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router";
 import { AuthDialogProvider } from "../features/auth/context/AuthDialogProvider";
 import { AuthProvider } from "../features/auth/context/AuthProvider";
+import { ToastProvider } from "../components/ui/Toast";
 import { ThemeProvider } from "../features/theme/ThemeProvider";
 import { SiteStatusProvider } from "../features/site/context/SiteStatusProvider";
 import { PrivacySettingsProvider } from "../features/privacy/context/PrivacySettingsProvider";
@@ -15,7 +16,9 @@ export function App() {
           <SiteStatusProvider>
             <AuthDialogProvider>
               <PrivacySettingsProvider>
-                <RouterProvider router={router} />
+                <ToastProvider>
+                  <RouterProvider router={router} />
+                </ToastProvider>
               </PrivacySettingsProvider>
             </AuthDialogProvider>
           </SiteStatusProvider>

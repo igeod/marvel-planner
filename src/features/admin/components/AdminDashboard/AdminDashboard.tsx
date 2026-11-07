@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
+import { LoadError } from "../../../../components/ui/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useAdminOverview } from "../../hooks/useAdminOverview";
 import { AutomationSection } from "../AutomationSection";
@@ -44,14 +45,7 @@ export function AdminDashboard() {
       </h1>
 
       {state.status === "loading" && <AdminSkeleton />}
-      {state.status === "error" && (
-        <section>
-          <p role="alert">{t("admin.error")}</p>
-          <button type="button" className="btn btn--soft" onClick={reload}>
-            {t("admin.retry")}
-          </button>
-        </section>
-      )}
+      {state.status === "error" && <LoadError onRetry={reload} />}
       {hasActionFailed && <p role="alert">{t("admin.actionError")}</p>}
 
       {state.status === "ready" && (

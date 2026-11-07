@@ -75,7 +75,6 @@ export const fr: Messages = {
       none: "Sur cet appareil, votre progression n'est pas conservée d'une session à l'autre.",
     },
     loadError: "Impossible de charger votre progression. Rechargez la page.",
-    saveError: "Impossible d'enregistrer la modification. Vérifiez votre connexion et réessayez.",
     reset: {
       title: "Réinitialiser toute la progression ?",
       message: "Les cases cochées seront supprimées. Cette action est irréversible.",
@@ -270,7 +269,6 @@ export const fr: Messages = {
     },
     open: "Fiche complète",
     loading: "Chargement des détails…",
-    error: "Détails indisponibles pour le moment.",
     posterAlt: "Affiche de {name}",
     originalTitle: "Titre original : {name}",
     release: "Sortie",
@@ -314,6 +312,8 @@ export const fr: Messages = {
       pending: "Connexion en cours…",
       noAccount: "Pas encore de compte ? {link}",
       registerLink: "Inscrivez-vous",
+      forgotLink: "Mot de passe oublié ?",
+      done: "Connexion réussie.",
     },
     register: {
       title: "Créer un compte",
@@ -324,6 +324,39 @@ export const fr: Messages = {
       loginLink: "Connectez-vous",
       privacyNotice: "En créant un compte, vous déclarez avoir lu la {link}.",
       privacyLink: "politique de confidentialité",
+      done: "Compte créé.",
+    },
+    reset: {
+      request: {
+        title: "Mot de passe oublié",
+        intro:
+          "Saisissez l'e-mail de votre compte : nous vous envoyons un lien pour choisir un nouveau mot de passe.",
+        button: "Envoyer le lien",
+        pending: "Envoi en cours…",
+      },
+      backToLogin: "Retour à la connexion",
+      sent: {
+        title: "Lien envoyé",
+        body: "Si un compte existe avec cet e-mail, vous recevrez un lien pour choisir un nouveau mot de passe.",
+        resend: "Renvoyer le lien",
+        wait: "Vous pourrez renvoyer le lien dans un instant.",
+        resent: "Demande renvoyée.",
+      },
+      new: {
+        title: "Choisir un nouveau mot de passe",
+        intro: "Choisissez un mot de passe que vous n'utilisez nulle part ailleurs.",
+        button: "Enregistrer le nouveau mot de passe",
+        pending: "Enregistrement…",
+      },
+      done: {
+        title: "Mot de passe mis à jour",
+        body: "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.",
+      },
+      invalid: {
+        title: "Lien invalide ou expiré",
+        body: "Ce lien ne fonctionne plus. Demandez-en un nouveau.",
+        button: "Demander un nouveau lien",
+      },
     },
     errors: {
       invalidCredentials: "E-mail ou mot de passe incorrect.",
@@ -338,6 +371,7 @@ export const fr: Messages = {
       passwordLong: "Le mot de passe est trop long.",
       reauthenticate: "Par sécurité, déconnectez-vous puis reconnectez-vous avant de continuer.",
       tooManyRequests: "Trop de tentatives. Patientez quelques minutes puis réessayez.",
+      tooManyRequestsJoke: "",
       emailTaken:
         "Cette adresse e-mail est déjà utilisée par un autre compte. Saisissez-en une autre.",
       network: "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
@@ -369,7 +403,6 @@ export const fr: Messages = {
       byType: "Par type",
       byYear: "Par année",
       watched: "Titres vus",
-      error: "Je ne peux pas charger votre progression.",
       loading: "Chargement de votre progression…",
       share: "Partager la progression",
     },
@@ -444,8 +477,22 @@ export const fr: Messages = {
   },
   error: {
     title: "Un problème est survenu",
-    body: "Une erreur inattendue s'est produite. Essayez de recharger la page.",
-    home: "Retour au planificateur",
+    body: "Le problème vient de nous, pas de vous, et vos données déjà enregistrées sont intactes : réessayez, ou retournez à l'accueil si cela continue.",
+    home: "Retour à l'accueil",
+    code: "Code {code}",
+    copyCode: "Copier le code d'erreur {code}",
+    codeCopied: "Code copié",
+    copyFailed: "Copie impossible. Sélectionnez le code.",
+  },
+  errors: {
+    save: {
+      title: "Impossible d'enregistrer la modification",
+      body: "Vérifiez votre connexion et réessayez.",
+    },
+  },
+  loadError: {
+    title: "Impossible de charger les données",
+    body: "Le chargement a été interrompu, mais le reste de la page fonctionne toujours.",
   },
   prerequisites: {
     heading: "Avant de le regarder",
@@ -543,11 +590,9 @@ export const fr: Messages = {
     dismiss: "Ignorer",
     openOnTmdb: "Ouvrir sur TMDB",
     title: "Administration",
-    error: "Je ne peux pas charger les données d'administration.",
     actionError: "L'opération a échoué. Réessayez.",
     notice: "Il y a {count} nouveaux titres à évaluer.",
     openDashboard: "Ouvrir le tableau de bord",
-    retry: "Réessayer",
     maintenance: {
       heading: "État du site",
       description:
@@ -612,11 +657,12 @@ export const fr: Messages = {
   },
   maintenance: {
     title: "Site en maintenance",
-    body: "Nous travaillons sur le site. Revenez dans un instant.",
-    adminLogin: "Connexion administrateur",
+    body: "Nous y travaillons, nous revenons bientôt.",
+    adminLogin: "Connexion admin",
   },
   notFound: {
     title: "Page introuvable",
+    body: "Le lien est ancien, l'adresse est incorrecte ou le titre a été supprimé.",
     back: "Retour au planificateur",
   },
   privacy: {

@@ -16,6 +16,15 @@ a {
   transition: opacity var(--dur-hover) var(--ease-out);
 }
 
+// Status pages fade in; the drop (reveal-in) is added under no-preference below.
+.status-page {
+  animation: fade-in var(--dur-ui) var(--ease-out) both;
+}
+
+.toast {
+  animation: fade-in var(--dur-enter) var(--ease-out) both;
+}
+
 // Loading placeholder: flat block, pulses while it waits (static under reduced motion).
 .skeleton {
   display: block;
@@ -471,6 +480,14 @@ dialog.menu-panel {
   // Content that appears when a row opens (watched button, synopsis) fades in and drops into place.
   .title-row__content > :is(.mark-watched, .title-summary) {
     animation: reveal-in var(--dur-enter) var(--ease-out) both;
+  }
+
+  .status-page {
+    animation-name: reveal-in;
+  }
+
+  .toast {
+    animation-name: swap-in;
   }
 
   .next-card__swap {

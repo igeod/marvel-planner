@@ -74,7 +74,6 @@ export const en: Messages = {
       none: "On this device your progress is not saved between sessions.",
     },
     loadError: "Unable to load your progress. Reload the page.",
-    saveError: "Unable to save the change. Check your connection and try again.",
     reset: {
       title: "Reset all progress?",
       message: "Your checkmarks will be removed. This cannot be undone.",
@@ -269,7 +268,6 @@ export const en: Messages = {
     },
     open: "Full details",
     loading: "Loading details…",
-    error: "Details are not available right now.",
     posterAlt: "Poster of {name}",
     originalTitle: "Original title: {name}",
     release: "Release",
@@ -313,6 +311,8 @@ export const en: Messages = {
       pending: "Signing in…",
       noAccount: "Don't have an account? {link}",
       registerLink: "Sign up",
+      forgotLink: "Forgot your password?",
+      done: "Welcome back, hero.",
     },
     register: {
       title: "Create an account",
@@ -323,6 +323,38 @@ export const en: Messages = {
       loginLink: "Sign in",
       privacyNotice: "By creating an account you confirm that you have read the {link}.",
       privacyLink: "privacy policy",
+      done: "Account created. Welcome to the team.",
+    },
+    reset: {
+      request: {
+        title: "Forgot your password",
+        intro: "Enter your account email and we'll send you a link to choose a new password.",
+        button: "Send the link",
+        pending: "Sending…",
+      },
+      backToLogin: "Back to sign in",
+      sent: {
+        title: "Link sent",
+        body: "If an account exists with this email, you will receive a link to choose a new password.",
+        resend: "Resend the link",
+        wait: "You can resend the link shortly.",
+        resent: "Request sent again.",
+      },
+      new: {
+        title: "Choose a new password",
+        intro: "Pick a password you don't use anywhere else.",
+        button: "Save the new password",
+        pending: "Saving…",
+      },
+      done: {
+        title: "Password updated",
+        body: "Mission accomplished: you can now sign in with your new password.",
+      },
+      invalid: {
+        title: "Link invalid or expired",
+        body: "This link no longer works. Request a new one.",
+        button: "Request a new link",
+      },
     },
     errors: {
       invalidCredentials: "Incorrect email or password.",
@@ -336,6 +368,7 @@ export const en: Messages = {
       passwordLong: "The password is too long.",
       reauthenticate: "For security, sign out and sign in again before continuing.",
       tooManyRequests: "Too many attempts. Wait a few minutes and try again.",
+      tooManyRequestsJoke: "Nice try, soldier.",
       emailTaken: "This email is already used by another account. Enter a different address.",
       network: "Can't reach the server. Check your connection and try again.",
       required: "Fill in this field.",
@@ -366,7 +399,6 @@ export const en: Messages = {
       byType: "By type",
       byYear: "By year",
       watched: "Titles watched",
-      error: "I can't load your progress.",
       loading: "Loading your progress…",
       share: "Share progress",
     },
@@ -440,8 +472,22 @@ export const en: Messages = {
   },
   error: {
     title: "Something went wrong",
-    body: "An unexpected error occurred. Try reloading the page.",
-    home: "Back to the planner",
+    body: "This is on us, not you, and your saved data is intact: try again, or go home if it keeps happening.",
+    home: "Back to home",
+    code: "Code {code}",
+    copyCode: "Copy error code {code}",
+    codeCopied: "Code copied",
+    copyFailed: "Could not copy. Select the code.",
+  },
+  errors: {
+    save: {
+      title: "Unable to save the change",
+      body: "Check your connection and try again.",
+    },
+  },
+  loadError: {
+    title: "Unable to load the data",
+    body: "Loading was interrupted, but the rest of the page still works.",
   },
   prerequisites: {
     heading: "Before you watch",
@@ -539,11 +585,9 @@ export const en: Messages = {
     dismiss: "Dismiss",
     openOnTmdb: "Open on TMDB",
     title: "Administration",
-    error: "I can't load the administration data.",
     actionError: "The operation failed. Please try again.",
     notice: "There are {count} new titles to review.",
     openDashboard: "Open the dashboard",
-    retry: "Retry",
     maintenance: {
       heading: "Site status",
       description:
@@ -608,11 +652,12 @@ export const en: Messages = {
   },
   maintenance: {
     title: "Site under maintenance",
-    body: "We are working on the site. Please come back shortly.",
-    adminLogin: "Administrator sign-in",
+    body: "Headquarters is being renovated: we are working on it and will be back soon.",
+    adminLogin: "Admin sign-in",
   },
   notFound: {
     title: "Page not found",
+    body: "This page was scattered across the multiverse: the link is old, the address is wrong or the title was removed.",
     back: "Back to the planner",
   },
   privacy: {

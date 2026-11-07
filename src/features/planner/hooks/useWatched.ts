@@ -1,4 +1,6 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { useToast } from "../../../components/ui/Toast";
+import { useI18n } from "../../../i18n/useI18n";
 import type { TranslationKey } from "../../../i18n/types";
 import { isStorageAvailable } from "../../../lib/storage";
 import { useAuth } from "../../auth/hooks/useAuth";
@@ -9,7 +11,7 @@ import { localProgressRepository } from "../services/localProgressRepository";
 import { mergeDeviceProgressIntoAccount } from "../services/progressSync";
 
 const LOAD_ERROR: TranslationKey = "planner.loadError";
-const SAVE_ERROR: TranslationKey = "planner.saveError";
+const SAVE_TOAST_ID = "save-error";
 
 function withTitle(set: ReadonlySet<string>, id: string, isWatched: boolean): ReadonlySet<string> {
   const next = new Set(set);
@@ -26,6 +28,32 @@ export function useWatched() {
   const [watched, setWatched] = useState<ReadonlySet<string>>(new Set());
   const [loadedFor, setLoadedFor] = useState<AuthStatus | null>(null);
   const [error, setError] = useState<TranslationKey | null>(null);
+  const { t } = useI18n();
+  const toast = useToast();
+  // Retry runs the latest version of each action, so it sees the watched set as the revert left it.
+  const latest = useRef<{
+    toggle: (id: string) => Promise<void>;
+    reset: () => Promise<void>;
+    importTitles: (ids: ReadonlySet<string>, mode: "merge" | "replace") => Promise<void>;
+  } | null>(null);
+
+  const saved = useCallback(() => {
+    setError(null);
+    toast.dismiss(SAVE_TOAST_ID);
+  }, [toast]);
+
+  const failedToSave = useCallback(
+    (retry: () => Promise<void>) =>
+      toast.show({
+        id: SAVE_TOAST_ID,
+        tone: "error",
+        persistent: true,
+        title: t("errors.save.title"),
+        message: t("errors.save.body"),
+        action: { label: t("common.retry"), onClick: retry },
+      }),
+    [toast, t],
+  );
 
   useEffect(() => {
     if (status === "loading") return;
@@ -51,13 +79,13 @@ export function useWatched() {
       try {
         if (wasWatched) await repository.remove(id);
         else await repository.add([id]);
-        setError(null);
+        saved();
       } catch {
         setWatched((current) => withTitle(current, id, wasWatched));
-        setError(SAVE_ERROR);
+        failedToSave(() => latest.current!.toggle(id));
       }
     },
-    [watched, repository],
+    [watched, repository, saved, failedToSave],
   );
 
   const reset = useCallback(async () => {
@@ -65,12 +93,12 @@ export function useWatched() {
     setWatched(new Set());
     try {
       await repository.clear();
-      setError(null);
+      saved();
     } catch {
       setWatched(previous);
-      setError(SAVE_ERROR);
+      failedToSave(() => latest.current!.reset());
     }
-  }, [watched, repository]);
+  }, [watched, repository, saved, failedToSave]);
 
   const importTitles = useCallback(
     async (ids: ReadonlySet<string>, mode: "merge" | "replace") => {
@@ -78,14 +106,18 @@ export function useWatched() {
       try {
         if (mode === "replace") await repository.clear();
         if (ids.size > 0) await repository.add([...ids]);
-        setError(null);
+        saved();
       } catch {
-        setError(SAVE_ERROR);
+        failedToSave(() => latest.current!.importTitles(ids, mode));
         setWatched(new Set(await repository.load().catch(() => watched)));
       }
     },
-    [watched, repository],
+    [watched, repository, saved, failedToSave],
   );
+
+  useEffect(() => {
+    latest.current = { toggle, reset, importTitles };
+  });
 
   const storage: ProgressStorage = isAccount ? "account" : isStorageAvailable ? "device" : "none";
 

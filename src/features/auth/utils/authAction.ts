@@ -10,6 +10,17 @@ export function errorKeyOf(caught: unknown): TranslationKey {
   return "auth.errors.generic";
 }
 
+// Better Auth's rate limiter answers with X-Retry-After; the standard header is read too.
+export function retryAfterFromHeaders(response: Response): number | undefined {
+  const raw = response.headers.get("retry-after") ?? response.headers.get("x-retry-after");
+  const seconds = Number(raw);
+  return raw && Number.isFinite(seconds) && seconds > 0 ? Math.ceil(seconds) : undefined;
+}
+
+export function retryAfterOf(caught: unknown): number | undefined {
+  return caught instanceof AuthError ? caught.retryAfter : undefined;
+}
+
 // The request itself is not cancelled; the form just stops waiting for it.
 export function withTimeout<T>(promise: Promise<T>, ms = ACTION_TIMEOUT_MS): Promise<T> {
   let timer: ReturnType<typeof setTimeout> | undefined;

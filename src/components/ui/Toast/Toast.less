@@ -1,0 +1,73 @@
+@import (reference) "mixins";
+
+.toasts {
+  position: fixed;
+  left: 50%;
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  width: min(440px, calc(100vw - 32px));
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+
+// With the floating progress bar showing, the toasts sit above it.
+body:has(.floating-progress[data-visible="true"]) .toasts {
+  bottom: calc(
+    var(--floating-progress-height) + var(--floating-progress-gap) +
+      max(16px, env(safe-area-inset-bottom))
+  );
+}
+
+.toast {
+  .panel-surface();
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  min-height: var(--row-h);
+  padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-3);
+  border-radius: var(--r-row);
+  pointer-events: auto;
+}
+
+.toast__icon {
+  flex: none;
+  width: 36px;
+  height: 36px;
+}
+
+.toast__text {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.toast__action.btn {
+  flex: none;
+  background: var(--raised);
+  color: var(--highlight);
+}
+
+.toast__close {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: var(--hit);
+  height: var(--hit);
+  border-radius: var(--r-pill);
+  color: inherit;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--highlight);
+  }
+
+  .on-hover({ background: var(--raised); });
+}

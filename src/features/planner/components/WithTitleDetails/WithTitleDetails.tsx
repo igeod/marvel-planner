@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
+import { LoadError } from "../../../../components/ui/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useTitleDetails } from "../../hooks/useTitleDetails";
 
@@ -31,14 +32,7 @@ export function WithTitleDetails({ titleId, children, skeleton }: WithTitleDetai
   }
 
   if (state.status === "error") {
-    return (
-      <div className="load-error" role="alert">
-        <p>{t("details.error")}</p>
-        <button type="button" className="btn btn--accent" onClick={state.retry}>
-          {t("common.retry")}
-        </button>
-      </div>
-    );
+    return <LoadError variant="inline" onRetry={state.retry} />;
   }
 
   return <>{children(state.details)}</>;

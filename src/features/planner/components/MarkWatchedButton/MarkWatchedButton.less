@@ -49,6 +49,19 @@
   }
 }
 
-.mark-watched__button--watched svg {
-  color: var(--highlight);
+.mark-watched__button--watched {
+  .mark-watched__pill {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .on-hover({
+    .mark-watched__pill {
+      background: var(--accent-hover);
+    }
+  });
+
+  &:active .mark-watched__pill {
+    background: var(--accent-active);
+  }
 }

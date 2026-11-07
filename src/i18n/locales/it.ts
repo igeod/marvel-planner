@@ -72,7 +72,6 @@ export const it = {
       none: "Su questo dispositivo i progressi non vengono salvati tra una sessione e l'altra.",
     },
     loadError: "Impossibile caricare i progressi. Ricarica la pagina.",
-    saveError: "Impossibile salvare la modifica. Controlla la connessione e riprova.",
     reset: {
       title: "Azzerare tutti i progressi?",
       message: "Le spunte verranno rimosse. L'operazione non può essere annullata.",
@@ -267,7 +266,6 @@ export const it = {
     },
     open: "Scheda completa",
     loading: "Caricamento dei dettagli…",
-    error: "Dettagli non disponibili al momento.",
     posterAlt: "Locandina di {name}",
     originalTitle: "Titolo originale: {name}",
     release: "Uscita",
@@ -311,6 +309,8 @@ export const it = {
       pending: "Accesso in corso…",
       noAccount: "Non hai un account? {link}",
       registerLink: "Registrati",
+      forgotLink: "Password dimenticata?",
+      done: "Bentornato, eroe.",
     },
     register: {
       title: "Crea un account",
@@ -321,6 +321,39 @@ export const it = {
       loginLink: "Accedi",
       privacyNotice: "Creando un account dichiari di aver letto l'{link}.",
       privacyLink: "informativa sulla privacy",
+      done: "Account creato. Benvenuto nel team.",
+    },
+    reset: {
+      request: {
+        title: "Password dimenticata",
+        intro:
+          "Inserisci l'email del tuo account: ti inviamo un link per scegliere una nuova password.",
+        button: "Invia il link",
+        pending: "Invio in corso…",
+      },
+      backToLogin: "Torna all'accesso",
+      sent: {
+        title: "Link inviato",
+        body: "Se esiste un account con questa email, riceverai un link per scegliere una nuova password.",
+        resend: "Reinvia il link",
+        wait: "Potrai reinviare il link tra poco.",
+        resent: "Richiesta inviata di nuovo.",
+      },
+      new: {
+        title: "Scegli una nuova password",
+        intro: "Scegli una password che non usi altrove.",
+        button: "Salva la nuova password",
+        pending: "Salvataggio…",
+      },
+      done: {
+        title: "Password aggiornata",
+        body: "Missione compiuta: ora puoi accedere con la nuova password.",
+      },
+      invalid: {
+        title: "Link non valido o scaduto",
+        body: "Questo link non funziona più. Richiedine uno nuovo.",
+        button: "Richiedi un nuovo link",
+      },
     },
     errors: {
       invalidCredentials: "Email o password non corretti.",
@@ -334,6 +367,7 @@ export const it = {
       passwordLong: "La password è troppo lunga.",
       reauthenticate: "Per sicurezza, esci e accedi di nuovo prima di continuare.",
       tooManyRequests: "Troppi tentativi. Attendi qualche minuto e riprova.",
+      tooManyRequestsJoke: "Bel tentativo, soldato.",
       emailTaken: "Questa email è già usata da un altro account. Inserisci un altro indirizzo.",
       network: "Impossibile contattare il server. Controlla la connessione e riprova.",
       required: "Compila questo campo.",
@@ -364,7 +398,6 @@ export const it = {
       byType: "Per tipo",
       byYear: "Per anno",
       watched: "Titoli visti",
-      error: "Non riesco a caricare i tuoi progressi.",
       loading: "Caricamento dei tuoi progressi…",
       share: "Condividi i progressi",
     },
@@ -438,8 +471,22 @@ export const it = {
   },
   error: {
     title: "Qualcosa è andato storto",
-    body: "Si è verificato un errore imprevisto. Prova a ricaricare la pagina.",
-    home: "Torna al planner",
+    body: "È un problema nostro, non tuo, e i dati già salvati sono intatti: riprova, o torna alla home se continua.",
+    home: "Torna alla home",
+    code: "Codice {code}",
+    copyCode: "Copia il codice errore {code}",
+    codeCopied: "Codice copiato",
+    copyFailed: "Impossibile copiare. Seleziona il codice.",
+  },
+  errors: {
+    save: {
+      title: "Impossibile salvare la modifica",
+      body: "Controlla la connessione e riprova.",
+    },
+  },
+  loadError: {
+    title: "Impossibile caricare i dati",
+    body: "Il caricamento si è interrotto, ma il resto della pagina funziona ancora.",
   },
   prerequisites: {
     heading: "Prima di guardarlo",
@@ -538,11 +585,9 @@ export const it = {
     dismiss: "Ignora",
     openOnTmdb: "Apri su TMDB",
     title: "Amministrazione",
-    error: "Non riesco a caricare i dati dell'amministrazione.",
     actionError: "L'operazione non è riuscita. Riprova.",
     notice: "Ci sono {count} nuovi titoli da valutare.",
     openDashboard: "Apri la dashboard",
-    retry: "Riprova",
     maintenance: {
       heading: "Stato del sito",
       description:
@@ -607,11 +652,12 @@ export const it = {
   },
   maintenance: {
     title: "Sito in manutenzione",
-    body: "Stiamo lavorando al sito. Torna a trovarci tra poco.",
-    adminLogin: "Accesso amministratori",
+    body: "Il quartier generale è in ristrutturazione: stiamo lavorando, torniamo presto.",
+    adminLogin: "Accesso admin",
   },
   notFound: {
     title: "Pagina non trovata",
+    body: "Questa pagina è stata dispersa nel multiverso: il link è vecchio, l'indirizzo è sbagliato o il titolo è stato rimosso.",
     back: "Torna al planner",
   },
   privacy: {

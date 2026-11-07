@@ -1,6 +1,6 @@
-import { CircleAlert } from "lucide-react";
 import { use, useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
+import { FormError } from "../../../../components/ui/FormError";
 import { TextField } from "../../../../components/ui/Field";
 import { Status } from "../../../../components/ui/Status";
 import type { TranslationKey } from "../../../../i18n/types";
@@ -157,12 +157,7 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
           note={nameFeedback?.kind === "note" ? nameFeedback.text : undefined}
           error={nameError}
         />
-        {nameFormError && (
-          <p role="alert" className="form-error">
-            <CircleAlert aria-hidden />
-            {nameFormError}
-          </p>
-        )}
+        {nameFormError && <FormError>{nameFormError}</FormError>}
         <div className="profile-section__actions" ref={nameActions}>
           <Button
             type="submit"
@@ -198,12 +193,7 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
           note={emailFeedback?.kind === "note" ? emailFeedback.text : undefined}
           error={emailError}
         />
-        {emailFormError && (
-          <p role="alert" className="form-error">
-            <CircleAlert aria-hidden />
-            {emailFormError}
-          </p>
-        )}
+        {emailFormError && <FormError>{emailFormError}</FormError>}
         <div className="profile-section__actions" ref={emailActions}>
           <Button
             type="submit"

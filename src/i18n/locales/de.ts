@@ -76,8 +76,6 @@ export const de: Messages = {
       none: "Auf diesem Gerät wird dein Fortschritt nicht zwischen Sitzungen gespeichert.",
     },
     loadError: "Dein Fortschritt konnte nicht geladen werden. Lade die Seite neu.",
-    saveError:
-      "Die Änderung konnte nicht gespeichert werden. Prüfe deine Verbindung und versuche es erneut.",
     reset: {
       title: "Gesamten Fortschritt zurücksetzen?",
       message: "Die Häkchen werden entfernt. Das lässt sich nicht rückgängig machen.",
@@ -272,7 +270,6 @@ export const de: Messages = {
     },
     open: "Alle Details",
     loading: "Details werden geladen …",
-    error: "Details sind im Moment nicht verfügbar.",
     posterAlt: "Poster von {name}",
     originalTitle: "Originaltitel: {name}",
     release: "Erscheinungsdatum",
@@ -316,6 +313,8 @@ export const de: Messages = {
       pending: "Anmeldung läuft …",
       noAccount: "Noch kein Konto? {link}",
       registerLink: "Registrieren",
+      forgotLink: "Passwort vergessen?",
+      done: "Angemeldet.",
     },
     register: {
       title: "Konto erstellen",
@@ -326,6 +325,39 @@ export const de: Messages = {
       loginLink: "Anmelden",
       privacyNotice: "Mit der Erstellung eines Kontos bestätigst du, die {link} gelesen zu haben.",
       privacyLink: "Datenschutzerklärung",
+      done: "Konto erstellt.",
+    },
+    reset: {
+      request: {
+        title: "Passwort vergessen",
+        intro:
+          "Gib die E-Mail deines Kontos ein: Wir senden dir einen Link, um ein neues Passwort zu wählen.",
+        button: "Link senden",
+        pending: "Wird gesendet …",
+      },
+      backToLogin: "Zurück zur Anmeldung",
+      sent: {
+        title: "Link gesendet",
+        body: "Falls mit dieser E-Mail ein Konto existiert, erhältst du einen Link, um ein neues Passwort zu wählen.",
+        resend: "Link erneut senden",
+        wait: "Du kannst den Link gleich erneut senden.",
+        resent: "Anfrage erneut gesendet.",
+      },
+      new: {
+        title: "Neues Passwort wählen",
+        intro: "Wähle ein Passwort, das du sonst nirgends verwendest.",
+        button: "Neues Passwort speichern",
+        pending: "Wird gespeichert …",
+      },
+      done: {
+        title: "Passwort aktualisiert",
+        body: "Du kannst dich jetzt mit deinem neuen Passwort anmelden.",
+      },
+      invalid: {
+        title: "Link ungültig oder abgelaufen",
+        body: "Dieser Link funktioniert nicht mehr. Fordere einen neuen an.",
+        button: "Neuen Link anfordern",
+      },
     },
     errors: {
       invalidCredentials: "E-Mail oder Passwort sind nicht korrekt.",
@@ -339,6 +371,7 @@ export const de: Messages = {
       passwordLong: "Das Passwort ist zu lang.",
       reauthenticate: "Melde dich aus Sicherheitsgründen ab und erneut an, bevor du fortfährst.",
       tooManyRequests: "Zu viele Versuche. Warte einige Minuten und versuche es erneut.",
+      tooManyRequestsJoke: "",
       emailTaken:
         "Diese E-Mail-Adresse wird bereits von einem anderen Konto verwendet. Gib eine andere ein.",
       network: "Der Server ist nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.",
@@ -370,7 +403,6 @@ export const de: Messages = {
       byType: "Nach Typ",
       byYear: "Nach Jahr",
       watched: "Gesehene Titel",
-      error: "Ich kann deinen Fortschritt nicht laden.",
       loading: "Dein Fortschritt wird geladen…",
       share: "Fortschritt teilen",
     },
@@ -444,8 +476,22 @@ export const de: Messages = {
   },
   error: {
     title: "Etwas ist schiefgelaufen",
-    body: "Ein unerwarteter Fehler ist aufgetreten. Lade die Seite neu.",
-    home: "Zurück zum Planer",
+    body: "Das Problem liegt bei uns, nicht bei dir, und deine bereits gespeicherten Daten sind unverändert: Versuche es erneut oder gehe zur Startseite, falls es weiter auftritt.",
+    home: "Zur Startseite",
+    code: "Code {code}",
+    copyCode: "Fehlercode {code} kopieren",
+    codeCopied: "Code kopiert",
+    copyFailed: "Kopieren nicht möglich. Markiere den Code.",
+  },
+  errors: {
+    save: {
+      title: "Änderung konnte nicht gespeichert werden",
+      body: "Prüfe deine Verbindung und versuche es erneut.",
+    },
+  },
+  loadError: {
+    title: "Daten konnten nicht geladen werden",
+    body: "Das Laden wurde unterbrochen, aber der Rest der Seite funktioniert weiterhin.",
   },
   prerequisites: {
     heading: "Bevor du es ansiehst",
@@ -544,11 +590,9 @@ export const de: Messages = {
     dismiss: "Ausblenden",
     openOnTmdb: "Auf TMDB öffnen",
     title: "Verwaltung",
-    error: "Ich kann die Verwaltungsdaten nicht laden.",
     actionError: "Der Vorgang ist fehlgeschlagen. Versuche es erneut.",
     notice: "Es gibt {count} neue Titel zu prüfen.",
     openDashboard: "Dashboard öffnen",
-    retry: "Erneut versuchen",
     maintenance: {
       heading: "Status der Website",
       description:
@@ -613,11 +657,12 @@ export const de: Messages = {
   },
   maintenance: {
     title: "Seite in Wartung",
-    body: "Wir arbeiten an der Seite. Schau bald wieder vorbei.",
-    adminLogin: "Administrator-Anmeldung",
+    body: "Wir arbeiten daran und sind bald zurück.",
+    adminLogin: "Admin-Anmeldung",
   },
   notFound: {
     title: "Seite nicht gefunden",
+    body: "Der Link ist veraltet, die Adresse ist falsch oder der Titel wurde entfernt.",
     back: "Zurück zum Planer",
   },
   privacy: {

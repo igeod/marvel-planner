@@ -70,9 +70,19 @@ describe("traduzioni", () => {
   });
 
   it("nessuna traduzione è vuota", () => {
-    for (const messages of [itMessages, enMessages, frMessages, esMessages, deMessages]) {
+    // The 429 quip exists in Italian and English only; the other languages leave it empty on purpose.
+    const quip = "auth.errors.tooManyRequestsJoke";
+    const messagesByLanguage = [
+      [itMessages, false],
+      [enMessages, false],
+      [frMessages, true],
+      [esMessages, true],
+      [deMessages, true],
+    ] as const;
+    for (const [messages, mayOmitQuip] of messagesByLanguage) {
       const empty = leaves(messages).filter(
-        ([, value]) => typeof value === "string" && value.trim() === "",
+        ([key, value]) =>
+          typeof value === "string" && value.trim() === "" && !(mayOmitQuip && key === quip),
       );
       expect(empty).toEqual([]);
     }

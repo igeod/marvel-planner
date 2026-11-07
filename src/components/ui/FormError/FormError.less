@@ -1,0 +1,42 @@
+.form-error {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+  font-size: var(--fs-label);
+  line-height: 20px;
+  font-weight: 700;
+  color: var(--danger-text);
+
+  svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+    margin-top: 1px;
+    stroke-width: 2.4;
+  }
+}
+
+.form-error--rate {
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  color: var(--ink);
+
+  img {
+    flex: none;
+    width: 72px;
+    height: 72px;
+  }
+
+  strong {
+    display: block;
+    color: var(--danger-text);
+  }
+
+  p {
+    font-weight: 400;
+  }
+}

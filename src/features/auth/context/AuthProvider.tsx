@@ -67,6 +67,16 @@ export function AuthProvider({ children, service = betterAuthService }: AuthProv
     [service, applyUser],
   );
 
+  const requestPasswordReset = useCallback(
+    (email: string) => service.requestPasswordReset(email),
+    [service],
+  );
+
+  const resetPassword = useCallback(
+    (token: string, newPassword: string) => service.resetPassword(token, newPassword),
+    [service],
+  );
+
   const value = useMemo<AuthContextValue>(
     () => ({
       user,
@@ -78,8 +88,22 @@ export function AuthProvider({ children, service = betterAuthService }: AuthProv
       updateEmail,
       changePassword,
       deleteAccount,
+      requestPasswordReset,
+      resetPassword,
     }),
-    [user, status, login, register, logout, updateName, updateEmail, changePassword, deleteAccount],
+    [
+      user,
+      status,
+      login,
+      register,
+      logout,
+      updateName,
+      updateEmail,
+      changePassword,
+      deleteAccount,
+      requestPasswordReset,
+      resetPassword,
+    ],
   );
 
   return <AuthContext value={value}>{children}</AuthContext>;

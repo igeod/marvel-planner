@@ -1,12 +1,14 @@
-import { Check, CircleAlert, Minus, X } from "lucide-react";
+import { CircleAlert } from "lucide-react";
 import { use, useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
+import { FormError } from "../../../../components/ui/FormError";
 import { PasswordField } from "../../../../components/ui/Field";
 import { Status } from "../../../../components/ui/Status";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { type FieldErrors } from "../../../../lib/validation";
 import { isLongEnough } from "../../../../../shared/passwordPolicy";
+import { PasswordRequirement } from "../../../auth/components/PasswordRequirement";
 import { usePasswordPolicy } from "../../../auth/hooks/usePasswordPolicy";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthAction } from "../../../auth/hooks/useAuthAction";
@@ -218,27 +220,12 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
             invalid={isLengthFailed}
             describedBy={requirementId}
             after={
-              <p
+              <PasswordRequirement
                 id={requirementId}
-                role="status"
-                className="password-requirement"
-                data-met={meetsLength || undefined}
-                data-failed={isLengthFailed || undefined}
-              >
-                {meetsLength ? (
-                  <Check aria-hidden />
-                ) : isLengthFailed ? (
-                  <X aria-hidden />
-                ) : (
-                  <Minus aria-hidden />
-                )}
-                {t("account.password.requirements.length", { min: policy.minLength })}
-                <span className="visually-hidden">
-                  {meetsLength
-                    ? t("account.password.requirements.met")
-                    : t("account.password.requirements.notMet")}
-                </span>
-              </p>
+                met={meetsLength}
+                failed={isLengthFailed}
+                minLength={policy.minLength}
+              />
             }
             autoComplete="new-password"
             required
@@ -268,12 +255,7 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
             isQuiet={isQuiet}
           />
         </div>
-        {formError && (
-          <p role="alert" className="form-error">
-            <CircleAlert aria-hidden />
-            {formError}
-          </p>
-        )}
+        {formError && <FormError>{formError}</FormError>}
         <div className="password-section__actions" ref={actionsRef}>
           <p id={noteId} className="password-section__note">
             {t("account.password.signedOut")}

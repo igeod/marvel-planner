@@ -75,7 +75,6 @@ export const es: Messages = {
       none: "En este dispositivo el progreso no se conserva entre sesiones.",
     },
     loadError: "No se puede cargar tu progreso. Recarga la página.",
-    saveError: "No se puede guardar el cambio. Comprueba la conexión e inténtalo de nuevo.",
     reset: {
       title: "¿Restablecer todo el progreso?",
       message: "Se quitarán las marcas. La acción no se puede deshacer.",
@@ -270,7 +269,6 @@ export const es: Messages = {
     },
     open: "Ficha completa",
     loading: "Cargando detalles…",
-    error: "Detalles no disponibles en este momento.",
     posterAlt: "Cartel de {name}",
     originalTitle: "Título original: {name}",
     release: "Estreno",
@@ -314,6 +312,8 @@ export const es: Messages = {
       pending: "Iniciando sesión…",
       noAccount: "¿No tienes una cuenta? {link}",
       registerLink: "Regístrate",
+      forgotLink: "¿Has olvidado la contraseña?",
+      done: "Sesión iniciada.",
     },
     register: {
       title: "Crear una cuenta",
@@ -324,6 +324,39 @@ export const es: Messages = {
       loginLink: "Inicia sesión",
       privacyNotice: "Al crear una cuenta declaras haber leído la {link}.",
       privacyLink: "política de privacidad",
+      done: "Cuenta creada.",
+    },
+    reset: {
+      request: {
+        title: "Contraseña olvidada",
+        intro:
+          "Introduce el correo de tu cuenta: te enviamos un enlace para elegir una contraseña nueva.",
+        button: "Enviar el enlace",
+        pending: "Enviando…",
+      },
+      backToLogin: "Volver a iniciar sesión",
+      sent: {
+        title: "Enlace enviado",
+        body: "Si existe una cuenta con este correo, recibirás un enlace para elegir una contraseña nueva.",
+        resend: "Reenviar el enlace",
+        wait: "Podrás reenviar el enlace en un momento.",
+        resent: "Solicitud enviada de nuevo.",
+      },
+      new: {
+        title: "Elige una contraseña nueva",
+        intro: "Elige una contraseña que no uses en ningún otro sitio.",
+        button: "Guardar la contraseña nueva",
+        pending: "Guardando…",
+      },
+      done: {
+        title: "Contraseña actualizada",
+        body: "Ya puedes iniciar sesión con tu nueva contraseña.",
+      },
+      invalid: {
+        title: "Enlace no válido o caducado",
+        body: "Este enlace ya no funciona. Solicita uno nuevo.",
+        button: "Solicitar un enlace nuevo",
+      },
     },
     errors: {
       invalidCredentials: "Correo o contraseña incorrectos.",
@@ -337,6 +370,7 @@ export const es: Messages = {
       passwordLong: "La contraseña es demasiado larga.",
       reauthenticate: "Por seguridad, cierra sesión e inicia sesión de nuevo antes de continuar.",
       tooManyRequests: "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+      tooManyRequestsJoke: "",
       emailTaken: "Este correo ya lo usa otra cuenta. Introduce otra dirección.",
       network: "No se puede contactar con el servidor. Comprueba tu conexión e inténtalo de nuevo.",
       required: "Rellena este campo.",
@@ -367,7 +401,6 @@ export const es: Messages = {
       byType: "Por tipo",
       byYear: "Por año",
       watched: "Títulos vistos",
-      error: "No puedo cargar tu progreso.",
       loading: "Cargando tu progreso…",
       share: "Compartir progreso",
     },
@@ -442,8 +475,22 @@ export const es: Messages = {
   },
   error: {
     title: "Algo ha salido mal",
-    body: "Se ha producido un error inesperado. Prueba a recargar la página.",
-    home: "Volver al planificador",
+    body: "Es un problema nuestro, no tuyo, y los datos ya guardados están intactos: inténtalo de nuevo o vuelve al inicio si continúa.",
+    home: "Volver al inicio",
+    code: "Código {code}",
+    copyCode: "Copiar el código de error {code}",
+    codeCopied: "Código copiado",
+    copyFailed: "No se pudo copiar. Selecciona el código.",
+  },
+  errors: {
+    save: {
+      title: "No se puede guardar el cambio",
+      body: "Comprueba la conexión e inténtalo de nuevo.",
+    },
+  },
+  loadError: {
+    title: "No se pueden cargar los datos",
+    body: "La carga se interrumpió, pero el resto de la página sigue funcionando.",
   },
   prerequisites: {
     heading: "Antes de verlo",
@@ -541,11 +588,9 @@ export const es: Messages = {
     dismiss: "Ignorar",
     openOnTmdb: "Abrir en TMDB",
     title: "Administración",
-    error: "No puedo cargar los datos de administración.",
     actionError: "La operación ha fallado. Inténtalo de nuevo.",
     notice: "Hay {count} títulos nuevos por revisar.",
     openDashboard: "Abrir el panel",
-    retry: "Reintentar",
     maintenance: {
       heading: "Estado del sitio",
       description:
@@ -610,11 +655,12 @@ export const es: Messages = {
   },
   maintenance: {
     title: "Sitio en mantenimiento",
-    body: "Estamos trabajando en el sitio. Vuelve en un momento.",
-    adminLogin: "Acceso de administradores",
+    body: "Estamos trabajando, volvemos pronto.",
+    adminLogin: "Acceso de administrador",
   },
   notFound: {
     title: "Página no encontrada",
+    body: "El enlace es antiguo, la dirección es incorrecta o el título se eliminó.",
     back: "Volver al planificador",
   },
   privacy: {

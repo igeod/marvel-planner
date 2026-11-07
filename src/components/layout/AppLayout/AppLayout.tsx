@@ -23,12 +23,24 @@ export function AppLayout() {
     mainRef.current?.focus();
   }, [pathname]);
 
+  // Maintenance replaces the whole page, header and footer included; only the dialogs stay.
+  if (!isLoading && maintenance && !isAdmin) {
+    return (
+      <>
+        <MaintenancePage />
+        <AuthDialogs />
+        <PrivacySettingsDialog />
+        <ScrollRestoration />
+      </>
+    );
+  }
+
   return (
     <>
       <SkipLink />
       <AppHeader />
       <main className="site-main" id={MAIN_CONTENT_ID} ref={mainRef} tabIndex={-1}>
-        {isLoading ? null : maintenance && !isAdmin ? <MaintenancePage /> : <Outlet />}
+        {isLoading ? null : <Outlet />}
       </main>
       {!isLoading && <AppFooter />}
       <AuthDialogs />

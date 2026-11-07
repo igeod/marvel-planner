@@ -58,7 +58,7 @@ export function Modal({
         <>
           <div className="dialog__scroll scroll-y">
             <header className="dialog__header">
-              <h2 id={titleId} lang={titleLang}>
+              <h2 id={titleId} lang={titleLang} tabIndex={-1}>
                 {title}
               </h2>
             </header>

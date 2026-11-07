@@ -1,7 +1,8 @@
-import { RotateCw, Share2 } from "lucide-react";
+import { Share2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { Chevron } from "../../../../components/ui/Chevron";
+import { LoadError } from "../../../../components/ui/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../../planner/data/labels";
 import { useResolvedCatalog } from "../../../planner/hooks/useResolvedCatalog";
@@ -115,14 +116,7 @@ export function ProgressStatsSection() {
 
   if (state.status === "loading") return <ProgressSkeleton />;
   if (state.status === "error") {
-    return (
-      <section className="progress-state" role="alert">
-        <p>{t("account.stats.error")}</p>
-        <Button variant="soft" icon={<RotateCw aria-hidden />} onClick={retry}>
-          {t("common.retry")}
-        </Button>
-      </section>
-    );
+    return <LoadError onRetry={retry} />;
   }
   if (!stats) return null;
 

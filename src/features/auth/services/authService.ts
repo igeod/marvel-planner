@@ -10,10 +10,17 @@ export interface AuthService {
   updateEmail(email: string): Promise<User>;
   changePassword(change: PasswordChange): Promise<void>;
   deleteAccount(password: string): Promise<void>;
+  // The answer is the same whether or not the address has an account.
+  requestPasswordReset(email: string): Promise<void>;
+  resetPassword(token: string, newPassword: string): Promise<void>;
 }
 
 export class AuthError extends Error {
-  constructor(readonly messageKey: TranslationKey) {
+  // Seconds the server asks to wait before trying again (429).
+  constructor(
+    readonly messageKey: TranslationKey,
+    readonly retryAfter?: number,
+  ) {
     super(messageKey);
     this.name = "AuthError";
   }
