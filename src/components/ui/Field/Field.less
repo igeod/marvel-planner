@@ -29,6 +29,12 @@
   position: relative;
 }
 
+// A field has a background of its own, so the ring hugs it: 3px out instead of 6px, and it never
+// reaches the label or the message line.
+.field__control input:focus-visible {
+  outline-offset: 0;
+}
+
 // Hint, caps-lock notice and error share one size; only the error is bold and red.
 .field__message {
   display: flex;
