@@ -1,5 +1,6 @@
-import { Check, Hammer, X } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import errToast from "../../../assets/err-toast.webp";
 import { useI18n } from "../../../i18n/useI18n";
 import { Button } from "../Button";
 import { ToastContext, type ToastContextValue, type ToastOptions } from "./ToastContext";
@@ -61,7 +62,7 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
       onKeyDown={(event) => event.key === "Escape" && close()}
     >
       {item.tone === "error" ? (
-        <Hammer className="toast__icon" aria-hidden />
+        <img className="toast__icon" src={errToast} alt="" aria-hidden width={36} height={36} />
       ) : (
         <span className="toast__badge" aria-hidden>
           <Check />

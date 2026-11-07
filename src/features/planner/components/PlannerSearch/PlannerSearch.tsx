@@ -1,4 +1,5 @@
-import { Search, SearchX, X } from "lucide-react";
+import { Search, X } from "lucide-react";
+import art from "../../../../assets/empty-search.webp";
 import { useId, useRef } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { StateBox } from "../../../../components/ui/StateBox";
@@ -71,7 +72,7 @@ export function SearchNoResults({ query, onClear }: SearchNoResultsProps) {
 
   return (
     <StateBox
-      art={<SearchX strokeWidth={1.5} />}
+      art={<img src={art} alt="" aria-hidden width={96} height={96} />}
       title={t("planner.empty.search.title", { q: query.trim() })}
       actions={
         <Button variant="soft" icon={<X aria-hidden />} onClick={onClear}>

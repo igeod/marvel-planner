@@ -22,10 +22,19 @@
   height: 96px;
   color: var(--ink-2);
 
-  svg {
+  svg,
+  img {
     width: 100%;
     height: 100%;
   }
+
+  img {
+    object-fit: contain;
+  }
+}
+
+[data-theme="dark"] .state-box__art img {
+  filter: drop-shadow(0 0 1.5px var(--ink));
 }
 
 .state-box__body {
