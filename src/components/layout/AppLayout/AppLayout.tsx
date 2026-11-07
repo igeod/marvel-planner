@@ -37,12 +37,14 @@ export function AppLayout() {
 
   return (
     <>
-      <SkipLink />
-      <AppHeader />
-      <main className="site-main" id={MAIN_CONTENT_ID} ref={mainRef} tabIndex={-1}>
-        {isLoading ? null : <Outlet />}
-      </main>
-      {!isLoading && <AppFooter />}
+      <div className="site-shell">
+        <SkipLink />
+        <AppHeader />
+        <main className="site-main" id={MAIN_CONTENT_ID} ref={mainRef} tabIndex={-1}>
+          {isLoading ? null : <Outlet />}
+        </main>
+        {!isLoading && <AppFooter />}
+      </div>
       <AuthDialogs />
       <PrivacySettingsDialog />
       <ScrollRestoration />

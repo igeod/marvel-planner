@@ -8,7 +8,10 @@
   padding: 2rem 1rem var(--sp-10);
   .panel-surface();
 
-  .desktop({ margin-top: var(--sp-14); padding: 48px 32px 40px; });
+  .desktop({
+    margin-top: var(--sp-14);
+    padding: 48px max(32px, calc((100% - 1440px) / 2 + 32px)) 40px;
+  });
 }
 
 .site-footer__columns {

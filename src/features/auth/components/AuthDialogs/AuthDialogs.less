@@ -1,11 +1,27 @@
-// The sign-in popup is tighter than a page form: every field keeps its message row reserved, so an
-// error moves nothing, and the gap between fields drops from --sp-5 to --sp-3.
+// The view wrapper stands in for .dialog__body's children, so it keeps their 20px gap between the
+// intro, the form and the links.
 .auth-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  // The sign-in popup is tighter than a page form: label 6px above the field, the message row 4px
+  // under it and always reserved (an error moves nothing), 12px between fields. That leaves 36px
+  // from one field to the next label, 16px from the last field to the button.
   .form {
     gap: var(--sp-3);
   }
 
+  .form > .btn {
+    margin-top: var(--sp-1);
+  }
+
+  .field {
+    gap: var(--sp-1h);
+  }
+
   .field__message {
+    gap: var(--sp-1h);
     margin-top: -2px;
   }
 }
