@@ -53,4 +53,9 @@
   min-width: 0;
 
   .desktop({ grid-area: list; gap: 24px; });
+
+  // An empty list has no saga title: the box starts level with the right column instead.
+  > .state-box {
+    .desktop({ margin-top: calc(@saga-header-height + 8px); });
+  }
 }
