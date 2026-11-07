@@ -445,7 +445,6 @@ export const en: Messages = {
       errors: {
         currentWrong: "The current password is incorrect. Try again.",
       },
-      errorSummary: "Fix these fields before continuing:",
     },
     dialog: {
       unsaved: "You have unsaved changes.",

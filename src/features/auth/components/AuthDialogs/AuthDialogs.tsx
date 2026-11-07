@@ -1,14 +1,16 @@
-import { useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { Link } from "react-router";
 import { PATHS } from "../../../../app/paths";
 import { Button } from "../../../../components/ui/Button";
 import { Modal } from "../../../../components/ui/Modal";
+import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { AccountSettings, PROFILE_TITLE_ID } from "../../../account/components/AccountSettings";
-import type { AuthDialogView } from "../../context/AuthDialogContext";
+import type { AuthDialogPayload, AuthDialogView } from "../../context/AuthDialogContext";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
+import { useViewTransition } from "../../hooks/useViewTransition";
 import { AUTH_TITLE_ID, AuthResult } from "../AuthResult";
 import { ForgotForm } from "../ForgotForm";
 import { LoginForm } from "../LoginForm";
@@ -27,15 +29,63 @@ const TITLE_KEYS: Record<AuthDialogView, TranslationKey> = {
   resetInvalid: "auth.reset.invalid.title",
 };
 
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
 export function AuthDialogs() {
   const { t, rich } = useI18n();
-  const { user, status } = useAuth();
+  const { user, status, requestPasswordReset } = useAuth();
   const { view, payload, open, close } = useAuthDialog();
-  const { requestPasswordReset } = useAuth();
+  const reducedMotion = useMediaQuery(REDUCED_MOTION);
+
+  // The height of the old view, taken just before the new one replaces it.
+  const viewRef = useRef<HTMLDivElement>(null);
+  const heightBefore = useRef<number | null>(null);
+  const hasSwapped = useRef(false);
+
+  const { shown, leaving, direction } = useViewTransition<AuthDialogView, AuthDialogPayload>(
+    view,
+    payload,
+    {
+      // Back means arriving at the sign-in view; the profile popup and a reopened popup have no motion.
+      isBack: (_from, to) => to === "login",
+      isInstant: (from, to) => from === null || from === "account" || to === "account",
+      onBeforeSwap: () => {
+        hasSwapped.current = true;
+        heightBefore.current = reducedMotion ? null : (viewRef.current?.offsetHeight ?? null);
+      },
+    },
+  );
+
+  // The popup grows or shrinks to the new view instead of jumping; the focus moves at once.
+  useLayoutEffect(() => {
+    const element = viewRef.current;
+    if (!element || !hasSwapped.current) return;
+    hasSwapped.current = false;
+    element.querySelector<HTMLElement>("input")?.focus({ preventScroll: true });
+
+    const from = heightBefore.current;
+    heightBefore.current = null;
+    if (from === null || from === element.offsetHeight) return;
+    const to = element.offsetHeight;
+    const clear = () => {
+      element.style.height = "";
+      element.style.overflow = "";
+      element.style.transition = "";
+    };
+    element.style.height = `${from}px`;
+    element.style.overflow = "hidden";
+    element.getBoundingClientRect();
+    element.style.transition = "height var(--dur-ui) var(--ease-out)";
+    element.style.height = `${to}px`;
+    element.addEventListener("transitionend", clear, { once: true });
+    // A transition that never ends (tab in the background) must not leave the height fixed.
+    const fallback = setTimeout(clear, 400);
+    return () => clearTimeout(fallback);
+  }, [shown.view]);
 
   const isAccountWithoutUser = view === "account" && !user;
   const isOpen = view !== null && !(isAccountWithoutUser && status === "anonymous");
-  const currentView: AuthDialogView = view ?? "login";
+  const currentView: AuthDialogView = shown.view ?? "login";
   // The profile popup registers its own close, which asks about unsaved changes first.
   const accountClose = useRef<(() => void) | null>(null);
   const requestClose = () => (currentView === "account" && accountClose.current) || close;
@@ -59,14 +109,8 @@ export function AuthDialogs() {
     </AuthResult>
   );
 
-  return (
-    <Modal
-      isOpen={isOpen}
-      title={t(TITLE_KEYS[currentView])}
-      size={currentView === "account" ? "profile" : "md"}
-      titleId={currentView === "account" ? PROFILE_TITLE_ID : AUTH_TITLE_ID}
-      onClose={() => requestClose()()}
-    >
+  const content = (
+    <>
       {currentView === "login" && (
         <>
           <p>{t("auth.login.intro")}</p>
@@ -112,7 +156,7 @@ export function AuthDialogs() {
         <>
           <p>{t("auth.reset.request.intro")}</p>
           <ForgotForm />
-          <p>{backToLogin(payload.email)}</p>
+          <p>{backToLogin(shown.payload.email)}</p>
         </>
       )}
 
@@ -124,12 +168,12 @@ export function AuthDialogs() {
               <Button
                 variant="primary"
                 size="lg"
-                onClick={() => open("login", { email: payload.email })}
+                onClick={() => open("login", { email: shown.payload.email })}
               >
                 {t("auth.reset.backToLogin")}
               </Button>
               <ResendButton
-                onResend={() => requestPasswordReset(payload.email ?? "")}
+                onResend={() => requestPasswordReset(shown.payload.email ?? "")}
                 label={t("auth.reset.sent.resend")}
                 waitText={t("auth.reset.sent.wait")}
                 doneText={t("auth.reset.sent.resent")}
@@ -142,10 +186,10 @@ export function AuthDialogs() {
       )}
 
       {currentView === "resetPassword" &&
-        (payload.token ? (
+        (shown.payload.token ? (
           <>
             <p>{t("auth.reset.new.intro")}</p>
-            <ResetPasswordForm token={payload.token} />
+            <ResetPasswordForm token={shown.payload.token} />
           </>
         ) : (
           resetInvalid
@@ -165,9 +209,30 @@ export function AuthDialogs() {
       )}
 
       {currentView === "resetInvalid" && resetInvalid}
+    </>
+  );
 
-      {currentView === "account" && user && (
-        <AccountSettings user={user} onClose={close} closeRef={accountClose} />
+  return (
+    <Modal
+      isOpen={isOpen}
+      title={t(TITLE_KEYS[currentView])}
+      size={currentView === "account" ? "profile" : "md"}
+      titleId={currentView === "account" ? PROFILE_TITLE_ID : AUTH_TITLE_ID}
+      viewMotion={currentView === "account" ? undefined : { leaving, direction }}
+      onClose={() => requestClose()()}
+    >
+      {currentView === "account" ? (
+        user && <AccountSettings user={user} onClose={close} closeRef={accountClose} />
+      ) : (
+        <div
+          ref={viewRef}
+          key={currentView}
+          className="auth-view view-motion"
+          data-dir={direction}
+          data-phase={leaving ? "out" : "in"}
+        >
+          {content}
+        </div>
       )}
     </Modal>
   );

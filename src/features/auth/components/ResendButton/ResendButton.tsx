@@ -15,13 +15,7 @@ export function ResendButton({ onResend, label, waitText, doneText }: ResendButt
 
   return (
     <>
-      <Button
-        variant="soft"
-        size="lg"
-        isLoading={isPending}
-        disabled={isBlocked}
-        onClick={() => void run()}
-      >
+      <Button variant="text" isLoading={isPending} disabled={isBlocked} onClick={() => void run()}>
         {label}
       </Button>
       <Status>{isBlocked ? waitText : isDone ? doneText : (error ?? "")}</Status>

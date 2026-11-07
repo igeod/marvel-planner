@@ -12,6 +12,8 @@ interface ModalProps {
   // Bare dialogs draw their own heading; this is that heading's id.
   titleId?: string;
   size?: "md" | "lg" | "profile";
+  // The heading leaves and enters with the view it names.
+  viewMotion?: { leaving: boolean; direction?: "forward" | "back" };
   children: ReactNode;
 }
 
@@ -22,6 +24,7 @@ export function Modal({
   onClose,
   titleId: ownTitleId,
   size = "md",
+  viewMotion,
   children,
 }: ModalProps) {
   const { t } = useI18n();
@@ -58,7 +61,15 @@ export function Modal({
         <>
           <div className="dialog__scroll scroll-y">
             <header className="dialog__header">
-              <h2 id={titleId} lang={titleLang} tabIndex={-1}>
+              <h2
+                key={viewMotion ? title : undefined}
+                id={titleId}
+                lang={titleLang}
+                tabIndex={-1}
+                className={viewMotion ? "view-motion" : undefined}
+                data-dir={viewMotion?.direction}
+                data-phase={viewMotion ? (viewMotion.leaving ? "out" : "in") : undefined}
+              >
                 {title}
               </h2>
             </header>

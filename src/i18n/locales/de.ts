@@ -449,7 +449,6 @@ export const de: Messages = {
       errors: {
         currentWrong: "Das aktuelle Passwort ist nicht korrekt. Versuche es erneut.",
       },
-      errorSummary: "Korrigiere diese Felder, bevor du fortfährst:",
     },
     dialog: {
       unsaved: "Du hast ungespeicherte Änderungen.",

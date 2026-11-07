@@ -30,11 +30,11 @@ export interface FieldProps {
   note?: string;
   // Focus the input from outside, e.g. after a refused submit.
   inputRef?: Ref<HTMLInputElement>;
-  // The error is not announced on its own (a summary above already is).
-  isQuiet?: boolean;
   // Marks the field invalid when its error is shown elsewhere (the password length row).
   invalid?: boolean;
   describedBy?: string;
+  // Sits in the label row, at the right of the label (the counter's place in TextField).
+  labelAction?: ReactNode;
 }
 
 // The label names the field for assistive technology, but a click on it does not move focus.
@@ -49,22 +49,15 @@ function FieldMessage({
   hint,
   error,
   notice,
-  isQuiet,
 }: {
   id: string;
   hint?: string;
   error?: string | null;
   notice?: string | false;
-  isQuiet?: boolean;
 }) {
   if (error) {
     return (
-      <p
-        key="error"
-        id={id}
-        role={isQuiet ? "status" : "alert"}
-        className="field__message field__error"
-      >
+      <p key="error" id={id} role="alert" className="field__message field__error">
         <CircleAlert aria-hidden />
         {error}
       </p>
@@ -95,7 +88,8 @@ export function TextField({
   onBlur,
   note,
   inputRef: externalRef,
-  isQuiet,
+  invalid,
+  describedBy,
 }: FieldProps) {
   const { t } = useI18n();
   const id = useId();
@@ -133,8 +127,8 @@ export function TextField({
           minLength={minLength}
           readOnly={readOnly}
           disabled={disabled}
-          aria-invalid={Boolean(error)}
-          aria-describedby={messageId}
+          aria-invalid={Boolean(error) || invalid}
+          aria-describedby={[messageId, describedBy].filter(Boolean).join(" ")}
           data-clearable={hasClear || undefined}
           onChange={(event) => onChange(event.target.value)}
           onBlur={onBlur}
@@ -153,7 +147,7 @@ export function TextField({
           </button>
         )}
       </div>
-      <FieldMessage id={messageId} hint={note ?? hint} error={error} isQuiet={isQuiet} />
+      <FieldMessage id={messageId} hint={note ?? hint} error={error} />
     </div>
   );
 }
@@ -185,9 +179,12 @@ export function PasswordField(props: PasswordFieldProps) {
 
   return (
     <div className="field">
-      <label htmlFor={id} onClick={keepFocus}>
-        {label}
-      </label>
+      <div className="field__label">
+        <label htmlFor={id} onClick={keepFocus}>
+          {label}
+        </label>
+        {props.labelAction}
+      </div>
       <div className="field__control">
         <input
           id={id}
@@ -229,7 +226,6 @@ export function PasswordField(props: PasswordFieldProps) {
         hint={hint}
         error={error}
         notice={isCapsLock && t("auth.capsLock")}
-        isQuiet={props.isQuiet}
       />
       {props.after}
     </div>

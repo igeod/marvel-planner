@@ -38,11 +38,34 @@ body:has(.floating-progress[data-visible="true"]) .toasts {
   height: 36px;
 }
 
+// The confirmation toast: a tick in a gold disc where the error toast has the hammer.
+.toast__badge {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-pill);
+  background: var(--highlight);
+  color: var(--deepest);
+
+  svg {
+    width: 20px;
+    height: 20px;
+    stroke-width: 3;
+  }
+}
+
 .toast__text {
   display: flex;
   flex: 1;
   flex-direction: column;
   min-width: 0;
+}
+
+.toast__text strong {
+  font-weight: 800;
 }
 
 .toast__action.btn {

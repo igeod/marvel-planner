@@ -1,4 +1,4 @@
-import { Hammer, Info, X } from "lucide-react";
+import { Check, Hammer, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useI18n } from "../../../i18n/useI18n";
 import { Button } from "../Button";
@@ -46,8 +46,6 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
     }
   };
 
-  const Icon = item.tone === "error" ? Hammer : Info;
-
   return (
     <div
       ref={rootRef}
@@ -64,7 +62,13 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
       onBlur={() => setIsPaused(false)}
       onKeyDown={(event) => event.key === "Escape" && close()}
     >
-      <Icon className="toast__icon" aria-hidden />
+      {item.tone === "error" ? (
+        <Hammer className="toast__icon" aria-hidden />
+      ) : (
+        <span className="toast__badge" aria-hidden>
+          <Check />
+        </span>
+      )}
       <div className="toast__text">
         <strong>{item.title}</strong>
         {item.message && <span>{item.message}</span>}

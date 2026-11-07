@@ -1,5 +1,5 @@
 import { LogIn } from "lucide-react";
-import { useRef, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { PasswordField, TextField } from "../../../../components/ui/Field";
 import { useToast } from "../../../../components/ui/Toast";
@@ -23,11 +23,14 @@ export function LoginForm() {
   const { login } = useAuth();
   const { close, open } = useAuthDialog();
   const toast = useToast();
-  const { run, error, errorCode, isPending, isBlocked } = useAuthAction(login, () => {
+  const { run, reset, error, errorCode, isPending, isBlocked } = useAuthAction(login, () => {
     close();
     toast.show({ tone: "info", title: t("auth.login.done") });
   });
   const formRef = useRef<HTMLFormElement>(null);
+  const passwordId = useId();
+  // Wrong credentials belong to both fields and to neither alone: one message, under the password.
+  const isCredentialsError = errorCode === "auth.errors.invalidCredentials";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors<LoginField>>({});
@@ -54,7 +57,7 @@ export function LoginForm() {
 
   return (
     <form ref={formRef} className="form" onSubmit={(event) => void handleSubmit(event)} noValidate>
-      {error && <AuthFormError error={error} code={errorCode} />}
+      {error && !isCredentialsError && <AuthFormError error={error} code={errorCode} />}
       <TextField
         label={t("auth.email")}
         name="email"
@@ -63,19 +66,29 @@ export function LoginForm() {
         required
         disabled={isBlocked}
         value={email}
-        onChange={setEmail}
+        onChange={(value) => {
+          reset();
+          setEmail(value);
+        }}
         error={errors.email && t(errors.email)}
+        invalid={isCredentialsError}
+        describedBy={isCredentialsError ? `${passwordId}-message` : undefined}
       />
       <PasswordField
         label={t("auth.password")}
         name="password"
+        id={passwordId}
         autoComplete="current-password"
         required
         disabled={isBlocked}
         value={password}
-        onChange={setPassword}
-        error={errors.password && t(errors.password)}
-        after={
+        onChange={(value) => {
+          reset();
+          setPassword(value);
+        }}
+        invalid={isCredentialsError}
+        error={errors.password ? t(errors.password) : isCredentialsError ? error : null}
+        labelAction={
           PASSWORD_RESET_ENABLED ? (
             <button
               type="button"

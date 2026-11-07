@@ -25,6 +25,23 @@ a {
   animation: fade-in var(--dur-enter) var(--ease-out) both;
 }
 
+// Popup views: the old one fades out, the new one fades in; the slide is added under no-preference.
+.view-motion {
+  --view-shift: 12px;
+}
+
+.view-motion[data-dir="back"] {
+  --view-shift: -12px;
+}
+
+.view-motion[data-dir][data-phase="out"] {
+  animation: fade-out var(--dur-hover) var(--ease-out) forwards;
+}
+
+.view-motion[data-dir][data-phase="in"] {
+  animation: fade-in var(--dur-ui) var(--ease-out) both;
+}
+
 // Loading placeholder: flat block, pulses while it waits (static under reduced motion).
 .skeleton {
   display: block;
@@ -246,7 +263,6 @@ dialog.menu-panel {
 .dialog__error,
 .candidates__empty,
 .form-error,
-.form-summary,
 .status__inner {
   animation: fade-in var(--dur-ui) var(--ease-out);
 }
@@ -486,6 +502,14 @@ dialog.menu-panel {
     animation-name: reveal-in;
   }
 
+  .view-motion[data-dir][data-phase="out"] {
+    animation-name: view-out;
+  }
+
+  .view-motion[data-dir][data-phase="in"] {
+    animation-name: view-in;
+  }
+
   .toast {
     animation-name: swap-in;
   }
@@ -702,6 +726,20 @@ dialog.menu-panel {
   from {
     opacity: 0;
     transform: translateY(-6px);
+  }
+}
+
+@keyframes view-out {
+  to {
+    opacity: 0;
+    transform: translateX(calc(var(--view-shift) * -1));
+  }
+}
+
+@keyframes view-in {
+  from {
+    opacity: 0;
+    transform: translateX(var(--view-shift));
   }
 }
 

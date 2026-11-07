@@ -450,7 +450,6 @@ export const fr: Messages = {
       errors: {
         currentWrong: "Le mot de passe actuel est incorrect. Réessayez.",
       },
-      errorSummary: "Corrigez ces champs avant de continuer :",
     },
     dialog: {
       unsaved: "Vous avez des modifications non enregistrées.",

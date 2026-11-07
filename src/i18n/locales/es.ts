@@ -448,7 +448,6 @@ export const es: Messages = {
       errors: {
         currentWrong: "La contraseña actual no es correcta. Inténtalo de nuevo.",
       },
-      errorSummary: "Corrige estos campos antes de continuar:",
     },
     dialog: {
       unsaved: "Tienes cambios sin guardar.",

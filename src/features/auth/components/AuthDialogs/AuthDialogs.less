@@ -1,0 +1,11 @@
+// The sign-in popup is tighter than a page form: every field keeps its message row reserved, so an
+// error moves nothing, and the gap between fields drops from --sp-5 to --sp-3.
+.auth-view {
+  .form {
+    gap: var(--sp-3);
+  }
+
+  .field__message {
+    margin-top: -2px;
+  }
+}

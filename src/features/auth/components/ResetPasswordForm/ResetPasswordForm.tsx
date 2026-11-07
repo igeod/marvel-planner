@@ -99,12 +99,15 @@ export function ResetPasswordForm({ token }: { token: string }) {
         invalid={isLengthFailed}
         describedBy={requirementId}
         after={
-          <PasswordRequirement
-            id={requirementId}
-            met={meetsLength}
-            failed={isLengthFailed}
-            minLength={policy.minLength}
-          />
+          // The empty-field message and the length row never show together.
+          isRequired && !password ? undefined : (
+            <PasswordRequirement
+              id={requirementId}
+              met={meetsLength}
+              failed={isLengthFailed}
+              minLength={policy.minLength}
+            />
+          )
         }
         autoComplete="new-password"
         required

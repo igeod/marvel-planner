@@ -1,4 +1,3 @@
-import { CircleAlert } from "lucide-react";
 import { use, useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button";
 import { FormError } from "../../../../components/ui/FormError";
@@ -18,6 +17,8 @@ const EMPTY_FORM = { currentPassword: "", newPassword: "", confirmation: "" };
 
 type PasswordField = keyof typeof EMPTY_FORM;
 
+const FIELDS: PasswordField[] = ["currentPassword", "newPassword", "confirmation"];
+
 // Server answers that belong to a field; any other answer goes in the form's error row.
 const FIELD_FOR_ERROR: Partial<Record<TranslationKey, PasswordField>> = {
   "auth.errors.wrongPassword": "currentPassword",
@@ -25,12 +26,6 @@ const FIELD_FOR_ERROR: Partial<Record<TranslationKey, PasswordField>> = {
   "auth.errors.passwordWeak": "newPassword",
   "auth.errors.passwordLong": "newPassword",
 };
-
-interface SummaryEntry {
-  field: PasswordField;
-  label: string;
-  message: string;
-}
 
 interface PasswordSectionProps {
   // The Password tab is the visible one; leaving it clears the success message.
@@ -47,13 +42,10 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
   const ids = { currentPassword: useId(), newPassword: useId(), confirmation: useId() };
   const noteId = useId();
   const requirementId = useId();
-  const summaryRef = useRef<HTMLDivElement>(null);
   const actionsRef = useRef<HTMLDivElement>(null);
   // New password and its confirmation share one eye; the current password has its own.
   const controls = `${ids.newPassword} ${ids.confirmation}`;
   const [errors, setErrors] = useState<FieldErrors<PasswordField>>({});
-  // Two or more invalid fields on submit: a summary with a link to each, instead of one message each.
-  const [summary, setSummary] = useState<SummaryEntry[] | null>(null);
   // The cross shows only after blur or submit with fewer characters than required, then stays live.
   const [isNewFailed, setIsNewFailed] = useState(false);
   // The mismatch error appears at the first blur of the confirmation or on submit, then stays live.
@@ -95,14 +87,8 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorCode]);
 
-  // The summary takes the focus once it is on screen.
-  useEffect(() => {
-    if (summary) summaryRef.current?.focus();
-  }, [summary]);
-
   const update = (field: PasswordField) => (value: string) => {
     reset();
-    setSummary(null);
     if (field === "newPassword" && isLongEnough(policy, value)) setIsNewFailed(false);
     setForm((current) => ({ ...current, [field]: value }));
   };
@@ -139,14 +125,9 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
     setErrors(found);
     setIsConfirmTouched(true);
     if (!meetsLength) setIsNewFailed(true);
-    const entries = (Object.keys(found) as PasswordField[]).map((field) => ({
-      field,
-      label: labels[field],
-      message: t(found[field]!, { min: policy.minLength }),
-    }));
-    if (entries.length >= 2) return setSummary(entries);
-    setSummary(null);
-    if (entries.length === 1) return document.getElementById(ids[entries[0].field])?.focus();
+    // Every invalid field shows its own message; the focus goes to the first one.
+    const firstInvalid = FIELDS.find((field) => found[field]);
+    if (firstInvalid) return document.getElementById(ids[firstInvalid])?.focus();
     void action.run({ currentPassword: form.currentPassword, newPassword: form.newPassword });
   };
 
@@ -166,35 +147,12 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
   };
 
   const formError = action.error && !serverField ? action.error : null;
-  const isQuiet = summary !== null;
+  // The empty-field message and the length row never show together.
+  const isNewRequired = Boolean(errors.newPassword) && !form.newPassword;
 
   return (
     <section className="password-section">
       <form className="form" onSubmit={handleSubmit} noValidate>
-        {summary && (
-          <div ref={summaryRef} role="alert" tabIndex={-1} className="form-summary">
-            <CircleAlert aria-hidden />
-            <div>
-              <p>{t("account.password.errorSummary")}</p>
-              <ul>
-                {summary.map(({ field, label, message }) => (
-                  <li key={field}>
-                    <a
-                      href={`#${ids[field]}`}
-                      onClick={(event) => {
-                        event.preventDefault();
-                        document.getElementById(ids[field])?.focus();
-                      }}
-                    >
-                      {label}
-                    </a>
-                    : {message}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
         <PasswordField
           label={labels.currentPassword}
           name="currentPassword"
@@ -206,7 +164,6 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
           onChange={update("currentPassword")}
           onBlur={validateOnBlur("currentPassword")}
           error={fieldError("currentPassword")}
-          isQuiet={isQuiet}
         />
         <div className="password-section__pair">
           <PasswordField
@@ -220,12 +177,14 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
             invalid={isLengthFailed}
             describedBy={requirementId}
             after={
-              <PasswordRequirement
-                id={requirementId}
-                met={meetsLength}
-                failed={isLengthFailed}
-                minLength={policy.minLength}
-              />
+              isNewRequired ? undefined : (
+                <PasswordRequirement
+                  id={requirementId}
+                  met={meetsLength}
+                  failed={isLengthFailed}
+                  minLength={policy.minLength}
+                />
+              )
             }
             autoComplete="new-password"
             required
@@ -236,7 +195,6 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
               if (form.newPassword && !meetsLength) setIsNewFailed(true);
             }}
             error={fieldError("newPassword")}
-            isQuiet={isQuiet}
           />
           <PasswordField
             label={labels.confirmation}
@@ -252,7 +210,6 @@ export function PasswordSection({ isActive }: PasswordSectionProps) {
             onChange={update("confirmation")}
             onBlur={() => setIsConfirmTouched(true)}
             error={isConfirmTouched && mismatch ? t("account.password.mismatch") : null}
-            isQuiet={isQuiet}
           />
         </div>
         {formError && <FormError>{formError}</FormError>}

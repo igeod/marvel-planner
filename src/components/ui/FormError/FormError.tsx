@@ -13,7 +13,7 @@ export function FormError({ children, tone = "error", title }: FormErrorProps) {
   if (tone === "rate") {
     return (
       <div role="alert" className="form-error form-error--rate">
-        <img src={rateArt} alt="" aria-hidden width={72} height={72} />
+        <img src={rateArt} alt="" aria-hidden width={56} height={56} />
         <div>
           {title && <strong>{title}</strong>}
           <p>{children}</p>

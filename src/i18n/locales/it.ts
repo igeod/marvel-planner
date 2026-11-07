@@ -444,7 +444,6 @@ export const it = {
       errors: {
         currentWrong: "La password attuale non è corretta. Riprova.",
       },
-      errorSummary: "Correggi questi campi prima di continuare:",
     },
     dialog: {
       unsaved: "Hai modifiche non salvate.",
