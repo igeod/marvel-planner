@@ -1,6 +1,6 @@
-import { CloudOff, Link2Off } from "lucide-react";
 import { useState } from "react";
 import type { SharedPlanner } from "../../../../../shared/share";
+import artShared from "../../../../assets/err-shared.webp";
 import { Button } from "../../../../components/ui/Button";
 import { StateBox } from "../../../../components/ui/StateBox";
 import { Modal } from "../../../../components/ui/Modal";
@@ -122,7 +122,7 @@ function ImportContent({ code, onClose, ...preview }: ImportSharedDialogProps) {
       <StateBox
         layout="dialog"
         role="alert"
-        art={<Link2Off strokeWidth={1.5} />}
+        art={<img src={artShared} alt="" aria-hidden width={112} height={112} />}
         title={t("share.invalid.title")}
         actions={
           <Button variant="primary" size="lg" onClick={onClose}>
@@ -141,7 +141,7 @@ function ImportContent({ code, onClose, ...preview }: ImportSharedDialogProps) {
         key={state.attempt}
         layout="dialog"
         role="alert"
-        art={<CloudOff strokeWidth={1.5} />}
+        art={<img src={artShared} alt="" aria-hidden width={112} height={112} />}
         title={t("share.loadError.title")}
         actions={
           <>
