@@ -117,6 +117,14 @@
   .tones(var(--highlight-hover), var(--highlight-active));
 }
 
+// Dark in both themes: the share sticker is gold, so the button must stay dark on it.
+.btn--dark {
+  --btn-ring: var(--ink-static);
+  background: var(--ink-static);
+  color: var(--on-dark);
+  .tones(var(--raised), var(--deepest));
+}
+
 .btn--ink {
   --btn-ring: var(--ink);
   background: var(--ink);
