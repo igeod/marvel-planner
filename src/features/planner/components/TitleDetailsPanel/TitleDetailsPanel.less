@@ -235,8 +235,14 @@
   }
 
   small {
+    display: -webkit-box;
+    overflow: hidden;
     font-size: var(--fs-label);
+    font-weight: 500;
+    line-height: 20px;
     color: var(--ink-2);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 }
 
@@ -293,8 +299,16 @@
   height: 262px;
 }
 
+// 262px only with two or more scenes; with one or none the box takes its content's height and the
+// easter-egg box fills the rest of the 460px row, never below 188px.
+.spoiler-box--credits:not(:has(.spoiler-list li:nth-child(2))) {
+  height: auto;
+}
+
 .spoiler-box--eggs {
-  height: 188px;
+  height: auto;
+  flex: 1 1 188px;
+  min-height: 188px;
 }
 
 .spoiler-box--scenes .spoiler-box__content {

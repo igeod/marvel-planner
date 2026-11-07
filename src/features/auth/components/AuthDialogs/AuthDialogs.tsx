@@ -70,10 +70,13 @@ export function AuthDialogs() {
     const clear = () => {
       element.style.height = "";
       element.style.overflow = "";
+      element.style.overflowClipMargin = "";
       element.style.transition = "";
     };
     element.style.height = `${from}px`;
-    element.style.overflow = "hidden";
+    // clip with a margin, not hidden: the 3px focus ring of the first field must not be cut.
+    element.style.overflow = "clip";
+    element.style.overflowClipMargin = "4px";
     element.getBoundingClientRect();
     element.style.transition = "height var(--dur-ui) var(--ease-out)";
     element.style.height = `${to}px`;

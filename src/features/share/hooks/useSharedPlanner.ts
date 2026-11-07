@@ -7,7 +7,9 @@ type Outcome =
   { status: "notFound" } | { status: "error" } | { status: "ready"; planner: SharedPlanner };
 type State = { status: "loading" } | Outcome;
 
-export function useSharedPlanner(code: string): State & { retry: () => void } {
+export function useSharedPlanner(
+  code: string,
+): State & { retry: () => void; isRetrying: boolean; attempt: number } {
   const [attempt, setAttempt] = useState(0);
   const requestKey = `${code}:${attempt}`;
   const [result, setResult] = useState<{ requestKey: string; outcome: Outcome } | null>(null);
@@ -28,6 +30,10 @@ export function useSharedPlanner(code: string): State & { retry: () => void } {
   }, [code, requestKey]);
 
   const retry = useCallback(() => setAttempt((current) => current + 1), []);
-  const state: State = result?.requestKey === requestKey ? result.outcome : { status: "loading" };
-  return { ...state, retry };
+  const current = result?.requestKey === requestKey ? result.outcome : null;
+  // A retry keeps the error on screen (its button shows the wait) until the new answer arrives.
+  const wasError =
+    result?.outcome.status === "error" && result.requestKey.startsWith(`${code}:`) && attempt > 0;
+  const state: State = current ?? (wasError ? { status: "error" } : { status: "loading" });
+  return { ...state, retry, isRetrying: current === null && wasError, attempt };
 }

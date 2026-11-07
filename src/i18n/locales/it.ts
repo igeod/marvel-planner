@@ -268,6 +268,7 @@ export const it = {
     },
     watch: {
       heading: "Dove guardare",
+      toggle: "Mostra o nascondi le opzioni di visione",
       region: "Paese",
       stream: "In abbonamento",
       free: "Gratis (con pubblicità)",

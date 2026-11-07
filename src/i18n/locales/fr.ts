@@ -271,6 +271,7 @@ export const fr: Messages = {
     },
     watch: {
       heading: "Où regarder",
+      toggle: "Afficher ou masquer où regarder",
       region: "Pays",
       stream: "En abonnement",
       free: "Gratuit (avec publicité)",

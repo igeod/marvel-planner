@@ -150,7 +150,7 @@ a {
 // Skeleton pulse while a poster loads; static under reduced motion (the ring pulses instead).
 @media (prefers-reduced-motion: no-preference) {
   .poster-image:has(.poster-image__state--loading) {
-    animation: skeleton-pulse 1.4s ease-in-out var(--delay-pending) infinite;
+    animation: pulse 1.4s ease-in-out var(--delay-pending) infinite;
   }
 }
 
@@ -290,7 +290,7 @@ dialog.menu-panel {
   .skeleton {
     animation:
       skeleton-reveal 0s linear var(--delay-pending) forwards,
-      skeleton-pulse 1.4s ease-in-out infinite;
+      pulse 1.4s ease-in-out infinite;
   }
 
   .btn,
@@ -807,7 +807,7 @@ dialog.menu-panel {
   }
 }
 
-@keyframes skeleton-pulse {
+@keyframes pulse {
   50% {
     opacity: 0.6;
   }
@@ -843,11 +843,5 @@ dialog.menu-panel {
 @keyframes content-sink {
   to {
     transform: translateY(4px);
-  }
-}
-
-@keyframes progress-pulse {
-  50% {
-    opacity: 0.55;
   }
 }

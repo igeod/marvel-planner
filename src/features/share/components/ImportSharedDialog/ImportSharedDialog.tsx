@@ -138,13 +138,20 @@ function ImportContent({ code, onClose, ...preview }: ImportSharedDialogProps) {
   if (state.status === "error") {
     return (
       <StateBox
+        key={state.attempt}
         layout="dialog"
         role="alert"
         art={<CloudOff strokeWidth={1.5} />}
         title={t("share.loadError.title")}
         actions={
           <>
-            <Button variant="primary" size="lg" onClick={state.retry}>
+            <Button
+              variant="primary"
+              size="lg"
+              isLoading={state.isRetrying}
+              loadingLabel={t("common.loading")}
+              onClick={state.retry}
+            >
               {t("common.retry")}
             </Button>
             <Button variant="soft" size="lg" onClick={onClose}>

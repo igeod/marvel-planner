@@ -271,6 +271,7 @@ export const es: Messages = {
     },
     watch: {
       heading: "Dónde ver",
+      toggle: "Mostrar u ocultar dónde ver",
       region: "País",
       stream: "Con suscripción",
       free: "Gratis (con publicidad)",

@@ -48,6 +48,7 @@
 }
 
 .wordmark {
+  position: relative;
   .display-font();
   font-size: var(--fs-wordmark);
   letter-spacing: 0.03em;
@@ -61,4 +62,11 @@
   gap: 0.5rem;
 
   .tablet({ display: flex; });
+}
+
+// The logo is 30px high; its link reaches 44px.
+.wordmark::after {
+  content: "";
+  position: absolute;
+  inset: -7px -4px;
 }

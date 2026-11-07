@@ -6,6 +6,59 @@
   gap: var(--sp-4);
 }
 
+.where-to-watch__panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.where-to-watch__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+// The fold button exists on phones only; from 40em the options are always open.
+.where-to-watch__toggle {
+  display: none;
+  flex: none;
+  place-items: center;
+  width: var(--hit);
+  height: var(--hit);
+  margin-left: auto;
+  border-radius: var(--r-pill);
+  color: var(--white);
+  box-shadow: inset 0 0 0 2px var(--white);
+  .tones(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0.24));
+
+  svg {
+    width: 20px;
+    height: 20px;
+    transition: transform var(--dur-ui) var(--ease-out);
+  }
+
+  &[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+
+  &:focus-visible {
+    outline: 3px solid var(--highlight);
+  }
+
+  @media (max-width: 39.9375em) {
+    display: grid;
+  }
+}
+
+@media (max-width: 39.9375em) {
+  .where-to-watch__panel[data-open="false"] {
+    .where-to-watch__body,
+    .select-field {
+      display: none;
+    }
+  }
+}
+
 .where-to-watch__head {
   display: flex;
   flex-wrap: wrap;

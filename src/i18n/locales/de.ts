@@ -272,6 +272,7 @@ export const de: Messages = {
     },
     watch: {
       heading: "Wo ansehen",
+      toggle: "Wo ansehen ein- oder ausblenden",
       region: "Land",
       stream: "Im Abo",
       free: "Kostenlos (mit Werbung)",

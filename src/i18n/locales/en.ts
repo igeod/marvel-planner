@@ -270,6 +270,7 @@ export const en: Messages = {
     },
     watch: {
       heading: "Where to watch",
+      toggle: "Show or hide where to watch",
       region: "Country",
       stream: "Streaming",
       free: "Free (with ads)",

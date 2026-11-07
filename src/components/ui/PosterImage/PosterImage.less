@@ -56,13 +56,13 @@
 // The flat placeholder is there at once; the spinner shows only after --delay-pending.
 .poster-image__state--loading svg {
   visibility: hidden;
-  animation: pending-show 0s linear var(--delay-pending) forwards;
+  animation:
+    pending-show 0s linear var(--delay-pending) forwards,
+    poster-spin 1.6s linear infinite;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .poster-image__state--loading svg {
-    animation:
-      pending-show 0s linear var(--delay-pending) forwards,
-      poster-spin 0.8s linear infinite;
+    animation-duration: 0s, 0.8s;
   }
 }
