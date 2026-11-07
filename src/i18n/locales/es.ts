@@ -163,10 +163,12 @@ export const es: Messages = {
       title: "Cómo leer el planificador",
       orderTerm: "Orden",
       orderText:
-        'La lista sigue el orden de estreno dentro de cada fase: es el recomendado para un primer visionado y casi siempre coincide con la cronología interna. Las pocas excepciones "hacia atrás" (Captain America: The First Avenger en los años 40, Captain Marvel en 1995, Black Widow entre Civil War e Infinity War, Deadpool & Wolverine ambientada en 2018/2024) solo cuentan para un nuevo visionado en orden cronológico estricto.',
+        "Sigue la lista desde arriba: es el orden de estreno, el mejor para un primer visionado. Algunos títulos, como Captain America: The First Avenger y Captain Marvel, transcurren en el pasado: para verlos en su lugar dentro de la historia, cambia a «{chrono}».",
+      orderTextChrono:
+        "Aquí los títulos siguen la historia, no el año de estreno, algo útil para volver a verlo todo. Para un primer visionado es mejor «{release}».",
       alternateTerm: "Continuidad alternativa",
       alternateText:
-        "X-Men '97, Your Friendly Neighborhood Spider-Man y Marvel Zombies se estrenan en este periodo, pero transcurren en líneas temporales separadas de la Sacred Timeline: se pueden ver en cualquier momento y no son obligatorias para la trama principal.",
+        "Los títulos con la etiqueta «{tag}», como X-Men ’97 y What If…?, cuentan historias de universos paralelos: velos cuando quieras, no hacen falta para seguir la historia principal. ¿No te interesan? Desactiva «{filter}» en los filtros.",
     },
   },
   share: {

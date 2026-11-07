@@ -163,10 +163,12 @@ export const fr: Messages = {
       title: "Comment lire le planificateur",
       orderTerm: "Ordre",
       orderText:
-        "La liste suit l'ordre de sortie à l'intérieur de chaque phase : c'est l'ordre conseillé pour un premier visionnage et il coïncide presque toujours avec la chronologie interne. Les rares exceptions « à rebours » (Captain America: The First Avenger dans les années 1940, Captain Marvel en 1995, Black Widow entre Civil War et Infinity War, Deadpool & Wolverine situé en 2018/2024) ne comptent que pour un revisionnage en ordre chronologique strict.",
+        "Suivez la liste depuis le haut : c’est l’ordre de sortie, le meilleur pour un premier visionnage. Certains titres, comme Captain America: The First Avenger et Captain Marvel, se déroulent dans le passé : pour les voir à leur place dans l’histoire, passez à « {chrono} ».",
+      orderTextChrono:
+        "Ici, les titres suivent l’histoire et non l’année de sortie, ce qui convient à un revisionnage. Pour un premier visionnage, « {release} » est préférable.",
       alternateTerm: "Continuité alternative",
       alternateText:
-        "X-Men '97, Your Friendly Neighborhood Spider-Man et Marvel Zombies sortent durant cette période mais se déroulent dans des lignes temporelles distinctes de la Sacred Timeline : à regarder à tout moment, non indispensables à l'intrigue principale.",
+        "Les titres marqués « {tag} », comme X-Men ’97 et What If…?, racontent des histoires d’univers parallèles : regardez-les quand vous voulez, ils ne sont pas nécessaires pour suivre l’histoire principale. Pas intéressé ? Désactivez « {filter} » dans les filtres.",
     },
   },
   share: {

@@ -162,10 +162,12 @@ export const en: Messages = {
       title: "How to read the planner",
       orderTerm: "Order",
       orderText:
-        'The list follows release order within each phase: it is the recommended order for a first watch and almost always matches the internal chronology. The few "backwards" exceptions (Captain America: The First Avenger set in the 1940s, Captain Marvel in 1995, Black Widow between Civil War and Infinity War, Deadpool & Wolverine set in 2018/2024) only matter for a strict chronological rewatch.',
+        "Follow the list from the top: it is release order, the best one for a first watch. Some titles, like Captain America: The First Avenger and Captain Marvel, are set in the past: to see them in story order, switch to “{chrono}”.",
+      orderTextChrono:
+        "Here the titles follow the story, not the release year, which suits a rewatch. For a first watch, “{release}” is better.",
       alternateTerm: "Alternate continuity",
       alternateText:
-        "X-Men '97, Your Friendly Neighborhood Spider-Man and Marvel Zombies are released in this period but are set in timelines separate from the Sacred Timeline: watch them any time, they are not required for the main story.",
+        "Titles tagged “{tag}”, like X-Men ’97 and What If…?, tell parallel-universe stories: watch them whenever you like, you don’t need them to follow the main story. Not interested? Turn off “{filter}” in the filters.",
     },
   },
   share: {

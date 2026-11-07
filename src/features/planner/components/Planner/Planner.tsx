@@ -92,6 +92,12 @@ export function Planner({ shareCode }: PlannerProps) {
     return () => cancelAnimationFrame(id);
   }, [isLoading]);
   useSplashReady("planner", hasPainted);
+  // Open only on a first visit with room for it (tablet and up), decided once the saved titles have loaded.
+  // Not saved: after a reload the same rule applies again.
+  const [isGuideOpen, setIsGuideOpen] = useState<boolean | null>(null);
+  if (!isLoading && isGuideOpen === null) {
+    setIsGuideOpen(watched.size === 0 && window.matchMedia("(min-width: 40em)").matches);
+  }
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
 
@@ -174,6 +180,15 @@ export function Planner({ shareCode }: PlannerProps) {
       </div>
 
       {isDesktop && <PhaseStrip phases={strip} variant="card" />}
+
+      {isGuideOpen !== null && searchCount > 0 && (
+        <PlannerGuide
+          isOpen={isGuideOpen}
+          onOpenChange={setIsGuideOpen}
+          isChronological={viewOrder === "chronological"}
+          showAlternate={filters.showAlternate}
+        />
+      )}
 
       <div className="planner__body">
         {isDesktop ? (
@@ -265,8 +280,6 @@ export function Planner({ shareCode }: PlannerProps) {
             />
           )}
         </div>
-
-        <PlannerGuide />
       </div>
 
       {!isDesktop && (

@@ -164,10 +164,12 @@ export const de: Messages = {
       title: "So liest du den Planer",
       orderTerm: "Reihenfolge",
       orderText:
-        "Die Liste folgt innerhalb jeder Phase der Erscheinungsreihenfolge: Sie ist für das erste Anschauen empfohlen und deckt sich fast immer mit der internen Chronologie. Die wenigen „rückwärtigen“ Ausnahmen (Captain America: The First Avenger in den 1940ern, Captain Marvel 1995, Black Widow zwischen Civil War und Infinity War, Deadpool & Wolverine in 2018/2024) sind nur für ein streng chronologisches erneutes Anschauen relevant.",
+        "Folge der Liste von oben: Sie läuft nach Erscheinungsdatum und ist für das erste Anschauen am besten. Einige Titel, etwa Captain America: The First Avenger und Captain Marvel, spielen in der Vergangenheit: Um sie an ihrer Stelle in der Handlung zu sehen, wechsle zu „{chrono}“.",
+      orderTextChrono:
+        "Hier folgen die Titel der Handlung, nicht dem Erscheinungsjahr, was sich für ein erneutes Anschauen eignet. Für das erste Anschauen ist „{release}“ besser.",
       alternateTerm: "Alternative Kontinuität",
       alternateText:
-        "X-Men '97, Your Friendly Neighborhood Spider-Man und Marvel Zombies erscheinen in diesem Zeitraum, spielen aber in Zeitlinien, die von der Sacred Timeline getrennt sind: Sie lassen sich jederzeit ansehen und sind für die Haupthandlung nicht erforderlich.",
+        "Titel mit dem Etikett „{tag}“, etwa X-Men ’97 und What If…?, erzählen Geschichten aus Paralleluniversen: Sieh sie dir an, wann du willst, für die Haupthandlung brauchst du sie nicht. Kein Interesse? Schalte „{filter}“ in den Filtern aus.",
     },
   },
   share: {
