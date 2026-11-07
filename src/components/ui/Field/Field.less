@@ -29,29 +29,29 @@
   position: relative;
 }
 
+// Hint, caps-lock notice and error share one size; only the error is bold and red.
 .field__message {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-1h);
-  min-height: 1.25rem;
-  font-size: var(--fs-caption);
-  color: var(--ink-2);
-}
-
-.field__error {
   display: flex;
   align-items: flex-start;
   gap: var(--sp-2);
+  min-height: 1.25rem;
   font-size: var(--fs-label);
   line-height: 20px;
-  font-weight: 700;
-  color: var(--danger-text);
+  color: var(--ink-2);
 
   svg {
     flex: none;
     width: 18px;
     height: 18px;
     margin-top: 1px;
+  }
+}
+
+.field__error {
+  font-weight: 700;
+  color: var(--danger-text);
+
+  svg {
     stroke-width: 2.4;
   }
 }
