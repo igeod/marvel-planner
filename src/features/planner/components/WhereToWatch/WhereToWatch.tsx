@@ -1,6 +1,7 @@
-import { ExternalLink, Globe } from "lucide-react";
+import { ExternalLink, Globe, RotateCcw } from "lucide-react";
 import { useId, useState } from "react";
 import type { WatchOptions } from "../../../../../shared/watchProviders";
+import { Button } from "../../../../components/ui/Button";
 import { InfoTip } from "../../../../components/ui/InfoTip";
 import { SelectField } from "../../../../components/ui/SelectField";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -29,9 +30,9 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
       return (
         <div role="alert">
           <p>{t("details.watch.error")}</p>
-          <button type="button" className="btn btn--panel" onClick={state.retry}>
+          <Button variant="panel" icon={<RotateCcw aria-hidden />} onClick={state.retry}>
             {t("common.retry")}
-          </button>
+          </Button>
         </div>
       );
     }

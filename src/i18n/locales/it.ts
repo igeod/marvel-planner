@@ -105,8 +105,6 @@ export const it = {
       placeholder: "Cerca titoli…",
       clear: "Cancella la ricerca",
       results: "Risultati: {count}",
-      none: "Nessun titolo per «{query}»",
-      noneHint: "Controlla l'ortografia o prova con un altro nome.",
     },
     toolbar: {
       actions: "Azioni",
@@ -148,8 +146,15 @@ export const it = {
       empty: "Nessun titolo corrisponde ai filtri.",
     },
     empty: {
-      title: "Metà dei titoli è svanita",
-      body: "Nessun titolo corrisponde ai filtri.",
+      filters: {
+        title: "Metà dei titoli è svanita",
+        body: "Nessun titolo corrisponde ai filtri. Prova a toglierne qualcuno.",
+      },
+      search: {
+        title: "Nessun risultato per “{q}”",
+        body: "Controlla l'ortografia o prova con un altro titolo.",
+        action: "Cancella ricerca",
+      },
     },
     guide: {
       title: "Come leggere il planner",
@@ -162,6 +167,14 @@ export const it = {
     },
   },
   share: {
+    invalid: {
+      title: "Questo ramo è stato potato",
+      body: "Il link è scaduto o non è valido. Chiedi a chi te l'ha mandato di condividere di nuovo il planner.",
+    },
+    loadError: {
+      title: "Impossibile caricare il planner",
+      body: "Controlla la connessione e riprova.",
+    },
     open: "Condividi",
     title: "Condividi il tuo planner",
     intro:
@@ -202,7 +215,6 @@ export const it = {
   import: {
     title: "Planner condiviso",
     loading: "Caricamento del planner condiviso…",
-    notFound: "Questo link non è valido, è scaduto o è stato disattivato.",
     summary: "Titoli visti da {name}: {done} / {total} ({percent}%).",
     current: "Nel tuo planner ora i titoli visti sono {count}.",
     currentEmpty: "Il tuo planner è ancora vuoto.",

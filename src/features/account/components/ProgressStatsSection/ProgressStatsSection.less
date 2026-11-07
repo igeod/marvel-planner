@@ -35,28 +35,28 @@
 
 .progress-total__count {
   font-family: var(--font-display);
-  font-size: 4rem;
+  font-size: var(--fs-hero);
   line-height: 1;
 
   span {
-    font-size: 2rem;
+    font-size: var(--fs-h1-sm);
   }
 
   @media (max-width: 39.9375em) {
-    font-size: 3rem;
+    font-size: var(--fs-hero);
   }
 }
 
 .progress-total__percent {
   font-family: var(--font-display);
-  font-size: 2.5rem;
+  font-size: var(--fs-xl);
   line-height: 1;
 }
 
 .progress-total__bar {
   height: 12px;
   .pill();
-  background: color-mix(in srgb, var(--ink-static) 18%, transparent);
+  background: color-mix(in srgb, var(--ink-static) 55%, var(--highlight));
   overflow: hidden;
 
   span {
@@ -140,7 +140,7 @@
 .progress-row__bar {
   height: 8px;
   .pill();
-  background: var(--row-hover);
+  background: var(--track-surface);
   overflow: hidden;
 
   span {

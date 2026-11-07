@@ -1,0 +1,84 @@
+@import (reference) "mixins";
+
+.state-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: var(--sp-6);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  box-shadow: var(--shadow-card);
+
+  p {
+    color: var(--ink-2);
+  }
+}
+
+.state-box__art {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 96px;
+  height: 96px;
+  color: var(--ink-2);
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.state-box__body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--sp-2);
+  min-width: 12rem;
+
+  // The title stays ink even when the box is a role="alert" (base.less colours alerts red).
+  h3 {
+    color: var(--ink);
+    font-size: var(--fs-title);
+    font-weight: 800;
+  }
+}
+
+.state-box__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-2);
+}
+
+// In a popup there is no card around it: art, title, sentence and full-width actions in one column.
+.state-box--dialog {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 0;
+  background: none;
+  box-shadow: none;
+
+  .state-box__art {
+    width: 112px;
+    height: 112px;
+  }
+
+  .state-box__body {
+    min-width: 0;
+
+    h3 {
+      .display-font();
+      font-size: var(--fs-h4);
+      line-height: 1.1;
+    }
+  }
+
+  .state-box__actions {
+    flex-direction: column;
+
+    > * {
+      width: 100%;
+    }
+  }
+}

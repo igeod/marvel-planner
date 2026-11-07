@@ -1,5 +1,6 @@
 import { useCallback, useState, useSyncExternalStore } from "react";
 
+export const TABLET_QUERY = "(min-width: 48em)";
 export const DESKTOP_QUERY = "(min-width: 64em)";
 
 export function useMediaQuery(query: string): boolean {
@@ -20,14 +21,18 @@ export function useMediaQuery(query: string): boolean {
 
 export const useIsDesktop = () => useMediaQuery(DESKTOP_QUERY);
 
-export function useIsDesktopWithReset(onBecomesDesktop: () => void): boolean {
-  const isDesktop = useIsDesktop();
-  const [wasDesktop, setWasDesktop] = useState(isDesktop);
+// Runs `onMatch` when the viewport grows into `query` (to close what only the small layout opens).
+export function useMediaQueryWithReset(query: string, onMatch: () => void): boolean {
+  const matches = useMediaQuery(query);
+  const [didMatch, setDidMatch] = useState(matches);
 
-  if (wasDesktop !== isDesktop) {
-    setWasDesktop(isDesktop);
-    if (isDesktop) onBecomesDesktop();
+  if (didMatch !== matches) {
+    setDidMatch(matches);
+    if (matches) onMatch();
   }
 
-  return isDesktop;
+  return matches;
 }
+
+export const useIsDesktopWithReset = (onBecomesDesktop: () => void) =>
+  useMediaQueryWithReset(DESKTOP_QUERY, onBecomesDesktop);

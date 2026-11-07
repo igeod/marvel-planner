@@ -108,8 +108,6 @@ export const es: Messages = {
       placeholder: "Buscar títulos…",
       clear: "Borrar la búsqueda",
       results: "Resultados: {count}",
-      none: "Ningún título para «{query}»",
-      noneHint: "Revisa la ortografía o prueba con otro nombre.",
     },
     toolbar: {
       actions: "Acciones",
@@ -151,8 +149,15 @@ export const es: Messages = {
       empty: "Ningún título coincide con los filtros.",
     },
     empty: {
-      title: "Ningún título encontrado",
-      body: "Ningún título coincide con los filtros.",
+      filters: {
+        title: "Ningún título coincide",
+        body: "Ningún título coincide con estos filtros. Prueba a quitar alguno.",
+      },
+      search: {
+        title: "Sin resultados para «{q}»",
+        body: "Revisa la ortografía o prueba con otro título.",
+        action: "Borrar búsqueda",
+      },
     },
     guide: {
       title: "Cómo leer el planificador",
@@ -165,6 +170,14 @@ export const es: Messages = {
     },
   },
   share: {
+    invalid: {
+      title: "Este enlace ya no es válido",
+      body: "El enlace ha caducado o no es válido. Pide a quien te lo envió que vuelva a compartir el planner.",
+    },
+    loadError: {
+      title: "No se pudo cargar el planner",
+      body: "Comprueba tu conexión e inténtalo de nuevo.",
+    },
     open: "Compartir",
     title: "Comparte tu planificador",
     intro:
@@ -205,7 +218,6 @@ export const es: Messages = {
   import: {
     title: "Planificador compartido",
     loading: "Cargando el planificador compartido…",
-    notFound: "Este enlace no es válido, ha caducado o se ha desactivado.",
     summary: "Títulos vistos por {name}: {done} / {total} ({percent} %).",
     current: "Títulos vistos ahora en tu planificador: {count}.",
     currentEmpty: "Tu planificador aún está vacío.",

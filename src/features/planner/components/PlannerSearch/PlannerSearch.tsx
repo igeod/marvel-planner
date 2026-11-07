@@ -1,6 +1,7 @@
-import { Search, X } from "lucide-react";
+import { Search, SearchX, X } from "lucide-react";
 import { useId, useRef } from "react";
 import { Button } from "../../../../components/ui/Button";
+import { StateBox } from "../../../../components/ui/StateBox";
 import { useI18n } from "../../../../i18n/useI18n";
 
 interface PlannerSearchProps {
@@ -69,14 +70,16 @@ export function SearchNoResults({ query, onClear }: SearchNoResultsProps) {
   const { t } = useI18n();
 
   return (
-    <div className="planner-search__empty card">
-      <p role="status">
-        <strong>{t("planner.search.none", { query: query.trim() })}</strong>
-      </p>
-      <p className="muted">{t("planner.search.noneHint")}</p>
-      <Button variant="text" onClick={onClear}>
-        {t("planner.search.clear")}
-      </Button>
-    </div>
+    <StateBox
+      art={<SearchX strokeWidth={1.5} />}
+      title={t("planner.empty.search.title", { q: query.trim() })}
+      actions={
+        <Button variant="soft" icon={<X aria-hidden />} onClick={onClear}>
+          {t("planner.empty.search.action")}
+        </Button>
+      }
+    >
+      {t("planner.empty.search.body")}
+    </StateBox>
   );
 }

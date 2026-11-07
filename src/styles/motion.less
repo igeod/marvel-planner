@@ -25,6 +25,10 @@ a {
   animation: fade-in var(--dur-enter) var(--ease-out) both;
 }
 
+.state-box--card {
+  animation: fade-in var(--dur-ui) var(--ease-out) both;
+}
+
 // Popup views: the old one fades out, the new one fades in; the slide is added under no-preference.
 .view-motion {
   --view-shift: 12px;
@@ -498,7 +502,8 @@ dialog.menu-panel {
     animation: reveal-in var(--dur-enter) var(--ease-out) both;
   }
 
-  .status-page {
+  .status-page,
+  .state-box--card {
     animation-name: reveal-in;
   }
 

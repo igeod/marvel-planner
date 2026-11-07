@@ -1,5 +1,6 @@
 import { Check, TriangleAlert } from "lucide-react";
 import { useId, useState } from "react";
+import { Button } from "../../../../components/ui/Button";
 import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
@@ -54,14 +55,14 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
           </p>
           <p className="admin-note">{t("admin.maintenance.description")}</p>
         </div>
-        <button
-          type="button"
-          className={`btn ${isOn ? "btn--primary" : "btn--soft"}`}
+        {/* Turning maintenance on stops the site: destructive, not a primary action. */}
+        <Button
+          variant={isOn ? "soft" : "danger"}
           aria-haspopup={isOn ? undefined : "dialog"}
           onClick={() => (isOn ? void disable() : setIsConfirming(true))}
         >
           {isOn ? t("admin.maintenance.disable") : t("admin.maintenance.enable")}
-        </button>
+        </Button>
       </div>
 
       <ConfirmDialog

@@ -107,8 +107,6 @@ export const en: Messages = {
       placeholder: "Search titles…",
       clear: "Clear search",
       results: "Results: {count}",
-      none: "No titles for “{query}”",
-      noneHint: "Check the spelling or try another name.",
     },
     toolbar: {
       actions: "Actions",
@@ -150,8 +148,15 @@ export const en: Messages = {
       empty: "No titles match the filters.",
     },
     empty: {
-      title: "Half your titles vanished",
-      body: "No titles match these filters.",
+      filters: {
+        title: "Half the titles turned to dust",
+        body: "No title matches these filters. Try removing a few.",
+      },
+      search: {
+        title: "No results for “{q}”",
+        body: "Check the spelling or try another title.",
+        action: "Clear search",
+      },
     },
     guide: {
       title: "How to read the planner",
@@ -164,6 +169,14 @@ export const en: Messages = {
     },
   },
   share: {
+    invalid: {
+      title: "This branch was pruned",
+      body: "The link has expired or isn't valid. Ask whoever sent it to share the planner again.",
+    },
+    loadError: {
+      title: "Couldn't load the planner",
+      body: "Check your connection and try again.",
+    },
     open: "Share",
     title: "Share your planner",
     intro:
@@ -204,7 +217,6 @@ export const en: Messages = {
   import: {
     title: "Shared planner",
     loading: "Loading the shared planner…",
-    notFound: "This link is not valid, has expired or was turned off.",
     summary: "Titles watched by {name}: {done} / {total} ({percent}%).",
     current: "Titles watched in your planner right now: {count}.",
     currentEmpty: "Your planner is still empty.",

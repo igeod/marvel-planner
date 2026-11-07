@@ -82,7 +82,7 @@ dialog.dialog--profile {
   background: var(--accent);
   color: var(--white);
   font-family: var(--font-display);
-  font-size: 1.875rem;
+  font-size: var(--fs-wordmark);
   line-height: 1;
 
   @media (max-width: 39.9375em) {
@@ -91,7 +91,7 @@ dialog.dialog--profile {
     --badge-ring-w: 2px;
     width: 44px;
     min-height: 2.75rem;
-    font-size: 1.375rem;
+    font-size: var(--fs-h3);
   }
 }
 
@@ -184,7 +184,7 @@ dialog.dialog--profile {
   overflow-wrap: anywhere;
 
   @media (max-width: 39.9375em) {
-    font-size: 1.375rem;
+    font-size: var(--fs-h3);
   }
 }
 
@@ -194,10 +194,11 @@ dialog.dialog--profile {
   flex-direction: column;
   gap: var(--sp-1);
 
+  // Phone: the tabs share the row equally, icon over label, so none hides in a language with long words.
   @media (max-width: 39.9375em) {
-    flex-direction: row;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
   }
 }
 
@@ -249,7 +250,17 @@ dialog.dialog--profile {
   }
 
   @media (max-width: 39.9375em) {
-    height: var(--tap);
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--sp-1);
+    height: auto;
+    min-height: 3.5rem;
+    padding: var(--sp-1h) var(--sp-1);
+    font-size: var(--fs-caption);
+    line-height: 1.2;
+    text-align: center;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 }
 
@@ -293,7 +304,7 @@ dialog.dialog--profile {
 }
 
 .profile__title {
-  font-size: 1.5rem;
+  font-size: var(--fs-h4);
   font-weight: 800;
   line-height: 1.2;
   padding-right: 3rem;

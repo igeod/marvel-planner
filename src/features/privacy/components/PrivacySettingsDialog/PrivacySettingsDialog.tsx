@@ -1,5 +1,6 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
+import { Button } from "../../../../components/ui/Button";
 import { Modal } from "../../../../components/ui/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
 import { clearDeviceData } from "../../../../lib/storage";
@@ -46,18 +47,21 @@ export function PrivacySettingsDialog() {
         {isConfirming ? (
           <div className="privacy-confirm" role="alert">
             <p>{t("privacySettings.clearQuestion")}</p>
-            <button type="button" className="btn btn--soft" onClick={() => setIsConfirming(false)}>
+            <Button variant="soft" onClick={() => setIsConfirming(false)}>
               {t("common.cancel")}
-            </button>
-            <button type="button" className="btn btn--primary" onClick={clearAndReload}>
+            </Button>
+            <Button variant="danger" onClick={clearAndReload}>
               {t("privacySettings.clearConfirm")}
-            </button>
+            </Button>
           </div>
         ) : (
-          <button type="button" className="btn btn--soft" onClick={() => setIsConfirming(true)}>
-            <Trash2 aria-hidden />
+          <Button
+            variant="soft"
+            icon={<Trash2 aria-hidden />}
+            onClick={() => setIsConfirming(true)}
+          >
             {t("privacySettings.clearButton")}
-          </button>
+          </Button>
         )}
       </section>
     </Modal>

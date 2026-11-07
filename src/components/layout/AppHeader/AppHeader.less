@@ -9,7 +9,7 @@
   }
 
   :focus-visible {
-    outline-color: var(--primary);
+    outline-color: var(--focus-color);
   }
 
   :is(.btn--panel, .select-field__trigger, .account-pill) {
@@ -49,7 +49,7 @@
 
 .wordmark {
   .display-font();
-  font-size: 1.875rem;
+  font-size: var(--fs-wordmark);
   letter-spacing: 0.03em;
   line-height: 1;
   text-decoration: none;
@@ -60,5 +60,5 @@
   align-items: center;
   gap: 0.5rem;
 
-  .desktop({ display: flex; });
+  .tablet({ display: flex; });
 }

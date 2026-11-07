@@ -1,8 +1,8 @@
+import { CloudOff, Link2Off } from "lucide-react";
 import { useState } from "react";
 import type { SharedPlanner } from "../../../../../shared/share";
 import { Button } from "../../../../components/ui/Button";
-import { FormError } from "../../../../components/ui/FormError";
-import { LoadError } from "../../../../components/ui/LoadError";
+import { StateBox } from "../../../../components/ui/StateBox";
 import { Modal } from "../../../../components/ui/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
 import { ProgressMeter } from "../../../../components/ui/ProgressMeter";
@@ -119,23 +119,42 @@ function ImportContent({ code, onClose, ...preview }: ImportSharedDialogProps) {
   // Nothing to import: the only way on is to close.
   if (state.status === "notFound") {
     return (
-      <>
-        <FormError>{t("import.notFound")}</FormError>
-        <Button variant="soft" onClick={onClose}>
-          {t("common.close")}
-        </Button>
-      </>
+      <StateBox
+        layout="dialog"
+        role="alert"
+        art={<Link2Off strokeWidth={1.5} />}
+        title={t("share.invalid.title")}
+        actions={
+          <Button variant="primary" size="lg" onClick={onClose}>
+            {t("common.close")}
+          </Button>
+        }
+      >
+        {t("share.invalid.body")}
+      </StateBox>
     );
   }
 
   if (state.status === "error") {
     return (
-      <>
-        <LoadError onRetry={state.retry} />
-        <Button variant="text" onClick={onClose}>
-          {t("common.close")}
-        </Button>
-      </>
+      <StateBox
+        layout="dialog"
+        role="alert"
+        art={<CloudOff strokeWidth={1.5} />}
+        title={t("share.loadError.title")}
+        actions={
+          <>
+            <Button variant="primary" size="lg" onClick={state.retry}>
+              {t("common.retry")}
+            </Button>
+            <Button variant="soft" size="lg" onClick={onClose}>
+              {t("common.close")}
+            </Button>
+          </>
+        }
+      >
+        {t("share.loadError.body")}
+      </StateBox>
     );
   }
 

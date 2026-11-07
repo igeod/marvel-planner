@@ -237,7 +237,13 @@ export function Planner({ shareCode }: PlannerProps) {
             needle ? (
               <SearchNoResults query={query} onClear={() => setQuery("")} />
             ) : (
-              <FiltersEmpty onReset={() => setFilters(DEFAULT_FILTERS)} />
+              <FiltersEmpty
+                onReset={() => {
+                  setFilters(DEFAULT_FILTERS);
+                  // The list is back: the focus goes to the search box, which stays on screen.
+                  document.querySelector<HTMLInputElement>(".planner-search input")?.focus();
+                }}
+              />
             )
           ) : viewOrder === "release" ? (
             sagas.map((saga) => (

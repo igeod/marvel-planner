@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { SITE } from "../../../app/site";
 import { Button } from "../../ui/Button";
 import { useDialog } from "../../ui/useDialog";
-import { useIsDesktopWithReset } from "../../ui/useMediaQuery";
+import { TABLET_QUERY, useMediaQueryWithReset } from "../../ui/useMediaQuery";
 import { useAuth } from "../../../features/auth/hooks/useAuth";
 import { AdminBadge } from "../../../features/admin/components/AdminBadge";
 import { useAuthDialog } from "../../../features/auth/hooks/useAuthDialog";
@@ -64,7 +64,8 @@ export function HeaderMenu() {
   const [isOpen, setIsOpen] = useState(false);
   const dialogRef = useDialog(isOpen);
   const close = () => setIsOpen(false);
-  useIsDesktopWithReset(close);
+  // The menu button only exists below the tablet width; growing past it closes the panel.
+  useMediaQueryWithReset(TABLET_QUERY, close);
 
   return (
     <>

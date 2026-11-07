@@ -108,8 +108,6 @@ export const fr: Messages = {
       placeholder: "Rechercher un titre…",
       clear: "Effacer la recherche",
       results: "Résultats : {count}",
-      none: "Aucun titre pour « {query} »",
-      noneHint: "Vérifiez l'orthographe ou essayez un autre nom.",
     },
     toolbar: {
       actions: "Actions",
@@ -151,8 +149,15 @@ export const fr: Messages = {
       empty: "Aucun titre ne correspond aux filtres.",
     },
     empty: {
-      title: "Aucun titre trouvé",
-      body: "Aucun titre ne correspond aux filtres.",
+      filters: {
+        title: "Aucun titre ne correspond",
+        body: "Aucun titre ne correspond à ces filtres. Essayez d'en retirer quelques-uns.",
+      },
+      search: {
+        title: "Aucun résultat pour « {q} »",
+        body: "Vérifiez l'orthographe ou essayez un autre titre.",
+        action: "Effacer la recherche",
+      },
     },
     guide: {
       title: "Comment lire le planificateur",
@@ -165,6 +170,14 @@ export const fr: Messages = {
     },
   },
   share: {
+    invalid: {
+      title: "Ce lien n'est plus valable",
+      body: "Le lien a expiré ou n'est pas valide. Demandez à la personne qui vous l'a envoyé de partager à nouveau le planner.",
+    },
+    loadError: {
+      title: "Impossible de charger le planner",
+      body: "Vérifiez votre connexion et réessayez.",
+    },
     open: "Partager",
     title: "Partagez votre planificateur",
     intro:
@@ -205,7 +218,6 @@ export const fr: Messages = {
   import: {
     title: "Planificateur partagé",
     loading: "Chargement du planificateur partagé…",
-    notFound: "Ce lien n'est pas valide, a expiré ou a été désactivé.",
     summary: "Titres vus par {name} : {done} / {total} ({percent} %).",
     current: "Titres vus dans votre planificateur en ce moment : {count}.",
     currentEmpty: "Votre planificateur est encore vide.",

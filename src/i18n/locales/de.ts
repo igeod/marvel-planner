@@ -109,8 +109,6 @@ export const de: Messages = {
       placeholder: "Titel suchen…",
       clear: "Suche löschen",
       results: "Ergebnisse: {count}",
-      none: "Kein Titel für „{query}“",
-      noneHint: "Prüfe die Schreibweise oder versuche einen anderen Namen.",
     },
     toolbar: {
       actions: "Aktionen",
@@ -152,8 +150,15 @@ export const de: Messages = {
       empty: "Kein Titel entspricht den Filtern.",
     },
     empty: {
-      title: "Keine Titel gefunden",
-      body: "Kein Titel passt zu den Filtern.",
+      filters: {
+        title: "Kein Titel passt",
+        body: "Kein Titel passt zu diesen Filtern. Versuche, einige zu entfernen.",
+      },
+      search: {
+        title: "Keine Ergebnisse für „{q}“",
+        body: "Prüfe die Schreibweise oder suche einen anderen Titel.",
+        action: "Suche löschen",
+      },
     },
     guide: {
       title: "So liest du den Planer",
@@ -166,6 +171,14 @@ export const de: Messages = {
     },
   },
   share: {
+    invalid: {
+      title: "Dieser Link ist nicht mehr gültig",
+      body: "Der Link ist abgelaufen oder ungültig. Bitte die Person, die ihn geschickt hat, den Planner erneut zu teilen.",
+    },
+    loadError: {
+      title: "Planner konnte nicht geladen werden",
+      body: "Prüfe deine Verbindung und versuche es erneut.",
+    },
     open: "Teilen",
     title: "Teile deinen Planer",
     intro:
@@ -206,7 +219,6 @@ export const de: Messages = {
   import: {
     title: "Geteilter Planer",
     loading: "Der geteilte Planer wird geladen…",
-    notFound: "Dieser Link ist ungültig, abgelaufen oder wurde deaktiviert.",
     summary: "Von {name} gesehene Titel: {done} / {total} ({percent} %).",
     current: "Aktuell gesehene Titel in deinem Planer: {count}.",
     currentEmpty: "Dein Planer ist noch leer.",

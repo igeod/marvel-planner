@@ -92,7 +92,6 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   const isSheet = useMediaQuery(SHEET_QUERY);
   const baseId = useId();
   const rootRef = useRef<HTMLDivElement>(null);
-  const navRef = useRef<HTMLElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const dirtyForms = useRef(new Set<string>());
   // Forms with a request in flight: closing is ignored until they finish, so a discard cannot race a save.
@@ -159,14 +158,7 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0);
-    const nav = navRef.current;
-    const button = document.getElementById(tabId(tab));
-    if (isSheet && nav && button) {
-      nav.scrollLeft = button.offsetLeft - (nav.clientWidth - button.offsetWidth) / 2;
-    }
-    // tabId only depends on baseId.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tab, isSheet]);
+  }, [tab]);
 
   const selectTab = (id: Tab) => {
     setTab(id);
@@ -270,7 +262,6 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
                 role="tablist"
                 aria-label={t("account.nav")}
                 aria-orientation={isSheet ? "horizontal" : "vertical"}
-                ref={navRef}
                 onKeyDown={handleTabKeys}
               >
                 {TABS.map(({ id, labelKey, icon: Icon }) => (

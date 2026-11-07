@@ -1,5 +1,11 @@
 @import "variables";
 
+.tablet(@rules) {
+  @media (min-width: @tablet) {
+    @rules();
+  }
+}
+
 .desktop(@rules) {
   @media (min-width: @desktop) {
     @rules();
