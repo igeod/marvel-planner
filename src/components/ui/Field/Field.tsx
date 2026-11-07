@@ -1,4 +1,4 @@
-import { CircleAlert, Eye, EyeOff, X } from "lucide-react";
+import { CircleAlert, Eye, EyeOff, TriangleAlert, X } from "lucide-react";
 import {
   useId,
   useImperativeHandle,
@@ -65,7 +65,7 @@ function FieldMessage({
   }
   return (
     <p key="message" id={id} role="status" className="field__message">
-      {notice && <CircleAlert aria-hidden />}
+      {notice && <TriangleAlert aria-hidden />}
       {notice || hint}
     </p>
   );
