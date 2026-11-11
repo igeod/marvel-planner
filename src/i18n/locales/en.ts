@@ -180,14 +180,19 @@ export const en: Messages = {
     },
     guide: {
       title: "How to read the planner",
-      orderTerm: "Order",
+      startTerm: "Where to start",
+      startText:
+        "Start with the first title and go in order: it is release order, the best one for a first watch. Tick every title you have seen: the planner shows you the next one.",
+      orderTerm: "Want to follow the story?",
       orderText:
-        "Follow the list from the top: it is release order, the best one for a first watch. Some titles, like Captain America: The First Avenger and Captain Marvel, are set in the past: to see them in story order, switch to “{chrono}”.",
-      orderTextChrono:
-        "Here the titles follow the story, not the release year, which suits a rewatch. For a first watch, “{release}” is better.",
+        "Some titles, like Captain America: The First Avenger and Captain Marvel, are set in the past. To see them in story order, choose {chrono}.",
       alternateTerm: "Alternate continuity",
       alternateText:
-        "Titles tagged “{tag}”, like X-Men ’97 and What If…?, tell parallel-universe stories: watch them whenever you like, you don’t need them to follow the main story. Not interested? Turn off “{filter}” in the filters.",
+        "Titles tagged {tag}, like X-Men ’97 and What If…?, tell parallel-universe stories: you do not need them for the main story, watch them whenever you like. Not interested? Turn off {filter} in the filters.",
+      help: "How to read the planner",
+      callout: "First time here? Learn how to read the planner.",
+      calloutOpen: "Read",
+      calloutDismiss: "Not now",
     },
   },
   merge: {

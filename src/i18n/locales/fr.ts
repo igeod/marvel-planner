@@ -181,14 +181,19 @@ export const fr: Messages = {
     },
     guide: {
       title: "Comment lire le planificateur",
-      orderTerm: "Ordre",
+      startTerm: "Par où commencer",
+      startText:
+        "Commencez par le premier titre et suivez l’ordre : c’est l’ordre de sortie, le meilleur pour un premier visionnage. Cochez chaque titre vu : le planner vous montre le suivant.",
+      orderTerm: "Envie de suivre l’histoire ?",
       orderText:
-        "Suivez la liste depuis le haut : c’est l’ordre de sortie, le meilleur pour un premier visionnage. Certains titres, comme Captain America: The First Avenger et Captain Marvel, se déroulent dans le passé : pour les voir à leur place dans l’histoire, passez à « {chrono} ».",
-      orderTextChrono:
-        "Ici, les titres suivent l’histoire et non l’année de sortie, ce qui convient à un revisionnage. Pour un premier visionnage, « {release} » est préférable.",
+        "Certains titres, comme Captain America: The First Avenger et Captain Marvel, se déroulent dans le passé. Pour les voir à leur place dans l’histoire, choisissez {chrono}.",
       alternateTerm: "Continuité alternative",
       alternateText:
-        "Les titres marqués « {tag} », comme X-Men ’97 et What If…?, racontent des histoires d’univers parallèles : regardez-les quand vous voulez, ils ne sont pas nécessaires pour suivre l’histoire principale. Pas intéressé ? Désactivez « {filter} » dans les filtres.",
+        "Les titres marqués {tag}, comme X-Men ’97 et What If…?, racontent des univers parallèles : ils ne sont pas nécessaires à l’histoire principale, regardez-les quand vous voulez. Pas intéressé ? Désactivez {filter} dans les filtres.",
+      help: "Comment lire le planner",
+      callout: "Première fois ici ? Découvrez comment lire le planner.",
+      calloutOpen: "Lire",
+      calloutDismiss: "Pas maintenant",
     },
   },
   merge: {

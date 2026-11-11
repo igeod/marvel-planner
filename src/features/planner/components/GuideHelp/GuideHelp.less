@@ -1,0 +1,63 @@
+@import (reference) "mixins";
+
+.planner__search-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--sp-2);
+
+  .planner-search {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+.guide-help {
+  position: relative;
+  flex: none;
+  // Centred on the 3.5rem search field.
+  margin-top: calc((var(--row-h) - var(--hit)) / 2);
+}
+
+.guide-help__button {
+  width: var(--hit);
+  min-width: var(--hit);
+  height: var(--hit);
+  padding: 0;
+}
+
+.guide-help__callout {
+  position: absolute;
+  top: calc(100% + var(--sp-2));
+  right: 0;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  width: min(18rem, calc(100vw - 2rem));
+  padding: var(--sp-4);
+  .panel-surface();
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-pop);
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: reveal-in var(--dur-enter) var(--ease-out) both;
+  }
+}
+
+.guide-help__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+}
+
+.guide-help__items {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+
+  h3 {
+    margin-bottom: var(--sp-1);
+    font-size: var(--fs-title);
+    font-weight: 800;
+  }
+}

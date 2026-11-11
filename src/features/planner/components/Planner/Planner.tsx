@@ -44,7 +44,7 @@ import { MergeChoiceDialog } from "../MergeChoiceDialog/MergeChoiceDialog";
 import { NextToWatch } from "../NextToWatch/NextToWatch";
 import { PhaseStrip } from "../PhaseStrip/PhaseStrip";
 import { PlannerFilters } from "../PlannerFilters/PlannerFilters";
-import { PlannerGuide } from "../PlannerGuide/PlannerGuide";
+import { GuideHelp } from "../GuideHelp/GuideHelp";
 import { FiltersEmpty } from "../FiltersEmpty/FiltersEmpty";
 import { PlannerSearch, SearchNoResults } from "../PlannerSearch/PlannerSearch";
 import { PlannerSummary } from "../PlannerSummary/PlannerSummary";
@@ -109,12 +109,6 @@ export function Planner({ shareCode }: PlannerProps) {
     return () => cancelAnimationFrame(id);
   }, [isLoading]);
   useSplashReady("planner", hasPainted);
-  // Open only on a first visit with room for it (tablet and up), decided once the saved titles have loaded.
-  // Not saved: after a reload the same rule applies again.
-  const [isGuideOpen, setIsGuideOpen] = useState<boolean | null>(null);
-  if (!isLoading && isGuideOpen === null) {
-    setIsGuideOpen(watched.size === 0 && window.matchMedia("(min-width: 40em)").matches);
-  }
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
   const jumpToLast = useJumpToLastWatched(
@@ -207,15 +201,6 @@ export function Planner({ shareCode }: PlannerProps) {
 
       {isDesktop && <PhaseStrip phases={strip} variant="card" />}
 
-      {isGuideOpen !== null && searchCount > 0 && (
-        <PlannerGuide
-          isOpen={isGuideOpen}
-          onOpenChange={setIsGuideOpen}
-          isChronological={viewOrder === "chronological"}
-          showAlternate={filters.showAlternate}
-        />
-      )}
-
       <div className="planner__body">
         {isDesktop ? (
           <>
@@ -226,7 +211,14 @@ export function Planner({ shareCode }: PlannerProps) {
                   nextTitle={nextTitle}
                   isVisible={isPastProgress}
                 />
-                <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
+                <div className="planner__search-row">
+                  <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
+                  <GuideHelp
+                    isReady={hasPainted}
+                    isChronological={viewOrder === "chronological"}
+                    showAlternate={filters.showAlternate}
+                  />
+                </div>
                 <PlannerFilters
                   filters={filters}
                   onChange={setFilters}
@@ -247,7 +239,14 @@ export function Planner({ shareCode }: PlannerProps) {
           </>
         ) : (
           <>
-            <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
+            <div className="planner__search-row">
+              <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
+              <GuideHelp
+                isReady={hasPainted}
+                isChronological={viewOrder === "chronological"}
+                showAlternate={filters.showAlternate}
+              />
+            </div>
             <MobileToolbar
               activeFilters={countActiveFilters(filters)}
               shown={shownCount}

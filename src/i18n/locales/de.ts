@@ -182,14 +182,19 @@ export const de: Messages = {
     },
     guide: {
       title: "So liest du den Planer",
-      orderTerm: "Reihenfolge",
+      startTerm: "Wo anfangen",
+      startText:
+        "Beginne mit dem ersten Titel und folge der Reihenfolge: Es ist die Erscheinungsfolge, ideal für das erste Mal. Hake jeden gesehenen Titel ab: Der Planner zeigt dir den nächsten.",
+      orderTerm: "Lieber der Geschichte folgen?",
       orderText:
-        "Folge der Liste von oben: Sie läuft nach Erscheinungsdatum und ist für das erste Anschauen am besten. Einige Titel, etwa Captain America: The First Avenger und Captain Marvel, spielen in der Vergangenheit: Um sie an ihrer Stelle in der Handlung zu sehen, wechsle zu „{chrono}“.",
-      orderTextChrono:
-        "Hier folgen die Titel der Handlung, nicht dem Erscheinungsjahr, was sich für ein erneutes Anschauen eignet. Für das erste Anschauen ist „{release}“ besser.",
+        "Einige Titel, etwa Captain America: The First Avenger und Captain Marvel, spielen in der Vergangenheit. Um sie in der Reihenfolge der Handlung zu sehen, wähle {chrono}.",
       alternateTerm: "Alternative Kontinuität",
       alternateText:
-        "Titel mit dem Etikett „{tag}“, etwa X-Men ’97 und What If…?, erzählen Geschichten aus Paralleluniversen: Sieh sie dir an, wann du willst, für die Haupthandlung brauchst du sie nicht. Kein Interesse? Schalte „{filter}“ in den Filtern aus.",
+        "Titel mit dem Etikett {tag}, etwa X-Men ’97 und What If…?, erzählen Parallelwelten: Für die Haupthandlung sind sie nicht nötig, schau sie, wann du willst. Kein Interesse? Schalte {filter} in den Filtern aus.",
+      help: "So liest du den Planner",
+      callout: "Zum ersten Mal hier? So liest du den Planner.",
+      calloutOpen: "Lesen",
+      calloutDismiss: "Nicht jetzt",
     },
   },
   merge: {
