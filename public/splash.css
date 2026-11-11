@@ -1,0 +1,26 @@
+html {
+  scrollbar-gutter: stable;
+}
+#splash {
+  display: none;
+}
+html[data-splash="on"] {
+  overflow: hidden;
+}
+html[data-splash="on"] #splash {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483647;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--accent, #c8202b);
+  color: var(--white, #fff);
+  font-family: var(--font-display, "Anton", "Impact", "Arial Narrow", sans-serif);
+  font-size: clamp(3.5rem, 11vw, 9rem);
+  line-height: 1.02;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
