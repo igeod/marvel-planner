@@ -20,6 +20,11 @@ describe("limite sui tentativi falliti", () => {
     expect(await isBlocked(db, "shared", "1.1.1.1", start)).toBe(false);
   });
 
+  it("conta anche i tentativi che arrivano insieme", async () => {
+    await Promise.all(Array.from({ length: 20 }, () => recordMiss(db, "shared", "3.3.3.3", start)));
+    expect(await isBlocked(db, "shared", "3.3.3.3", start)).toBe(true);
+  });
+
   it("blocca dopo 20 tentativi falliti ma solo quel client", async () => {
     await missTimes(19, "1.1.1.1");
     expect(await isBlocked(db, "shared", "1.1.1.1", start)).toBe(false);

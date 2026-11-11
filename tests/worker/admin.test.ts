@@ -28,12 +28,16 @@ function createApp() {
   const app = new Hono<AppEnv>();
   app.use(async (c, next) => {
     c.set("db", db);
-    c.set("auth", {
-      api: {
-        getSession: async ({ headers }: { headers: Headers }) =>
-          sessions[headers.get("x-session") ?? ""] ?? null,
-      },
-    } as unknown as AppEnv["Variables"]["auth"]);
+    c.set(
+      "auth",
+      () =>
+        ({
+          api: {
+            getSession: async ({ headers }: { headers: Headers }) =>
+              sessions[headers.get("x-session") ?? ""] ?? null,
+          },
+        }) as unknown as ReturnType<AppEnv["Variables"]["auth"]>,
+    );
     await next();
   });
   app.route("/admin", adminRoutes);

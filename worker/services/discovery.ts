@@ -3,6 +3,7 @@ import type { CatalogCandidate } from "../../shared/catalogCandidate";
 import { TMDB_REFS, type TmdbRef } from "../../shared/tmdbRefs";
 import type { Database } from "../db/client";
 import { catalogCandidate } from "../db/schema";
+import { UPSTREAM_TIMEOUT_MS } from "./upstream";
 
 const API_URL = "https://api.themoviedb.org/3";
 const MARVEL_STUDIOS_COMPANY = 420;
@@ -26,6 +27,7 @@ interface TmdbShow {
 async function request<T>(token: string, path: string): Promise<T> {
   const response = await fetch(`${API_URL}${path}`, {
     headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!response.ok) throw new Error(`TMDB ha risposto con stato ${response.status}`);
   return (await response.json()) as T;

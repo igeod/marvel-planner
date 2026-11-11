@@ -5,13 +5,15 @@
   "compatibility_date": "2026-10-01",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
-  "preview_urls": true,
+  "preview_urls": false,
   "observability": { "enabled": true },
   "triggers": { "crons": ["17 3 * * *", "43 4 * * 1"] },
   "assets": {
     "not_found_handling": "single-page-application",
     "binding": "ASSETS",
-    "run_worker_first": true,
+    // Only these go through the Worker; files and pages come straight from the assets, with the
+    // headers of public/_headers.
+    "run_worker_first": ["/api/*", "/film/*", "/robots.txt", "/sitemap.xml"],
   },
   "d1_databases": [
     {

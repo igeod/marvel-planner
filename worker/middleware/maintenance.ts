@@ -15,7 +15,7 @@ export const maintenance = createMiddleware<AppEnv>(async (c, next) => {
   if (!(await isMaintenanceOn(c.var.db))) return next();
   if (OPEN_DURING_MAINTENANCE.some((pattern) => pattern.test(c.req.path))) return next();
 
-  const session = await c.var.auth.api.getSession({ headers: c.req.raw.headers });
+  const session = await c.var.auth().api.getSession({ headers: c.req.raw.headers });
   if (session && isAdminUser(c.env, session.user.id)) return next();
 
   c.header("Retry-After", String(RETRY_AFTER_SECONDS));

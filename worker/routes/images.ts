@@ -1,4 +1,5 @@
 import { Hono } from "hono";
+import { UPSTREAM_TIMEOUT_MS } from "../services/upstream";
 import type { AppEnv } from "../types";
 
 const IMAGE_ORIGIN = "https://image.tmdb.org/t/p";
@@ -14,6 +15,7 @@ export const imageRoutes = new Hono<AppEnv>().get("/:size/:file", async (c) => {
 
   const upstream = await fetch(`${IMAGE_ORIGIN}/${size}/${file}`, {
     cf: { cacheTtl: CACHE_SECONDS, cacheEverything: true },
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!upstream.ok || !upstream.headers.get("content-type")?.startsWith("image/")) {
     return c.json({ error: "not_found" }, 404);

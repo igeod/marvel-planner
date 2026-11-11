@@ -121,8 +121,12 @@ export async function getUserCounts(db: Database, now = new Date()) {
     readSetting(db, DELETED_ACCOUNTS_KEY),
   ]);
   let deleted = { count: 0, since: now.toISOString() };
-  if (raw) deleted = JSON.parse(raw) as typeof deleted;
-  else await writeSetting(db, DELETED_ACCOUNTS_KEY, JSON.stringify(deleted), now);
+  try {
+    if (raw) deleted = JSON.parse(raw) as typeof deleted;
+    else await writeSetting(db, DELETED_ACCOUNTS_KEY, JSON.stringify(deleted), now);
+  } catch {
+    // A damaged row counts as none: the admin page still opens.
+  }
   return {
     total: total.n,
     newLastWeek: recent.n,

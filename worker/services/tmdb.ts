@@ -2,6 +2,7 @@ import type { Language } from "../../shared/languages";
 import type { Season, TitleDetails, Trailer } from "../../shared/titleDetails";
 import type { TmdbRef } from "../../shared/tmdbRefs";
 import type { WatchProviders } from "../../shared/watchProviders";
+import { UPSTREAM_TIMEOUT_MS } from "./upstream";
 
 const API_URL = "https://api.themoviedb.org/3";
 const MAX_CAST = 15;
@@ -86,6 +87,7 @@ async function request<T>(token: string, path: string, language: Language): Prom
   const url = `${API_URL}${path}${separator}language=${TMDB_LOCALES[language]}`;
   const response = await fetch(url, {
     headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (!response.ok) throw new TmdbError(response.status);
   return (await response.json()) as T;

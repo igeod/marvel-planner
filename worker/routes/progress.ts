@@ -7,7 +7,7 @@ import { requireUser } from "../middleware/requireUser";
 import type { AppEnv } from "../types";
 
 const MAX_TITLES_PER_REQUEST = 500;
-const ROWS_PER_INSERT = 30;
+export const ROWS_PER_INSERT = 30;
 
 function chunk<T>(items: T[], size: number): T[][] {
   return Array.from({ length: Math.ceil(items.length / size) }, (_, index) =>

@@ -6,7 +6,8 @@ export interface AppEnv {
   Bindings: Env;
   Variables: {
     db: Database;
-    auth: Auth;
+    // Built on first use: most requests (images, releases) never need it.
+    auth: () => Auth;
     user: SessionUser;
   };
 }

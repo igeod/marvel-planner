@@ -1,5 +1,6 @@
 import { LANGUAGES, type Language } from "../../shared/languages";
 import type { PlotText } from "../../shared/titleDetails";
+import { UPSTREAM_TIMEOUT_MS } from "./upstream";
 
 const USER_AGENT = "MarvelPlanner/1.0 (igeod.dev@gmail.com)";
 const MIN_PLOT_LENGTH = 600;
@@ -21,7 +22,10 @@ interface Heading {
 }
 
 async function getJson<T>(url: string): Promise<T | null> {
-  const response = await fetch(url, { headers: { "User-Agent": USER_AGENT } });
+  const response = await fetch(url, {
+    headers: { "User-Agent": USER_AGENT },
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
+  });
   return response.ok ? ((await response.json()) as T) : null;
 }
 

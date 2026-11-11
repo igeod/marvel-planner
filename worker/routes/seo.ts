@@ -9,7 +9,7 @@ const SITE_NAME = "Marvel Planner";
 const SEO_LANGUAGE = "it";
 const DESCRIPTION_LENGTH = 155;
 
-const escapeHtml = (value: string) =>
+export const escapeHtml = (value: string) =>
   value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 function shorten(text: string): string {
@@ -22,7 +22,7 @@ function shorten(text: string): string {
 export const seoRoutes = new Hono<AppEnv>()
   .get("/robots.txt", (c) =>
     c.text(
-      `User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\n\nSitemap: ${new URL("/sitemap.xml", c.req.url).href}\n`,
+      `User-agent: *\nAllow: /\nDisallow: /api/\nDisallow: /admin\nDisallow: /s/\n\nSitemap: ${new URL("/sitemap.xml", c.req.url).href}\n`,
     ),
   )
   .get("/sitemap.xml", (c) => {
@@ -67,23 +67,22 @@ export const seoRoutes = new Hono<AppEnv>()
     }
     if (!name) return new Response(response.body, response);
 
-    const title = escapeHtml(`${name} · ${SITE_NAME}`);
-    const text = escapeHtml(description || `${name}: ${SITE_NAME}`);
+    const title = `${name} · ${SITE_NAME}`;
+    const text = description || `${name}: ${SITE_NAME}`;
     const canonical = escapeHtml(new URL(`/film/${encodeURIComponent(titleId)}`, c.req.url).href);
+    // index.html already has og:title and og:description: change them, so crawlers see one of each.
+    const setContent = (value: string) => ({
+      element: (element: Element) => void element.setAttribute("content", value),
+    });
     const rewritten = new HTMLRewriter()
-      .on("title", { element: (element) => void element.setInnerContent(name + " · " + SITE_NAME) })
-      .on('meta[name="description"]', {
-        element: (element) =>
-          void element.setAttribute("content", description || `${name}: ${SITE_NAME}`),
-      })
+      .on("title", { element: (element) => void element.setInnerContent(title) })
+      .on('meta[name="description"]', setContent(text))
+      .on('meta[property="og:title"]', setContent(title))
+      .on('meta[property="og:description"]', setContent(text))
       .on("head", {
         element: (element) =>
           void element.append(
-            `<link rel="canonical" href="${canonical}">` +
-              `<meta property="og:type" content="website">` +
-              `<meta property="og:title" content="${title}">` +
-              `<meta property="og:description" content="${text}">` +
-              `<meta property="og:url" content="${canonical}">`,
+            `<link rel="canonical" href="${canonical}"><meta property="og:url" content="${canonical}">`,
             { html: true },
           ),
       })

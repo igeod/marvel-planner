@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import type { Database } from "../db/client";
 import { rateLimit } from "../db/schema";
 
@@ -20,6 +20,7 @@ export async function isBlocked(
   return Boolean(row) && now - row.lastRequest < WINDOW_MS && row.count >= MAX_MISSES;
 }
 
+// One statement, so parallel misses never lose a count: the counter restarts after a quiet window.
 export async function recordMiss(
   db: Database,
   scope: string,
@@ -27,15 +28,14 @@ export async function recordMiss(
   now = Date.now(),
 ): Promise<void> {
   const key = keyFor(scope, client);
-  const [row] = await db
-    .select({ count: rateLimit.count, lastRequest: rateLimit.lastRequest })
-    .from(rateLimit)
-    .where(eq(rateLimit.key, key));
-  const isCurrent = Boolean(row) && now - row.lastRequest < WINDOW_MS;
-  const count = isCurrent ? row.count + 1 : 1;
-
   await db
     .insert(rateLimit)
-    .values({ id: key, key, count, lastRequest: now })
-    .onConflictDoUpdate({ target: rateLimit.key, set: { count, lastRequest: now } });
+    .values({ id: key, key, count: 1, lastRequest: now })
+    .onConflictDoUpdate({
+      target: rateLimit.key,
+      set: {
+        count: sql`CASE WHEN ${now} - ${rateLimit.lastRequest} < ${WINDOW_MS} THEN ${rateLimit.count} + 1 ELSE 1 END`,
+        lastRequest: now,
+      },
+    });
 }

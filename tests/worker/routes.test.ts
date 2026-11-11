@@ -21,9 +21,13 @@ function createApp() {
   const app = new Hono<AppEnv>();
   app.use(async (c, next) => {
     c.set("db", context.db);
-    c.set("auth", {
-      api: { getSession: async () => ({ user: { id: "u1" } }) },
-    } as unknown as AppEnv["Variables"]["auth"]);
+    c.set(
+      "auth",
+      () =>
+        ({
+          api: { getSession: async () => ({ user: { id: "u1" } }) },
+        }) as unknown as ReturnType<AppEnv["Variables"]["auth"]>,
+    );
     await next();
   });
   app.use(sameOrigin);

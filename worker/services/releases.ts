@@ -1,6 +1,7 @@
 import { TMDB_REFS, type TmdbRef } from "../../shared/tmdbRefs";
 import type { Database } from "../db/client";
 import { titleRelease } from "../db/schema";
+import { UPSTREAM_TIMEOUT_MS } from "./upstream";
 
 const API_URL = "https://api.themoviedb.org/3";
 const HOUR_MS = 60 * 60 * 1000;
@@ -22,6 +23,7 @@ interface StoredRelease {
 async function requestDates(token: string, path: string): Promise<TmdbDates | null> {
   const response = await fetch(`${API_URL}${path}`, {
     headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+    signal: AbortSignal.timeout(UPSTREAM_TIMEOUT_MS),
   });
   if (response.status === 404) return null;
   if (!response.ok) throw new Error(`TMDB ha risposto con stato ${response.status}`);
