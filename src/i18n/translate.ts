@@ -1,21 +1,14 @@
-import type { Language } from "../../shared/languages";
-import { de } from "./locales/de";
-import { en } from "./locales/en";
-import { es } from "./locales/es";
-import { fr } from "./locales/fr";
-import { it, type Messages } from "./locales/it";
+import type { Messages } from "./locales/it";
 import type { TranslationKey, TranslationParams } from "./types";
-
-const MESSAGES: Record<Language, Messages> = { it, fr, es, en, de };
 
 const TOKEN_PATTERN = /\{(\w+)\}/g;
 
-export function lookup(language: Language, key: TranslationKey): string {
+export function lookup(messages: Messages, key: TranslationKey): string {
   const value = key
     .split(".")
     .reduce<unknown>(
       (node, part) => (node as Record<string, unknown> | undefined)?.[part],
-      MESSAGES[language],
+      messages,
     );
   return typeof value === "string" ? value : key;
 }

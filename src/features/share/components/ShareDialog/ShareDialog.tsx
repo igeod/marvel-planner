@@ -1,5 +1,4 @@
 import { Copy, Download, Link2Off, RefreshCw, Share2 } from "lucide-react";
-import QRCode from "qrcode";
 import { useEffect, useId, useState } from "react";
 import type { ShareDuration, ShareLinkInfo } from "../../../../../shared/share";
 import { Button } from "../../../../components/ui/Button/Button";
@@ -65,7 +64,10 @@ function LinkDetails({ link, name, progress }: LinkDetailsProps) {
 
   useEffect(() => {
     let isActive = true;
-    QRCode.toDataURL(shareUrl(link.code), { margin: 1, width: 512, errorCorrectionLevel: "M" })
+    import("qrcode")
+      .then(({ default: QRCode }) =>
+        QRCode.toDataURL(shareUrl(link.code), { margin: 1, width: 512, errorCorrectionLevel: "M" }),
+      )
       .then((dataUrl) => isActive && setQrDataUrl(dataUrl))
       .catch(() => isActive && setQrDataUrl(null));
     return () => {

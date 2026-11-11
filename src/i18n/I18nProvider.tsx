@@ -3,10 +3,20 @@ import { DEFAULT_LANGUAGE, isLanguage, type Language } from "../../shared/langua
 import { readJson, writeJson } from "../lib/storage";
 import { STORAGE_KEYS } from "../lib/storageKeys";
 import { I18nContext, type I18nContextValue } from "./I18nContext";
+import { it, type Messages } from "./locales/it";
 import { interpolate, lookup, splitTokens } from "./translate";
 import type { DateStyle, TranslationKey, TranslationParams } from "./types";
 
 const LANGUAGE_STORAGE_KEY = STORAGE_KEYS.language;
+
+// Italian is the base and always bundled; the other languages load when chosen.
+const LOADERS: Record<Language, () => Promise<Messages>> = {
+  it: () => Promise.resolve(it),
+  en: () => import("./locales/en").then((module) => module.en),
+  fr: () => import("./locales/fr").then((module) => module.fr),
+  es: () => import("./locales/es").then((module) => module.es),
+  de: () => import("./locales/de").then((module) => module.de),
+};
 
 const DATE_OPTIONS: Record<DateStyle, Intl.DateTimeFormatOptions> = {
   long: { dateStyle: "long", timeZone: "UTC" },
@@ -25,27 +35,44 @@ interface I18nProviderProps {
 }
 
 export function I18nProvider({ children }: I18nProviderProps) {
-  const [language, setLanguageState] = useState<Language>(detectLanguage);
+  const [requested, setRequested] = useState<Language>(detectLanguage);
+  // The page keeps the language it has until the chosen one has arrived, so it never flashes.
+  const [current, setCurrent] = useState<{ language: Language; messages: Messages } | null>(
+    requested === "it" ? { language: "it", messages: it } : null,
+  );
+
+  useEffect(() => {
+    let isActive = true;
+    LOADERS[requested]().then((messages) => {
+      if (isActive) setCurrent({ language: requested, messages });
+    });
+    return () => {
+      isActive = false;
+    };
+  }, [requested]);
+
+  const language = current?.language ?? requested;
+  const messages = current?.messages ?? it;
 
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
 
   const setLanguage = useCallback((next: Language) => {
-    setLanguageState(next);
+    setRequested(next);
     writeJson(LANGUAGE_STORAGE_KEY, next);
   }, []);
 
   const value = useMemo<I18nContextValue>(() => {
     const t = (key: TranslationKey, params?: TranslationParams) =>
-      interpolate(lookup(language, key), params);
+      interpolate(lookup(messages, key), params);
 
     const rich = (
       key: TranslationKey,
       parts: Record<string, ReactNode>,
       params?: TranslationParams,
     ) =>
-      splitTokens(lookup(language, key)).map((part, index) => (
+      splitTokens(lookup(messages, key)).map((part, index) => (
         <Fragment key={index}>
           {part.token !== undefined
             ? (parts[part.token] ?? params?.[part.token] ?? `{${part.token}}`)
@@ -57,7 +84,9 @@ export function I18nProvider({ children }: I18nProviderProps) {
       new Intl.DateTimeFormat(language, DATE_OPTIONS[style]).format(new Date(isoDate));
 
     return { language, setLanguage, t, rich, formatDate };
-  }, [language, setLanguage]);
+  }, [language, messages, setLanguage]);
 
+  // Nothing to show in a language that has not arrived: the splash covers the wait.
+  if (!current) return null;
   return <I18nContext value={value}>{children}</I18nContext>;
 }
