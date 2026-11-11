@@ -96,3 +96,25 @@
     stroke-width: 2.3;
   }
 }
+
+// The suggestion enters like an error message (opacity only under reduced motion) but stays neutral.
+.field__suggestion {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+  font-size: var(--fs-label);
+  line-height: 20px;
+  color: var(--ink-2);
+  animation: fade-in var(--dur-enter) var(--ease-out) both;
+
+  svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation-name: reveal-in;
+  }
+}

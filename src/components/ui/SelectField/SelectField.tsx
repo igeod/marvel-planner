@@ -125,13 +125,18 @@ function CustomSelect({
         close(false);
       }
     };
+    // Like a native select on desktop: scrolling the page or any container closes the list (its own
+    // scrolling does not), so it is never left behind a moving container.
+    const onScroll = (event: Event) => {
+      if (isPopover && !list.contains(event.target as Node)) close(true);
+    };
     document.addEventListener("pointerdown", onPointerDown);
     window.addEventListener("resize", position);
-    window.addEventListener("scroll", position, true);
+    window.addEventListener("scroll", onScroll, true);
     return () => {
       document.removeEventListener("pointerdown", onPointerDown);
       window.removeEventListener("resize", position);
-      window.removeEventListener("scroll", position, true);
+      window.removeEventListener("scroll", onScroll, true);
     };
   }, [isOpen, isPopover, position, close]);
 

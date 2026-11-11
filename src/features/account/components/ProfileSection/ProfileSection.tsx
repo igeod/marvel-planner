@@ -1,6 +1,7 @@
 import { use, useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
 import { FormError } from "../../../../components/ui/FormError/FormError";
+import { EmailSuggestion } from "../../../../components/ui/Field/EmailSuggestion";
 import { TextField } from "../../../../components/ui/Field/Field";
 import { Status } from "../../../../components/ui/Status/Status";
 import type { TranslationKey } from "../../../../i18n/types";
@@ -53,7 +54,8 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
   const trimmedEmail = email.trim();
   const emailChanged = trimmedEmail !== user.email;
   const emailValid = isValidEmail(trimmedEmail);
-  const suggestion = suggestEmail(trimmedEmail);
+  const [isEmailLeft, setIsEmailLeft] = useState(false);
+  const suggestion = isEmailLeft ? suggestEmail(trimmedEmail) : null;
   const canSaveEmail = emailChanged && emailValid;
 
   useReportDirty("name", hasChanges);
@@ -102,9 +104,8 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
         true,
       );
     }
-    if (!hasChanges) {
-      return refuseName({ kind: "note", text: t("account.profile.errors.nameUnchanged") }, false);
-    }
+    // Nothing changed: the button is already off and says why to a screen reader; no message.
+    if (!hasChanges) return;
     void nameAction.run(trimmedName);
   };
 
@@ -165,11 +166,17 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
             isLoading={nameAction.isPending}
             loadingLabel={t("account.profile.saving")}
             aria-disabled={!canSaveName}
+            aria-describedby={hasChanges ? undefined : "profile-name-nothing"}
           >
             {t("account.profile.save")}
           </Button>
+          {!hasChanges && (
+            <span id="profile-name-nothing" className="visually-hidden">
+              {t("account.profile.nothingToSave")}
+            </span>
+          )}
           <Status tone="success" resultKey={nameAction.resultId}>
-            {nameAction.isDone ? t("account.profile.saved", { name: user.name }) : ""}
+            {nameAction.isDone ? t("account.profile.saved") : ""}
           </Status>
         </div>
       </form>
@@ -185,13 +192,25 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
           inputRef={emailInput}
           onChange={(value) => {
             setEmail(value);
+            setIsEmailLeft(false);
             setEmailFeedback(null);
             emailAction.reset();
           }}
-          onBlur={() => setIsEmailTouched(true)}
-          hint={suggestion ? t("auth.emailSuggestion", { email: suggestion }) : undefined}
+          onBlur={() => {
+            setIsEmailTouched(true);
+            setIsEmailLeft(true);
+          }}
           note={emailFeedback?.kind === "note" ? emailFeedback.text : undefined}
           error={emailError}
+        />
+        <EmailSuggestion
+          suggestion={suggestion}
+          onUse={(value) => {
+            setEmail(value);
+            setIsEmailLeft(false);
+            setEmailFeedback(null);
+            emailAction.reset();
+          }}
         />
         {emailFormError && <FormError>{emailFormError}</FormError>}
         <div className="profile-section__actions" ref={emailActions}>
@@ -205,7 +224,7 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
             {t("account.profile.emailSave")}
           </Button>
           <Status tone="success" resultKey={emailAction.resultId}>
-            {emailAction.isDone ? t("account.profile.emailSaved", { email: user.email }) : ""}
+            {emailAction.isDone ? t("account.profile.emailSaved") : ""}
           </Status>
         </div>
       </form>

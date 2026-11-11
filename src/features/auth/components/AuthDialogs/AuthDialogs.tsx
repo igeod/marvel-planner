@@ -119,7 +119,6 @@ export function AuthDialogs() {
     <>
       {currentView === "login" && (
         <>
-          <p>{t("auth.login.intro")}</p>
           <LoginForm />
           <p>
             {rich("auth.login.noAccount", {

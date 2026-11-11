@@ -130,13 +130,25 @@
   display: none;
 }
 
+// The menu keeps its height: the list opens over what is below, at the width of the button.
+.select-field--inline {
+  position: relative;
+}
+
 .select-field--inline .select-field__list {
-  margin-top: var(--sp-1h);
+  position: absolute;
+  top: calc(100% + var(--sp-1h));
+  left: 0;
+  right: 0;
+  z-index: 5;
   background: var(--panel-2);
   color: var(--on-dark);
+  box-shadow: var(--shadow-pop);
 }
 
 .select-field__option {
+  // The selected option scrolled into view never touches the edge of the list.
+  scroll-margin-block: var(--sp-2);
   display: flex;
   align-items: center;
   justify-content: space-between;

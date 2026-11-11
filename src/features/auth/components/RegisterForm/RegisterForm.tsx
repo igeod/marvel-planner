@@ -2,6 +2,7 @@ import { UserPlus } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
 import { PasswordField, TextField } from "../../../../components/ui/Field/Field";
+import { EmailSuggestion } from "../../../../components/ui/Field/EmailSuggestion";
 import { useToast } from "../../../../components/ui/Toast/useToast";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -48,7 +49,8 @@ export function RegisterForm() {
   const [errors, setErrors] = useState<FieldErrors<RegisterField>>({});
 
   const policy = usePasswordPolicy();
-  const suggestion = suggestEmail(email);
+  const [isEmailLeft, setIsEmailLeft] = useState(false);
+  const suggestion = isEmailLeft ? suggestEmail(email) : null;
   const serverField = errorCode ? FIELD_FOR_ERROR[errorCode] : undefined;
 
   // A server answer on a field puts the focus there; any other answer, on the submit button.
@@ -116,9 +118,19 @@ export function RegisterForm() {
         required
         disabled={isBlocked}
         value={email}
-        onChange={edit(setEmail)}
-        hint={suggestion ? t("auth.emailSuggestion", { email: suggestion }) : undefined}
+        onChange={(value) => {
+          setIsEmailLeft(false);
+          edit(setEmail)(value);
+        }}
+        onBlur={() => setIsEmailLeft(true)}
         error={fieldError("email")}
+      />
+      <EmailSuggestion
+        suggestion={suggestion}
+        onUse={(value) => {
+          setIsEmailLeft(false);
+          edit(setEmail)(value);
+        }}
       />
       <PasswordField
         label={t("auth.password")}
