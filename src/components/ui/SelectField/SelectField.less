@@ -33,8 +33,9 @@
   font-weight: 600;
   text-align: left;
 
+  // Ink on light, gold on dark, like every other control; the inline variant on a dark panel overrides it.
   &:focus-visible {
-    outline-color: var(--highlight);
+    outline-color: var(--focus-color);
     outline-offset: 3px;
   }
 
@@ -189,7 +190,8 @@
   outline-offset: 2px;
 }
 
-.select-field--inline .select-field__list:focus-visible {
+.select-field--inline .select-field__list:focus-visible,
+.select-field--inline .select-field__trigger:focus-visible {
   outline-color: var(--highlight);
 }
 

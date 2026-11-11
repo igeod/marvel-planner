@@ -23,6 +23,8 @@ body:has(.floating-progress[data-visible="true"]) .toasts {
 
 .toast {
   .panel-surface();
+  // The error toast is role="alert", which would make all its text bold; only the title is.
+  font-weight: 400;
   display: flex;
   align-items: center;
   gap: var(--sp-3);
