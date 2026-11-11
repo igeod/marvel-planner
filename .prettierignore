@@ -6,3 +6,4 @@ migrations/meta
 
 docs/design/
 Claude outputs/
+.claude/
