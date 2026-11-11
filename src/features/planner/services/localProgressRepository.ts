@@ -15,5 +15,6 @@ export const localProgressRepository: ProgressRepository = {
   load: async () => read(),
   add: async (titleIds) => write(new Set([...read(), ...titleIds])),
   remove: async (titleId) => write(read().filter((id) => id !== titleId)),
+  removeMany: async (titleIds) => write(read().filter((id) => !titleIds.includes(id))),
   clear: async () => write([]),
 };

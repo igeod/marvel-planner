@@ -156,6 +156,10 @@ export const de: Messages = {
     },
     phase: {
       progress: "Fortschritt {name}",
+      markAll: "Ganze Phase als gesehen markieren",
+      unmarkAll: "Markierung der ganzen Phase entfernen",
+      markedToast: "{phase}: {count} Titel als gesehen markiert",
+      unmarkedToast: "{phase}: Markierungen entfernt",
       empty: "Kein Titel entspricht den Filtern.",
     },
     empty: {

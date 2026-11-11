@@ -1,3 +1,5 @@
+import { CheckCheck, Undo2 } from "lucide-react";
+import { Button } from "../../../../components/ui/Button/Button";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Phase } from "../../types";
@@ -11,6 +13,7 @@ interface PhaseSectionProps {
   isCollapsed: boolean;
   onCollapsedChange: (isCollapsed: boolean) => void;
   onToggleTitle: (id: string) => void;
+  onSetPhase: (ids: string[], isWatched: boolean, label: string) => void;
 }
 
 export function PhaseSection({
@@ -19,12 +22,15 @@ export function PhaseSection({
   isCollapsed,
   onCollapsedChange,
   onToggleTitle,
+  onSetPhase,
 }: PhaseSectionProps) {
   const { t } = useI18n();
   const progress = computeProgress(phase.titles, watched);
   const phaseName = t(`catalog.phases.${phase.number}`);
 
   const ref = usePhaseMotion(isCollapsed);
+  // Acts on the titles shown: a filtered phase is marked only where it is visible.
+  const isAllWatched = progress.total > 0 && progress.done === progress.total;
 
   return (
     <details
@@ -62,6 +68,25 @@ export function PhaseSection({
         value={progress.done}
         max={Math.max(progress.total, 1)}
       />
+
+      {phase.titles.length > 0 && (
+        <div className="phase__actions">
+          <Button
+            variant="text"
+            size="sm"
+            icon={isAllWatched ? <Undo2 aria-hidden /> : <CheckCheck aria-hidden />}
+            onClick={() =>
+              onSetPhase(
+                phase.titles.map((title) => title.id),
+                !isAllWatched,
+                phaseName,
+              )
+            }
+          >
+            {isAllWatched ? t("planner.phase.unmarkAll") : t("planner.phase.markAll")}
+          </Button>
+        </div>
+      )}
 
       {phase.titles.length > 0 ? (
         <ol className="phase__titles">

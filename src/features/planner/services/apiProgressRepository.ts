@@ -13,5 +13,10 @@ export const apiProgressRepository: ProgressRepository = {
     await apiRequest("/progress", { method: "POST", body: JSON.stringify({ titleIds: known }) });
   },
   remove: (titleId) => apiRequest(`/progress/${encodeURIComponent(titleId)}`, { method: "DELETE" }),
+  removeMany: async (titleIds) => {
+    await Promise.all(
+      titleIds.map((id) => apiRequest(`/progress/${encodeURIComponent(id)}`, { method: "DELETE" })),
+    );
+  },
   clear: () => apiRequest("/progress", { method: "DELETE" }),
 };

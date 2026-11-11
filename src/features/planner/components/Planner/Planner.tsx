@@ -94,6 +94,7 @@ export function Planner({ shareCode }: PlannerProps) {
     storage,
     conflict,
     toggle,
+    setMany,
     reset,
     importTitles,
     resolveConflict,
@@ -284,6 +285,7 @@ export function Planner({ shareCode }: PlannerProps) {
                 collapsed={collapsed}
                 onPhaseCollapsedChange={setPhaseCollapsed}
                 onToggleTitle={toggle}
+                onSetPhase={setMany}
               />
             ))
           ) : (

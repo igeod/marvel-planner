@@ -10,6 +10,7 @@ interface SagaSectionProps {
   collapsed: ReadonlySet<number>;
   onPhaseCollapsedChange: (phase: PhaseNumber, isCollapsed: boolean) => void;
   onToggleTitle: (id: string) => void;
+  onSetPhase: (ids: string[], isWatched: boolean, label: string) => void;
 }
 
 export function SagaSection({
@@ -18,6 +19,7 @@ export function SagaSection({
   collapsed,
   onPhaseCollapsedChange,
   onToggleTitle,
+  onSetPhase,
 }: SagaSectionProps) {
   const { t } = useI18n();
   const headingId = useId();
@@ -44,6 +46,7 @@ export function SagaSection({
           isCollapsed={collapsed.has(phase.number)}
           onCollapsedChange={(isCollapsed) => onPhaseCollapsedChange(phase.number, isCollapsed)}
           onToggleTitle={onToggleTitle}
+          onSetPhase={onSetPhase}
         />
       ))}
     </section>

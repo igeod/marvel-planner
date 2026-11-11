@@ -49,6 +49,12 @@ export function useWatched() {
   // Retry runs the latest version of each action, so it sees the watched set as the revert left it.
   const latest = useRef<{
     toggle: (id: string, isSilent?: boolean) => Promise<void>;
+    setMany: (
+      ids: readonly string[],
+      isWatched: boolean,
+      label: string,
+      isSilent?: boolean,
+    ) => Promise<void>;
     reset: () => Promise<void>;
     importTitles: (ids: ReadonlySet<string>, mode: "merge" | "replace") => Promise<void>;
   } | null>(null);
@@ -125,6 +131,52 @@ export function useWatched() {
     [watched, repository, isAccount, enqueue, saved, failedToSave, toast, t, openAuthDialog],
   );
 
+  // A whole phase at once: one write on the queue, one toast; Undo restores exactly what changed.
+  const setMany = useCallback(
+    async (ids: readonly string[], isWatchedNext: boolean, label: string, isSilent = false) => {
+      const changed = ids.filter((id) => watched.has(id) !== isWatchedNext);
+      if (changed.length === 0) return;
+      const apply = (isOn: boolean) =>
+        setWatched((current) => {
+          const next = new Set(current);
+          for (const id of changed) {
+            if (isOn) next.add(id);
+            else next.delete(id);
+          }
+          return next;
+        });
+      apply(isWatchedNext);
+      try {
+        await enqueue(() =>
+          isWatchedNext ? repository.add(changed) : repository.removeMany(changed),
+        );
+        saved();
+      } catch {
+        apply(!isWatchedNext);
+        failedToSave(() => latest.current!.setMany(ids, isWatchedNext, label, isSilent));
+        return;
+      }
+      if (isSilent) return;
+      const undo = {
+        label: t("common.undo"),
+        onClick: () => latest.current!.setMany(changed, !isWatchedNext, label, true),
+      };
+      // A guest's list lives on the device: the action points to sign-in instead of undo.
+      const isGuestAdd = isWatchedNext && !isAccount;
+      toast.show({
+        id: LIST_TOAST_ID,
+        tone: "info",
+        title: isWatchedNext
+          ? t("planner.phase.markedToast", { phase: label, count: changed.length })
+          : t("planner.phase.unmarkedToast", { phase: label }),
+        action: isGuestAdd
+          ? { label: t("nav.login"), onClick: () => openAuthDialog("login") }
+          : undo,
+      });
+    },
+    [watched, repository, isAccount, enqueue, saved, failedToSave, toast, t, openAuthDialog],
+  );
+
   // Rejects when saving fails, so the dialog can say so; nothing has changed then.
   const resolveConflict = useCallback(
     async (choice: ConflictChoice) => {
@@ -173,7 +225,7 @@ export function useWatched() {
   );
 
   useEffect(() => {
-    latest.current = { toggle, reset, importTitles };
+    latest.current = { toggle, setMany, reset, importTitles };
   });
 
   const storage: ProgressStorage = isAccount ? "account" : isStorageAvailable ? "device" : "none";
@@ -185,6 +237,7 @@ export function useWatched() {
     storage,
     conflict,
     toggle,
+    setMany,
     reset,
     importTitles,
     resolveConflict,

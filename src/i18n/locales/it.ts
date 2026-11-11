@@ -152,6 +152,10 @@ export const it = {
     },
     phase: {
       progress: "Avanzamento {name}",
+      markAll: "Segna tutta la fase come vista",
+      unmarkAll: "Togli la spunta a tutta la fase",
+      markedToast: "{phase}: {count} titoli segnati come visti",
+      unmarkedToast: "{phase}: spunte tolte",
       empty: "Nessun titolo corrisponde ai filtri.",
     },
     empty: {

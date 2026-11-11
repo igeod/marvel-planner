@@ -155,6 +155,10 @@ export const fr: Messages = {
     },
     phase: {
       progress: "Progression {name}",
+      markAll: "Marquer toute la phase comme vue",
+      unmarkAll: "Retirer la coche à toute la phase",
+      markedToast: "{phase} : {count} titres marqués comme vus",
+      unmarkedToast: "{phase} : coches retirées",
       empty: "Aucun titre ne correspond aux filtres.",
     },
     empty: {

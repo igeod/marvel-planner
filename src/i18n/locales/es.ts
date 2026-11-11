@@ -155,6 +155,10 @@ export const es: Messages = {
     },
     phase: {
       progress: "Progreso de {name}",
+      markAll: "Marcar toda la fase como vista",
+      unmarkAll: "Quitar la marca a toda la fase",
+      markedToast: "{phase}: {count} títulos marcados como vistos",
+      unmarkedToast: "{phase}: marcas quitadas",
       empty: "Ningún título coincide con los filtros.",
     },
     empty: {

@@ -154,6 +154,10 @@ export const en: Messages = {
     },
     phase: {
       progress: "{name} progress",
+      markAll: "Mark the whole phase as watched",
+      unmarkAll: "Unmark the whole phase",
+      markedToast: "{phase}: {count} titles marked as watched",
+      unmarkedToast: "{phase}: marks removed",
       empty: "No titles match the filters.",
     },
     empty: {
