@@ -76,6 +76,9 @@ export const en: Messages = {
     completion: {
       title: "Multiverse completed",
       line: "You've seen it all. For now.",
+      share: "Share your planner",
+      sound: "Sound",
+      soundHint: "A short celebration sound. Off by default.",
     },
     storage: {
       account: "Your progress is saved to your account.",
@@ -619,6 +622,16 @@ export const en: Messages = {
     completedSeen: {
       kind: "Local storage (first-party)",
       purpose: "Remembers that you have seen the message shown when you complete every title.",
+      duration: "Until you delete it",
+    },
+    sound: {
+      kind: "Local storage (first-party)",
+      purpose: "Remembers whether you turned on the sound in the completion popup.",
+      duration: "Until you delete it",
+    },
+    guideSeen: {
+      kind: "Local storage (first-party)",
+      purpose: "Remembers that you have already seen the invitation to the planner guide.",
       duration: "Until you delete it",
     },
     manageHeading: "How to manage them",

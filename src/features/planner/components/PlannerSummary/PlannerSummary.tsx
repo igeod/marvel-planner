@@ -8,7 +8,7 @@ import { STORAGE_KEYS } from "../../../../lib/storageKeys";
 import { usePersistentState } from "../../../../lib/usePersistentState";
 import type { Progress, ProgressStorage } from "../../types";
 import type { StripPhase } from "../../utils/strip";
-import { CompletionSticker } from "../CompletionSticker/CompletionSticker";
+import { CompletionDialog } from "../CompletionDialog/CompletionDialog";
 import { PhaseStrip } from "../PhaseStrip/PhaseStrip";
 
 const isBoolean = (value: unknown): value is boolean => typeof value === "boolean";
@@ -58,21 +58,21 @@ export function PlannerSummary({
 
   return (
     <section className="progress-card card card--panel on-panel" aria-labelledby="planner-title">
+      <CompletionDialog
+        isOpen={showCompletion}
+        onClose={() => setIsCompletionSeen(true)}
+        onShare={onShare}
+      />
       <div className="progress-card__main">
         <h1 id="planner-title" className="section-title">
           {t("planner.progressHeading")}
         </h1>
-        <p
-          className={`progress-card__percent${showCompletion ? " progress-card__percent--complete" : ""}`}
-          aria-hidden="true"
-          ref={progressRef}
-        >
+        <p className="progress-card__percent" aria-hidden="true" ref={progressRef}>
           {percent}%
         </p>
         <p className="progress-card__count">
           {t("planner.watchedCount", { done: progress.done, total: progress.total })}
         </p>
-        {showCompletion && <CompletionSticker onClose={() => setIsCompletionSeen(true)} />}
         <progress
           className="visually-hidden"
           aria-label={t("planner.completed")}

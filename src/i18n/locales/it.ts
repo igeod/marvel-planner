@@ -74,6 +74,9 @@ export const it = {
     completion: {
       title: "Multiverso completato",
       line: "Hai visto tutto. Per ora.",
+      share: "Condividi il tuo planner",
+      sound: "Suono",
+      soundHint: "Un breve suono di festa. Spento di default.",
     },
     storage: {
       account: "I progressi vengono salvati sul tuo account.",
@@ -619,6 +622,16 @@ export const it = {
     completedSeen: {
       kind: "Archiviazione locale (propria)",
       purpose: "Ricorda che hai già visto il messaggio per aver completato tutti i titoli.",
+      duration: "Finché non lo cancelli",
+    },
+    sound: {
+      kind: "Archiviazione locale (propria)",
+      purpose: "Ricorda se hai attivato il suono nel popup di completamento.",
+      duration: "Finché non lo cancelli",
+    },
+    guideSeen: {
+      kind: "Archiviazione locale (propria)",
+      purpose: "Ricorda che hai già visto l'invito alla guida del planner.",
       duration: "Finché non lo cancelli",
     },
     manageHeading: "Come gestirli",

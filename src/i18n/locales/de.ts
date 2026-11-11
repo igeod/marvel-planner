@@ -77,6 +77,9 @@ export const de: Messages = {
     completion: {
       title: "Multiversum abgeschlossen",
       line: "Du hast alle Titel gesehen.",
+      share: "Teile deinen Planner",
+      sound: "Ton",
+      soundHint: "Ein kurzer Feierton. Standardmäßig aus.",
     },
     storage: {
       account: "Dein Fortschritt wird in deinem Konto gespeichert.",
@@ -624,6 +627,16 @@ export const de: Messages = {
     completedSeen: {
       kind: "Lokaler Speicher (eigener)",
       purpose: "Merkt sich, dass du die Meldung zum Abschluss aller Titel schon gesehen hast.",
+      duration: "Bis du ihn löschst",
+    },
+    sound: {
+      kind: "Lokaler Speicher (eigener)",
+      purpose: "Merkt sich, ob du den Ton im Abschlussfenster eingeschaltet hast.",
+      duration: "Bis du ihn löschst",
+    },
+    guideSeen: {
+      kind: "Lokaler Speicher (eigener)",
+      purpose: "Merkt sich, dass du die Einladung zur Planer-Anleitung schon gesehen hast.",
       duration: "Bis du ihn löschst",
     },
     manageHeading: "So verwaltest du sie",

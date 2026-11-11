@@ -1,0 +1,98 @@
+@import (reference) "mixins";
+
+.completion {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+// Only shown when there is no confetti, so the moment still reads without movement.
+.completion__chip {
+  display: none;
+  align-self: flex-start;
+  padding: 2px 14px;
+  border-radius: var(--r-pill);
+  background: var(--highlight);
+  color: var(--ink-static);
+  font-weight: 800;
+}
+
+.completion__sound {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+  padding-top: var(--sp-3);
+  border-top: 1px solid var(--line);
+}
+
+.completion__confetti {
+  display: none;
+  position: absolute;
+  inset: calc(var(--sp-6) * -1) calc(var(--sp-6) * -1) 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.completion__piece {
+  position: absolute;
+  top: 0;
+  left: var(--x);
+  width: 8px;
+  height: 14px;
+  border-radius: 2px;
+  opacity: 0;
+}
+
+// Each piece has its own place, delay and turn, from simple arithmetic on its position.
+.confetti-piece(@i) when (@i > 0) {
+  .completion__piece:nth-child(@{i}) {
+    --x: unit(mod(@i * 37, 100), %);
+    --delay: unit(mod(@i * 53, 40) * 10, ms);
+    --turn: unit(180 + mod(@i * 71, 360), deg);
+  }
+
+  .confetti-piece(@i - 1);
+}
+
+.confetti-piece(28);
+
+.completion__piece--0 {
+  background: var(--accent);
+}
+
+.completion__piece--1 {
+  background: var(--highlight);
+}
+
+.completion__piece--2 {
+  background: var(--ink);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .completion__confetti {
+    display: block;
+  }
+
+  .completion__piece {
+    animation: confetti-fall 1.8s var(--ease-out) var(--delay) both;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .completion__chip {
+    display: inline-block;
+  }
+}
+
+@keyframes confetti-fall {
+  from {
+    opacity: 1;
+    transform: translateY(-12px) rotate(0deg);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateY(360px) rotate(var(--turn));
+  }
+}

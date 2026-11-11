@@ -76,6 +76,9 @@ export const fr: Messages = {
     completion: {
       title: "Multivers terminé",
       line: "Tous les titres sont vus.",
+      share: "Partagez votre planner",
+      sound: "Son",
+      soundHint: "Un court son de fête. Désactivé par défaut.",
     },
     storage: {
       account: "Votre progression est enregistrée sur votre compte.",
@@ -625,6 +628,16 @@ export const fr: Messages = {
       kind: "Stockage local (propre)",
       purpose:
         "Se souvient que vous avez déjà vu le message affiché quand tous les titres sont vus.",
+      duration: "Jusqu'à ce que vous le supprimiez",
+    },
+    sound: {
+      kind: "Stockage local (propre)",
+      purpose: "Se souvient si vous avez activé le son dans la fenêtre de fin.",
+      duration: "Jusqu'à ce que vous le supprimiez",
+    },
+    guideSeen: {
+      kind: "Stockage local (propre)",
+      purpose: "Se souvient que vous avez déjà vu l'invitation au guide du planner.",
       duration: "Jusqu'à ce que vous le supprimiez",
     },
     manageHeading: "Comment les gérer",

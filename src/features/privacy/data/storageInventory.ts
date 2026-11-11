@@ -1,7 +1,15 @@
 import { STORAGE_KEYS } from "../../../lib/storageKeys";
 
 export type StorageItemId =
-  "session" | "progress" | "language" | "filters" | "viewOrder" | "theme" | "completedSeen";
+  | "session"
+  | "progress"
+  | "language"
+  | "filters"
+  | "viewOrder"
+  | "theme"
+  | "completedSeen"
+  | "sound"
+  | "guideSeen";
 
 export const STORAGE_INVENTORY: { id: StorageItemId; name: string }[] = [
   { id: "session", name: "better-auth.session_token" },
@@ -11,4 +19,6 @@ export const STORAGE_INVENTORY: { id: StorageItemId; name: string }[] = [
   { id: "viewOrder", name: STORAGE_KEYS.viewOrder },
   { id: "theme", name: STORAGE_KEYS.theme },
   { id: "completedSeen", name: STORAGE_KEYS.completedSeen },
+  { id: "sound", name: STORAGE_KEYS.sound },
+  { id: "guideSeen", name: STORAGE_KEYS.guideSeen },
 ];

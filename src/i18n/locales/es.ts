@@ -76,6 +76,9 @@ export const es: Messages = {
     completion: {
       title: "Multiverso completado",
       line: "Has visto todos los títulos.",
+      share: "Comparte tu planner",
+      sound: "Sonido",
+      soundHint: "Un breve sonido de celebración. Desactivado por defecto.",
     },
     storage: {
       account: "Tu progreso se guarda en tu cuenta.",
@@ -622,6 +625,16 @@ export const es: Messages = {
     completedSeen: {
       kind: "Almacenamiento local (propio)",
       purpose: "Recuerda que ya viste el mensaje que aparece al completar todos los títulos.",
+      duration: "Hasta que lo borres",
+    },
+    sound: {
+      kind: "Almacenamiento local (propio)",
+      purpose: "Recuerda si activaste el sonido en la ventana de finalización.",
+      duration: "Hasta que lo borres",
+    },
+    guideSeen: {
+      kind: "Almacenamiento local (propio)",
+      purpose: "Recuerda que ya viste la invitación a la guía del planner.",
       duration: "Hasta que lo borres",
     },
     manageHeading: "Cómo gestionarlos",
