@@ -1,6 +1,6 @@
 # Marvel Planner: handoff per Claude Code
 
-Riferimento: `main`, commit **111347c**. Il canvas descrive il codice com'è su quel commit; dove canvas e codice differiscono, vale il codice. I numeri di riga sono quelli di `main` attuale (per i file citati qui `main` coincide con 111347c).
+Riferimento: `main`, commit **326d261**. Il canvas descrive il codice com'è su quel commit; dove canvas e codice differiscono, vale il codice. I numeri di riga sono quelli di 326d261.
 
 ## 1. Come leggere il canvas
 
@@ -17,38 +17,18 @@ Riferimento: `main`, commit **111347c**. Il canvas descrive il codice com'è su 
 |---|---|---|---|---|
 | 1 | Recupero password, lato server | Il client c'è: viste, rotta `/reset-password` e collegamento “Password dimenticata?”, tutto dietro `VITE_PASSWORD_RESET === "true"` (`features/auth/passwordReset.ts` r.2, `app/router.tsx` r.28, `LoginForm.tsx` r.92). Il commento del file dice: spento finché il server non sa inviare l'e-mail (servizio, durata del link, finestra di reinvio) | Server: invio dell'e-mail con il link, durata del link, attesa tra due invii (risposta 429, che il pulsante “Reinvia” già legge). Poi impostare `VITE_PASSWORD_RESET=true` | Popup di accesso |
 | 2 | Pagina di manutenzione HTML | Oggi la manutenzione è la pagina React `MaintenancePage` (`pages/MaintenancePage/MaintenancePage.tsx`) | Pagina HTML statica servita dal Worker con stato **503** e `<meta name="robots" content="noindex">` | Pagine di errore |
-| 3 | Ombre residue | `.card` ha `box-shadow: var(--shadow-card)` (`styles/base.less` r.274); `TitleDetailsPanel.less` r.45 ha lo stesso | Togliere l'ombra: regola a tre livelli (0 piatto per tutto ciò che sta nel flusso; 1 `--shadow-card` solo per StatusPage; 2 `--shadow-pop` per ciò che si sovrappone) | Colors (regola), System states, Pagina Film |
 
 ## 3. Decisioni scartate (non implementare)
 
 - **Colonna sticky “Informazioni” nella pagina film** (e colonna di testo sticky mentre scorre il cast): decisione presa, non si implementa. Nel canvas è marcata “solo canvas · scartata” (Pagina Film). Il codice non ha `position: sticky` in `TitleDetailsPanel.less` e resta così.
 
-## 4. Token definiti ma non usati dal codice
-
-Nove token di `styles/tokens.less` non hanno nessun uso in `src/` (cercati con `--nome` in tutti i file tranne `tokens.less`). Per ciascuno: dove usarlo, oppure toglierlo da `tokens.less` (e dal canvas, che si rigenera dal codice).
-
-| Token | Valore | Riga in tokens.less | Proposta |
-|---|---|---|---|
-| `--content-max` | `1440px` | r.128 | **Usarlo.** Il codice scrive `1440px` a mano in `AppHeader.less` r.43, `AppFooter.less` r.13 e `AppLayout.less` r.13: sostituire con `var(--content-max)` |
-| `--pad-card` | `0.5rem` | r.132 | **Usarlo** in `PhaseSection.less` r.4 (`.phase.card { padding: 0.5rem }`); `AppLayout.less` r.15 ha lo stesso valore ma è il padding del contenitore, non di una card: non toccarlo |
-| `--fs-display` | `clamp(3rem, 8vw, 6rem)` | r.129 | **Toglierlo.** Il titolo del film usa clamp propri basati sulla larghezza del contenitore (`TitleDetailsPanel.less` r.126 e r.269): non seguono la scala |
-| `--fs-overline` | `0.8125rem` | r.168 | **Toglierlo.** Ha lo stesso valore di `--fs-caption` e nessun overline lo usa |
-| `--gap-section` | `2rem` (1.5rem sotto 40em) | r.126 e override r.232 | **Toglierlo** insieme all'override. Il ritmo verticale usa `--sp-8` (`AppLayout.less` r.29, `StatusPage.less` r.37) |
-| `--pad-strip` | `1.5rem 2.25rem` | r.131 | **Toglierlo.** Nessuna striscia lo usa |
-| `--popover-w` | `360px` | r.178 | **Toglierlo.** Il popover del Select usa `min-width: 16.25rem` e `max-width: calc(100vw - 16px)` (`SelectField.less` r.116-117) |
-| `--popover-gap` | `8px` | r.179 | **Toglierlo** (stesso motivo; se il posizionamento in JS usa uno scarto di 8, leggere il token invece del numero) |
-| `--sp-12` | `3rem` | r.121 | **Toglierlo.** I `3rem` del codice sono altezze di controlli (`Button.less` r.15, `SelectField.less` r.28), non spaziature; la scala resta con `--sp-10` e `--sp-14` |
-
-Dopo la rimozione, `tokens.css` del canvas scende da 127 a 120 token (sette tolti, due da usare).
-
-## 5. Altre note emerse dall'audit
+## 4. Altre note emerse dall'audit
 
 - **`index.html` (splash):** lo stile della splash ha fallback letterali (`var(--accent, #c8202b)`, `var(--white, #fff)`, padding `24px`) perché deve funzionare prima del CSS. È documentato nella pagina Splash come “valore nel file, non in un .less”; se cambia `--accent`, va cambiato anche lì.
-- **Contrasto riempimento/traccia delle barre:** la traccia ha 3:1 contro lo sfondo (decisione 1.5, rispettata), ma il riempimento contro la traccia sta sotto 3:1 in 6 casi su 6 (tabella nel CHANGELOG, sezione Audit). Il valore è sempre scritto anche come testo (“24 di 60”), quindi non è bloccante; decidete voi se alzare il contrasto del riempimento.
-- **Documentazione nel repo:** i commenti in `tokens.less` e la cartella `docs/design` (se esiste) vanno sostituiti da questo canvas, che diventa l'unica descrizione dei valori.
+- **Contrasto riempimento/traccia delle barre: accettato.** La traccia ha 3:1 contro lo sfondo (decisione 1.5, rispettata); il riempimento contro la propria traccia sta sotto 3:1 in 6 celle, in 4 righe (riga accent in chiaro 1,54; riga highlight in scuro 2,70; barra flottante 2,79 in chiaro e 1,58 in scuro; totale sull'oro 2,85 in entrambi; tabella nel CHANGELOG, sezione Audit). Decisione: si lascia così, perché il valore è sempre scritto anche come testo (“24 di 60”). Nessuna azione.
 
-## 6. Già nel codice
+## 5. Già nel codice
 
-Tutto il resto: le 27 pagine descrivono il codice com'è su 111347c, nessuna azione. Le correzioni emerse nel giro precedente sono già su `main`: anello di focus del Select (ink in chiaro, oro in scuro, oro anche sul pannello scuro nella variante in linea), grassetto del Toast solo sul titolo, spinner dei poster a 0,8 s con movimento normale e 1,6 s con movimento ridotto, tutte le illustrazioni importate.
+Tutto il resto: le 27 pagine descrivono il codice com'è su 326d261, nessuna azione. Sono già su `main`: i sette token tolti (`--fs-display`, `--fs-overline`, `--gap-section`, `--pad-strip`, `--popover-w`, `--popover-gap`, `--sp-12`), `--content-max` e `--pad-card` usati dal codice, `.card` e il pannello del film senza `box-shadow`, l'adesivo «Multiverso completato» (`CompletionSticker`, flag `mcu-planner-completed-seen`, decisione 1.12) e le correzioni del giro precedente: anello di focus del Select (ink in chiaro, oro in scuro, oro anche sul pannello scuro nella variante in linea), grassetto del Toast solo sul titolo, spinner dei poster a 0,8 s con movimento normale e 1,6 s con movimento ridotto, tutte le illustrazioni importate.
 
 Voci marcate “non verificato” (non trovate nel sorgente, da controllare se servono): dimensioni delle icone dove non c'è una regola `.lucide`/`svg` (Icone e immagini), dimensioni di visualizzazione delle illustrazioni (Icone e immagini), menu mobile (Navigation), pollice della scrollbar (Scrollbar), selezione su pannello dello ChoiceGroup (Switch e ChoiceGroup), ritardo di apertura del tooltip (Tooltip), lingua dei titoli originali e formato di date e numeri (Typography).

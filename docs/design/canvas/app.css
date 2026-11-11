@@ -255,7 +255,6 @@ progress::-moz-progress-bar {
   border-radius: var(--r-xl);
   padding: 1.5rem;
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 .card--panel,
 .phase.card {
@@ -1806,7 +1805,7 @@ body:has(.floating-progress[data-visible="true"]) .toasts {
 .site-main {
   flex: 1;
   width: 100%;
-  max-width: 1440px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: 0.5rem;
 }
@@ -1864,7 +1863,7 @@ body:has(.floating-progress[data-visible="true"]) .toasts {
   justify-content: space-between;
   gap: 0.75rem;
   min-height: var(--header-h);
-  max-width: 1440px;
+  max-width: var(--content-max);
   margin: 0 auto;
   padding: var(--sp-2h) 0.5rem;
 }
@@ -1984,7 +1983,7 @@ dialog.menu-panel::backdrop {
 @media (min-width: 64em) {
   .site-footer {
     margin-top: var(--sp-14);
-    padding: 48px max(32px, calc((100% - 1440px) / 2 + 32px)) 40px;
+    padding: 48px max(32px, calc((100% - var(--content-max)) / 2 + 32px)) 40px;
   }
 }
 .site-footer__columns {
@@ -3464,6 +3463,55 @@ dialog.dialog--profile:focus {
 .share-poster .btn {
   --btn-ring: var(--ink-static);
 }
+.completion-sticker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) var(--sp-5);
+  border-radius: var(--r-md);
+  background: var(--highlight);
+  color: var(--ink-static);
+}
+.completion-sticker__title {
+  font-size: var(--fs-title);
+  font-weight: 800;
+}
+.completion-sticker__close {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--hit);
+  height: var(--hit);
+  border-radius: var(--r-pill);
+}
+@media (hover: hover) and (pointer: fine) {
+  .completion-sticker__close:hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]):not(
+        [aria-pressed="true"]
+      ):not([aria-selected="true"]):not([aria-checked="true"]) {
+    background: var(--highlight-hover);
+  }
+}
+.completion-sticker__close:active:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]) {
+  background: var(--highlight-active);
+}
+.completion-sticker__close:focus-visible {
+  outline: 3px solid var(--ink-static);
+  outline-offset: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .completion-sticker {
+    animation: fade-in var(--dur-enter) var(--ease-out) both;
+  }
+  .progress-card__percent--complete {
+    animation: complete-flash 600ms var(--ease-out) both;
+  }
+}
+@keyframes complete-flash {
+  from {
+    opacity: 0.6;
+  }
+}
 .next-card {
   display: flex;
   flex-direction: column;
@@ -4038,7 +4086,7 @@ dialog.filters-sheet::backdrop {
   white-space: nowrap;
 }
 .phase.card {
-  padding: 0.5rem;
+  padding: var(--pad-card);
 }
 .phase__summary {
   display: flex;
@@ -4784,7 +4832,6 @@ dialog.filters-sheet::backdrop {
   overflow: hidden;
   border-radius: var(--r-xl);
   background: var(--surface);
-  box-shadow: var(--shadow-card);
 }
 .film__hero {
   position: relative;
@@ -6345,6 +6392,18 @@ select[aria-invalid="true"].is-hover{
   }
 .progress-card__toggle.is-active:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]){
   background: var(--raised-3);
+}
+.completion-sticker__close.is-hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]):not(
+        [aria-pressed="true"]
+      ):not([aria-selected="true"]):not([aria-checked="true"]){
+    background: var(--highlight-hover);
+  }
+.completion-sticker__close.is-active:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]){
+  background: var(--highlight-active);
+}
+.completion-sticker__close.is-focus{
+  outline: 3px solid var(--ink-static);
+  outline-offset: 0;
 }
 .next-card .is-focus{
   outline-color: var(--white);

@@ -64,17 +64,13 @@
   --sp-6: 1.5rem;
   --sp-8: 2rem;
   --sp-10: 2.5rem;
-  --sp-12: 3rem;
   --sp-14: 3.5rem;
   --sb-size: 12px;
   --pad-popup: 1.75rem;
   --gap: 0.5rem;
-  --gap-section: 2rem;
   --page-margin: 3rem;
   --content-max: 1440px;
-  --fs-display: clamp(3rem, 8vw, 6rem);
   --pad-hero: 2rem 2.25rem;
-  --pad-strip: 1.5rem 2.25rem;
   --pad-card: 0.5rem;
   --row-open-fade: linear-gradient(#000, rgba(0, 0, 0, 0.92) 20%, rgba(0, 0, 0, 0.72) 42%, rgba(0, 0, 0, 0.42) 62%, rgba(0, 0, 0, 0.18) 80%, rgba(0, 0, 0, 0.05) 92%, transparent);
   --r-pill: 999px;
@@ -101,7 +97,6 @@
   --fs-button: 0.9375rem;
   --fs-label: 0.875rem;
   --fs-caption: 0.8125rem;
-  --fs-overline: 0.8125rem;
   --row-h: 3.5rem;
   --bar-h: 10px;
   --header-h: 4.75rem;
@@ -110,8 +105,6 @@
   --focus: 3px solid var(--focus-color);
   --focus-offset: 3px;
   --soft-press: color-mix(in srgb, var(--disabled), var(--ink) 14%);
-  --popover-w: 360px;
-  --popover-gap: 8px;
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --dur-press: 80ms;
   --dur-hover: 120ms;
@@ -152,7 +145,6 @@
 @media (max-width: 39.9375em) {
   :root {
     --page-margin: 1rem;
-    --gap-section: 1.5rem;
   }
 }
 [data-theme="dark"] {
