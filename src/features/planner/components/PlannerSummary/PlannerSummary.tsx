@@ -4,9 +4,14 @@ import { Button } from "../../../../components/ui/Button/Button";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
+import { STORAGE_KEYS } from "../../../../lib/storageKeys";
+import { usePersistentState } from "../../../../lib/usePersistentState";
 import type { Progress, ProgressStorage } from "../../types";
 import type { StripPhase } from "../../utils/strip";
+import { CompletionSticker } from "../CompletionSticker/CompletionSticker";
 import { PhaseStrip } from "../PhaseStrip/PhaseStrip";
+
+const isBoolean = (value: unknown): value is boolean => typeof value === "boolean";
 
 const STORAGE_NOTE_KEYS: Record<ProgressStorage, TranslationKey> = {
   account: "planner.storage.account",
@@ -39,6 +44,14 @@ export function PlannerSummary({
   const [isStripOpen, setIsStripOpen] = useState(false);
   const stripId = useId();
   const percent = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
+  // Shown once, when every title is watched; the flag in local storage keeps it from coming back.
+  const [isCompletionSeen, setIsCompletionSeen] = usePersistentState(
+    STORAGE_KEYS.completedSeen,
+    false,
+    isBoolean,
+  );
+  const showCompletion =
+    progress.total > 0 && progress.done === progress.total && !isCompletionSeen;
 
   return (
     <section className="progress-card card card--panel on-panel" aria-labelledby="planner-title">
@@ -46,12 +59,17 @@ export function PlannerSummary({
         <h1 id="planner-title" className="section-title">
           {t("planner.progressHeading")}
         </h1>
-        <p className="progress-card__percent" aria-hidden="true" ref={progressRef}>
+        <p
+          className={`progress-card__percent${showCompletion ? " progress-card__percent--complete" : ""}`}
+          aria-hidden="true"
+          ref={progressRef}
+        >
           {percent}%
         </p>
         <p className="progress-card__count">
           {t("planner.watchedCount", { done: progress.done, total: progress.total })}
         </p>
+        {showCompletion && <CompletionSticker onClose={() => setIsCompletionSeen(true)} />}
         <progress
           className="visually-hidden"
           aria-label={t("planner.completed")}

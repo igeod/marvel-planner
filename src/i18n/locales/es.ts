@@ -68,6 +68,10 @@ export const es: Messages = {
       legendTodo: "Por ver",
     },
     completed: "Completados",
+    completion: {
+      title: "Multiverso completado",
+      line: "Has visto todos los títulos.",
+    },
     storage: {
       account: "Tu progreso se guarda en tu cuenta.",
       device:
@@ -580,6 +584,11 @@ export const es: Messages = {
     theme: {
       kind: "Almacenamiento local (propio)",
       purpose: "Recuerda el tema elegido (sistema, claro u oscuro).",
+      duration: "Hasta que lo borres",
+    },
+    completedSeen: {
+      kind: "Almacenamiento local (propio)",
+      purpose: "Recuerda que ya viste el mensaje que aparece al completar todos los títulos.",
       duration: "Hasta que lo borres",
     },
     manageHeading: "Cómo gestionarlos",

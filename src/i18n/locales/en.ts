@@ -68,6 +68,10 @@ export const en: Messages = {
       legendTodo: "To watch",
     },
     completed: "Completed",
+    completion: {
+      title: "Multiverse completed",
+      line: "You've seen it all. For now.",
+    },
     storage: {
       account: "Your progress is saved to your account.",
       device: "Your progress is saved on this device. Sign in to have it everywhere.",
@@ -577,6 +581,11 @@ export const en: Messages = {
     theme: {
       kind: "Local storage (first-party)",
       purpose: "Remembers the theme you chose (system, light or dark).",
+      duration: "Until you delete it",
+    },
+    completedSeen: {
+      kind: "Local storage (first-party)",
+      purpose: "Remembers that you have seen the message shown when you complete every title.",
       duration: "Until you delete it",
     },
     manageHeading: "How to manage them",

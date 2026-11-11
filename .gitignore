@@ -7,3 +7,6 @@ dist
 
 # Copia locale della design-suite caricata in Claude Design: non fa parte del sito
 docs/design/uploads/
+
+# File di appoggio creati da Claude Design quando legge il repo
+Claude outputs/

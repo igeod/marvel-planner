@@ -69,6 +69,10 @@ export const de: Messages = {
       legendTodo: "Noch offen",
     },
     completed: "Abgeschlossen",
+    completion: {
+      title: "Multiversum abgeschlossen",
+      line: "Du hast alle Titel gesehen.",
+    },
     storage: {
       account: "Dein Fortschritt wird in deinem Konto gespeichert.",
       device:
@@ -581,6 +585,11 @@ export const de: Messages = {
     theme: {
       kind: "Lokaler Speicher (eigener)",
       purpose: "Merkt sich das gewählte Design (System, hell oder dunkel).",
+      duration: "Bis du ihn löschst",
+    },
+    completedSeen: {
+      kind: "Lokaler Speicher (eigener)",
+      purpose: "Merkt sich, dass du die Meldung zum Abschluss aller Titel schon gesehen hast.",
       duration: "Bis du ihn löschst",
     },
     manageHeading: "So verwaltest du sie",

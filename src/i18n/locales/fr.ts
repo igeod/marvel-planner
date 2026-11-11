@@ -68,6 +68,10 @@ export const fr: Messages = {
       legendTodo: "À voir",
     },
     completed: "Terminés",
+    completion: {
+      title: "Multivers terminé",
+      line: "Tous les titres sont vus.",
+    },
     storage: {
       account: "Votre progression est enregistrée sur votre compte.",
       device:
@@ -582,6 +586,12 @@ export const fr: Messages = {
     theme: {
       kind: "Stockage local (propre)",
       purpose: "Mémorise le thème choisi (système, clair ou sombre).",
+      duration: "Jusqu'à ce que vous le supprimiez",
+    },
+    completedSeen: {
+      kind: "Stockage local (propre)",
+      purpose:
+        "Se souvient que vous avez déjà vu le message affiché quand tous les titres sont vus.",
       duration: "Jusqu'à ce que vous le supprimiez",
     },
     manageHeading: "Comment les gérer",

@@ -4,4 +4,5 @@ export const STORAGE_KEYS = {
   filters: "mcu-planner-filters",
   viewOrder: "mcu-planner-view-order",
   theme: "mcu-planner-theme",
+  completedSeen: "mcu-planner-completed-seen",
 } as const;

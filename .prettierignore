@@ -5,3 +5,4 @@ migrations/meta
 .wrangler
 
 docs/design/
+Claude outputs/

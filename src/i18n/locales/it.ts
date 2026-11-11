@@ -66,6 +66,10 @@ export const it = {
       legendTodo: "Da vedere",
     },
     completed: "Completati",
+    completion: {
+      title: "Multiverso completato",
+      line: "Hai visto tutto. Per ora.",
+    },
     storage: {
       account: "I progressi vengono salvati sul tuo account.",
       device: "I progressi vengono salvati su questo dispositivo. Accedi per averli ovunque.",
@@ -576,6 +580,11 @@ export const it = {
     theme: {
       kind: "Archiviazione locale (propria)",
       purpose: "Ricorda il tema scelto (sistema, chiaro o scuro).",
+      duration: "Finché non lo cancelli",
+    },
+    completedSeen: {
+      kind: "Archiviazione locale (propria)",
+      purpose: "Ricorda che hai già visto il messaggio per aver completato tutti i titoli.",
       duration: "Finché non lo cancelli",
     },
     manageHeading: "Come gestirli",
