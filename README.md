@@ -107,8 +107,8 @@ Solo gli utenti registrati possono creare un link (`/s/<codice>`). Il codice è 
 
 ## Sicurezza
 
-- Password salvate solo come hash (scrypt). La regola (lunghezza minima, lettera, numero) sta nella riga `password_policy` di `site_setting` e vale subito, senza deploy:
-  `wrangler d1 execute DB --remote --command "UPDATE site_setting SET value = '{\"minLength\":10,\"requireLetter\":true,\"requireNumber\":true}' WHERE key = 'password_policy'"`
+- Password salvate solo come hash (scrypt). La regola è solo la lunghezza minima (8 per impostazione predefinita, come consiglia il NIST: niente obbligo di lettere o numeri) e sta nella riga `password_policy` di `site_setting`, quindi vale subito, senza deploy. Le password comparse in una fuga di dati (Have I Been Pwned, inviando solo i primi 5 caratteri dell'impronta) vengono rifiutate; se il servizio non risponde, la registrazione continua:
+  `wrangler d1 execute DB --remote --command "UPDATE site_setting SET value = '{\"minLength\":10}' WHERE key = 'password_policy'"`
 - Sessioni in cookie `httpOnly`, `secure`, `SameSite=Lax`; ogni scrittura sulle API con `Origin` o `Sec-Fetch-Site` estranei viene rifiutata (403)
 - Limite ai tentativi sugli endpoint di autenticazione, salvato su D1
 - Input delle API validati con Zod; query parametrizzate tramite Drizzle
@@ -116,7 +116,7 @@ Solo gli utenti registrati possono creare un link (`/s/<codice>`). Il codice è 
 - Cambio password con chiusura delle altre sessioni
 - Cancellazione dell'account (con password) a cascata su sessioni e progressi
 - Segreti in `.dev.vars` (locale, ignorato da git) e nei secret di Cloudflare (produzione); nessun segreto nella cronologia git
-- Intestazioni di sicurezza su ogni risposta (CSP senza `unsafe-inline`/`unsafe-eval`, HSTS, `nosniff`, `frame-ancestors 'none'`, Referrer-Policy, Permissions-Policy); l'unico frame ammesso è il player YouTube, caricato solo dopo un clic
+- Intestazioni di sicurezza su ogni risposta (CSP senza `unsafe-inline`/`unsafe-eval`, HSTS, `nosniff`, `frame-ancestors 'none'`, Referrer-Policy, Permissions-Policy); l'unico frame ammesso è il player YouTube, caricato solo dopo un clic. Le intestazioni stanno in due posti: il Worker le manda su `/api`, `/film`, `robots.txt` e `sitemap.xml`; `public/_headers` le dà a pagine e file, che arrivano direttamente dagli asset senza passare dal Worker (più veloce e fuori dal limite di richieste del piano gratuito). Un test (`tests/worker/securityHeaders.test.ts`) le tiene uguali. Per la stessa ragione `index.html` non ha script né stili inline, e i font non vengono incorporati nel CSS: la CSP li bloccherebbe, e in locale su HTTP non se ne accorge nessuno (`tests/indexHtml.test.ts`). Gli indirizzi di anteprima di Cloudflare sono spenti (`preview_urls: false`)
 - Progressi accettati solo per titoli presenti nel catalogo
 - Link di condivisione con codice casuale, scadenza e limite ai tentativi falliti
 - Dipendenze controllate con `npm audit` (restano solo avvisi sugli strumenti di sviluppo) e aggiornate da Dependabot
@@ -155,7 +155,7 @@ Aggiungere o modificare una guida: scrivere la voce con gli helper `essential`, 
 
 Lo stato "in arrivo" e le date non sono scritti a mano: il Worker legge da TMDB la data di ogni titolo e la salva in D1 (`title_release`). `GET /api/releases` le restituisce e il frontend le confronta con la data di oggi (`utils/releases.ts`).
 
-- Il riempimento iniziale avviene da solo, a blocchi di 24 titoli per richiesta (limite di sottorichieste di Cloudflare).
+- L'aggiornamento avviene solo dal cron, mai dalle visite: ogni esecuzione controlla al massimo 30 titoli (limite di sottorichieste di Cloudflare), prima quelli non ancora usciti. Su un database vuoto servono quindi qualche giorno per riempire tutte le date; nel frattempo vale il valore del catalogo.
 - Una Cron Trigger giornaliera (`wrangler.jsonc`, `triggers.crons`) aggiorna prima i titoli non ancora usciti (ogni 12 ore al massimo), poi gli altri (ogni 7 giorni), ed elimina i dati scaduti (`services/maintenance.ts`).
 - Se TMDB non ha ancora una data (ad esempio una stagione futura), vale il valore del catalogo.
 - Cosa resta manuale: aggiungere un **nuovo** titolo (fase, abbinamento TMDB in `shared/tmdbRefs.ts`, guida "Prima di guardarlo", scene dopo i titoli di coda). Date, stato, locandine, cast e trame si aggiornano da soli.
@@ -168,7 +168,8 @@ Lo stato "in arrivo" e le date non sono scritti a mano: il Worker legge da TMDB 
 - I dati ricevuti da TMDB restano in cache al massimo 90 giorni (le condizioni d'uso di TMDB ne vietano più di 6 mesi); le righe oltre 150 giorni vengono eliminate dalla Cron.
 - Sessioni scadute, token di verifica scaduti e contatori contro gli accessi ripetuti (oltre un giorno) vengono eliminati ogni giorno.
 - Diritti degli utenti: l'account si modifica, si esporta (JSON) e si elimina dal popup account.
-- Intestazioni di sicurezza su tutte le risposte, con Content-Security-Policy su HTTPS.
+- Intestazioni di sicurezza su tutte le risposte (Worker e `public/_headers`), con Content-Security-Policy su HTTPS.
+- **Prima di attivare il recupero password** (`VITE_PASSWORD_RESET=true`): le e-mail oggi non sono mai verificate e si possono cambiare senza conferma. Chi sbaglia a scrivere l'indirizzo in registrazione, o scrive quello di un altro, farebbe arrivare il link di recupero a un estraneo, che prenderebbe l'account. Servono prima la verifica dell'e-mail (alla registrazione e al cambio) e un servizio per inviarla.
 
 ## Fonti dei dati
 
