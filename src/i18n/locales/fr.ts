@@ -628,15 +628,12 @@ export const fr: Messages = {
     openDashboard: "Ouvrir le tableau de bord",
     maintenance: {
       heading: "État du site",
-      description:
-        "Quand la maintenance est active, les utilisateurs ne voient qu'une page d'information. L'administrateur continue d'utiliser le site.",
       on: "Maintenance active",
       off: "Site en ligne",
       enable: "Activer la maintenance",
       disable: "Désactiver la maintenance",
       confirmTitle: "Activer la maintenance ?",
-      confirmMessage:
-        "Les autres utilisateurs ne verront qu'une page d'avis (erreur 503). Vous continuez à utiliser le site. Désactivez-la depuis « État du site ».",
+      confirmMessage: "Les autres utilisateurs ne verront qu'une page d'avis (erreur 503).",
       confirmPending: "Activation de la maintenance",
     },
     automation: {

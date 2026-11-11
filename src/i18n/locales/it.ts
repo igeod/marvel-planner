@@ -622,15 +622,12 @@ export const it = {
     openDashboard: "Apri la dashboard",
     maintenance: {
       heading: "Stato del sito",
-      description:
-        "Con la manutenzione attiva gli utenti vedono solo una pagina di avviso. L'amministratore continua a usare il sito.",
       on: "Manutenzione attiva",
       off: "Sito online",
       enable: "Attiva manutenzione",
       disable: "Disattiva manutenzione",
       confirmTitle: "Attivare la manutenzione?",
-      confirmMessage:
-        "Gli altri utenti vedranno solo una pagina di avviso (errore 503). Tu continui a usare il sito. Si disattiva da «Stato del sito».",
+      confirmMessage: "Gli altri utenti vedranno solo una pagina di avviso (errore 503).",
       confirmPending: "Attivo la manutenzione",
     },
     automation: {

@@ -53,7 +53,6 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
               </span>
             )}
           </p>
-          <p className="admin-note">{t("admin.maintenance.description")}</p>
         </div>
         {/* Turning maintenance on stops the site: destructive, not a primary action. */}
         <Button

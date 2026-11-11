@@ -625,15 +625,12 @@ export const es: Messages = {
     openDashboard: "Abrir el panel",
     maintenance: {
       heading: "Estado del sitio",
-      description:
-        "Con el mantenimiento activo, los usuarios solo ven una página de aviso. El administrador sigue usando el sitio.",
       on: "Mantenimiento activo",
       off: "Sitio en línea",
       enable: "Activar mantenimiento",
       disable: "Desactivar mantenimiento",
       confirmTitle: "¿Activar el mantenimiento?",
-      confirmMessage:
-        "Los demás usuarios solo verán una página de aviso (error 503). Tú sigues usando el sitio. Se desactiva desde «Estado del sitio».",
+      confirmMessage: "Los demás usuarios solo verán una página de aviso (error 503).",
       confirmPending: "Activando el mantenimiento",
     },
     automation: {

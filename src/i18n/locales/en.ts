@@ -622,15 +622,12 @@ export const en: Messages = {
     openDashboard: "Open the dashboard",
     maintenance: {
       heading: "Site status",
-      description:
-        "With maintenance on, users only see a notice page. The administrator can keep using the site.",
       on: "Maintenance on",
       off: "Site online",
       enable: "Turn maintenance on",
       disable: "Turn maintenance off",
       confirmTitle: "Turn on maintenance?",
-      confirmMessage:
-        "Other users will see only a notice page (error 503). You can keep using the site. Turn it off from “Site status”.",
+      confirmMessage: "Other users will see only a notice page (error 503).",
       confirmPending: "Turning on maintenance",
     },
     automation: {

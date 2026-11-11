@@ -145,6 +145,13 @@ button:disabled {
   cursor: not-allowed;
 }
 
+// Focus moved by code (new page, dialog opening) to a title or the page body: they are not
+// controls, so no ring. Controls keep theirs.
+main:focus-visible,
+:is(h1, h2)[tabindex="-1"]:focus-visible {
+  outline: none;
+}
+
 :focus-visible {
   outline: var(--focus);
   outline-offset: var(--focus-offset);

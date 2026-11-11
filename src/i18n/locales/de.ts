@@ -627,15 +627,12 @@ export const de: Messages = {
     openDashboard: "Dashboard öffnen",
     maintenance: {
       heading: "Status der Website",
-      description:
-        "Bei aktiver Wartung sehen Nutzer nur eine Hinweisseite. Der Administrator kann die Seite weiter nutzen.",
       on: "Wartung aktiv",
       off: "Seite online",
       enable: "Wartung aktivieren",
       disable: "Wartung deaktivieren",
       confirmTitle: "Wartungsmodus aktivieren?",
-      confirmMessage:
-        "Andere Nutzer sehen nur eine Hinweisseite (Fehler 503). Du kannst die Website weiter nutzen. Ausschalten kannst du den Modus unter „Status der Website“.",
+      confirmMessage: "Andere Nutzer sehen nur eine Hinweisseite (Fehler 503).",
       confirmPending: "Wartungsmodus wird aktiviert",
     },
     automation: {

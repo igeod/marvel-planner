@@ -46,6 +46,7 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
       await item.action?.onClick();
     } finally {
       setIsPending(false);
+      onDismiss(id);
     }
   };
 
