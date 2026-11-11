@@ -1,0 +1,201 @@
+:root {
+  color-scheme: light;
+  --bg: #e9ecf1;
+  --surface: #f7f8fa;
+  --row: #e9ecf1;
+  --row-hover: #dce0e8;
+  --row-press: #cdd2dc;
+  --disabled: #cdd2dc;
+  --ink: #14171f;
+  --ink-2: #4d5465;
+  --line: rgba(20, 23, 31, 0.12);
+  --accent: #c8202b;
+  --accent-hover: #b01b25;
+  --accent-active: #8f1520;
+  --accent-text: #b01b25;
+  --danger: #b3261e;
+  --danger-text: #a11f18;
+  --on-danger: #ffffff;
+  --on-disabled: #4d5465;
+  --focus-on-inverse: 3px solid var(--highlight);
+  --focus-color: var(--ink);
+  --toast-shadow: none;
+  --track-panel: color-mix(in srgb, var(--muted-on-dark) 55%, var(--panel));
+  --track-surface: color-mix(in srgb, var(--ink-2) 70%, var(--surface));
+  --shadow-pop: 0 2px 4px rgba(20, 23, 31, 0.08), 0 20px 40px -16px rgba(20, 23, 31, 0.32);
+  --panel: #14171f;
+  --panel-2: #262b38;
+  --panel-3: #14171f;
+  --ink-hover: color-mix(in srgb, var(--ink), var(--surface) 12%);
+  --ink-press: color-mix(in srgb, var(--ink), var(--surface) 24%);
+  --row-open-hover: #262b38;
+  --row-open-press: #323a50;
+  --primary: var(--accent);
+  --primary-hover: var(--accent-hover);
+  --primary-press: #a81a24;
+  --primary-hover-on-panel: #dc3039;
+  --on-primary: #ffffff;
+  --shadow-card: inset 0 0 0 1px rgba(20, 23, 31, 0.05), 0 1px 2px rgba(20, 23, 31, 0.05), 0 16px 32px -20px rgba(20, 23, 31, 0.18);
+  --scrim: rgba(20, 23, 31, 0.6);
+  --sb-thumb: rgba(20, 23, 31, 0.5);
+  --sb-thumb-hover: rgba(20, 23, 31, 0.7);
+  --sb-track: transparent;
+  --ink-static: #14171f;
+  --on-dark: #f2f4f8;
+  --white: #ffffff;
+  --accent-on-dark: #e0343e;
+  --highlight: #f2b01e;
+  --highlight-hover: #ffc23d;
+  --highlight-active: #e09f10;
+  --raised: #262b38;
+  --raised-2: #323a50;
+  --raised-3: #3a4260;
+  --muted-on-dark: #a9b0c2;
+  --deepest: #0b0d12;
+  --on-accent: var(--white);
+  --sp-1: 0.25rem;
+  --sp-1h: 0.375rem;
+  --sp-2: 0.5rem;
+  --sp-2h: 0.625rem;
+  --sp-3: 0.75rem;
+  --sp-3h: 0.875rem;
+  --sp-4: 1rem;
+  --sp-5: 1.25rem;
+  --sp-6: 1.5rem;
+  --sp-8: 2rem;
+  --sp-10: 2.5rem;
+  --sp-12: 3rem;
+  --sp-14: 3.5rem;
+  --sb-size: 12px;
+  --pad-popup: 1.75rem;
+  --gap: 0.5rem;
+  --gap-section: 2rem;
+  --page-margin: 3rem;
+  --content-max: 1440px;
+  --fs-display: clamp(3rem, 8vw, 6rem);
+  --pad-hero: 2rem 2.25rem;
+  --pad-strip: 1.5rem 2.25rem;
+  --pad-card: 0.5rem;
+  --row-open-fade: linear-gradient(#000, rgba(0, 0, 0, 0.92) 20%, rgba(0, 0, 0, 0.72) 42%, rgba(0, 0, 0, 0.42) 62%, rgba(0, 0, 0, 0.18) 80%, rgba(0, 0, 0, 0.05) 92%, transparent);
+  --r-pill: 999px;
+  --r-xl: 32px;
+  --r-lg: 28px;
+  --r-md: 24px;
+  --r-row: 22px;
+  --r-sm: 18px;
+  --r-input: 16px;
+  --r-xs: 14px;
+  --r-chip: 10px;
+  --r-tiny: 6px;
+  --r-hair: 2px;
+  --fs-h1: clamp(2.25rem, 5vw, 4rem);
+  --fs-h1-sm: 2.25rem;
+  --fs-xl: 2.5rem;
+  --fs-hero: 3.5rem;
+  --fs-wordmark: 1.875rem;
+  --fs-h2: 1.75rem;
+  --fs-h3: 1.25rem;
+  --fs-h4: 1.5rem;
+  --fs-title: 1.125rem;
+  --fs-body: 1rem;
+  --fs-button: 0.9375rem;
+  --fs-label: 0.875rem;
+  --fs-caption: 0.8125rem;
+  --fs-overline: 0.8125rem;
+  --row-h: 3.5rem;
+  --bar-h: 10px;
+  --header-h: 4.75rem;
+  --tap: 2.75rem;
+  --hit: 44px;
+  --focus: 3px solid var(--focus-color);
+  --focus-offset: 3px;
+  --soft-press: color-mix(in srgb, var(--disabled), var(--ink) 14%);
+  --popover-w: 360px;
+  --popover-gap: 8px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --dur-press: 80ms;
+  --dur-hover: 120ms;
+  --dur-ui: 180ms;
+  --dur-enter: 240ms;
+  --dur-progress: 600ms;
+  --delay-tooltip: 400ms;
+  --delay-pending: 200ms;
+  --stagger-step: 30ms;
+  --stagger-max: 150ms;
+  --font-display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-body: "Hanken Grotesk Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --floating-progress-height: 5rem;
+  --floating-progress-gap: 0.75rem;
+  --floating-progress-clearance: calc(var(--floating-progress-height) + var(--floating-progress-gap) * 2 + env(safe-area-inset-bottom, 0px));
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-hover: 80ms;
+    --dur-ui: 80ms;
+    --dur-enter: 80ms;
+    --dur-progress: 0ms;
+    --delay-tooltip: 0ms;
+    --stagger-step: 0ms;
+    --stagger-max: 0ms;
+  }
+}
+@media (min-width: 64em) {
+  :root {
+    --floating-progress-clearance: 0px;
+  }
+}
+@media (max-width: 63.9375em) {
+  :root {
+    --page-margin: 2rem;
+  }
+}
+@media (max-width: 39.9375em) {
+  :root {
+    --page-margin: 1rem;
+    --gap-section: 1.5rem;
+  }
+}
+[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b0d12;
+  --surface: #1b202c;
+  --row: #2c3346;
+  --row-hover: #3a4260;
+  --row-press: #454e70;
+  --disabled: #454e70;
+  --ink: #f2f4f8;
+  --ink-2: #b4bbcc;
+  --line: rgba(242, 244, 248, 0.18);
+  --accent-text: #f05a63;
+  --danger: #f2766e;
+  --danger-text: #f2766e;
+  --on-danger: #14171f;
+  --on-disabled: #f2f4f8;
+  --focus-on-inverse: 3px solid var(--ink-static);
+  --shadow-pop: inset 0 0 0 1px rgba(242, 244, 248, 0.12), 0 20px 40px -16px rgba(0, 0, 0, 0.6);
+  --panel: #3a4260;
+  --panel-2: #2c3346;
+  --panel-3: #1b202c;
+  --ink-hover: color-mix(in srgb, var(--ink), var(--surface) 12%);
+  --ink-press: color-mix(in srgb, var(--ink), var(--surface) 24%);
+  --row-open-hover: #2c3346;
+  --row-open-press: #1b202c;
+  --primary: var(--highlight);
+  --primary-hover: var(--highlight-hover);
+  --primary-press: var(--highlight-active);
+  --primary-hover-on-panel: var(--highlight-hover);
+  --on-primary: #0b0d12;
+  --shadow-card: inset 0 0 0 1px rgba(242, 244, 248, 0.1);
+  --scrim: rgba(0, 0, 0, 0.55);
+  --focus-color: var(--highlight);
+  --toast-shadow: var(--shadow-pop), 0 0 0 1px var(--ink-2);
+  --track-panel: color-mix(in srgb, var(--muted-on-dark) 75%, var(--panel));
+  --track-surface: color-mix(in srgb, var(--ink-2) 50%, var(--surface));
+  --sb-thumb: rgba(242, 244, 248, 0.5);
+  --sb-thumb-hover: rgba(242, 244, 248, 0.75);
+  --sb-track: transparent;
+}
+
+/* canvas only: values that the code resolves at :root must follow the themed element */
+[data-theme="dark"],[data-theme="light"]{--focus:3px solid var(--focus-color);--soft-press:color-mix(in srgb,var(--disabled),var(--ink) 14%)}
+:root{--font-body:"Hanken Grotesk","Hanken Grotesk Variable",system-ui,sans-serif}

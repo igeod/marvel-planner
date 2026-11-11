@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scrollbar</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+button{font:inherit}
+.dc-pg{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-10);max-width:1240px;margin:0 auto;box-sizing:border-box;overflow-wrap:anywhere}
+.dc-pg p,.dc-pg li{text-wrap:pretty}
+.dc-pg h1,.dc-pg h2,.dc-pg h3{text-wrap:balance}
+.dc-pg ul.dc-ul{list-style:disc;padding-left:20px;margin:0;display:flex;flex-direction:column;gap:6px;max-width:90ch}
+.dc-h1{margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(2.5rem,8vw,3.5rem);line-height:1;text-transform:uppercase;letter-spacing:.01em}
+.dc-pg h2.dc-h2{margin:0;font-size:var(--fs-h2);font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.dc-pg h3.dc-h3{margin:0;font-size:var(--fs-title);font-weight:800}
+.dc-lead{margin:var(--sp-2) 0 0;max-width:78ch;color:var(--ink-2)}
+.dc-sec{display:flex;flex-direction:column;gap:var(--sp-4)}
+.dc-sub{margin:0;max-width:80ch;color:var(--ink-2)}
+.dc-row{display:flex;flex-wrap:wrap;gap:var(--sp-6) var(--sp-4);align-items:flex-start}
+.dc-fw{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0;max-width:100%}
+.dc-fl{font-size:var(--fs-caption);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.dc-fr{max-width:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-card)}
+.dc-box{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-3)}
+.dc-tbl{width:100%;border-collapse:collapse;font-size:var(--fs-label)}
+.dc-tbl th{text-align:left;font-size:var(--fs-caption);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);padding:var(--sp-2) var(--sp-3);border-bottom:2px solid var(--line);white-space:nowrap}
+.dc-tbl td{padding:var(--sp-2) var(--sp-3);border-bottom:1px solid var(--line);vertical-align:top}
+.dc-scroll{overflow-x:auto;max-width:100%}
+.dc-chip{display:inline-block;padding:2px 10px;border-radius:var(--r-pill);font-size:var(--fs-caption);font-weight:800;white-space:nowrap;background:var(--ink);color:var(--bg)}
+.dc-chip.k2{background:var(--highlight);color:var(--ink-static)}
+.dc-chip.k3{background:var(--row-hover);color:var(--ink)}
+.dc-pg code{font-size:.9em;background:var(--row-hover);padding:1px 5px;border-radius:var(--r-tiny);font-family:ui-monospace,Consolas,monospace}
+.dc-pg pre{margin:0;white-space:pre-wrap;background:var(--panel);color:var(--on-dark);padding:var(--sp-4);border-radius:var(--r-md);font-size:var(--fs-label);line-height:1.5}
+.dc-pg pre code{background:none;padding:0}
+.dc-spec td:first-child{min-width:14rem;max-width:26rem}
+.dc-spec .ln{color:var(--ink-2);font-size:var(--fs-caption);margin-left:4px}
+.dc-spec .cx{color:var(--ink-2);font-size:var(--fs-caption);margin-top:2px}
+.dc-src{margin:0;font-size:var(--fs-caption);color:var(--ink-2)}
+.dc-hdr{display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-3) var(--sp-6)}
+.dc-hdr>div{display:grid;grid-template-columns:minmax(0,12rem) 1fr;gap:var(--sp-3);padding:var(--sp-2) 0;border-bottom:1px solid var(--line);font-size:var(--fs-label)}
+.dc-hdr>div:last-child{border-bottom:0}
+.dc-hdr b{color:var(--ink-2)}
+.dc-pad{padding:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-3)}
+.dc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:var(--sp-3)}
+.dc-cell{display:flex;flex-direction:column;gap:var(--sp-2);align-items:flex-start;font-size:var(--fs-caption);color:var(--ink-2)}
+</style>
+</helmet>
+<div class="dc-pg">
+<div><h1 class="dc-h1">Scrollbar</h1><p class="dc-lead">Barra di scorrimento a pillola, solo con mouse; su touch resta quella del sistema.</p></div>
+<div class="dc-hdr"><div><b>Cosa descrive</b><span>Scrollbar globale: dimensioni, colori, quando si applica</span></div><div><b>Cartella del codice</b><span>src/styles/base.less (righe 9-55) e token <code>--sb-*</code> in src/styles/tokens.less; classe <code>.scroll-y</code> in base.less</span></div><div><b>Componenti che usa</b><span>Nessun componente: vale per ogni elemento scorrevole</span></div><div><b>Ultima modifica</b><span>11 novembre 2026</span></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Esempio</h2><p class="dc-sub">Elenco scorrevole con la classe <code>.scroll-y</code> (<code>overflow-y: auto</code>, <code>overscroll-behavior: contain</code>, <code>scrollbar-gutter: stable</code>). Il pollice cambia con hover. L'anteprima di questo canvas è senza mouse fine: la barra a pillola si vede solo in un browser con mouse o trackpad.</p><div class="dc-fw"><div class="dc-fl">chiaro</div><div data-theme="light" class="dc-fr" style="width:360px;padding:var(--sp-4);"><ul class="scroll-y" style="height:12rem;border-radius:var(--r-input);background:var(--surface)"><li style="padding:var(--sp-2) var(--sp-3)">Fase Uno · 1</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Due · 2</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Tre · 3</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Quattro · 4</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Cinque · 5</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Sei · 6</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Uno · 7</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Due · 8</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Tre · 9</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Quattro · 10</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Cinque · 11</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Sei · 12</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Uno · 13</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Due · 14</li></ul></div></div><div class="dc-fw"><div class="dc-fl">scuro</div><div data-theme="dark" class="dc-fr" style="width:360px;padding:var(--sp-4);"><ul class="scroll-y" style="height:12rem;border-radius:var(--r-input);background:var(--surface)"><li style="padding:var(--sp-2) var(--sp-3)">Fase Uno · 1</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Due · 2</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Tre · 3</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Quattro · 4</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Cinque · 5</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Sei · 6</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Uno · 7</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Due · 8</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Tre · 9</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Quattro · 10</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Cinque · 11</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Sei · 12</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Uno · 13</li><li style="padding:var(--sp-2) var(--sp-3)">Fase Due · 14</li></ul></div></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Quando si applica</h2><ul class="dc-ul"><li>Solo con <code>(hover: hover) and (pointer: fine)</code>: mouse o trackpad.</li><li>Firefox: proprietà standard <code>scrollbar-width: thin</code> e <code>scrollbar-color</code>. Chromium e Safari: <code>::-webkit-scrollbar</code>, senza le proprietà standard (altrimenti torna la barra di sistema con le frecce).</li><li>Pulsanti con le frecce: nascosti.</li></ul></div>
+<div class="dc-sec"><h2 class="dc-h2">Valori nel codice: base.less</h2><div class="dc-scroll"><table class="dc-tbl dc-spec"><thead><tr><th>Selettore</th><th>Valori nel codice</th></tr></thead><tbody><tr><td><code>*</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>scrollbar-width: auto</code> <span class="ln">r.19</span><br><code>scrollbar-color: auto</code> <span class="ln">r.20</span></td></tr><tr><td><code>::-webkit-scrollbar</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>width: var(--sb-size)</code> <span class="ln">r.24</span><br><code>height: var(--sb-size)</code> <span class="ln">r.25</span></td></tr><tr><td><code>::-webkit-scrollbar-track</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>background: var(--sb-track)</code> <span class="ln">r.29</span></td></tr><tr><td><code>::-webkit-scrollbar-thumb:hover</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>background: var(--sb-thumb-hover)</code> <span class="ln">r.39</span><br><code>background-clip: content-box</code> <span class="ln">r.40</span></td></tr><tr><td><code>::-webkit-scrollbar-thumb</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>background: var(--sb-thumb)</code> <span class="ln">r.33</span><br><code>border-radius: var(--r-pill)</code> <span class="ln">r.34</span><br><code>border: 3px solid transparent</code> <span class="ln">r.35</span><br><code>background-clip: content-box</code> <span class="ln">r.36</span></td></tr><tr><td><code>::-webkit-scrollbar-button</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>display: none</code> <span class="ln">r.45</span><br><code>width: 0</code> <span class="ln">r.46</span><br><code>height: 0</code> <span class="ln">r.47</span></td></tr><tr><td><code>::-webkit-scrollbar-corner</code><div class="cx">@media (hover: hover) and (pointer: fine) · @supports selector(::-webkit-scrollbar)</div></td><td><code>background: transparent</code> <span class="ln">r.51</span></td></tr><tr><td><code>summary::-webkit-details-marker</code></td><td><code>display: none</code> <span class="ln">r.166</span></td></tr></tbody></table></div><p class="dc-src">Fonte: <code>src/styles/base.less</code> (commit 111347c), righe indicate come r.N.</p></div>
+<div class="dc-sec"><h2 class="dc-h2">Token</h2><div class="dc-scroll"><table class="dc-tbl "><thead><tr><th>Token</th><th>Chiaro</th><th>Scuro</th><th>Fonte</th></tr></thead><tbody><tr><td><code>--sb-thumb</code></td><td>rgba(20, 23, 31, 0.5)</td><td>rgba(242, 244, 248, 0.5)</td><td>tokens.less r.45 / r.87</td></tr><tr><td><code>--sb-thumb-hover</code></td><td>rgba(20, 23, 31, 0.7)</td><td>rgba(242, 244, 248, 0.75)</td><td>tokens.less r.46 / r.88</td></tr><tr><td><code>--sb-track</code></td><td>transparent</td><td>transparent</td><td>tokens.less r.47 / r.89</td></tr><tr><td><code>--sb-size</code></td><td>12px (tema indifferente)</td><td>12px</td><td>tokens.less r.123</td></tr></tbody></table></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Prima, dopo, file</h2><p class="dc-sub">Che cosa è cambiato rispetto alla pagina precedente del canvas.</p><div class="dc-scroll"><table class="dc-tbl "><thead><tr><th>Cosa</th><th>Prima (canvas vecchio)</th><th>Dopo (codice)</th><th>File</th></tr></thead><tbody><tr><td>Valori</td><td>colori scritti nella pagina</td><td>solo token <code>--sb-*</code></td><td>tokens.less, base.less</td></tr><tr><td>Pollice</td><td>non verificato</td><td>bordo trasparente 3px con <code>background-clip: content-box</code>, raggio <code>--r-pill</code></td><td>base.less r.32-42</td></tr></tbody></table></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

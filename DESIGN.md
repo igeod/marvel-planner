@@ -1,6 +1,8 @@
 # Design system: Marvel Planner
 
-Fonte dei valori: `docs/design/tokens.css` (design) → `src/styles/tokens.less` (codice). Questo file non li ripete: dice **come usarli** e cosa evitare. Le pagine di guida sono in `docs/design/*.dc.html` (indice: `Index.dc.html`), le modifiche richieste al codice in `docs/design/CHANGES_FOR_CODE.md`.
+Fonte dei valori: `src/styles/tokens.less` (codice). Il canvas in `docs/design/canvas/` lo descrive e si rigenera dal codice: `tokens.css` e `app.css` sono compilati da `src/styles`. Questo file non ripete i valori: dice **come usarli** e cosa evitare.
+
+Leggere nell'ordine: `docs/design/HANDOFF.md` (cosa il codice non ha ancora, decisioni scartate), `docs/design/canvas/Index.dc.html` (una pagina per tema o componente, con file e righe del codice), `docs/design/CHANGELOG.md` (storia delle decisioni). Dove canvas e codice differiscono vale il codice; una decisione nuova arriva da Design in HANDOFF, §"Da implementare", e dopo l'implementazione il canvas si rigenera dal nuovo commit.
 
 ## Identità
 
@@ -39,7 +41,7 @@ Una sola curva (`--ease-out`), cinque durate (`--dur-press/hover/ui/enter/progre
 
 ## Componenti
 
-Stato, misure e comportamento di ogni componente stanno nella sua pagina `.dc.html` (una pagina per componente, nessun duplicato). Icone: solo Lucide, `aria-hidden`. Ogni elenco o immagine ha lo stato vuoto e quello "senza immagine".
+Stato, misure e comportamento di ogni componente stanno nella sua pagina di `docs/design/canvas/` (una pagina per componente, nessun duplicato). Icone: solo Lucide, `aria-hidden`. Ogni elenco o immagine ha lo stato vuoto e quello "senza immagine".
 
 ## Riferimenti di ispirazione
 
@@ -66,6 +68,6 @@ Da completare con i difetti concreti che il proprietario nota nella grafica ("tr
 
 ## Deviazioni del codice dal design
 
-Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design le risolve e poi cancella la riga.
+Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design la risolve e poi la cancella.
 
-Valori presenti nel design ma non ancora usati dal codice (controllati con una ricerca nei sorgenti): `--content-max`, `--fs-display`, `--fs-overline`, `--gap-section`, `--pad-card`, `--pad-strip`, `--popover-gap`, `--popover-w`, `--sp-12`. Vanno applicati dove previsti o tolti dal design.
+Nessuna al momento.

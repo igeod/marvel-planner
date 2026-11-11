@@ -20,7 +20,7 @@ Planner per tracciare film e serie del MCU. React 19 + TypeScript + Vite (LESS),
 
 ## Stile
 
-- La fonte dei valori è `docs/design/tokens.css`; il codice li ha in `src/styles/tokens.less`. Se divergono, vale il design e si annota in `DESIGN.md`, sezione "Deviazioni".
+- I valori stanno in `src/styles/tokens.less`; il canvas (`docs/design/canvas/`) li descrive e si rigenera dal codice. Cosa manca al codice: `docs/design/HANDOFF.md`, §"Da implementare". Una deviazione dal design si annota in `DESIGN.md`, sezione "Deviazioni".
 - Il codice **non inventa** colori, spazi, durate o curve: usa i token. Un valore nuovo si chiede al design.
 - Spoiler (trame, scene dopo i titoli, motivazioni dei prerequisiti) sempre dietro il pulsante spoiler.
 
