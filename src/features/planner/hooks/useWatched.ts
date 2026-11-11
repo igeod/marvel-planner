@@ -9,7 +9,12 @@ import type { AuthStatus } from "../../auth/types";
 import type { ProgressStorage } from "../types";
 import { apiProgressRepository } from "../services/apiProgressRepository";
 import { localProgressRepository } from "../services/localProgressRepository";
-import { mergeDeviceProgressIntoAccount } from "../services/progressSync";
+import {
+  resolveDeviceConflict,
+  syncDeviceProgress,
+  type ConflictChoice,
+  type DeviceConflict,
+} from "../services/progressSync";
 
 const LOAD_ERROR: TranslationKey = "planner.loadError";
 const SAVE_TOAST_ID = "save-error";
@@ -30,6 +35,7 @@ export function useWatched() {
   const [watched, setWatched] = useState<ReadonlySet<string>>(new Set());
   const [loadedFor, setLoadedFor] = useState<AuthStatus | null>(null);
   const [error, setError] = useState<TranslationKey | null>(null);
+  const [conflict, setConflict] = useState<DeviceConflict | null>(null);
   const { t } = useI18n();
   const toast = useToast();
   const { open: openAuthDialog } = useAuthDialog();
@@ -68,11 +74,14 @@ export function useWatched() {
   useEffect(() => {
     if (status === "loading") return;
     let isActive = true;
-    const load = isAccount ? mergeDeviceProgressIntoAccount() : localProgressRepository.load();
+    const load = isAccount
+      ? syncDeviceProgress()
+      : localProgressRepository.load().then((ids) => ({ ids, conflict: null }));
     load
-      .then((ids) => {
+      .then((result) => {
         if (!isActive) return;
-        setWatched(new Set(ids));
+        setWatched(new Set(result.ids));
+        setConflict(result.conflict);
         setError(null);
       })
       .catch(() => isActive && setError(LOAD_ERROR))
@@ -116,6 +125,24 @@ export function useWatched() {
     [watched, repository, isAccount, enqueue, saved, failedToSave, toast, t, openAuthDialog],
   );
 
+  // Rejects when saving fails, so the dialog can say so; nothing has changed then.
+  const resolveConflict = useCallback(
+    async (choice: ConflictChoice) => {
+      if (!conflict) return;
+      const ids = await resolveDeviceConflict(choice, conflict);
+      setWatched(new Set(ids));
+      setConflict(null);
+      if (choice === "merge") {
+        toast.show({
+          id: LIST_TOAST_ID,
+          tone: "info",
+          title: t("merge.toast", { result: ids.length }),
+        });
+      }
+    },
+    [conflict, toast, t],
+  );
+
   const reset = useCallback(async () => {
     const previous = watched;
     setWatched(new Set());
@@ -151,5 +178,15 @@ export function useWatched() {
 
   const storage: ProgressStorage = isAccount ? "account" : isStorageAvailable ? "device" : "none";
 
-  return { watched, isLoading: loadedFor !== status, error, storage, toggle, reset, importTitles };
+  return {
+    watched,
+    isLoading: loadedFor !== status,
+    error,
+    storage,
+    conflict,
+    toggle,
+    reset,
+    importTitles,
+    resolveConflict,
+  };
 }

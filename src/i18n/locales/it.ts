@@ -177,6 +177,22 @@ export const it = {
         "I titoli con l’etichetta «{tag}», come X-Men ’97 e What If…?, raccontano universi paralleli: guardali quando vuoi, non servono per seguire la storia principale. Non ti interessano? Spegni «{filter}» nei filtri.",
     },
   },
+  merge: {
+    title: "Due planner da riunire",
+    body: "Su questo dispositivo hai {local} titoli visti, sul tuo account {cloud}. Quali vuoi tenere?",
+    optMerge: "Unisci entrambi",
+    optMergeHint: "Non perdi nulla. Avrai {result} titoli visti.",
+    optCloud: "Tieni quelli dell’account",
+    optCloudHint:
+      "I {onlyLocal} titoli che hai visto solo su questo dispositivo non vengono salvati.",
+    optDevice: "Usa quelli di questo dispositivo",
+    optDeviceHint: "I {onlyCloud} titoli che hai solo sull’account vengono tolti.",
+    recommended: "Consigliato",
+    continue: "Continua",
+    pending: "Sto unendo…",
+    error: "Non siamo riusciti a salvare. I tuoi titoli sono ancora al loro posto.",
+    toast: "Planner uniti: {result} titoli visti",
+  },
   share: {
     invalid: {
       title: "Questo ramo è stato potato",

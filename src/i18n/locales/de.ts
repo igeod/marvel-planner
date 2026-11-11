@@ -181,6 +181,22 @@ export const de: Messages = {
         "Titel mit dem Etikett „{tag}“, etwa X-Men ’97 und What If…?, erzählen Geschichten aus Paralleluniversen: Sieh sie dir an, wann du willst, für die Haupthandlung brauchst du sie nicht. Kein Interesse? Schalte „{filter}“ in den Filtern aus.",
     },
   },
+  merge: {
+    title: "Zwei Planner zusammenführen",
+    body: "Auf diesem Gerät hast du {local} gesehene Titel, in deinem Konto {cloud}. Welche möchtest du behalten?",
+    optMerge: "Beide zusammenführen",
+    optMergeHint: "Du verlierst nichts. Du hast dann {result} gesehene Titel.",
+    optCloud: "Die des Kontos behalten",
+    optCloudHint:
+      "Die {onlyLocal} Titel, die du nur auf diesem Gerät gesehen hast, werden nicht gespeichert.",
+    optDevice: "Die dieses Geräts verwenden",
+    optDeviceHint: "Die {onlyCloud} Titel, die nur in deinem Konto sind, werden entfernt.",
+    recommended: "Empfohlen",
+    continue: "Weiter",
+    pending: "Wird zusammengeführt…",
+    error: "Speichern war nicht möglich. Deine Titel sind unverändert.",
+    toast: "Planner zusammengeführt: {result} gesehene Titel",
+  },
   share: {
     invalid: {
       title: "Dieser Link ist nicht mehr gültig",

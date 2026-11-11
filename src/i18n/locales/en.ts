@@ -179,6 +179,21 @@ export const en: Messages = {
         "Titles tagged “{tag}”, like X-Men ’97 and What If…?, tell parallel-universe stories: watch them whenever you like, you don’t need them to follow the main story. Not interested? Turn off “{filter}” in the filters.",
     },
   },
+  merge: {
+    title: "Two planners to bring together",
+    body: "On this device you have {local} watched titles; on your account, {cloud}. Which do you want to keep?",
+    optMerge: "Merge both",
+    optMergeHint: "You lose nothing. You will have {result} watched titles.",
+    optCloud: "Keep the account’s",
+    optCloudHint: "The {onlyLocal} titles you watched only on this device are not saved.",
+    optDevice: "Use this device’s",
+    optDeviceHint: "The {onlyCloud} titles you have only on your account are removed.",
+    recommended: "Recommended",
+    continue: "Continue",
+    pending: "Merging…",
+    error: "We could not save. Your titles are still where they were.",
+    toast: "Planners merged: {result} watched titles",
+  },
   share: {
     invalid: {
       title: "This branch was pruned",

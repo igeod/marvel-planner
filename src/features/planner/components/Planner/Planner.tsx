@@ -38,6 +38,7 @@ import { CollapseToggle } from "../CollapseToggle/CollapseToggle";
 import { FiltersSheet } from "../FiltersSheet/FiltersSheet";
 import { FloatingProgress } from "../FloatingProgress/FloatingProgress";
 import { MobileToolbar } from "../MobileToolbar/MobileToolbar";
+import { MergeChoiceDialog } from "../MergeChoiceDialog/MergeChoiceDialog";
 import { NextToWatch } from "../NextToWatch/NextToWatch";
 import { PhaseStrip } from "../PhaseStrip/PhaseStrip";
 import { PlannerFilters } from "../PlannerFilters/PlannerFilters";
@@ -86,7 +87,17 @@ export function Planner({ shareCode }: PlannerProps) {
 
   const catalog = useResolvedCatalog();
   const sagas = useMemo(() => filterCatalog(catalog, filters, needle), [catalog, filters, needle]);
-  const { watched, isLoading, error, storage, toggle, reset, importTitles } = useWatched();
+  const {
+    watched,
+    isLoading,
+    error,
+    storage,
+    conflict,
+    toggle,
+    reset,
+    importTitles,
+    resolveConflict,
+  } = useWatched();
   // Ready once the list has committed and painted (two frames), so its render cost stays behind the splash.
   const [hasPainted, setHasPainted] = useState(false);
   useEffect(() => {
@@ -307,6 +318,8 @@ export function Planner({ shareCode }: PlannerProps) {
           onClose={closeImport}
         />
       )}
+
+      <MergeChoiceDialog conflict={conflict} onResolve={resolveConflict} />
 
       <ConfirmDialog
         isOpen={isResetDialogOpen}

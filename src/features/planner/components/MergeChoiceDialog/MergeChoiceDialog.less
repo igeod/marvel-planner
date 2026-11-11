@@ -1,0 +1,59 @@
+@import (reference) "mixins";
+
+.merge-choice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin-block: var(--sp-4);
+}
+
+// A radio card: the whole card is the target, the native radio stays for keyboard and readers.
+.merge-choice__option {
+  position: relative;
+  display: block;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-row);
+  background: var(--bg);
+  box-shadow: inset 0 0 0 2px transparent;
+  cursor: pointer;
+
+  &:has(input:checked) {
+    box-shadow: inset 0 0 0 2px var(--ink);
+  }
+
+  &:has(input:focus-visible) {
+    outline: var(--focus);
+    outline-offset: var(--focus-offset);
+  }
+
+  input {
+    position: absolute;
+    opacity: 0;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    cursor: pointer;
+  }
+}
+
+.merge-choice__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1);
+}
+
+.merge-choice__text > span {
+  color: var(--ink-2);
+  font-size: var(--fs-label);
+}
+
+.merge-choice__badge {
+  margin-left: var(--sp-2);
+  padding: 2px 10px;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+  color: var(--on-primary);
+  font-size: var(--fs-caption);
+  font-weight: 800;
+}

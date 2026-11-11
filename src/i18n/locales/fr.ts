@@ -180,6 +180,21 @@ export const fr: Messages = {
         "Les titres marqués « {tag} », comme X-Men ’97 et What If…?, racontent des histoires d’univers parallèles : regardez-les quand vous voulez, ils ne sont pas nécessaires pour suivre l’histoire principale. Pas intéressé ? Désactivez « {filter} » dans les filtres.",
     },
   },
+  merge: {
+    title: "Deux planners à réunir",
+    body: "Sur cet appareil vous avez {local} titres vus, sur votre compte {cloud}. Lesquels voulez-vous garder ?",
+    optMerge: "Fusionner les deux",
+    optMergeHint: "Vous ne perdez rien. Vous aurez {result} titres vus.",
+    optCloud: "Garder ceux du compte",
+    optCloudHint: "Les {onlyLocal} titres vus uniquement sur cet appareil ne sont pas enregistrés.",
+    optDevice: "Utiliser ceux de cet appareil",
+    optDeviceHint: "Les {onlyCloud} titres présents uniquement sur le compte sont retirés.",
+    recommended: "Recommandé",
+    continue: "Continuer",
+    pending: "Fusion en cours…",
+    error: "Nous n’avons pas pu enregistrer. Vos titres sont toujours en place.",
+    toast: "Planners fusionnés : {result} titres vus",
+  },
   share: {
     invalid: {
       title: "Ce lien n'est plus valable",

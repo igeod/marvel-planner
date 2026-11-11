@@ -180,6 +180,21 @@ export const es: Messages = {
         "Los títulos con la etiqueta «{tag}», como X-Men ’97 y What If…?, cuentan historias de universos paralelos: velos cuando quieras, no hacen falta para seguir la historia principal. ¿No te interesan? Desactiva «{filter}» en los filtros.",
     },
   },
+  merge: {
+    title: "Dos planners por reunir",
+    body: "En este dispositivo tienes {local} títulos vistos, en tu cuenta {cloud}. ¿Cuáles quieres conservar?",
+    optMerge: "Unir ambos",
+    optMergeHint: "No pierdes nada. Tendrás {result} títulos vistos.",
+    optCloud: "Conservar los de la cuenta",
+    optCloudHint: "Los {onlyLocal} títulos que viste solo en este dispositivo no se guardan.",
+    optDevice: "Usar los de este dispositivo",
+    optDeviceHint: "Los {onlyCloud} títulos que solo tienes en la cuenta se quitan.",
+    recommended: "Recomendado",
+    continue: "Continuar",
+    pending: "Uniendo…",
+    error: "No hemos podido guardar. Tus títulos siguen donde estaban.",
+    toast: "Planners unidos: {result} títulos vistos",
+  },
   share: {
     invalid: {
       title: "Este enlace ya no es válido",
