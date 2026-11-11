@@ -1,8 +1,8 @@
-import { ChevronDown, ExternalLink, Globe, RotateCcw } from "lucide-react";
+import { ChevronDown, ExternalLink, Globe } from "lucide-react";
 import { useId, useState } from "react";
 import type { WatchOptions } from "../../../../../shared/watchProviders";
-import { Button } from "../../../../components/ui/Button/Button";
 import { InfoTip } from "../../../../components/ui/InfoTip/InfoTip";
+import { LoadError } from "../../../../components/ui/LoadError/LoadError";
 import { SelectField } from "../../../../components/ui/SelectField/SelectField";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -31,16 +31,25 @@ export function WhereToWatch({ titleId }: WhereToWatchProps) {
   const regionName = (code: string) => regionNames.of(code) ?? code;
 
   const renderBody = () => {
-    if (state.status === "loading") return <p role="status">{t("details.watch.loading")}</p>;
+    // Same minimum height as the loaded card: nothing grows or shrinks when the answer comes.
+    if (state.status === "loading") {
+      return (
+        <div
+          className="where-to-watch__panel where-to-watch__loading"
+          role="status"
+          aria-label={t("details.watch.loading")}
+        >
+          <span className="skeleton where-to-watch__skeleton-head" aria-hidden />
+          {[0, 1, 2].map((row) => (
+            <span key={row} className="skeleton where-to-watch__skeleton-row" aria-hidden />
+          ))}
+        </div>
+      );
+    }
 
     if (state.status === "error") {
       return (
-        <div role="alert">
-          <p>{t("details.watch.error")}</p>
-          <Button variant="panel" icon={<RotateCcw aria-hidden />} onClick={state.retry}>
-            {t("common.retry")}
-          </Button>
-        </div>
+        <LoadError variant="inline" message={t("details.watch.error")} onRetry={state.retry} />
       );
     }
 

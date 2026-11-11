@@ -66,6 +66,12 @@
     object-fit: cover;
   }
 
+  // The cover fills the hero: no thumbnail corners, the hero's own fill shows until the image is in.
+  .poster-image {
+    border-radius: 0;
+    background: transparent;
+  }
+
   // Darken the lower half for the title, then fade into the card surface.
   &::before,
   &::after {
@@ -195,6 +201,22 @@
   p {
     font-size: var(--fs-h3);
     font-weight: 700;
+  }
+}
+
+// Data we do not have: label size, muted, never bold (the credit line is bigger and bolder).
+.film__credit p.film__missing,
+.film__cast p.film__missing {
+  font-size: var(--fs-label);
+  font-weight: 400;
+}
+
+// Stacked, director and cast are two sections: space and a thin line between them.
+@media (max-width: 39.9375em) {
+  .film__cast {
+    margin-top: var(--sp-6);
+    padding-top: var(--sp-6);
+    border-top: 1px solid var(--line);
   }
 }
 

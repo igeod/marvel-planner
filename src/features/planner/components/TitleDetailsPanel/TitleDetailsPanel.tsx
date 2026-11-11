@@ -7,6 +7,7 @@ import { getPostCredits } from "../../data/postCredits";
 import { backdropUrl } from "../../utils/format";
 import { EasterEggs } from "../EasterEggs/EasterEggs";
 import { KeyScenes } from "../KeyScenes/KeyScenes";
+import { PosterImage } from "../../../../components/ui/PosterImage/PosterImage";
 import { MissingNote } from "../MissingNote/MissingNote";
 import { PlotSection } from "../PlotSection/PlotSection";
 import { PostCreditsInfo } from "../PostCreditsInfo/PostCreditsInfo";
@@ -55,7 +56,15 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
               <section className="film__card" aria-labelledby={titleHeadingId}>
                 <div className="film__hero">
                   <div className="film__cover" aria-hidden="true">
-                    {details.backdropPath && <img src={backdropUrl(details.backdropPath)} alt="" />}
+                    {details.backdropPath && (
+                      <PosterImage
+                        src={backdropUrl(details.backdropPath)}
+                        alt=""
+                        isFetching={false}
+                        showText
+                        text={t("details.missing.cover")}
+                      />
+                    )}
                   </div>
                   {!details.backdropPath && (
                     <div className="film__cover-missing">
@@ -105,14 +114,14 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                       {credit.names.length > 0 ? (
                         <p>{credit.names.join(", ")}</p>
                       ) : (
-                        <p className="muted">{t("details.missing.director")}</p>
+                        <p className="muted film__missing">{t("details.missing.director")}</p>
                       )}
                     </section>
                   </div>
                   <section className="film__cast" aria-labelledby={castHeadingId}>
                     <h2 id={castHeadingId}>{t("details.cast")}</h2>
                     {details.cast.length === 0 ? (
-                      <p className="muted">{t("details.missing.cast")}</p>
+                      <p className="muted film__missing">{t("details.missing.cast")}</p>
                     ) : (
                       <ul>
                         {details.cast.map((member) => (
