@@ -4,3 +4,6 @@ dist
 .dev.vars*
 !.dev.vars.example
 .wrangler
+
+# Copia locale della design-suite caricata in Claude Design: non fa parte del sito
+docs/design/uploads/
