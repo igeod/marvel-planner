@@ -230,17 +230,21 @@ export const fr: Messages = {
     title: "Planificateur partagé",
     loading: "Chargement du planificateur partagé…",
     summary: "Titres vus par {name} : {done} / {total} ({percent} %).",
-    current: "Titres vus dans votre planificateur en ce moment : {count}.",
-    currentEmpty: "Votre planificateur est encore vide.",
     empty: "{name} n'a encore marqué aucun titre comme vu.",
     anonymousNote:
       "Vous n'avez pas de compte : le planificateur importé reste enregistré uniquement sur cet appareil.",
-    merge: "Fusionner avec mes titres",
-    mergeHint: "Titres qui seraient ajoutés : {count}. Vous ne perdez rien.",
-    replace: "Remplacer mon planificateur",
-    replaceHint: "Votre planificateur deviendra identique à celui de {name}.",
-    replaceWarning: "Attention : titres vus que vous perdriez : {count}.",
     replaceConfirm: "Oui, remplacer",
+    heading: "Comment voulez-vous l’utiliser ?",
+    recommended: "Recommandé",
+    mergeTitle: "Fusionner les deux planners",
+    mergeBody:
+      "Nous gardons vos {current} titres vus et ajoutons les {added} de {name} qui vous manquent. Vous en aurez {result} au final.",
+    replaceTitle: "Remplacer mon planner",
+    replaceBody:
+      "Votre planner devient identique à celui de {name}. Les {lost} titres que vous seul avez vus sont retirés.",
+    replaceNoLoss: "Votre planner devient identique à celui de {name}. Vous ne perdez aucun titre.",
+    replaceAsk: "Retirer {lost} titres de votre planner ?",
+    back: "Retour",
     close: "Ne pas importer",
   },
   details: {

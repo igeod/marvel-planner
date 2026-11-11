@@ -12,6 +12,8 @@ interface ModalProps {
   // Bare dialogs draw their own heading; this is that heading's id.
   titleId?: string;
   size?: "md" | "lg" | "profile";
+  // Content and task popups have the X; decision popups exit through their own text button.
+  showClose?: boolean;
   // The heading leaves and enters with the view it names.
   viewMotion?: { leaving: boolean; direction?: "forward" | "back" };
   children: ReactNode;
@@ -24,6 +26,7 @@ export function Modal({
   onClose,
   titleId: ownTitleId,
   size = "md",
+  showClose = true,
   viewMotion,
   children,
 }: ModalProps) {
@@ -76,14 +79,16 @@ export function Modal({
             {isOpen && <div className="dialog__body">{children}</div>}
           </div>
           {/* Last in focus order, and fixed: the scroll area is a separate sibling. */}
-          <button
-            type="button"
-            className="dialog__close"
-            aria-label={t("common.close")}
-            onClick={onClose}
-          >
-            <X aria-hidden />
-          </button>
+          {showClose && (
+            <button
+              type="button"
+              className="dialog__close"
+              aria-label={t("common.close")}
+              onClick={onClose}
+            >
+              <X aria-hidden />
+            </button>
+          )}
         </>
       )}
     </dialog>,

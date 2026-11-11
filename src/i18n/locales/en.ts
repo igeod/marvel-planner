@@ -229,17 +229,21 @@ export const en: Messages = {
     title: "Shared planner",
     loading: "Loading the shared planner…",
     summary: "Titles watched by {name}: {done} / {total} ({percent}%).",
-    current: "Titles watched in your planner right now: {count}.",
-    currentEmpty: "Your planner is still empty.",
     empty: "{name} has not marked any title as watched yet.",
     anonymousNote:
       "You do not have an account: the imported planner stays saved on this device only.",
-    merge: "Merge with my titles",
-    mergeHint: "Titles that would be added: {count}. You lose nothing.",
-    replace: "Replace my planner",
-    replaceHint: "Your planner will become the same as {name}'s.",
-    replaceWarning: "Warning: the watched titles you would lose: {count}.",
     replaceConfirm: "Yes, replace",
+    heading: "How do you want to use it?",
+    recommended: "Recommended",
+    mergeTitle: "Merge the two planners",
+    mergeBody:
+      "We keep your {current} watched titles and add the {added} from {name} that you are missing. In the end you will have {result}.",
+    replaceTitle: "Replace my planner",
+    replaceBody:
+      "Your planner becomes the same as {name}’s. The {lost} titles only you have watched are removed.",
+    replaceNoLoss: "Your planner becomes the same as {name}’s. You lose no titles.",
+    replaceAsk: "Remove {lost} titles from your planner?",
+    back: "Back",
     close: "Don't import",
   },
   details: {

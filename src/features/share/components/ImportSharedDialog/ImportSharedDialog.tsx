@@ -37,65 +37,95 @@ function ImportPreview({
   const done = plan.incoming.size;
   const total = knownIds.size;
   const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+  const name = planner.name;
+  const lost = plan.lostByReplacing;
+  const exit = (
+    <Button variant="soft" size="lg" onClick={onClose}>
+      {t("import.close")}
+    </Button>
+  );
 
   if (done === 0) {
     return (
-      <div>
-        <p>{t("import.empty", { name: planner.name })}</p>
-        <button type="button" className="btn btn--soft" onClick={onClose}>
-          {t("import.close")}
-        </button>
+      <div className="import-preview">
+        <p>{t("import.empty", { name })}</p>
+        {exit}
       </div>
     );
   }
 
-  const replace = () => {
-    if (plan.lostByReplacing > 0 && !isConfirmingReplace) {
-      setIsConfirmingReplace(true);
-      return;
-    }
-    onImport(plan.incoming, "replace");
-  };
-
   return (
     <div className="import-preview">
-      <p>{t("import.summary", { name: planner.name, done, total, percent })}</p>
+      <p>{t("import.summary", { name, done, total, percent })}</p>
       <ProgressMeter label={t("planner.completed")} value={done} max={total} />
-      <p>
-        {watched.size > 0 ? t("import.current", { count: watched.size }) : t("import.currentEmpty")}
-      </p>
+
+      {lost === 0 ? (
+        // Nothing to lose: merging and replacing give the same planner, so there is one choice.
+        <section className="import-preview__choice">
+          <p>{t("import.replaceNoLoss", { name })}</p>
+          <Button
+            variant="primary"
+            size="lg"
+            disabled={isLoading}
+            onClick={() => onImport(plan.incoming, "replace")}
+          >
+            {t("import.replaceTitle")}
+          </Button>
+        </section>
+      ) : isConfirmingReplace ? (
+        <section className="import-preview__choice" aria-labelledby="import-replace-title">
+          <h3 id="import-replace-title">{t("import.replaceTitle")}</h3>
+          <p>
+            <strong>{t("import.replaceAsk", { lost })}</strong>
+          </p>
+          <p>{t("import.replaceBody", { name, lost })}</p>
+          <Button
+            variant="danger"
+            size="lg"
+            disabled={isLoading}
+            onClick={() => onImport(plan.incoming, "replace")}
+          >
+            {t("import.replaceConfirm")}
+          </Button>
+          <Button variant="soft" size="lg" onClick={() => setIsConfirmingReplace(false)}>
+            {t("import.back")}
+          </Button>
+        </section>
+      ) : (
+        <>
+          <h3>{t("import.heading")}</h3>
+          <section className="import-preview__choice">
+            <p className="import-preview__recommended">
+              <span className="import-preview__badge">{t("import.recommended")}</span>
+            </p>
+            <p>
+              {t("import.mergeBody", {
+                name,
+                current: watched.size,
+                added: plan.gainedByMerging,
+                result: plan.merged.size,
+              })}
+            </p>
+            <Button
+              variant="primary"
+              size="lg"
+              disabled={isLoading}
+              onClick={() => onImport(plan.merged, "merge")}
+            >
+              {t("import.mergeTitle")}
+            </Button>
+          </section>
+          <section className="import-preview__choice">
+            <p>{t("import.replaceBody", { name, lost })}</p>
+            <Button variant="soft" size="lg" onClick={() => setIsConfirmingReplace(true)}>
+              {t("import.replaceTitle")}
+            </Button>
+          </section>
+        </>
+      )}
+
       {storage !== "account" && <p>{t("import.anonymousNote")}</p>}
-
-      <section className="import-preview__choice">
-        <button
-          type="button"
-          className="btn btn--primary btn--lg"
-          disabled={isLoading}
-          onClick={() => onImport(plan.merged, "merge")}
-        >
-          {t("import.merge")}
-        </button>
-        <p>{t("import.mergeHint", { count: plan.gainedByMerging })}</p>
-      </section>
-
-      <section className="import-preview__choice">
-        <p>{t("import.replaceHint", { name: planner.name })}</p>
-        {isConfirmingReplace && (
-          <p role="alert">{t("import.replaceWarning", { count: plan.lostByReplacing })}</p>
-        )}
-        <button
-          type="button"
-          className="btn btn--soft btn--lg"
-          disabled={isLoading}
-          onClick={replace}
-        >
-          {isConfirmingReplace ? t("import.replaceConfirm") : t("import.replace")}
-        </button>
-      </section>
-
-      <button type="button" className="btn btn--soft" onClick={onClose}>
-        {t("import.close")}
-      </button>
+      {exit}
     </div>
   );
 }
@@ -172,7 +202,7 @@ export function ImportSharedDialog(props: ImportSharedDialogProps) {
   const { t } = useI18n();
 
   return (
-    <Modal isOpen title={t("import.title")} onClose={props.onClose}>
+    <Modal isOpen title={t("import.title")} showClose={false} onClose={props.onClose}>
       <ImportContent {...props} />
     </Modal>
   );

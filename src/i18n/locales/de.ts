@@ -231,17 +231,21 @@ export const de: Messages = {
     title: "Geteilter Planer",
     loading: "Der geteilte Planer wird geladen…",
     summary: "Von {name} gesehene Titel: {done} / {total} ({percent} %).",
-    current: "Aktuell gesehene Titel in deinem Planer: {count}.",
-    currentEmpty: "Dein Planer ist noch leer.",
     empty: "{name} hat noch keinen Titel als gesehen markiert.",
     anonymousNote:
       "Du hast kein Konto: Der importierte Planer bleibt nur auf diesem Gerät gespeichert.",
-    merge: "Mit meinen Titeln zusammenführen",
-    mergeHint: "Titel, die hinzugefügt würden: {count}. Du verlierst nichts.",
-    replace: "Meinen Planer ersetzen",
-    replaceHint: "Dein Planer wird so wie der von {name}.",
-    replaceWarning: "Achtung: gesehene Titel, die du verlieren würdest: {count}.",
     replaceConfirm: "Ja, ersetzen",
+    heading: "Wie möchtest du ihn verwenden?",
+    recommended: "Empfohlen",
+    mergeTitle: "Beide Planner zusammenführen",
+    mergeBody:
+      "Wir behalten deine {current} gesehenen Titel und fügen die {added} von {name} hinzu, die dir fehlen. Am Ende hast du {result}.",
+    replaceTitle: "Meinen Planner ersetzen",
+    replaceBody:
+      "Dein Planner wird so wie der von {name}. Die {lost} Titel, die nur du gesehen hast, werden entfernt.",
+    replaceNoLoss: "Dein Planner wird so wie der von {name}. Du verlierst keinen Titel.",
+    replaceAsk: "{lost} Titel aus deinem Planner entfernen?",
+    back: "Zurück",
     close: "Nicht importieren",
   },
   details: {

@@ -227,17 +227,21 @@ export const it = {
     title: "Planner condiviso",
     loading: "Caricamento del planner condiviso…",
     summary: "Titoli visti da {name}: {done} / {total} ({percent}%).",
-    current: "Nel tuo planner ora i titoli visti sono {count}.",
-    currentEmpty: "Il tuo planner è ancora vuoto.",
     empty: "{name} non ha ancora segnato nessun titolo come visto.",
     anonymousNote:
       "Non hai un account: il planner importato resta salvato solo su questo dispositivo.",
-    merge: "Unisci ai miei titoli",
-    mergeHint: "Titoli che verrebbero aggiunti: {count}. Non perdi nulla.",
-    replace: "Sostituisci il mio planner",
-    replaceHint: "Il tuo planner diventerà uguale a quello di {name}.",
-    replaceWarning: "Attenzione: i titoli visti che perderesti sono {count}.",
     replaceConfirm: "Sì, sostituisci",
+    heading: "Come vuoi usarlo?",
+    recommended: "Consigliato",
+    mergeTitle: "Unisci i due planner",
+    mergeBody:
+      "Teniamo i tuoi {current} titoli visti e aggiungiamo i {added} di {name} che ti mancano. Alla fine ne avrai {result}.",
+    replaceTitle: "Sostituisci il mio planner",
+    replaceBody:
+      "Il tuo planner diventa uguale a quello di {name}. I {lost} titoli che hai visto solo tu vengono tolti.",
+    replaceNoLoss: "Il tuo planner diventa uguale a quello di {name}. Non perdi nessun titolo.",
+    replaceAsk: "Togliere {lost} titoli dal tuo planner?",
+    back: "Indietro",
     close: "Non importare",
   },
   details: {
