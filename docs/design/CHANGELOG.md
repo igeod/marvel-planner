@@ -1,8 +1,25 @@
 # Changelog del canvas
 
+## 11 novembre 2026 · aggiornamento a main 2b5e07a: conferme, decisioni, nuove funzioni
+
+Riferimento `main` **2b5e07a**. Nessuna pagina nuova: tutto è scritto nelle pagine esistenti, con tabelle “Prima, dopo, file”.
+
+- **A · già fatto da Code:** Toast (Annulla, Accedi, Riprova chiudono: confermato, con la correzione che `finally` chiude anche l'errore rimesso in coda), Focus (WCAG 2.4.7 scritta in Accessibility), Admin manutenzione (confermato), trattino lungo nei titoli di serie (due punti, regola nelle 5 lingue).
+- **B · decisioni** (chip “decisione · da implementare”): 1 Toast, 3 X dei popup, 5 icone, 6-8 Dove guardare, 7 copertina, 9 Regia/Cast, 10 footer, 11 select, 12 prossimo da guardare, 13 layout 1098 px, 14 campo in errore, 15 importazione, 17 fondo mobile, 26 logo, 27 indicatore visto, 28 switch, 29 filtri, 31 accesso e registrazione, 32 suggerimento e-mail, 33-34 profilo, 35 saga, 36 testo mancante, 4 cascata d'ingresso. Due voci sono già nel codice e sono confermate invece di cambiate: campo in errore all'hover (`base.less` r.222-228) e cascata d'ingresso esistente (`motion.less` r.448-470, da estendere).
+- **C · nuove funzioni** (chip “proposta · non implementata”, 3 varianti ciascuna, stati, testi nelle 5 lingue, preferita e perché): 16 account con dati, 20 episodi, 21 fase intera, 22 salti, 23 accessibilità, 24 completamento, 30 “?” guida. Preferite: 16 A, 20 A, 21 A, 22 A, 23 A (pagina), 24 A (suono spento di default), 30 B.
+- **Citazioni rimappate:** `base.less` +7 dopo r.147, `ToastProvider.tsx` +1 dopo r.119.
+- **Zip:** `canvas/` (27 pagine), `HANDOFF.md` (§2 con l'elenco per Code), `CHANGELOG.md`. Le quattro immagini (`err-shared`, `empty-search`, `empty-filters`, `err-toast`) restano in `canvas/assets/images/`.
+
+## 11 novembre 2026 · toast della lista, main e0ee94d
+
+- **Toast «Aggiunto/Rimosso dalla tua lista»** (`useWatched.ts` r.86-116): descritto nella pagina **Toast** (sezione “Aggiunto o rimosso dalla lista”: i tre casi, `id` `list-change`, 8 s, Annulla e Accedi, coda delle scritture, testi `planner.list.*`, `common.undo`, `nav.login` nelle 5 lingue) e in **Planner** (sezione “Toast Aggiunto alla tua lista”).
+- **Splash:** lo stile e gli script non sono più inline in `index.html` ma in `public/splash.css`, `splash-start.js`, `splash-root.js`; pagina Splash e HANDOFF aggiornati (righe citate dai nuovi file).
+- **HANDOFF:** righe del recupero password aggiornate (`passwordReset.ts` r.3, `router.tsx` r.37).
+- Nel codice anche: lingue diverse dall'italiano e pagine admin/privacy caricate su richiesta, `qrcode` dinamico: nessun effetto sul canvas.
+
 ## 11 novembre 2026 · allineamento a main 326d261 (50b8f34 + punto 1.12)
 
-Il canvas è stato rigenerato dal codice su `main` **326d261** (dopo l'import del canvas e l'applicazione dell'HANDOFF):
+Il canvas è stato rigenerato dal codice su `main` **e0ee94d** (dopo l'import del canvas e l'applicazione dell'HANDOFF):
 
 - **Token: 127 → 120.** Tolti dal codice `--fs-display`, `--fs-overline`, `--gap-section` (con il suo override sotto 40em), `--pad-strip`, `--popover-w`, `--popover-gap`, `--sp-12`; `--content-max` e `--pad-card` ora sono usati (header, footer, layout, fase). Aggiornate Spacing e layout e Typography; `tokens.css` e `app.css` compilati di nuovo.
 - **Ombre.** `.card` (`base.less`) e il pannello del film (`.film__card`, `TitleDetailsPanel.less`) non hanno più `box-shadow`: la regola a tre livelli è ora applicata senza eccezioni (0 componenti, 1 StatusPage, 2 overlay). Aggiornate Colors, Planner, Pagina Film e System states.
@@ -13,7 +30,7 @@ Il canvas è stato rigenerato dal codice su `main` **326d261** (dopo l'import de
 
 ## 11 novembre 2026 · riscrittura completa
 
-Il canvas è stato riprogettato come un progetto di design: 27 pagine, ogni cosa definita una volta sola, ogni valore letto dal codice di `main` (commit **326d261**) con file e riga. Prima c'erano le pagine del giro (decisioni, roadmap, proposte), che sono state assorbite e tolte: la storia sta in questo file.
+Il canvas è stato riprogettato come un progetto di design: 27 pagine, ogni cosa definita una volta sola, ogni valore letto dal codice di `main` (commit **e0ee94d**) con file e riga. Prima c'erano le pagine del giro (decisioni, roadmap, proposte), che sono state assorbite e tolte: la storia sta in questo file.
 
 ### Struttura
 
@@ -31,7 +48,7 @@ Il canvas è stato riprogettato come un progetto di design: 27 pagine, ogni cosa
 
 ### Decisioni e Decisioni 2: dove è finito ogni punto
 
-| Punto | Che cosa era | Dove sta ora nel canvas | Nel codice (326d261) |
+| Punto | Che cosa era | Dove sta ora nel canvas | Nel codice (e0ee94d) |
 |---|---|---|---|
 | 1.1 | Marchio: favicon.svg, apple-touch-icon, og-image | **Icone e immagini** (marchio e file di `public/`) | sì: `public/favicon.svg`, `apple-touch-icon.png`, `og-image.png` |
 | 1.2 | Header sul tablet (768–1023px): controlli estesi da 768px | **Navigation** (barra: controlli da `@tablet` 48em, menu a icona sotto) | sì |
@@ -89,11 +106,11 @@ Il canvas è stato riprogettato come un progetto di design: 27 pagine, ogni cosa
 
 **Componenti definiti in più pagine: 0.** Controllati i selettori delle 80 tabelle di valori: 24 comparivano in due o più pagine (per esempio `.badge`, `.skip-link`, `.password-requirement`, `[role="alert"]`); ognuno è rimasto nella pagina del componente.
 
-**Valori scritti a mano che non sono token:** nelle 27 pagine restano 373 dichiarazioni inline, tutte di anteprima e non valori del design:
+**Valori scritti a mano che non sono token:** nelle 27 pagine restano 381 dichiarazioni inline, tutte di anteprima e non valori del design:
 - 257 sono larghezze e altezze dei riquadri di anteprima (390, 820, 1100…: finestre di prova, non misure del design);
 - 96 sono l'anello di 1px dei campioni di colore (`inset 0 0 0 1px var(--line)`) e 12 il bordo di 1px dei campioni di spaziatura;
 - 8 sono lo `letter-spacing: .02em` del carattere display (mixin `.display-font()` in `mixins.less`, senza token).
-Colori scritti a mano fuori dalla pagina Colors: nessuno nelle definizioni; la pagina Splash cita i fallback letterali di `index.html` (`#c8202b`, `#fff`) e Pagina Film e Scrollbar citano valori `rgba` del codice nelle tabelle di valori (HANDOFF §4).
+Colori scritti a mano fuori dalla pagina Colors: nessuno nelle definizioni; la pagina Splash cita i fallback letterali di `public/splash.css` (`#c8202b`, `#fff`) e Pagina Film e Scrollbar citano valori `rgba` del codice nelle tabelle di valori (HANDOFF §4).
 
 **Overflow orizzontale (27 pagine, React attivo):** a 360px, 820px e 1440px nessuna pagina supera la larghezza della finestra e nessun elemento sporge fuori da un contenitore scorrevole. Le anteprime a larghezza fissa (390/840/1100px) scorrono dentro il loro riquadro.
 
@@ -130,4 +147,4 @@ Colori scritti a mano fuori dalla pagina Colors: nessuno nelle definizioni; la p
 | Riempimento barra flottante (highlight) su traccia | 3:1 | 2,79 ✗ | 1,58 ✗ |
 | Riempimento totale (ink-static) su traccia sull'oro | 3:1 | 2,85 ✗ (stesso in entrambi) | 2,85 ✗ (stesso in entrambi) |
 
-**Token:** i 120 token del canvas coincidono con quelli di `tokens.less` su 326d261 (verificato dopo aver tolto i sette non usati).
+**Token:** i 120 token del canvas coincidono con quelli di `tokens.less` su e0ee94d (verificato dopo aver tolto i sette non usati).

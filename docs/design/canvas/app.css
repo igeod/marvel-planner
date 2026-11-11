@@ -125,6 +125,10 @@ select {
 button:disabled {
   cursor: not-allowed;
 }
+main:focus-visible,
+:is(h1, h2)[tabindex="-1"]:focus-visible {
+  outline: none;
+}
 :focus-visible {
   outline: var(--focus);
   outline-offset: var(--focus-offset);
@@ -6049,6 +6053,10 @@ a.is-hover:not(:disabled):not([aria-disabled="true"]):not([aria-busy="true"]):no
       ):not([aria-selected="true"]):not([aria-checked="true"]){
     opacity: 0.8;
   }
+main.is-focus,
+:is(h1, h2)[tabindex="-1"].is-focus{
+  outline: none;
+}
 .is-focus{
   outline: var(--focus);
   outline-offset: var(--focus-offset);
