@@ -41,7 +41,7 @@ describe("codice generato per un nuovo titolo", () => {
       today,
     );
     expect(snippet.id).toBe("i-loki-stagione-3");
-    expect(snippet.catalogEntry).toContain('"Loki — Stagione 3"');
+    expect(snippet.catalogEntry).toContain('"Loki: Stagione 3"');
     expect(snippet.tmdbRef).toBe('"i-loki-stagione-3": { kind: "tv", id: 84958, season: 3 },');
   });
 

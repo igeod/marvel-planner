@@ -6,9 +6,9 @@ import { Button } from "../Button/Button";
 import { ToastContext, type ToastContextValue, type ToastOptions } from "./ToastContext";
 import { addToast, type ToastItem } from "./toastQueue";
 
-// From the design's Toast page: 6 s, 8 s when there is an action to reach.
-const DEFAULT_DURATION = 6000;
-const ACTION_DURATION = 8000;
+// From the design's Toast page: 4 s, 6 s when there is an action to reach.
+const DEFAULT_DURATION = 4000;
+const ACTION_DURATION = 6000;
 let nextId = 0;
 
 interface ToastItemProps {
@@ -21,7 +21,6 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const previousFocus = useRef<Element | null>(null);
   const [isPaused, setIsPaused] = useState(false);
-  const [isPending, setIsPending] = useState(false);
   const { id, persistent, duration } = item;
   const hasAction = Boolean(item.action);
 
@@ -40,14 +39,11 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
     if (hadFocus && target instanceof HTMLElement && target.isConnected) target.focus();
   };
 
+  // The toast closes at the click, before the action runs: an action that fails shows its own
+  // toast, and closing after it would remove that one.
   const runAction = async () => {
-    setIsPending(true);
-    try {
-      await item.action?.onClick();
-    } finally {
-      setIsPending(false);
-      onDismiss(id);
-    }
+    onDismiss(id);
+    await item.action?.onClick();
   };
 
   return (
@@ -82,15 +78,21 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
           variant="panel"
           size="sm"
           className="toast__action"
-          isLoading={isPending}
           onClick={() => void runAction()}
         >
           {item.action.label}
         </Button>
       )}
-      <button type="button" className="toast__close" aria-label={t("common.close")} onClick={close}>
-        <X aria-hidden />
-      </button>
+      {persistent && (
+        <button
+          type="button"
+          className="toast__close"
+          aria-label={t("common.close")}
+          onClick={close}
+        >
+          <X aria-hidden />
+        </button>
+      )}
     </div>
   );
 }

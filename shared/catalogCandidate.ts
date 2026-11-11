@@ -18,7 +18,11 @@ export interface CatalogSnippet {
 const SEASON_SUFFIX = /\s—\sSeason\s(\d+)$/;
 
 export function buildCatalogSnippet(candidate: CatalogCandidate, today: string): CatalogSnippet {
-  const name = candidate.title.replace(SEASON_SUFFIX, " — Stagione $1");
+  const name = candidate.title.replace(
+    SEASON_SUFFIX,
+    (_match, number: string, offset: number) =>
+      `${candidate.title.slice(0, offset).includes(":") ? "," : ":"} Stagione ${number}`,
+  );
   const id = `i-${toSlug(name)}`;
   const isUpcoming = candidate.releaseDate !== null && candidate.releaseDate > today;
   const release = candidate.releaseDate

@@ -54,6 +54,19 @@
   letter-spacing: 0.03em;
   line-height: 1;
   text-decoration: none;
+  transition: color var(--dur-hover) var(--ease-out);
+
+  .on-hover({ color: var(--primary-hover); });
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      color var(--dur-hover) var(--ease-out),
+      transform var(--dur-press) var(--ease-out);
+
+    &:active {
+      transform: scale(0.97);
+    }
+  }
 }
 
 .site-header__actions {

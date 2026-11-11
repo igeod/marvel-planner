@@ -1,4 +1,3 @@
-import { ShieldCheck } from "lucide-react";
 import { Link } from "react-router";
 import { FOOTER_ID } from "../../../app/dom";
 import { PATHS } from "../../../app/paths";
@@ -59,16 +58,11 @@ export function AppFooter() {
       </div>
       <nav className="site-footer__legal" aria-label={t("footer.legal")}>
         <Link to={PATHS.privacy}>{t("footer.privacy")}</Link>
-        <Button
-          variant="text"
-          icon={<ShieldCheck aria-hidden />}
-          aria-haspopup="dialog"
-          onClick={open}
-        >
+        <Button variant="text" aria-haspopup="dialog" onClick={open}>
           {t("footer.privacySettings")}
         </Button>
         <CoffeeLink />
-        <span className="site-footer__made muted" lang="en">
+        <span className="site-footer__made" lang="en">
           Made in Italy
         </span>
       </nav>

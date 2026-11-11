@@ -61,6 +61,21 @@
   }
 }
 
+// Hover: colour only, for a fine pointer; the thumb follows the track.
+@media (hover: hover) and (pointer: fine) {
+  .switch__control:hover .switch__input:not(:checked):not(:disabled) + .switch__track {
+    background: var(--row-hover);
+
+    &::after {
+      background: var(--ink);
+    }
+  }
+
+  .switch__control:hover .switch__input:checked:not(:disabled) + .switch__track {
+    background: var(--primary-hover);
+  }
+}
+
 .switch__input:focus-visible + .switch__track {
   outline: var(--focus);
   outline-offset: var(--focus-offset);

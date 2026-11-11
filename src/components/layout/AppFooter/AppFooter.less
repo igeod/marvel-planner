@@ -38,9 +38,15 @@
 
 .site-footer__tmdb {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
   max-width: 52ch;
+
+  @media (min-width: 40em) {
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 .site-footer__tmdb-logo {
@@ -63,6 +69,11 @@
   }
 }
 
+// "Made in Italy" is the signature: display type, upper case, full colour, always on the right.
 .site-footer__made {
+  .display-font();
   margin-left: auto;
+  font-size: var(--fs-title);
+  text-transform: uppercase;
+  color: var(--on-dark);
 }

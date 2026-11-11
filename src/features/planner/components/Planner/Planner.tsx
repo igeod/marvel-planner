@@ -124,8 +124,9 @@ export function Planner({ shareCode }: PlannerProps) {
     return { placed: placed.filter(isShown), unplaced: unplaced.filter(isShown) };
   }, [catalog, filters, needle]);
 
-  // Fades the new list in when filters or order really change (not when stored ones load).
-  const listKey = `${viewOrder}${JSON.stringify(filters)}${needle}`;
+  // Fades the new list in when filters or order really change (not when stored ones load, and not
+  // on every letter typed in the search).
+  const listKey = `${viewOrder}${JSON.stringify(filters)}`;
   useEffect(() => {
     const list = listRef.current;
     const previous = previousListKeyRef.current;
