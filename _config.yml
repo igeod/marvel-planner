@@ -1,4 +1,0 @@
-# GitHub Pages compiles the repo with Jekyll. The design handoff holds React code such as
-# `initial={{ opacity: 0 }}`, which Liquid reads as a tag and fails to parse.
-exclude:
-  - docs/design
