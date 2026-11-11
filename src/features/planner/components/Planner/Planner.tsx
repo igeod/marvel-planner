@@ -14,6 +14,7 @@ import {
 } from "../../../share/components/ImportSharedDialog/ImportSharedDialog";
 import { ShareDialog } from "../../../share/components/ShareDialog/ShareDialog";
 import { useCollapsedPhases } from "../../hooks/useCollapsedPhases";
+import { useJumpToLastWatched } from "../../hooks/useJumpToLastWatched";
 import { useFloatingProgressVisibility } from "../../hooks/useFloatingProgressVisibility";
 import { useResolvedCatalog } from "../../hooks/useResolvedCatalog";
 import { useWatched } from "../../hooks/useWatched";
@@ -36,6 +37,7 @@ import { ChronologicalList } from "../ChronologicalList/ChronologicalList";
 import { CompactProgress } from "../CompactProgress/CompactProgress";
 import { CollapseToggle } from "../CollapseToggle/CollapseToggle";
 import { FiltersSheet } from "../FiltersSheet/FiltersSheet";
+import { BackToTop } from "../BackToTop/BackToTop";
 import { FloatingProgress } from "../FloatingProgress/FloatingProgress";
 import { MobileToolbar } from "../MobileToolbar/MobileToolbar";
 import { MergeChoiceDialog } from "../MergeChoiceDialog/MergeChoiceDialog";
@@ -115,6 +117,13 @@ export function Planner({ shareCode }: PlannerProps) {
   }
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
+  const jumpToLast = useJumpToLastWatched(
+    catalog,
+    viewOrder,
+    watched,
+    collapsed,
+    setPhaseCollapsed,
+  );
 
   const allTitles = flattenTitles(catalog);
   const overall = computeProgress(allTitles, watched);
@@ -183,6 +192,7 @@ export function Planner({ shareCode }: PlannerProps) {
           isDesktop={isDesktop}
           onShare={openShare}
           onReset={() => setIsResetDialogOpen(true)}
+          onJumpToLast={jumpToLast}
         />
 
         {!isLoading && (
@@ -320,6 +330,8 @@ export function Planner({ shareCode }: PlannerProps) {
           onClose={closeImport}
         />
       )}
+
+      <BackToTop />
 
       <MergeChoiceDialog conflict={conflict} onResolve={resolveConflict} />
 

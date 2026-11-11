@@ -1,0 +1,27 @@
+@import (reference) "mixins";
+
+// Dark circle above the progress bar (on desktop the bar leaves no room to reserve: clearance is 0).
+.back-to-top {
+  position: fixed;
+  right: var(--sp-4);
+  bottom: calc(var(--floating-progress-clearance) + var(--sp-3));
+  z-index: 10;
+  display: grid;
+  place-items: center;
+  width: var(--hit);
+  height: var(--hit);
+  border-radius: var(--r-pill);
+  background: var(--panel);
+  color: var(--on-dark);
+  box-shadow: var(--shadow-pop);
+  .tones(var(--panel-2), var(--raised-3));
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: fade-in var(--dur-ui) var(--ease-out) both;
+  }
+}

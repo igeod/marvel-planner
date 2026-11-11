@@ -150,6 +150,10 @@ export const it = {
       shorts: "corti",
       animated: "animata",
     },
+    jump: {
+      last: "Vai all’ultimo titolo visto",
+      top: "Torna all’inizio",
+    },
     phase: {
       progress: "Avanzamento {name}",
       markAll: "Segna tutta la fase come vista",

@@ -1,4 +1,4 @@
-import { RotateCcw, Share2 } from "lucide-react";
+import { LocateFixed, RotateCcw, Share2 } from "lucide-react";
 import { useId, useState, type Ref } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
@@ -28,6 +28,8 @@ interface PlannerSummaryProps {
   isDesktop: boolean;
   onShare: () => void;
   onReset: () => void;
+  // Absent while nothing is watched: the next title takes its place.
+  onJumpToLast: (() => void) | null;
 }
 
 export function PlannerSummary({
@@ -39,6 +41,7 @@ export function PlannerSummary({
   isDesktop,
   onShare,
   onReset,
+  onJumpToLast,
 }: PlannerSummaryProps) {
   const { t } = useI18n();
   const [isStripOpen, setIsStripOpen] = useState(false);
@@ -76,6 +79,12 @@ export function PlannerSummary({
           value={progress.done}
           max={Math.max(progress.total, 1)}
         />
+
+        {onJumpToLast && (
+          <Button variant="text" icon={<LocateFixed aria-hidden />} onClick={onJumpToLast}>
+            {t("planner.jump.last")}
+          </Button>
+        )}
 
         {!isDesktop && (
           <button type="button" className="progress-card__share" onClick={onShare}>

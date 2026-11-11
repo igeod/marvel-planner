@@ -70,6 +70,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
   return (
     <li
       ref={rowRef}
+      id={`title-${title.id}`}
       className={`title-row${isOpen ? " title-row--open" : ""}`}
       data-just-marked={isJustMarked || undefined}
     >

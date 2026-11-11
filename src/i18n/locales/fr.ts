@@ -153,6 +153,10 @@ export const fr: Messages = {
       shorts: "courts métrages",
       animated: "animée",
     },
+    jump: {
+      last: "Aller au dernier titre vu",
+      top: "Retour en haut",
+    },
     phase: {
       progress: "Progression {name}",
       markAll: "Marquer toute la phase comme vue",

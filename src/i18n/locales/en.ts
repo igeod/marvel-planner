@@ -152,6 +152,10 @@ export const en: Messages = {
       shorts: "shorts",
       animated: "animated",
     },
+    jump: {
+      last: "Go to the last watched title",
+      top: "Back to top",
+    },
     phase: {
       progress: "{name} progress",
       markAll: "Mark the whole phase as watched",
