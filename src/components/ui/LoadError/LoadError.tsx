@@ -1,7 +1,7 @@
 import { RotateCcw, TriangleAlert } from "lucide-react";
 import { useI18n } from "../../../i18n/useI18n";
-import { Button } from "../Button";
-import { StateBox } from "../StateBox";
+import { Button } from "../Button/Button";
+import { StateBox } from "../StateBox/StateBox";
 
 interface LoadErrorProps {
   variant?: "block" | "inline";

@@ -1,7 +1,7 @@
 import { useCallback, useState, useSyncExternalStore } from "react";
 
 export const TABLET_QUERY = "(min-width: 48em)";
-export const DESKTOP_QUERY = "(min-width: 64em)";
+const DESKTOP_QUERY = "(min-width: 64em)";
 
 export function useMediaQuery(query: string): boolean {
   const subscribe = useCallback(
@@ -18,8 +18,6 @@ export function useMediaQuery(query: string): boolean {
 
   return useSyncExternalStore(subscribe, getSnapshot, () => false);
 }
-
-export const useIsDesktop = () => useMediaQuery(DESKTOP_QUERY);
 
 // Runs `onMatch` when the viewport grows into `query` (to close what only the small layout opens).
 export function useMediaQueryWithReset(query: string, onMatch: () => void): boolean {

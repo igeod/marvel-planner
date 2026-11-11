@@ -1,9 +1,9 @@
 import { ChevronDown, ExternalLink, Globe, RotateCcw } from "lucide-react";
 import { useId, useState } from "react";
 import type { WatchOptions } from "../../../../../shared/watchProviders";
-import { Button } from "../../../../components/ui/Button";
-import { InfoTip } from "../../../../components/ui/InfoTip";
-import { SelectField } from "../../../../components/ui/SelectField";
+import { Button } from "../../../../components/ui/Button/Button";
+import { InfoTip } from "../../../../components/ui/InfoTip/InfoTip";
+import { SelectField } from "../../../../components/ui/SelectField/SelectField";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useI18n } from "../../../../i18n/useI18n";
 import { DEFAULT_REGIONS } from "../../data/regions";

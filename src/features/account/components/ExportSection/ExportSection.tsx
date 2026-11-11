@@ -1,7 +1,7 @@
 import { Download } from "lucide-react";
 import { useId, useState } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { Status } from "../../../../components/ui/Status";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Status } from "../../../../components/ui/Status/Status";
 import { useI18n } from "../../../../i18n/useI18n";
 
 const EXPORT_FILE_NAME = "marvel-planner-data.json";

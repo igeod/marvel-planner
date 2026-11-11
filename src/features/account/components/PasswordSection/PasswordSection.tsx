@@ -1,13 +1,13 @@
 import { use, useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { FormError } from "../../../../components/ui/FormError";
-import { PasswordField } from "../../../../components/ui/Field";
-import { Status } from "../../../../components/ui/Status";
+import { Button } from "../../../../components/ui/Button/Button";
+import { FormError } from "../../../../components/ui/FormError/FormError";
+import { PasswordField } from "../../../../components/ui/Field/Field";
+import { Status } from "../../../../components/ui/Status/Status";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { type FieldErrors } from "../../../../lib/validation";
 import { isLongEnough } from "../../../../../shared/passwordPolicy";
-import { PasswordRequirement } from "../../../auth/components/PasswordRequirement";
+import { PasswordRequirement } from "../../../auth/components/PasswordRequirement/PasswordRequirement";
 import { usePasswordPolicy } from "../../../auth/hooks/usePasswordPolicy";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthAction } from "../../../auth/hooks/useAuthAction";

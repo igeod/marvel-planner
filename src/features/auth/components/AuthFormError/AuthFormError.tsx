@@ -1,4 +1,4 @@
-import { FormError } from "../../../../components/ui/FormError";
+import { FormError } from "../../../../components/ui/FormError/FormError";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 

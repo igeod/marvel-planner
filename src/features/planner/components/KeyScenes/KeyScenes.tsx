@@ -1,7 +1,7 @@
 import { Info } from "lucide-react";
-import { Tooltip } from "../../../../components/ui/Tooltip";
-import { MissingNote } from "../MissingNote";
-import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
+import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
+import { MissingNote } from "../MissingNote/MissingNote";
+import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 import { useI18n } from "../../../../i18n/useI18n";
 import { getKeyScenes } from "../../data/keyScenes";
 

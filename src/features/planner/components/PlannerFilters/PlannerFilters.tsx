@@ -1,10 +1,10 @@
 import { X } from "lucide-react";
 import { useId } from "react";
-import { Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button/Button";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Filters, ViewOrder } from "../../types";
 import { areDefaultFilters, DEFAULT_FILTERS } from "../../utils/filters";
-import { FiltersFields } from "../FiltersFields";
+import { FiltersFields } from "../FiltersFields/FiltersFields";
 
 interface PlannerFiltersProps {
   filters: Filters;

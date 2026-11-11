@@ -2,7 +2,7 @@ import { useId } from "react";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { PhaseNumber, Saga } from "../../types";
 import { computeProgress } from "../../utils/progress";
-import { PhaseSection } from "../PhaseSection";
+import { PhaseSection } from "../PhaseSection/PhaseSection";
 
 interface SagaSectionProps {
   saga: Saga;

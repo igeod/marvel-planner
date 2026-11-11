@@ -2,7 +2,7 @@ import { Check, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import errToast from "../../../assets/err-toast.webp";
 import { useI18n } from "../../../i18n/useI18n";
-import { Button } from "../Button";
+import { Button } from "../Button/Button";
 import { ToastContext, type ToastContextValue, type ToastOptions } from "./ToastContext";
 import { addToast, type ToastItem } from "./toastQueue";
 

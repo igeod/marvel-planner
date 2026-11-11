@@ -17,18 +17,18 @@ import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
-import { AdminBadge } from "../../../admin/components/AdminBadge";
+import { AdminBadge } from "../../../admin/components/AdminBadge/AdminBadge";
 import { useAdminOverview } from "../../../admin/hooks/useAdminOverview";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import type { User } from "../../../auth/types";
 import { initials } from "../../../auth/utils/initials";
 import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
 import { PendingContext, RevealContext, UnsavedChangesContext } from "../../hooks/useReportDirty";
-import { DeleteAccountSection } from "../DeleteAccountSection";
-import { ExportSection } from "../ExportSection";
-import { PasswordSection } from "../PasswordSection";
-import { ProfileSection } from "../ProfileSection";
-import { ProgressStatsSection } from "../ProgressStatsSection";
+import { DeleteAccountSection } from "../DeleteAccountSection/DeleteAccountSection";
+import { ExportSection } from "../ExportSection/ExportSection";
+import { PasswordSection } from "../PasswordSection/PasswordSection";
+import { ProfileSection } from "../ProfileSection/ProfileSection";
+import { ProgressStatsSection } from "../ProgressStatsSection/ProgressStatsSection";
 
 export const PROFILE_TITLE_ID = "profile-title";
 

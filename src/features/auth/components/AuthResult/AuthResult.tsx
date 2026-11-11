@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from "react";
-import { Status } from "../../../../components/ui/Status";
+import { Status } from "../../../../components/ui/Status/Status";
 
 export const AUTH_TITLE_ID = "auth-dialog-title";
 

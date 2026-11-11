@@ -2,9 +2,9 @@ import { useId, useState } from "react";
 import { LANGUAGE_NAMES } from "../../../../../shared/languages";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
 import { useI18n } from "../../../../i18n/useI18n";
-import { MissingNote } from "../MissingNote";
-import { Chevron } from "../../../../components/ui/Chevron";
-import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
+import { MissingNote } from "../MissingNote/MissingNote";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
+import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
 

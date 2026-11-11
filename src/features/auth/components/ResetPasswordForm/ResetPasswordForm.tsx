@@ -1,7 +1,7 @@
 import { KeyRound } from "lucide-react";
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { PasswordField } from "../../../../components/ui/Field";
+import { Button } from "../../../../components/ui/Button/Button";
+import { PasswordField } from "../../../../components/ui/Field/Field";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { isLongEnough } from "../../../../../shared/passwordPolicy";
@@ -9,8 +9,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useAuthAction } from "../../hooks/useAuthAction";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { usePasswordPolicy } from "../../hooks/usePasswordPolicy";
-import { AuthFormError } from "../AuthFormError";
-import { PasswordRequirement } from "../PasswordRequirement";
+import { AuthFormError } from "../AuthFormError/AuthFormError";
+import { PasswordRequirement } from "../PasswordRequirement/PasswordRequirement";
 
 // Server answers that belong to the new password; any other answer goes in the error row.
 const PASSWORD_ERRORS: TranslationKey[] = [

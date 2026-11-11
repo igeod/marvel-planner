@@ -1,12 +1,12 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
-import { LoadError } from "../../../../components/ui/LoadError";
+import { LoadError } from "../../../../components/ui/LoadError/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useAdminOverview } from "../../hooks/useAdminOverview";
-import { AutomationSection } from "../AutomationSection";
-import { CandidatesSection } from "../CandidatesSection";
-import { MaintenanceSection } from "../MaintenanceSection";
-import { UsersSection } from "../UsersSection";
+import { AutomationSection } from "../AutomationSection/AutomationSection";
+import { CandidatesSection } from "../CandidatesSection/CandidatesSection";
+import { MaintenanceSection } from "../MaintenanceSection/MaintenanceSection";
+import { UsersSection } from "../UsersSection/UsersSection";
 
 function AdminSkeleton() {
   const { t } = useI18n();

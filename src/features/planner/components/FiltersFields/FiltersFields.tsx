@@ -1,5 +1,5 @@
-import { Choice, ChoiceGroup } from "../../../../components/ui/ChoiceGroup";
-import { Switch } from "../../../../components/ui/Switch";
+import { Choice, ChoiceGroup } from "../../../../components/ui/ChoiceGroup/ChoiceGroup";
+import { Switch } from "../../../../components/ui/Switch/Switch";
 import { useI18n } from "../../../../i18n/useI18n";
 import { TYPE_FILTER_OPTIONS } from "../../data/labels";
 import type { Filters, MediaType, ViewOrder } from "../../types";

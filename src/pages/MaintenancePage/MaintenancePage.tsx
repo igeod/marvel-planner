@@ -1,7 +1,7 @@
 import { LogIn } from "lucide-react";
 import errArt from "../../assets/err-maintenance.webp";
-import { Button } from "../../components/ui/Button";
-import { StatusPage } from "../../components/ui/StatusPage";
+import { Button } from "../../components/ui/Button/Button";
+import { StatusPage } from "../../components/ui/StatusPage/StatusPage";
 import { useAuth } from "../../features/auth/hooks/useAuth";
 import { useAuthDialog } from "../../features/auth/hooks/useAuthDialog";
 import { useI18n } from "../../i18n/useI18n";

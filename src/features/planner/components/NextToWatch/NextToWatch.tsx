@@ -2,7 +2,7 @@ import { Check } from "lucide-react";
 import { useId, useState } from "react";
 import { Link } from "react-router";
 import { titlePath } from "../../../../app/paths";
-import { Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button/Button";
 import { buttonClass } from "../../../../components/ui/Button/buttonClass";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../data/labels";

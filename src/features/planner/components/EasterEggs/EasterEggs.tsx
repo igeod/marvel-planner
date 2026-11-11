@@ -1,7 +1,7 @@
 import { Info } from "lucide-react";
-import { MissingNote } from "../MissingNote";
-import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
-import { Tooltip } from "../../../../components/ui/Tooltip";
+import { MissingNote } from "../MissingNote/MissingNote";
+import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
+import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { getEasterEggs, type EasterEggKind } from "../../data/easterEggs";

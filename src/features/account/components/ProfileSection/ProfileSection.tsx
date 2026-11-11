@@ -1,8 +1,8 @@
 import { use, useEffect, useRef, useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { FormError } from "../../../../components/ui/FormError";
-import { TextField } from "../../../../components/ui/Field";
-import { Status } from "../../../../components/ui/Status";
+import { Button } from "../../../../components/ui/Button/Button";
+import { FormError } from "../../../../components/ui/FormError/FormError";
+import { TextField } from "../../../../components/ui/Field/Field";
+import { Status } from "../../../../components/ui/Status/Status";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useAuth } from "../../../auth/hooks/useAuth";

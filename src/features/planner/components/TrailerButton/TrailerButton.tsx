@@ -1,7 +1,7 @@
 import { Play } from "lucide-react";
 import { useState } from "react";
 import type { Trailer } from "../../../../../shared/titleDetails";
-import { Modal } from "../../../../components/ui/Modal";
+import { Modal } from "../../../../components/ui/Modal/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
 
 const EMBED_URL = "https://www.youtube-nocookie.com/embed";

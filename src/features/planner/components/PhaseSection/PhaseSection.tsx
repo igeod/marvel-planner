@@ -1,9 +1,9 @@
-import { Chevron } from "../../../../components/ui/Chevron";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Phase } from "../../types";
 import { computeProgress } from "../../utils/progress";
 import { usePhaseMotion } from "../../hooks/usePhaseMotion";
-import { TitleItem } from "../TitleItem";
+import { TitleItem } from "../TitleItem/TitleItem";
 
 interface PhaseSectionProps {
   phase: Phase;

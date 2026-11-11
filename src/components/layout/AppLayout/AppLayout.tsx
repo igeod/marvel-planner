@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react";
 import { Outlet, ScrollRestoration, useLocation } from "react-router";
 import { useSiteStatus } from "../../../features/site/hooks/useSiteStatus";
-import { MaintenancePage } from "../../../pages/MaintenancePage";
-import { AuthDialogs } from "../../../features/auth/components/AuthDialogs";
-import { PrivacySettingsDialog } from "../../../features/privacy/components/PrivacySettingsDialog";
+import { MaintenancePage } from "../../../pages/MaintenancePage/MaintenancePage";
+import { AuthDialogs } from "../../../features/auth/components/AuthDialogs/AuthDialogs";
+import { PrivacySettingsDialog } from "../../../features/privacy/components/PrivacySettingsDialog/PrivacySettingsDialog";
 import { useSplashReady } from "../../../app/splash";
-import { AppFooter } from "../AppFooter";
-import { AppHeader } from "../AppHeader";
-import { MAIN_CONTENT_ID, SkipLink } from "../SkipLink";
+import { AppFooter } from "../AppFooter/AppFooter";
+import { AppHeader } from "../AppHeader/AppHeader";
+import { MAIN_CONTENT_ID, SkipLink } from "../SkipLink/SkipLink";
 
 export function AppLayout() {
   const { pathname } = useLocation();

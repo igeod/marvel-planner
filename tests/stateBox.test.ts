@@ -1,7 +1,7 @@
 import { createElement } from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
-import { StateBox } from "../src/components/ui/StateBox";
+import { StateBox } from "../src/components/ui/StateBox/StateBox";
 
 type Props = Parameters<typeof StateBox>[0];
 const render = (extra: Partial<Props> = {}) =>

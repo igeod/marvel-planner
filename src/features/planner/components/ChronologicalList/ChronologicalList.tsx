@@ -2,7 +2,7 @@ import { useId } from "react";
 import { useI18n } from "../../../../i18n/useI18n";
 import { CHRONOLOGY_SOURCE_URL } from "../../data/chronology";
 import type { Title } from "../../types";
-import { TitleItem } from "../TitleItem";
+import { TitleItem } from "../TitleItem/TitleItem";
 
 interface ChronologicalListProps {
   placed: Title[];

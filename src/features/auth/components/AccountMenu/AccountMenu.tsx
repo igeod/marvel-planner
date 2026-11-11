@@ -1,6 +1,6 @@
-import { Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button/Button";
 import { useI18n } from "../../../../i18n/useI18n";
-import { AdminBadge } from "../../../admin/components/AdminBadge";
+import { AdminBadge } from "../../../admin/components/AdminBadge/AdminBadge";
 import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthDialog } from "../../hooks/useAuthDialog";

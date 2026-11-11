@@ -1,8 +1,8 @@
 import { UserPlus } from "lucide-react";
 import { useEffect, useRef, useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { PasswordField, TextField } from "../../../../components/ui/Field";
-import { useToast } from "../../../../components/ui/Toast";
+import { Button } from "../../../../components/ui/Button/Button";
+import { PasswordField, TextField } from "../../../../components/ui/Field/Field";
+import { useToast } from "../../../../components/ui/Toast/useToast";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import {
@@ -17,7 +17,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { usePasswordPolicy } from "../../hooks/usePasswordPolicy";
 import { useAuthAction } from "../../hooks/useAuthAction";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
-import { AuthFormError } from "../AuthFormError";
+import { AuthFormError } from "../AuthFormError/AuthFormError";
 
 type RegisterField = "name" | "email" | "password";
 

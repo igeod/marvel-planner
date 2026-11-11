@@ -1,11 +1,11 @@
 import { Link } from "react-router";
 import { PATHS } from "../../../app/paths";
 import { SITE } from "../../../app/site";
-import { AccountMenu } from "../../../features/auth/components/AccountMenu";
-import { ThemeSwitcher } from "../../../features/theme/ThemeSwitcher";
+import { AccountMenu } from "../../../features/auth/components/AccountMenu/AccountMenu";
+import { ThemeSwitcher } from "../../../features/theme/ThemeSwitcher/ThemeSwitcher";
 import { useI18n } from "../../../i18n/useI18n";
-import { HeaderMenu } from "../HeaderMenu";
-import { LanguageSwitcher } from "../LanguageSwitcher";
+import { HeaderMenu } from "../HeaderMenu/HeaderMenu";
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 
 export function AppHeader() {
   const { t } = useI18n();

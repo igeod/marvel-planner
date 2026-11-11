@@ -5,7 +5,7 @@ export type Theme = "system" | "light" | "dark";
 
 export const THEMES: Theme[] = ["system", "light", "dark"];
 
-export const isTheme = (value: unknown): value is Theme => THEMES.includes(value as Theme);
+const isTheme = (value: unknown): value is Theme => THEMES.includes(value as Theme);
 
 export function readStoredTheme(): Theme {
   const stored = readJson<unknown>(STORAGE_KEYS.theme, null);

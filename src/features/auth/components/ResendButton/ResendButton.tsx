@@ -1,5 +1,5 @@
-import { Button } from "../../../../components/ui/Button";
-import { Status } from "../../../../components/ui/Status";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Status } from "../../../../components/ui/Status/Status";
 import { useAuthAction } from "../../hooks/useAuthAction";
 
 interface ResendButtonProps {

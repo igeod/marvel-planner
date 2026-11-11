@@ -1,5 +1,5 @@
 import { ChevronsDownUp, ChevronsUpDown } from "lucide-react";
-import { Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button/Button";
 import { useI18n } from "../../../../i18n/useI18n";
 
 interface CollapseToggleProps {

@@ -74,7 +74,7 @@ interface TmdbSeason {
 
 export type TmdbDetails = Omit<TitleDetails, "plot"> & { wikidataId: string | null };
 
-export class TmdbError extends Error {
+class TmdbError extends Error {
   constructor(readonly status: number) {
     super(`TMDB ha risposto con stato ${status}`);
     this.name = "TmdbError";

@@ -1,4 +1,4 @@
-import { Choice, ChoiceGroup } from "../../../components/ui/ChoiceGroup";
+import { Choice, ChoiceGroup } from "../../../components/ui/ChoiceGroup/ChoiceGroup";
 import { useI18n } from "../../../i18n/useI18n";
 import { THEME_LABEL_KEYS } from "../labels";
 import { THEMES } from "../theme";

@@ -1,8 +1,8 @@
 import { Search, X } from "lucide-react";
 import art from "../../../../assets/empty-search.webp";
 import { useId, useRef } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { StateBox } from "../../../../components/ui/StateBox";
+import { Button } from "../../../../components/ui/Button/Button";
+import { StateBox } from "../../../../components/ui/StateBox/StateBox";
 import { useI18n } from "../../../../i18n/useI18n";
 
 interface PlannerSearchProps {

@@ -1,9 +1,9 @@
 import { Trash2 } from "lucide-react";
 import { useId, useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog";
-import { PasswordField } from "../../../../components/ui/Field";
-import { Status } from "../../../../components/ui/Status";
+import { Button } from "../../../../components/ui/Button/Button";
+import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog/ConfirmDialog";
+import { PasswordField } from "../../../../components/ui/Field/Field";
+import { Status } from "../../../../components/ui/Status/Status";
 import { useI18n } from "../../../../i18n/useI18n";
 import { focusFirstInvalidField } from "../../../../lib/validation";
 import { useAuth } from "../../../auth/hooks/useAuth";

@@ -1,4 +1,4 @@
-import { Chevron } from "../../../../components/ui/Chevron";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { usePhaseMotion } from "../../hooks/usePhaseMotion";
 

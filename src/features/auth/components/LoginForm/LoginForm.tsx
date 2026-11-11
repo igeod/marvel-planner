@@ -1,8 +1,8 @@
 import { LogIn } from "lucide-react";
 import { useId, useRef, useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { PasswordField, TextField } from "../../../../components/ui/Field";
-import { useToast } from "../../../../components/ui/Toast";
+import { Button } from "../../../../components/ui/Button/Button";
+import { PasswordField, TextField } from "../../../../components/ui/Field/Field";
+import { useToast } from "../../../../components/ui/Toast/useToast";
 import { useI18n } from "../../../../i18n/useI18n";
 import {
   focusFirstInvalidField,
@@ -14,7 +14,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useAuthAction } from "../../hooks/useAuthAction";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { PASSWORD_RESET_ENABLED } from "../../passwordReset";
-import { AuthFormError } from "../AuthFormError";
+import { AuthFormError } from "../AuthFormError/AuthFormError";
 
 type LoginField = "email" | "password";
 

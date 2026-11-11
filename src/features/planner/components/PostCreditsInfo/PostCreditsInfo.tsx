@@ -1,5 +1,5 @@
-import { MissingNote } from "../MissingNote";
-import { SpoilerBox } from "../../../../components/ui/SpoilerBox";
+import { MissingNote } from "../MissingNote/MissingNote";
+import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 import { useI18n } from "../../../../i18n/useI18n";
 import { getPostCredits } from "../../data/postCredits";
 

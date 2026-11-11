@@ -8,7 +8,7 @@ import {
   type KeyboardEvent,
   type ReactNode,
 } from "react";
-import { Chevron } from "../Chevron";
+import { Chevron } from "../Chevron/Chevron";
 import { useMediaQuery } from "../useMediaQuery";
 import { computeListPosition } from "./position";
 

@@ -1,12 +1,12 @@
 import { RotateCcw, Share2 } from "lucide-react";
 import { useId, useState, type Ref } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { Chevron } from "../../../../components/ui/Chevron";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Progress, ProgressStorage } from "../../types";
 import type { StripPhase } from "../../utils/strip";
-import { PhaseStrip } from "../PhaseStrip";
+import { PhaseStrip } from "../PhaseStrip/PhaseStrip";
 
 const STORAGE_NOTE_KEYS: Record<ProgressStorage, TranslationKey> = {
   account: "planner.storage.account",

@@ -1,4 +1,4 @@
-import { PosterImage } from "../../../../components/ui/PosterImage";
+import { PosterImage } from "../../../../components/ui/PosterImage/PosterImage";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useTitleDetails } from "../../hooks/useTitleDetails";
 import { posterUrl } from "../../utils/format";

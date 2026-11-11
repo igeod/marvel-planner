@@ -5,16 +5,16 @@ import { getEasterEggs } from "../../data/easterEggs";
 import { getKeyScenes } from "../../data/keyScenes";
 import { getPostCredits } from "../../data/postCredits";
 import { backdropUrl } from "../../utils/format";
-import { EasterEggs } from "../EasterEggs";
-import { KeyScenes } from "../KeyScenes";
-import { MissingNote } from "../MissingNote";
-import { PlotSection } from "../PlotSection";
-import { PostCreditsInfo } from "../PostCreditsInfo";
-import { TitleDetailsSkeleton } from "../TitleDetailsSkeleton";
-import { SynopsisSection } from "../SynopsisSection";
-import { TrailerButton } from "../TrailerButton";
-import { WhereToWatch } from "../WhereToWatch";
-import { WithTitleDetails } from "../WithTitleDetails";
+import { EasterEggs } from "../EasterEggs/EasterEggs";
+import { KeyScenes } from "../KeyScenes/KeyScenes";
+import { MissingNote } from "../MissingNote/MissingNote";
+import { PlotSection } from "../PlotSection/PlotSection";
+import { PostCreditsInfo } from "../PostCreditsInfo/PostCreditsInfo";
+import { TitleDetailsSkeleton } from "../TitleDetailsSkeleton/TitleDetailsSkeleton";
+import { SynopsisSection } from "../SynopsisSection/SynopsisSection";
+import { TrailerButton } from "../TrailerButton/TrailerButton";
+import { WhereToWatch } from "../WhereToWatch/WhereToWatch";
+import { WithTitleDetails } from "../WithTitleDetails/WithTitleDetails";
 
 interface TitleDetailsPanelProps {
   titleId: string;

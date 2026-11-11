@@ -1,22 +1,25 @@
 import { useLayoutEffect, useRef } from "react";
 import { Link } from "react-router";
 import { PATHS } from "../../../../app/paths";
-import { Button } from "../../../../components/ui/Button";
-import { Modal } from "../../../../components/ui/Modal";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Modal } from "../../../../components/ui/Modal/Modal";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
-import { AccountSettings, PROFILE_TITLE_ID } from "../../../account/components/AccountSettings";
+import {
+  AccountSettings,
+  PROFILE_TITLE_ID,
+} from "../../../account/components/AccountSettings/AccountSettings";
 import type { AuthDialogPayload, AuthDialogView } from "../../context/AuthDialogContext";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { useViewTransition } from "../../hooks/useViewTransition";
-import { AUTH_TITLE_ID, AuthResult } from "../AuthResult";
-import { ForgotForm } from "../ForgotForm";
-import { LoginForm } from "../LoginForm";
-import { RegisterForm } from "../RegisterForm";
-import { ResendButton } from "../ResendButton";
-import { ResetPasswordForm } from "../ResetPasswordForm";
+import { AUTH_TITLE_ID, AuthResult } from "../AuthResult/AuthResult";
+import { ForgotForm } from "../ForgotForm/ForgotForm";
+import { LoginForm } from "../LoginForm/LoginForm";
+import { RegisterForm } from "../RegisterForm/RegisterForm";
+import { ResendButton } from "../ResendButton/ResendButton";
+import { ResetPasswordForm } from "../ResetPasswordForm/ResetPasswordForm";
 
 const TITLE_KEYS: Record<AuthDialogView, TranslationKey> = {
   login: "auth.login.title",

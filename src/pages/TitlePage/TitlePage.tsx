@@ -3,9 +3,9 @@ import { useLocation, useNavigate, useParams } from "react-router";
 import { PATHS } from "../../app/paths";
 import { SITE } from "../../app/site";
 import { useResolvedCatalog } from "../../features/planner/hooks/useResolvedCatalog";
-import { TitleDetailsPanel } from "../../features/planner/components/TitleDetailsPanel";
+import { TitleDetailsPanel } from "../../features/planner/components/TitleDetailsPanel/TitleDetailsPanel";
 import { flattenTitles } from "../../features/planner/utils/filters";
-import { NotFoundPage } from "../NotFoundPage";
+import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 
 export function TitlePage() {
   const { id = "" } = useParams();

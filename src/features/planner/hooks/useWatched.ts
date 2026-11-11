@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useToast } from "../../../components/ui/Toast";
+import { useToast } from "../../../components/ui/Toast/useToast";
 import { useI18n } from "../../../i18n/useI18n";
 import type { TranslationKey } from "../../../i18n/types";
 import { isStorageAvailable } from "../../../lib/storage";

@@ -1,6 +1,6 @@
 import { Check, Eye } from "lucide-react";
 import { useId, useState } from "react";
-import { Tooltip } from "../../../../components/ui/Tooltip";
+import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
 import { useI18n } from "../../../../i18n/useI18n";
 import { TITLES_BY_ID } from "../../data/catalog";
 import { getGuide } from "../../data/guides";

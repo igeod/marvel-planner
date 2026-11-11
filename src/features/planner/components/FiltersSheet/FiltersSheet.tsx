@@ -1,13 +1,13 @@
 import { X } from "lucide-react";
 import { useCallback, useId, useState } from "react";
 import { createPortal } from "react-dom";
-import { Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button/Button";
 import { useDialog } from "../../../../components/ui/useDialog";
 import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Filters, ViewOrder } from "../../types";
 import { areDefaultFilters, DEFAULT_FILTERS } from "../../utils/filters";
-import { FiltersFields } from "../FiltersFields";
+import { FiltersFields } from "../FiltersFields/FiltersFields";
 
 interface FiltersSheetProps {
   isOpen: boolean;

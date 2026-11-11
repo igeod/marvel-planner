@@ -1,14 +1,14 @@
 import { Share2 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { Chevron } from "../../../../components/ui/Chevron";
-import { LoadError } from "../../../../components/ui/LoadError";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
+import { LoadError } from "../../../../components/ui/LoadError/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../../planner/data/labels";
 import { useResolvedCatalog } from "../../../planner/hooks/useResolvedCatalog";
 import { apiProgressRepository } from "../../../planner/services/apiProgressRepository";
 import type { Progress } from "../../../planner/types";
-import { ShareDialog } from "../../../share/components/ShareDialog";
+import { ShareDialog } from "../../../share/components/ShareDialog/ShareDialog";
 import { computeStats } from "../../utils/stats";
 
 // The bars fill from 0 once per page load; reopening the popup or the tab does not replay it.

@@ -11,7 +11,7 @@ Planner per tracciare film e serie del MCU. React 19 + TypeScript + Vite (LESS),
 
 ## Codice
 
-- Un componente = una cartella con `.tsx`, `.less`, `index.ts`; poi una riga nell'`index.less` del gruppo (dettagli in README, sezione Stili).
+- Un componente = una cartella con `.tsx` e `.less` (import diretto, niente `index.ts`); poi una riga nell'`index.less` del gruppo (dettagli in README, sezione Stili).
 - **CSP rigida:** niente stili inline, script inline o risorse di altri domini. Font ospitati da noi, immagini da `/api/images`.
 - Icone solo Lucide. Elementi nascosti con l'attributo `hidden`.
 - Ogni testo visibile è tradotto nelle cinque lingue (`src/i18n/locales`). I titoli delle opere restano in inglese con `lang="en"`.

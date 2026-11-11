@@ -1,13 +1,13 @@
 import { Send } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { TextField } from "../../../../components/ui/Field";
+import { Button } from "../../../../components/ui/Button/Button";
+import { TextField } from "../../../../components/ui/Field/Field";
 import { useI18n } from "../../../../i18n/useI18n";
 import { isValidEmail } from "../../../../lib/validation";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthAction } from "../../hooks/useAuthAction";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
-import { AuthFormError } from "../AuthFormError";
+import { AuthFormError } from "../AuthFormError/AuthFormError";
 
 export function ForgotForm() {
   const { t } = useI18n();

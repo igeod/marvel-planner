@@ -1,7 +1,7 @@
 import { Check, TriangleAlert } from "lucide-react";
 import { useId, useState } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog";
+import { Button } from "../../../../components/ui/Button/Button";
+import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog/ConfirmDialog";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useSiteStatus } from "../../../site/hooks/useSiteStatus";
 

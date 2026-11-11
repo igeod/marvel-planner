@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
-import { LoadError } from "../../../../components/ui/LoadError";
+import { LoadError } from "../../../../components/ui/LoadError/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useTitleDetails } from "../../hooks/useTitleDetails";
 

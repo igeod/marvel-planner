@@ -1,11 +1,11 @@
 import { Trash2 } from "lucide-react";
 import { useState } from "react";
-import { Button } from "../../../../components/ui/Button";
-import { Modal } from "../../../../components/ui/Modal";
+import { Button } from "../../../../components/ui/Button/Button";
+import { Modal } from "../../../../components/ui/Modal/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
 import { clearDeviceData } from "../../../../lib/storage";
 import { usePrivacySettings } from "../../hooks/usePrivacySettings";
-import { StorageTable } from "../StorageTable";
+import { StorageTable } from "../StorageTable/StorageTable";
 
 export function PrivacySettingsDialog() {
   const { t } = useI18n();

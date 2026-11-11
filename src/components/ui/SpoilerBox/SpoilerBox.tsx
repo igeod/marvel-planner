@@ -1,7 +1,7 @@
 import { Eye, EyeOff } from "lucide-react";
 import { useId, useState, type ReactNode } from "react";
 import { useI18n } from "../../../i18n/useI18n";
-import { Tooltip } from "../Tooltip";
+import { Tooltip } from "../Tooltip/Tooltip";
 
 interface SpoilerLabels {
   showLabel: string;

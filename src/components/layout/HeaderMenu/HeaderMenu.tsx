@@ -2,17 +2,17 @@ import { LogIn, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { createPortal } from "react-dom";
 import { SITE } from "../../../app/site";
-import { Button } from "../../ui/Button";
+import { Button } from "../../ui/Button/Button";
 import { useDialog } from "../../ui/useDialog";
 import { TABLET_QUERY, useMediaQueryWithReset } from "../../ui/useMediaQuery";
 import { useAuth } from "../../../features/auth/hooks/useAuth";
-import { AdminBadge } from "../../../features/admin/components/AdminBadge";
+import { AdminBadge } from "../../../features/admin/components/AdminBadge/AdminBadge";
 import { useAuthDialog } from "../../../features/auth/hooks/useAuthDialog";
 import { initials } from "../../../features/auth/utils/initials";
 import { useSiteStatus } from "../../../features/site/hooks/useSiteStatus";
-import { ThemeChoice } from "../../../features/theme/ThemeChoice";
+import { ThemeChoice } from "../../../features/theme/ThemeChoice/ThemeChoice";
 import { useI18n } from "../../../i18n/useI18n";
-import { LanguageSwitcher } from "../LanguageSwitcher";
+import { LanguageSwitcher } from "../LanguageSwitcher/LanguageSwitcher";
 
 function MenuAccount({ onNavigate }: { onNavigate: () => void }) {
   const { t } = useI18n();

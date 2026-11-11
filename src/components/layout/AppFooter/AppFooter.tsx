@@ -5,8 +5,8 @@ import { PATHS } from "../../../app/paths";
 import { SITE } from "../../../app/site";
 import { usePrivacySettings } from "../../../features/privacy/hooks/usePrivacySettings";
 import { useI18n } from "../../../i18n/useI18n";
-import { Button } from "../../ui/Button";
-import { CoffeeLink } from "../CoffeeLink";
+import { Button } from "../../ui/Button/Button";
+import { CoffeeLink } from "../CoffeeLink/CoffeeLink";
 import tmdbLogo from "./tmdb-logo.svg";
 
 const FONT_LICENSE_URL = "/licenses/fonts-OFL.txt";

@@ -1,11 +1,11 @@
 import { useState } from "react";
 import type { SharedPlanner } from "../../../../../shared/share";
 import artShared from "../../../../assets/err-shared.webp";
-import { Button } from "../../../../components/ui/Button";
-import { StateBox } from "../../../../components/ui/StateBox";
-import { Modal } from "../../../../components/ui/Modal";
+import { Button } from "../../../../components/ui/Button/Button";
+import { StateBox } from "../../../../components/ui/StateBox/StateBox";
+import { Modal } from "../../../../components/ui/Modal/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
-import { ProgressMeter } from "../../../../components/ui/ProgressMeter";
+import { ProgressMeter } from "../../../../components/ui/ProgressMeter/ProgressMeter";
 import type { ProgressStorage } from "../../../planner/types";
 import { planImport } from "../../../planner/utils/importPlan";
 import { useSharedPlanner } from "../../hooks/useSharedPlanner";

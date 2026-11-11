@@ -1,7 +1,7 @@
 import { ListFilter } from "lucide-react";
-import { Button } from "../../../../components/ui/Button";
+import { Button } from "../../../../components/ui/Button/Button";
 import { useI18n } from "../../../../i18n/useI18n";
-import { CollapseToggle } from "../CollapseToggle";
+import { CollapseToggle } from "../CollapseToggle/CollapseToggle";
 
 interface MobileToolbarProps {
   activeFilters: number;

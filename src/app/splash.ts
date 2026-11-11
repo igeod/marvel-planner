@@ -41,7 +41,7 @@ function check() {
   if (active && pending.size === 0 && performance.now() - startedAt >= MIN_MS) finish();
 }
 
-export function settle(key: string, isReady: boolean) {
+function settle(key: string, isReady: boolean) {
   if (!active) return;
   if (isReady) pending.delete(key);
   else pending.add(key);

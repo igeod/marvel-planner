@@ -3,15 +3,15 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
 import { titlePath } from "../../../../app/paths";
 import { buttonClass } from "../../../../components/ui/Button/buttonClass";
-import { Chevron } from "../../../../components/ui/Chevron";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS, NOTE_KEYS } from "../../data/labels";
 import type { Title } from "../../types";
 import { formatRelease } from "../../utils/format";
-import { BeforeYouWatch } from "../BeforeYouWatch";
-import { MarkWatchedButton } from "../MarkWatchedButton";
-import { PosterThumb } from "../PosterThumb";
-import { TitleSummaryPanel } from "../TitleSummaryPanel";
+import { BeforeYouWatch } from "../BeforeYouWatch/BeforeYouWatch";
+import { MarkWatchedButton } from "../MarkWatchedButton/MarkWatchedButton";
+import { PosterThumb } from "../PosterThumb/PosterThumb";
+import { TitleSummaryPanel } from "../TitleSummaryPanel/TitleSummaryPanel";
 
 // Matches --dur-enter (240ms), the accordion opening time.
 const OPEN_ANIMATION_MS = 240;

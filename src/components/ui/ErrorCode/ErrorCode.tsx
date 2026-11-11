@@ -1,8 +1,8 @@
 import { Check, Copy } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useI18n } from "../../../i18n/useI18n";
-import { Button } from "../Button";
-import { useToast } from "../Toast";
+import { Button } from "../Button/Button";
+import { useToast } from "../Toast/useToast";
 
 const CHECK_MS = 2000;
 

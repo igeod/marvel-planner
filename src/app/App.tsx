@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router";
 import { AuthDialogProvider } from "../features/auth/context/AuthDialogProvider";
 import { AuthProvider } from "../features/auth/context/AuthProvider";
-import { ToastProvider } from "../components/ui/Toast";
+import { ToastProvider } from "../components/ui/Toast/ToastProvider";
 import { ThemeProvider } from "../features/theme/ThemeProvider";
 import { SiteStatusProvider } from "../features/site/context/SiteStatusProvider";
 import { PrivacySettingsProvider } from "../features/privacy/context/PrivacySettingsProvider";

@@ -105,7 +105,7 @@ async function discoverNewSeasons(
   return candidates;
 }
 
-export async function findCatalogCandidates(
+async function findCatalogCandidates(
   token: string,
   refs: Record<string, TmdbRef> = TMDB_REFS,
 ): Promise<CatalogCandidate[]> {

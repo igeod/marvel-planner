@@ -1,6 +1,6 @@
 import { Info, TriangleAlert } from "lucide-react";
 import type { ReactNode } from "react";
-import { Tooltip } from "../Tooltip";
+import { Tooltip } from "../Tooltip/Tooltip";
 import type { Placement } from "../Tooltip/placement";
 
 interface InfoTipProps {

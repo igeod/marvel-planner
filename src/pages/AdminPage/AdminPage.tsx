@@ -1,8 +1,8 @@
-import { AdminDashboard } from "../../features/admin/components/AdminDashboard";
+import { AdminDashboard } from "../../features/admin/components/AdminDashboard/AdminDashboard";
 import { useSiteStatus } from "../../features/site/hooks/useSiteStatus";
 import { useI18n } from "../../i18n/useI18n";
 import { usePageTitle } from "../../i18n/usePageTitle";
-import { NotFoundPage } from "../NotFoundPage";
+import { NotFoundPage } from "../NotFoundPage/NotFoundPage";
 
 export function AdminPage() {
   usePageTitle("admin.title");
