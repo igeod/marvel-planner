@@ -68,6 +68,11 @@ export const fr: Messages = {
       legendTodo: "À voir",
     },
     completed: "Terminés",
+    list: {
+      added: "Ajouté à votre liste",
+      removed: "Retiré de votre liste",
+      savedOnDevice: "Enregistré sur cet appareil",
+    },
     completion: {
       title: "Multivers terminé",
       line: "Tous les titres sont vus.",
@@ -494,6 +499,7 @@ export const fr: Messages = {
     cancel: "Annuler",
     loading: "Chargement…",
     retry: "Réessayer",
+    undo: "Annuler",
     ofCount: "{done} sur {total}",
   },
   error: {

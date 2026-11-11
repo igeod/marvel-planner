@@ -66,6 +66,11 @@ export const it = {
       legendTodo: "Da vedere",
     },
     completed: "Completati",
+    list: {
+      added: "Aggiunto alla tua lista",
+      removed: "Rimosso dalla tua lista",
+      savedOnDevice: "Salvato su questo dispositivo",
+    },
     completion: {
       title: "Multiverso completato",
       line: "Hai visto tutto. Per ora.",
@@ -488,6 +493,7 @@ export const it = {
     cancel: "Annulla",
     loading: "Caricamento…",
     retry: "Riprova",
+    undo: "Annulla",
     ofCount: "{done} di {total}",
   },
   error: {

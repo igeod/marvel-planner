@@ -4,6 +4,7 @@ import { useI18n } from "../../../i18n/useI18n";
 import type { TranslationKey } from "../../../i18n/types";
 import { isStorageAvailable } from "../../../lib/storage";
 import { useAuth } from "../../auth/hooks/useAuth";
+import { useAuthDialog } from "../../auth/hooks/useAuthDialog";
 import type { AuthStatus } from "../../auth/types";
 import type { ProgressStorage } from "../types";
 import { apiProgressRepository } from "../services/apiProgressRepository";
@@ -12,6 +13,7 @@ import { mergeDeviceProgressIntoAccount } from "../services/progressSync";
 
 const LOAD_ERROR: TranslationKey = "planner.loadError";
 const SAVE_TOAST_ID = "save-error";
+const LIST_TOAST_ID = "list-change";
 
 function withTitle(set: ReadonlySet<string>, id: string, isWatched: boolean): ReadonlySet<string> {
   const next = new Set(set);
@@ -30,9 +32,17 @@ export function useWatched() {
   const [error, setError] = useState<TranslationKey | null>(null);
   const { t } = useI18n();
   const toast = useToast();
+  const { open: openAuthDialog } = useAuthDialog();
+  // Writes run one after the other: a quick tap and untap must reach the server in that order.
+  const queue = useRef<Promise<unknown>>(Promise.resolve());
+  const enqueue = useCallback(<T>(task: () => Promise<T>): Promise<T> => {
+    const run = queue.current.then(task, task);
+    queue.current = run.catch(() => undefined);
+    return run;
+  }, []);
   // Retry runs the latest version of each action, so it sees the watched set as the revert left it.
   const latest = useRef<{
-    toggle: (id: string) => Promise<void>;
+    toggle: (id: string, isSilent?: boolean) => Promise<void>;
     reset: () => Promise<void>;
     importTitles: (ids: ReadonlySet<string>, mode: "merge" | "replace") => Promise<void>;
   } | null>(null);
@@ -73,46 +83,66 @@ export function useWatched() {
   }, [status, isAccount]);
 
   const toggle = useCallback(
-    async (id: string) => {
+    async (id: string, isSilent = false) => {
       const wasWatched = watched.has(id);
       setWatched((current) => withTitle(current, id, !wasWatched));
       try {
-        if (wasWatched) await repository.remove(id);
-        else await repository.add([id]);
+        await enqueue(() => (wasWatched ? repository.remove(id) : repository.add([id])));
         saved();
       } catch {
         setWatched((current) => withTitle(current, id, wasWatched));
-        failedToSave(() => latest.current!.toggle(id));
+        failedToSave(() => latest.current!.toggle(id, isSilent));
+        return;
       }
+      if (isSilent) return;
+      const undo = { label: t("common.undo"), onClick: () => latest.current!.toggle(id, true) };
+      // A guest's list lives on the device: the action points to sign-in instead of undo.
+      const isGuestAdd = !wasWatched && !isAccount;
+      toast.show({
+        id: LIST_TOAST_ID,
+        tone: "info",
+        title: t(
+          wasWatched
+            ? "planner.list.removed"
+            : isAccount
+              ? "planner.list.added"
+              : "planner.list.savedOnDevice",
+        ),
+        action: isGuestAdd
+          ? { label: t("nav.login"), onClick: () => openAuthDialog("login") }
+          : undo,
+      });
     },
-    [watched, repository, saved, failedToSave],
+    [watched, repository, isAccount, enqueue, saved, failedToSave, toast, t, openAuthDialog],
   );
 
   const reset = useCallback(async () => {
     const previous = watched;
     setWatched(new Set());
     try {
-      await repository.clear();
+      await enqueue(() => repository.clear());
       saved();
     } catch {
       setWatched(previous);
       failedToSave(() => latest.current!.reset());
     }
-  }, [watched, repository, saved, failedToSave]);
+  }, [watched, repository, enqueue, saved, failedToSave]);
 
   const importTitles = useCallback(
     async (ids: ReadonlySet<string>, mode: "merge" | "replace") => {
       setWatched(mode === "replace" ? new Set(ids) : new Set([...watched, ...ids]));
       try {
-        if (mode === "replace") await repository.clear();
-        if (ids.size > 0) await repository.add([...ids]);
+        await enqueue(async () => {
+          if (mode === "replace") await repository.clear();
+          if (ids.size > 0) await repository.add([...ids]);
+        });
         saved();
       } catch {
         failedToSave(() => latest.current!.importTitles(ids, mode));
         setWatched(new Set(await repository.load().catch(() => watched)));
       }
     },
-    [watched, repository, saved, failedToSave],
+    [watched, repository, enqueue, saved, failedToSave],
   );
 
   useEffect(() => {

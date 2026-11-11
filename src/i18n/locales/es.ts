@@ -68,6 +68,11 @@ export const es: Messages = {
       legendTodo: "Por ver",
     },
     completed: "Completados",
+    list: {
+      added: "Añadido a tu lista",
+      removed: "Quitado de tu lista",
+      savedOnDevice: "Guardado en este dispositivo",
+    },
     completion: {
       title: "Multiverso completado",
       line: "Has visto todos los títulos.",
@@ -492,6 +497,7 @@ export const es: Messages = {
     cancel: "Cancelar",
     loading: "Cargando…",
     retry: "Reintentar",
+    undo: "Deshacer",
     ofCount: "{done} de {total}",
   },
   error: {

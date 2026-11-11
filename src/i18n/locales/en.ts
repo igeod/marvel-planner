@@ -68,6 +68,11 @@ export const en: Messages = {
       legendTodo: "To watch",
     },
     completed: "Completed",
+    list: {
+      added: "Added to your list",
+      removed: "Removed from your list",
+      savedOnDevice: "Saved on this device",
+    },
     completion: {
       title: "Multiverse completed",
       line: "You've seen it all. For now.",
@@ -489,6 +494,7 @@ export const en: Messages = {
     cancel: "Cancel",
     loading: "Loading…",
     retry: "Try again",
+    undo: "Undo",
     ofCount: "{done} of {total}",
   },
   error: {

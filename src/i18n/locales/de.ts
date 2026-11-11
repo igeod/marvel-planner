@@ -69,6 +69,11 @@ export const de: Messages = {
       legendTodo: "Noch offen",
     },
     completed: "Abgeschlossen",
+    list: {
+      added: "Zu deiner Liste hinzugefügt",
+      removed: "Aus deiner Liste entfernt",
+      savedOnDevice: "Auf diesem Gerät gespeichert",
+    },
     completion: {
       title: "Multiversum abgeschlossen",
       line: "Du hast alle Titel gesehen.",
@@ -493,6 +498,7 @@ export const de: Messages = {
     cancel: "Abbrechen",
     loading: "Wird geladen …",
     retry: "Erneut versuchen",
+    undo: "Rückgängig",
     ofCount: "{done} von {total}",
   },
   error: {
