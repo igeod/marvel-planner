@@ -14,6 +14,7 @@ export const es: Messages = {
     disclaimer: "Sitio no oficial, sin afiliación con Marvel Studios ni The Walt Disney Company.",
     legal: "Información legal",
     privacy: "Privacidad",
+    accessibility: "Accesibilidad",
     cookies: "Cookies",
     privacySettings: "Preferencias de privacidad",
     credits: "Datos de disponibilidad: {justwatch}. Tramas: {wikipedia}, {license}.",
@@ -584,6 +585,31 @@ export const es: Messages = {
     show: "Mostrar qué ocurre",
     hide: "Ocultar qué ocurre",
     warning: "Atención: las escenas contienen spoilers.",
+  },
+  a11y: {
+    title: "Accesibilidad",
+    intro:
+      "Marvel Planner se puede usar con teclado, lector de pantalla y zoom. Aquí verás cómo, y qué falta todavía.",
+    vision: {
+      heading: "Si ves poco o mal",
+      body: "Puedes elegir el tema claro, el oscuro o el del sistema (menú superior). Cada estado tiene un icono o un texto, no solo un color. Los controles tienen un anillo de foco bien visible.",
+    },
+    hearing: {
+      heading: "Si no oyes bien",
+      body: "El sitio no usa sonidos para darte información. El tráiler solo empieza cuando tú lo inicias y los subtítulos dependen del vídeo.",
+    },
+    motion: {
+      heading: "Si el movimiento te molesta",
+      body: "Si tu sistema pide menos movimiento, las animaciones y el confeti se detienen: solo quedan cambios de color y fundidos breves.",
+    },
+    keyboard: {
+      heading: "Teclado",
+      body: "Tab para moverte, Intro o Espacio para activar, Esc para cerrar ventanas y mensajes. Con el primer Tab aparece «Ir al contenido».",
+    },
+    missing: {
+      heading: "Qué falta todavía",
+      body: "Aún estamos revisando el zoom al 400 % y el modo de contraste forzado. Si encuentras una barrera, avísanos.",
+    },
   },
   cookiePage: {
     intro: "Esta página enumera todo lo que el sitio guarda en tu dispositivo.",

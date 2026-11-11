@@ -1,0 +1,32 @@
+@import (reference) "mixins";
+
+// Same page family as Privacy: one column on a card, sections as plain headings.
+.accessibility-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 1rem auto;
+  padding: 1.5rem 1rem;
+  .block();
+  background: var(--surface);
+
+  .desktop({ padding: 40px 48px; });
+
+  h1 {
+    .display-font();
+    font-size: var(--fs-xl);
+    line-height: 1.05;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-2);
+  }
+
+  h2 {
+    font-size: var(--fs-h3);
+    font-weight: 800;
+  }
+}

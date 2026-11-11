@@ -58,6 +58,7 @@ export function AppFooter() {
       </div>
       <nav className="site-footer__legal" aria-label={t("footer.legal")}>
         <Link to={PATHS.privacy}>{t("footer.privacy")}</Link>
+        <Link to={PATHS.accessibility}>{t("footer.accessibility")}</Link>
         <Button variant="text" aria-haspopup="dialog" onClick={open}>
           {t("footer.privacySettings")}
         </Button>

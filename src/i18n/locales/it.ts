@@ -12,6 +12,7 @@ export const it = {
     disclaimer: "Sito non ufficiale, non affiliato a Marvel Studios o The Walt Disney Company.",
     legal: "Informazioni legali",
     privacy: "Privacy",
+    accessibility: "Accessibilità",
     cookies: "Cookie",
     privacySettings: "Preferenze privacy",
     credits: "Dati sulla disponibilità: {justwatch}. Trame: {wikipedia}, {license}.",
@@ -581,6 +582,31 @@ export const it = {
     show: "Mostra cosa succede",
     hide: "Nascondi cosa succede",
     warning: "Attenzione: le scene contengono spoiler.",
+  },
+  a11y: {
+    title: "Accessibilità",
+    intro:
+      "Marvel Planner si può usare con tastiera, lettore di schermo e zoom. Qui trovi come, e che cosa ancora manca.",
+    vision: {
+      heading: "Se vedi poco o male",
+      body: "Puoi scegliere tema chiaro, scuro o come il sistema (menu in alto). Ogni stato ha un’icona o un testo, non solo un colore. I controlli hanno un anello di focus ben visibile.",
+    },
+    hearing: {
+      heading: "Se non senti bene",
+      body: "Il sito non usa suoni per darti informazioni. Il trailer parte solo quando lo avvii tu e i sottotitoli dipendono dal video.",
+    },
+    motion: {
+      heading: "Se il movimento ti dà fastidio",
+      body: "Se il tuo sistema chiede meno movimento, animazioni e coriandoli si fermano: restano solo cambi di colore e dissolvenze brevi.",
+    },
+    keyboard: {
+      heading: "Tastiera",
+      body: "Tab per spostarti, Invio o Spazio per attivare, Esc per chiudere popup e messaggi. Al primo Tab compare «Vai al contenuto».",
+    },
+    missing: {
+      heading: "Cosa manca",
+      body: "Stiamo ancora controllando lo zoom al 400% e la modalità a contrasto forzato. Se trovi un ostacolo, segnalacelo.",
+    },
   },
   cookiePage: {
     intro: "Questa pagina elenca tutto ciò che il sito salva sul tuo dispositivo.",

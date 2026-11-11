@@ -15,6 +15,7 @@ export const de: Messages = {
       "Inoffizielle Seite, nicht mit Marvel Studios oder The Walt Disney Company verbunden.",
     legal: "Rechtliche Hinweise",
     privacy: "Datenschutz",
+    accessibility: "Barrierefreiheit",
     cookies: "Cookies",
     privacySettings: "Datenschutzeinstellungen",
     credits: "Verfügbarkeitsdaten: {justwatch}. Handlungen: {wikipedia}, {license}.",
@@ -586,6 +587,31 @@ export const de: Messages = {
     show: "Anzeigen, was passiert",
     hide: "Ausblenden, was passiert",
     warning: "Achtung: Die Szenen enthalten Spoiler.",
+  },
+  a11y: {
+    title: "Barrierefreiheit",
+    intro:
+      "Marvel Planner lässt sich mit Tastatur, Screenreader und Zoom bedienen. Hier steht, wie – und was noch fehlt.",
+    vision: {
+      heading: "Bei Sehbeeinträchtigung",
+      body: "Du kannst das helle oder dunkle Design wählen oder dem System folgen (Menü oben). Jeder Zustand hat ein Symbol oder einen Text, nicht nur eine Farbe. Bedienelemente haben einen gut sichtbaren Fokusrahmen.",
+    },
+    hearing: {
+      heading: "Bei Hörbeeinträchtigung",
+      body: "Die Seite gibt Informationen nie über Ton. Der Trailer startet nur, wenn du ihn startest; Untertitel hängen vom Video ab.",
+    },
+    motion: {
+      heading: "Wenn Bewegung stört",
+      body: "Wenn dein System weniger Bewegung verlangt, stoppen Animationen und Konfetti: Es bleiben nur Farbwechsel und kurze Überblendungen.",
+    },
+    keyboard: {
+      heading: "Tastatur",
+      body: "Tab zum Bewegen, Enter oder Leertaste zum Aktivieren, Esc zum Schließen von Fenstern und Meldungen. Beim ersten Tab erscheint „Zum Inhalt springen“.",
+    },
+    missing: {
+      heading: "Was noch fehlt",
+      body: "Wir prüfen noch 400 % Zoom und den Modus für erzwungenen Kontrast. Wenn du auf eine Barriere stößt, sag uns Bescheid.",
+    },
   },
   cookiePage: {
     intro: "Diese Seite listet alles auf, was die Seite auf deinem Gerät speichert.",

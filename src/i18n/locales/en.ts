@@ -14,6 +14,7 @@ export const en: Messages = {
     disclaimer: "Unofficial site, not affiliated with Marvel Studios or The Walt Disney Company.",
     legal: "Legal information",
     privacy: "Privacy",
+    accessibility: "Accessibility",
     cookies: "Cookies",
     privacySettings: "Privacy settings",
     credits: "Availability data: {justwatch}. Plots: {wikipedia}, {license}.",
@@ -581,6 +582,31 @@ export const en: Messages = {
     show: "Show what happens",
     hide: "Hide what happens",
     warning: "Warning: the scenes contain spoilers.",
+  },
+  a11y: {
+    title: "Accessibility",
+    intro:
+      "Marvel Planner works with a keyboard, a screen reader and zoom. Here is how, and what is still missing.",
+    vision: {
+      heading: "Low vision",
+      body: "You can pick the light theme, the dark theme or follow your system (top menu). Every state has an icon or text, not just a colour. Controls have a clearly visible focus ring.",
+    },
+    hearing: {
+      heading: "Hearing loss",
+      body: "The site never uses sound to give you information. The trailer starts only when you start it, and captions depend on the video.",
+    },
+    motion: {
+      heading: "If motion bothers you",
+      body: "If your system asks for reduced motion, animations and confetti stop: only colour changes and short fades remain.",
+    },
+    keyboard: {
+      heading: "Keyboard",
+      body: "Tab to move, Enter or Space to activate, Esc to close popups and messages. The first Tab shows “Skip to content”.",
+    },
+    missing: {
+      heading: "What is still missing",
+      body: "We are still checking 400% zoom and forced-contrast mode. If you find a barrier, tell us.",
+    },
   },
   cookiePage: {
     intro: "This page lists everything the site stores on your device.",

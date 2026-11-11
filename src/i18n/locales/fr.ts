@@ -14,6 +14,7 @@ export const fr: Messages = {
     disclaimer: "Site non officiel, non affilié à Marvel Studios ni à The Walt Disney Company.",
     legal: "Informations légales",
     privacy: "Confidentialité",
+    accessibility: "Accessibilité",
     cookies: "Cookies",
     privacySettings: "Préférences de confidentialité",
     credits: "Données de disponibilité : {justwatch}. Résumés : {wikipedia}, {license}.",
@@ -586,6 +587,31 @@ export const fr: Messages = {
     show: "Afficher ce qui se passe",
     hide: "Masquer ce qui se passe",
     warning: "Attention : les scènes contiennent des spoilers.",
+  },
+  a11y: {
+    title: "Accessibilité",
+    intro:
+      "Marvel Planner s’utilise au clavier, avec un lecteur d’écran et en zoomant. Voici comment, et ce qui manque encore.",
+    vision: {
+      heading: "Si vous voyez mal",
+      body: "Vous pouvez choisir le thème clair, sombre ou celui du système (menu en haut). Chaque état a une icône ou un texte, pas seulement une couleur. Les contrôles ont un anneau de focus bien visible.",
+    },
+    hearing: {
+      heading: "Si vous entendez mal",
+      body: "Le site n’utilise jamais le son pour vous informer. La bande-annonce ne démarre que lorsque vous la lancez, et les sous-titres dépendent de la vidéo.",
+    },
+    motion: {
+      heading: "Si le mouvement vous gêne",
+      body: "Si votre système demande moins de mouvement, les animations et les confettis s’arrêtent : il ne reste que des changements de couleur et de courts fondus.",
+    },
+    keyboard: {
+      heading: "Clavier",
+      body: "Tab pour se déplacer, Entrée ou Espace pour activer, Échap pour fermer fenêtres et messages. Le premier Tab affiche « Aller au contenu ».",
+    },
+    missing: {
+      heading: "Ce qui manque encore",
+      body: "Nous vérifions encore le zoom à 400 % et le mode contraste forcé. Si vous rencontrez un obstacle, dites-le-nous.",
+    },
   },
   cookiePage: {
     intro: "Cette page recense tout ce que le site enregistre sur votre appareil.",

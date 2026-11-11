@@ -29,6 +29,13 @@ export const router = createBrowserRouter([
             }),
           },
           {
+            path: PATHS.accessibility,
+            lazy: async () => ({
+              Component: (await import("../pages/AccessibilityPage/AccessibilityPage"))
+                .AccessibilityPage,
+            }),
+          },
+          {
             path: PATHS.privacy,
             lazy: async () => ({
               Component: (await import("../pages/PrivacyPage/PrivacyPage")).PrivacyPage,
