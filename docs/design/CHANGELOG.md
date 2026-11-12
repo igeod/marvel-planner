@@ -1,5 +1,31 @@
 # Changelog del canvas
 
+## 12 novembre 2026 · toast su telefono e conteggi (main b7ddfe3)
+
+- **Planner · “Barra di avanzamento su telefono: gli stessi bordi dei toast” (proposta):** i toast non cambiano (16 / 374px a 390px, raggio 22px); la barra, che oggi è tutta la colonna (8 / 382px, raggio 32px), sotto 40em prende la loro larghezza (`min(440px, calc(100% − 1rem))`, centrata), il loro raggio (`--r-row`) e un rientro interno di `--sp-4`; il toast le sta a `--sp-2` sopra (oggi 20px, posizione fissa su una barra da 5rem), misurata. Ordine dal basso: barra, toast, pillole, a `--sp-2`.
+- **Conteggio del numero esteso a tutti i contatori grandi (voce 32, main b7ddfe3):** “I tuoi progressi” da 0 in 900 ms e poi 400 ms; scheda piccola (desktop) e barra flottante (mobile) solo a ogni cambio; Account, “Titoli visti”: “51” e “72%” da 0 in 900 ms alla prima apertura della pagina nella sessione. Non contano i conteggi piccoli nel testo. `useCountUp(target, { initialMs?, changeMs, enabled })`; l'opzione `isActive` non c'è più. Il blocco è aggiornato.
+- Nelle scene del Planner con la barra e i toast la barra sta ora dentro la colonna (come nel codice), non a tutta larghezza.
+
+## 12 novembre 2026 · pillole su mobile e accordion della fascia (proposte)
+
+- **Planner · “Pillole su mobile: solo ‘Ultimo visto’ con testo, e più vicine alla barra”:** sotto 40em “Torna su” è solo la freccia (cerchio da `--hit`, testo visivamente nascosto ma nel DOM) e “Ultimo visto” resta con testo; `width: max-content`, `nowrap`; la distanza dalla barra è misurata (`bottom = innerHeight − barra.top + --sp-2`) invece del `--floating-progress-clearance` da 5rem (la barra vera è ~62px). Prove a 390px (it) e 360px (de).
+- **Planner · “Fascia delle fasi su mobile: lo stesso accordion delle fasi”:** `<details class="phase card">` con `usePhaseMotion` riusato (altezza 240/180 ms, contenuto, chevron) al posto del pulsante con `hidden`; titolo `--fs-title` peso 700, `min-height: --hit`: chiuso 60px (oggi 84px, una fase 80px). Prova viva con la stessa animazione.
+
+## 12 novembre 2026 · pillole sopra i toast (proposta)
+
+- **Planner:** nuova proposta “Pillole flottanti sopra i toast”, con prova viva (aggiungi e chiudi toast), due toast e caso con la barra di avanzamento. Con un toast le pillole non si nascondono più (`body:has(.toasts .toast) .jump-pills`, BackToTop.less r.19-21, regola da togliere): salgono sopra la pila di toast di quanto serve (`--toasts-lift`, misurata con `getBoundingClientRect`, ricalcolata con `ResizeObserver` e `MutationObserver` su `.toasts`), usando `translate` con `--dur-enter` in salita e `--dur-ui` in discesa; con movimento ridotto nessuna transizione. Scartato: spostare i toast sopra le pillole.
+- **Bug trovato nel codice (7c7eb6a):** `.jump-pills` è `position: fixed; left: 50%` senza larghezza, quindi disponibile solo metà schermo: a 390px l'etichetta “Ultimo visto” va a capo. Correzione: `width: max-content; max-width: calc(100vw - 32px)`.
+
+## 12 novembre 2026 · allineamento al codice (main 456fa17, aggiornamenti 450fbb9, dabf929 e 7c7eb6a)
+
+Il codice ha applicato le decisioni dei giorni scorsi; il canvas è stato rigenerato da `main` (7c7eb6a) e dove canvas e codice differivano vale il codice.
+
+- **Marcate “implementata · main 456fa17”** (Planner, Pagina Film, Accessibility, Buttons, Motion): 4 focus dopo un tocco; 7 icone (`ButtonLink`, `Maximize2` su “Apri scheda” e “Dettagli”); 15 cascata d'ingresso (planner e film); 16 “Prossimo da guardare” sempre montato; 17 layout 1098 px (nessuna modifica: il codice era già così); 18 fondo mobile (barra sticky); 20 filtri (altezza minima via CSSOM); 21b scorciatoie flottanti; 30b “?” nell'header; 31 fascia delle fasi; 32 numero che sale; 33 regia su mobile; casella tri-stato sulla fase. Il blocco “Segna tutta la fase come vista” (pulsante) è “sostituita”.
+- **Numero che sale anche nella scheda piccola** (CompactProgress, desktop, 7c7eb6a): 900 ms alla prima apertura, 400 ms a ogni cambio, nessuna animazione alla riapertura; hook con opzione `isActive`.
+- **Barra di avanzamento:** ora è `position: sticky`, solo su mobile (`!isDesktop`, Planner.tsx r.317). Risolta la questione “c'è su desktop?”: non c'è. Progress aggiornata (tabella dei valori di FloatingProgress.less, descrizione).
+- **Scostamenti dal design, annotati nelle pagine:** con movimento ridotto la cascata d'ingresso non anima nulla (il canvas chiedeva la sola dissolvenza); la barra sticky su mobile sta nella colonna con angoli arrotondati; velo di evidenziazione al 22% con valore senza token; riga della regia su mobile senza misure di font proprie; casella della fase con `margin-top: 0` (sommario con `padding-left` 12px, 8px da 64em); pillole a `--sp-4` e alzate solo se la barra è attaccata al bordo basso; footer con `padding-bottom` in più; altezza minima della lista via `style.minHeight`.
+- **Canvas ricompilato:** `tokens.css` e `app.css` dal nuovo codice; le anteprime del Planner (header con “?”, scheda dei progressi senza “Vai all'ultimo titolo visto”, fascia come accordion su mobile, casella sulla fase, “Dettagli” con icona) e l'header di tutte le pagine rispecchiano `main`; testi `planner.jump.last/top` aggiornati nelle 5 lingue; numeri di riga ricalcolati sul nuovo codice.
+
 ## 12 novembre 2026 · regia su mobile (decisione)
 
 - **Pagina Film:** nuovo blocco “Regia su mobile: una riga nel Cast”. Sotto i 40em la sezione “Regia” (titolo, linee e due spazi da 24px per un nome) si nasconde e la regia diventa una riga sotto il titolo “Cast”: etichetta attenuata + nome in grassetto (“Regia Jon Favreau”, “Ideata da …” per le serie). Da 40em in su resta com'è. Nessuna chiave di traduzione nuova (`details.director`, `details.creator`, `details.missing.director`); la riga è sempre nel markup e si alterna con `.film__credit` solo via CSS, così non viene letta due volte.

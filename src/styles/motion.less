@@ -452,7 +452,7 @@ dialog.menu-panel {
   :root[data-intro] {
     .site-header,
     .progress-card,
-    .planner > .phase-strip,
+    .planner > :is(.phase-strip, .phase-strip-accordion),
     .planner__body > :is(.planner__rail, .planner-search, .mobile-toolbar),
     .planner__hero > .next-card,
     .planner__list > :nth-child(1) .phase:nth-child(2):not([data-motion]),
@@ -474,7 +474,7 @@ dialog.menu-panel {
       --i: 1;
     }
 
-    .planner > .phase-strip,
+    .planner > :is(.phase-strip, .phase-strip-accordion),
     .planner__body > :is(.planner__rail, .planner-search, .mobile-toolbar) {
       --i: 2;
     }

@@ -1,6 +1,6 @@
 # Marvel Planner: handoff per Claude Code
 
-Riferimento: `main`, commit **c520ab1**. Il canvas descrive il codice com'è su quel commit; dove canvas e codice differiscono, vale il codice. I numeri di riga sono quelli di c520ab1.
+Riferimento: `main`, commit **b7ddfe3** (le decisioni del 12 novembre sono state applicate in 456fa17 e rifinite fino a b7ddfe3). Il canvas descrive il codice com'è su quel commit; dove canvas e codice differiscono, vale il codice. I numeri di riga sono quelli di b7ddfe3; le sezioni “implementata · main c520ab1” sono state verificate su c520ab1 e i file citati non sono cambiati.
 
 ## 1. Come leggere il canvas
 
@@ -13,7 +13,7 @@ Riferimento: `main`, commit **c520ab1**. Il canvas descrive il codice com'è su 
 
 ## 2. Da implementare (il codice non lo ha)
 
-Elenco aggiornato a c520ab1. Le voci già riportate nel codice non ci sono più (vedi §5). La numerazione è quella degli elenchi precedenti, così si ritrovano.
+Elenco aggiornato a b7ddfe3. Le voci già riportate nel codice non ci sono più (vedi §5). La numerazione è quella degli elenchi precedenti, così si ritrovano.
 
 | # | Cosa | Stato nel codice | Da fare / file | Pagina del canvas |
 |---|---|---|---|---|
@@ -35,10 +35,24 @@ Note sulle voci:
 
 ## 5. Già nel codice
 
-**Riportato nel codice dopo c520ab1 (da committare):** voci 15 (cascata d'ingresso a ogni arrivo, film compreso), 16 (scheda sempre montata), 17 (già a posto nel codice), 18 (barra di avanzamento sticky), casella tri-stato sul sommario della fase al posto di “Segna tutta la fase come vista”, 4 (focus dopo un tocco), 7 (`ButtonLink`, icone a destra via `iconEnd`), 20 (altezza minima dei filtri), 21b (pillole “Ultimo visto” / “Torna su”, riga evidenziata 2,4 s, “Torna su” anche sul film), 30b (“?” nell'header), 31 (fascia delle fasi), 32 (conteggio della percentuale), 33 (regia su mobile).
+**Riportato nel codice dopo b7ddfe3 (voci 34-37):** 34 pillole sopra i toast (`--toasts-lift` misurata in `BackToTop.tsx`, `translate` con transizione, niente più `display: none` sotto un toast); 35 pillole su mobile (“Torna su” solo freccia sotto 40em, `width: max-content`, `nowrap`, distanza dalla barra misurata con `--bar-lift`); 36 fascia delle fasi su mobile come `<details class="phase phase-strip-accordion card">` con `usePhaseMotion`, chiusa 60px; 37 barra di avanzamento su telefono con i bordi dei toast (`width: min(440px, calc(100% - 1rem))`, `--r-row`, padding `--sp-3h` / `--sp-4` / `--sp-3`), toast a `--sp-2` sopra la barra (`bottom` da `--bar-lift`), toast invariati.
+
+**Riportato su `main` fino a b7ddfe3 (voci 4, 7, 15, 16, 17, 18, 20, 21b, 30b, 31, 32, 33 e casella tri-stato sulla fase):** nel canvas sono marcate “implementata · main 456fa17” (Planner, Pagina Film, Accessibility, Buttons, Motion). 4 focus dopo un tocco (`useDialog.ts`, `ToastProvider.tsx`); 7 `ButtonLink` con `icon`/`iconEnd`, `Maximize2` su “Apri scheda” e “Dettagli”; 15 cascata `data-intro` su planner e film; 16 “Prossimo da guardare” sempre montato con scheletro; 17 nessuna modifica; 18 barra di avanzamento sticky su mobile; 20 altezza minima della lista via CSSOM; 21b pillole “Ultimo visto” e “Torna su”; 30b “?” nell'header; 31 fascia delle fasi (solo play sul prossimo, celle 32/24px, accordion su mobile); 32 numero che sale (anche nella scheda piccola, 7c7eb6a, `useCountUp` con `isActive`); 33 regia su mobile; casella tri-stato sulla fase al posto di “Segna tutta la fase come vista” (il blocco del pulsante è “sostituita”).
 
 **Riportato su `main` fino a c520ab1:** funzioni 16 (popup di unione, variante A, con toast “Planner uniti: N titoli visti” senza Annulla), 21 e 22 (“Vai all'ultimo titolo visto”, “Torna all'inizio”, “Segna tutta la fase come vista”, variante A), 23 (pagina Accessibilità su `/accessibilita`, link nel footer), 24 (popup “Multiverso completato” con suono, variante A), 30 (“?” con invito alla prima visita, variante B; nomi di scheda e filtro dalle chiavi `planner.order.chronological`, `planner.tags.alternate`, `planner.filters.showAlternate`); e le decisioni 3, 5, 6, 8-14, 19, 21-24 dell'elenco precedente (toast, X dei popup, importazione, switch, select, footer, logo, Dove guardare, copertina, Regia/Cast, indicatore visto, saga, titoli di serie, accesso, profilo). Il campo in errore (25) era già giusto. Il canvas le descrive come “implementata · main c520ab1”.
 
 Tutto il resto: le 27 pagine descrivono il codice com'è su c520ab1, nessuna azione. Sono già su `main`: i sette token tolti (`--fs-display`, `--fs-overline`, `--gap-section`, `--pad-strip`, `--popover-w`, `--popover-gap`, `--sp-12`), `--content-max` e `--pad-card` usati dal codice, `.card` e il pannello del film senza `box-shadow`, il toast «Aggiunto alla tua lista» con Annulla (da ospite «Salvato su questo dispositivo» con Accedi), l'adesivo «Multiverso completato» (`CompletionSticker`, flag `mcu-planner-completed-seen`, decisione 1.12) e le correzioni del giro precedente: anello di focus del Select (ink in chiaro, oro in scuro, oro anche sul pannello scuro nella variante in linea), grassetto del Toast solo sul titolo, spinner dei poster a 0,8 s con movimento normale e 1,6 s con movimento ridotto, tutte le illustrazioni importate.
 
 Voci marcate “non verificato” (non trovate nel sorgente, da controllare se servono): dimensioni delle icone dove non c'è una regola `.lucide`/`svg` (Icone e immagini), dimensioni di visualizzazione delle illustrazioni (Icone e immagini), menu mobile (Navigation), pollice della scrollbar (Scrollbar), selezione su pannello dello ChoiceGroup (Switch e ChoiceGroup), ritardo di apertura del tooltip (Tooltip), lingua dei titoli originali e formato di date e numeri (Typography).
+
+## 6. Scostamenti dal design e da controllare (da main 456fa17, vale il codice)
+
+1. **Cascata con movimento ridotto:** il canvas chiede la sola dissolvenza, il codice non anima nulla (il blocco `data-intro` esiste solo con movimento normale).
+2. **Barra sticky su mobile:** non è a tutta larghezza fino al bordo, sta nella colonna con tutti gli angoli arrotondati (`@radius-block`). Su desktop non c'è (`!isDesktop`).
+3. **Evidenziazione dell'ultimo visto:** velo al 22% scritto a mano (`color-mix`), valore senza token. Parte a fine scorrimento (`scrollend`, attesa massima 700 ms): piena 1,6 s, sfuma in 0,8 s; con movimento ridotto anello fisso 2,4 s.
+4. **Regia su mobile:** nessuna misura di font propria, eredita il corpo; il testo “mancante” usa `--fs-label`.
+5. **Casella della fase:** riusa `.title-row__box` con `margin-top: 0` (selettore `.phase__summary .phase__check`); sommario con `padding-left` 12px (8px da 64em).
+6. **Pillole flottanti:** a `--sp-4` dal bordo, sopra la barra (`--sp-2`) solo quando è attaccata al bordo basso (`--bar-lift`, misurata con `getBoundingClientRect`); sopra i toast di `--toasts-lift`; il footer ha un `padding-bottom` in più (`+ --hit`), anche nelle pagine senza pillole.
+7. **Altezza minima della lista filtrata:** impostata da JS con `style.minHeight` (CSSOM, ammesso dalla CSP).
+8. **Fascia su mobile:** ora è un `<details>` come le fasi (voce 36).
+9. **Da controllare:** pagina film con dati reali (non provata in locale: manca il backend TMDB); l'invito del “?” su mobile copre in parte la scheda dei progressi finché non viene chiuso; “Ultimo visto” compare solo se c'è un titolo visto e la sua riga non è nella finestra.

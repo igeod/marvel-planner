@@ -6,21 +6,17 @@
   .desktop({ padding: 24px 36px 28px; });
 }
 
-.phase-strip__toggle-heading {
-  font: inherit;
+// Phone: the strip is an accordion like the phases (details.phase), more compact: closed it is
+// --pad-card + --hit + --pad-card = 60px, with no second line.
+.phase-strip-accordion .phase__summary {
+  min-height: var(--hit);
+  padding-block: 0;
 }
 
-.phase-strip__toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  width: 100%;
-  min-height: var(--hit);
-  padding: 0 var(--sp-3);
-  border-radius: var(--r-md);
-  font-weight: 800;
-  .tones(var(--row-hover), var(--row-press));
+.phase-strip__name {
+  font-size: var(--fs-title);
+  font-weight: 700;
+  line-height: var(--hit);
 }
 
 .phase-strip__body {

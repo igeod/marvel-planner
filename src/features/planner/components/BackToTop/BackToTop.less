@@ -1,27 +1,51 @@
 @import (reference) "mixins";
 
-// Two pills side by side, centred at the bottom; with the progress bar showing (phone) they sit above it.
-// Under a toast they hide: the toast comes first.
+// Two pills side by side, centred at the bottom. With the progress bar stuck to the bottom (phone) they
+// sit --sp-2 above it (--bar-lift, measured in BackToTop.tsx); with toasts they rise above the pile
+// (--toasts-lift, measured too).
 .jump-pills {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
+  bottom: max(
+    calc(var(--sp-4) + env(safe-area-inset-bottom, 0px)),
+    calc(var(--bar-lift, 0px) + var(--sp-2))
+  );
   z-index: 10;
   display: flex;
   gap: var(--sp-2);
+  // Without a width the box gets half the screen (left: 50%) and the labels wrap.
+  width: max-content;
+  max-width: calc(100vw - 2rem);
   transform: translateX(-50%);
+  translate: 0 calc(var(--toasts-lift, 0px) * -1);
+  transition: translate var(--dur-ui) var(--ease-out);
+
+  &[data-lifted="true"] {
+    transition-duration: var(--dur-enter);
+  }
 }
 
-.jump-pills--above-bar {
-  bottom: calc(var(--floating-progress-clearance) + var(--sp-4));
-}
-
-body:has(.toasts .toast) .jump-pills {
-  display: none;
+@media (prefers-reduced-motion: reduce) {
+  .jump-pills {
+    transition: none;
+  }
 }
 
 .jump-pills__pill {
+  white-space: nowrap;
   box-shadow: var(--shadow-pop);
+}
+
+// On a phone "Back to top" is the arrow alone, in a 44px circle; the text stays for screen readers.
+@media (max-width: 39.9375em) {
+  .jump-pills__pill--top {
+    width: var(--hit);
+    padding: 0;
+
+    .jump-pills__label {
+      .visually-hidden-box();
+    }
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {

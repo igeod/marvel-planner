@@ -9,10 +9,14 @@
   display: flex;
   flex-direction: column;
   gap: var(--sp-2h);
-  padding: var(--sp-3h) 1.25rem 1rem;
+  padding: var(--sp-3h) var(--sp-4) var(--sp-3);
   .panel-surface();
-  border-radius: @radius-block;
+  border-radius: var(--r-row);
   pointer-events: none;
+
+  // The same edges as a toast (440px at most, 1rem less than the column), so the two line up.
+  width: min(440px, calc(100% - 1rem));
+  margin-inline: auto;
 
   &[hidden] {
     display: none;
