@@ -17,6 +17,14 @@ export const watchedTitle = sqliteTable(
   (table) => [primaryKey({ columns: [table.userId, table.titleId] })],
 );
 
+export const userPreference = sqliteTable("user_preference", {
+  userId: text("user_id")
+    .primaryKey()
+    .references(() => user.id, { onDelete: "cascade" }),
+  data: text("data").notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp_ms" }).notNull(),
+});
+
 export const shareLink = sqliteTable("share_link", {
   userId: text("user_id")
     .primaryKey()

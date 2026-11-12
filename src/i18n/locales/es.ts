@@ -668,6 +668,11 @@ export const es: Messages = {
       purpose: "Recuerda que ya viste la invitación a la guía del planner.",
       duration: "Hasta que lo borres",
     },
+    preferences: {
+      kind: "Almacenamiento local (propio)",
+      purpose: "Recuerda qué fases del planner has plegado.",
+      duration: "Hasta que lo borres",
+    },
     manageHeading: "Cómo gestionarlos",
     manageBody:
       "Puedes borrar los datos guardados en este dispositivo desde «Preferencias de privacidad» o desde los ajustes del navegador. La cookie de sesión se elimina al cerrar sesión.",

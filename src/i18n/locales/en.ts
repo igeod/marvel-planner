@@ -665,6 +665,11 @@ export const en: Messages = {
       purpose: "Remembers that you have already seen the invitation to the planner guide.",
       duration: "Until you delete it",
     },
+    preferences: {
+      kind: "Local storage (first-party)",
+      purpose: "Remembers which planner phases you folded.",
+      duration: "Until you delete it",
+    },
     manageHeading: "How to manage them",
     manageBody:
       "You can delete the data stored on this device from “Privacy settings” or from your browser settings. The session cookie is removed when you sign out.",

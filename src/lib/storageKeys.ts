@@ -7,4 +7,5 @@ export const STORAGE_KEYS = {
   completedSeen: "mcu-planner-completed-seen",
   sound: "mcu-planner-sound",
   guideSeen: "mcu-planner-guide-seen",
+  preferences: "mcu-planner-preferences",
 } as const;

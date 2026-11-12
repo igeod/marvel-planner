@@ -670,6 +670,11 @@ export const de: Messages = {
       purpose: "Merkt sich, dass du die Einladung zur Planer-Anleitung schon gesehen hast.",
       duration: "Bis du ihn löschst",
     },
+    preferences: {
+      kind: "Lokaler Speicher (eigener)",
+      purpose: "Merkt sich, welche Planer-Phasen du eingeklappt hast.",
+      duration: "Bis du ihn löschst",
+    },
     manageHeading: "So verwaltest du sie",
     manageBody:
       "Die auf diesem Gerät gespeicherten Daten kannst du unter „Datenschutzeinstellungen“ oder in den Browsereinstellungen löschen. Das Sitzungs-Cookie wird beim Abmelden entfernt.",

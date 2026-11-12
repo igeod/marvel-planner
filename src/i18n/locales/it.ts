@@ -665,6 +665,11 @@ export const it = {
       purpose: "Ricorda che hai già visto l'invito alla guida del planner.",
       duration: "Finché non lo cancelli",
     },
+    preferences: {
+      kind: "Archiviazione locale (propria)",
+      purpose: "Ricorda quali fasi del planner hai chiuso.",
+      duration: "Finché non lo cancelli",
+    },
     manageHeading: "Come gestirli",
     manageBody:
       "Puoi cancellare i dati salvati su questo dispositivo da «Preferenze privacy» o dalle impostazioni del browser. Il cookie di sessione viene eliminato quando esci dal tuo account.",

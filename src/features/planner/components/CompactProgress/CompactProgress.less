@@ -22,10 +22,12 @@
     transition-delay: 0s;
   }
 
-  // Padding lives on the card inside, so this clip can shrink to zero height.
+  // Padding lives on the card inside, so this clip can shrink to zero height. The clip margin lets
+  // the card's 1px ring (a shadow, outside its box) show instead of being cut.
   > .compact-progress-clip {
     min-height: 0;
-    overflow: hidden;
+    overflow: clip;
+    overflow-clip-margin: 1px;
   }
 }
 

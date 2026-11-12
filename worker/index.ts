@@ -9,6 +9,7 @@ import { sameOrigin } from "./middleware/sameOrigin";
 import { accountRoutes } from "./routes/account";
 import { adminRoutes } from "./routes/admin";
 import { imageRoutes } from "./routes/images";
+import { preferencesRoutes } from "./routes/preferences";
 import { progressRoutes } from "./routes/progress";
 import { releaseRoutes } from "./routes/releases";
 import { seoRoutes } from "./routes/seo";
@@ -34,6 +35,7 @@ const api = new Hono<AppEnv>()
   .route("/admin", adminRoutes)
   .route("/images", imageRoutes)
   .route("/password-policy", passwordPolicyRoutes)
+  .route("/preferences", preferencesRoutes)
   .route("/progress", progressRoutes)
   .route("/releases", releaseRoutes)
   .route("/share", shareRoutes)

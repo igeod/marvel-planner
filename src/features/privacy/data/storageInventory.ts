@@ -9,7 +9,8 @@ export type StorageItemId =
   | "theme"
   | "completedSeen"
   | "sound"
-  | "guideSeen";
+  | "guideSeen"
+  | "preferences";
 
 export const STORAGE_INVENTORY: { id: StorageItemId; name: string }[] = [
   { id: "session", name: "better-auth.session_token" },
@@ -21,4 +22,5 @@ export const STORAGE_INVENTORY: { id: StorageItemId; name: string }[] = [
   { id: "completedSeen", name: STORAGE_KEYS.completedSeen },
   { id: "sound", name: STORAGE_KEYS.sound },
   { id: "guideSeen", name: STORAGE_KEYS.guideSeen },
+  { id: "preferences", name: STORAGE_KEYS.preferences },
 ];

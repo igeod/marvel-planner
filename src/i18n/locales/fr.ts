@@ -671,6 +671,11 @@ export const fr: Messages = {
       purpose: "Se souvient que vous avez déjà vu l'invitation au guide du planner.",
       duration: "Jusqu'à ce que vous le supprimiez",
     },
+    preferences: {
+      kind: "Stockage local (propre)",
+      purpose: "Se souvient des phases du planner que vous avez repliées.",
+      duration: "Jusqu'à ce que vous le supprimiez",
+    },
     manageHeading: "Comment les gérer",
     manageBody:
       "Vous pouvez supprimer les données enregistrées sur cet appareil depuis « Préférences de confidentialité » ou depuis les réglages du navigateur. Le cookie de session est supprimé lorsque vous vous déconnectez.",
