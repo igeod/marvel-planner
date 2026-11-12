@@ -109,7 +109,7 @@ export function Planner({ shareCode }: PlannerProps) {
   }, [isLoading]);
   useSplashReady("planner", hasPainted);
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
-  const { isPastProgress } = useFloatingProgressVisibility(progressRef);
+  const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef);
   const { lastId, jump: jumpToLast } = useJumpToLastWatched(
     catalog,
     viewOrder,
@@ -314,7 +314,9 @@ export function Planner({ shareCode }: PlannerProps) {
         </div>
       </div>
 
-      {!isDesktop && <FloatingProgress progress={overall} isVisible={isPastProgress} />}
+      {!isDesktop && (
+        <FloatingProgress progress={overall} isVisible={isPastProgress && !isFooterVisible} />
+      )}
 
       <ShareDialog
         isOpen={isShareDialogOpen}

@@ -1,9 +1,10 @@
 @import (reference) "mixins";
 
-// Last child of the planner section: it follows the scroll and stops by itself at the end of the
-// section, before the footer. Only the phone shows it.
+// Fixed to the bottom edge, so it takes no room in the page: when it hides at the footer nothing
+// jumps. Only the phone shows it.
 .floating-progress {
-  position: sticky;
+  position: fixed;
+  inset-inline: 0;
   bottom: calc(var(--floating-progress-gap) + env(safe-area-inset-bottom, 0px));
   z-index: 10;
   display: flex;
@@ -12,6 +13,7 @@
   padding: var(--sp-3h) var(--sp-4) var(--sp-3);
   .panel-surface();
   border-radius: var(--r-row);
+  box-shadow: var(--toast-shadow);
   pointer-events: none;
 
   // The same edges as a toast (440px at most, 1rem less than the column), so the two line up.

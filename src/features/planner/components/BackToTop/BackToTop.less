@@ -1,6 +1,6 @@
 @import (reference) "mixins";
 
-// Two pills side by side, centred at the bottom. With the progress bar stuck to the bottom (phone) they
+// Two pills side by side, centred at the bottom. With the progress bar fixed to the bottom (phone) they
 // sit --sp-2 above it (--bar-lift, measured in BackToTop.tsx); with toasts they rise above the pile
 // (--toasts-lift, measured too).
 .jump-pills {
@@ -12,13 +12,14 @@
   );
   z-index: 10;
   display: flex;
-  gap: var(--sp-2);
   // Without a width the box gets half the screen (left: 50%) and the labels wrap.
   width: max-content;
   max-width: calc(100vw - 2rem);
   transform: translateX(-50%);
   translate: 0 calc(var(--toasts-lift, 0px) * -1);
-  transition: translate var(--dur-ui) var(--ease-out);
+  transition:
+    translate var(--dur-ui) var(--ease-out),
+    bottom var(--dur-ui) var(--ease-out);
 
   &[data-lifted="true"] {
     transition-duration: var(--dur-enter);
@@ -28,6 +29,26 @@
 @media (prefers-reduced-motion: reduce) {
   .jump-pills {
     transition: none;
+  }
+}
+
+// One slot per pill. The gap lives inside (half on each side) so a folded slot leaves no space behind.
+.jump-pills__slot {
+  display: grid;
+  grid-template-columns: 1fr;
+
+  &:not([data-visible="true"]) {
+    display: none;
+  }
+}
+
+.jump-pills__inner {
+  min-width: 0;
+  padding-inline: var(--sp-1);
+
+  // Clipped only while folded; at rest the pill's shadow must stay free.
+  .jump-pills__slot:not([data-visible="true"]) > & {
+    overflow: hidden;
   }
 }
 
@@ -49,13 +70,35 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  // In: fade and rise 16px, the second pill one step later. Out is handled by the unmount.
+  // In: the slot opens and fades, the pill rises 16px, the second one a step later. Out: the slot
+  // folds and fades over --dur-ui.
+  .jump-pills__slot {
+    transition:
+      grid-template-columns var(--dur-ui) var(--ease-out),
+      opacity var(--dur-ui) var(--ease-out),
+      display var(--dur-ui) allow-discrete;
+
+    &:not([data-visible="true"]) {
+      grid-template-columns: 0fr;
+      opacity: 0;
+    }
+
+    &[data-visible="true"] {
+      transition-duration: var(--dur-enter);
+
+      @starting-style {
+        grid-template-columns: 0fr;
+        opacity: 0;
+      }
+    }
+  }
+
   .jump-pills__pill {
     animation: pill-in var(--dur-enter) var(--ease-out) backwards;
+  }
 
-    &:nth-child(2) {
-      animation-delay: var(--stagger-step);
-    }
+  .jump-pills__slot:nth-child(2) .jump-pills__pill {
+    animation-delay: var(--stagger-step);
   }
 }
 

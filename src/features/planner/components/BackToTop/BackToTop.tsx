@@ -18,14 +18,13 @@ const isRowInView = (id: string) => {
 
 const root = document.documentElement;
 
-// The progress bar (phone) is sticky: it only needs clearing while it is stuck to the bottom edge, not
-// when it rests at the end of the section above the footer. --bar-lift is the distance from the bottom
-// of the window to the top of the bar (0 when it is not stuck); toasts and pills sit --sp-2 above it.
+// The progress bar (phone) is fixed to the bottom edge. --bar-lift is its height plus its gap from the
+// edge (0 while it is hidden); toasts and pills sit --sp-2 above it. Layout sizes, not the bounding
+// rect: the rect moves while the bar slides in, and would leave the pills over it.
 function measureBar() {
-  const bar = document.querySelector(".floating-progress[data-visible='true']");
-  const rect = bar?.getBoundingClientRect();
-  const isStuck = rect !== undefined && rect.bottom > window.innerHeight - rect.height;
-  root.style.setProperty("--bar-lift", isStuck ? `${window.innerHeight - rect.top}px` : "0px");
+  const bar = document.querySelector<HTMLElement>(".floating-progress[data-visible='true']");
+  const lift = bar ? bar.offsetHeight + parseFloat(getComputedStyle(bar).bottom) : 0;
+  root.style.setProperty("--bar-lift", `${lift}px`);
 }
 
 // How far the pills rise to stay --sp-2 above the pile of toasts (0 with no toast). Measured, not
@@ -73,48 +72,62 @@ export function BackToTop({ lastId = null, onJumpToLast }: BackToTopProps) {
       observer.observe(toasts);
       mutations.observe(toasts, { childList: true });
     }
+    // The bar showing or hiding changes no scroll or size, so listen to its own flag.
+    const barFlag = new MutationObserver(update);
+    barFlag.observe(document.body, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["data-visible"],
+    });
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
       observer.disconnect();
       mutations.disconnect();
+      barFlag.disconnect();
       root.style.removeProperty("--bar-lift");
       root.style.removeProperty("--toasts-lift");
     };
     // The pills appearing or going away changes where they rest: measure again then too.
   }, [lastId, hasPills]);
 
-  if (!hasPills) return null;
-
   const goTop = () => {
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     window.scrollTo({ top: 0, behavior: isReduced ? "auto" : "smooth" });
   };
 
+  // Both slots stay mounted: each one folds its width and fades (see the less), so a pill coming or
+  // going neither snaps nor shoves the other one off-centre.
   return (
     <div className="jump-pills" data-lifted={isLifted}>
-      {showLast && (
-        <Button
-          variant="panel"
-          size="sm"
-          className="jump-pills__pill"
-          icon={<LocateFixed aria-hidden />}
-          onClick={onJumpToLast}
-        >
-          <span className="jump-pills__label">{t("planner.jump.last")}</span>
-        </Button>
-      )}
-      {isFar && (
-        <Button
-          variant="panel"
-          size="sm"
-          className="jump-pills__pill jump-pills__pill--top"
-          icon={<ArrowUp aria-hidden />}
-          onClick={goTop}
-        >
-          <span className="jump-pills__label">{t("planner.jump.top")}</span>
-        </Button>
-      )}
+      <div className="jump-pills__slot" data-visible={showLast}>
+        <div className="jump-pills__inner">
+          {onJumpToLast && (
+            <Button
+              variant="panel"
+              size="sm"
+              className="jump-pills__pill"
+              icon={<LocateFixed aria-hidden />}
+              onClick={onJumpToLast}
+            >
+              <span className="jump-pills__label">{t("planner.jump.last")}</span>
+            </Button>
+          )}
+        </div>
+      </div>
+      <div className="jump-pills__slot" data-visible={isFar}>
+        <div className="jump-pills__inner">
+          <Button
+            variant="panel"
+            size="sm"
+            className="jump-pills__pill jump-pills__pill--top"
+            icon={<ArrowUp aria-hidden />}
+            onClick={goTop}
+          >
+            <span className="jump-pills__label">{t("planner.jump.top")}</span>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

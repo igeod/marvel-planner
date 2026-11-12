@@ -70,4 +70,4 @@ Da completare con i difetti concreti che il proprietario nota nella grafica ("tr
 
 Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design la risolve e poi la cancella.
 
-Nessuna al momento.
+- Toast | `Toast.tsx`, `motion.less` | Entrano con `--dur-enter` ma escono di colpo (smontaggio), il design vuole `--dur-ui` in uscita | da chiarire con Design se va fatto.

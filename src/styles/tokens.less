@@ -22,6 +22,7 @@
   --on-disabled: #4d5465;
   --focus-on-inverse: 3px solid var(--highlight);
   --focus-color: var(--ink);
+  --panel-ring: none;
   --toast-shadow: none;
   --track-panel: color-mix(in srgb, var(--muted-on-dark) 55%, var(--panel));
   --track-surface: color-mix(in srgb, var(--ink-2) 70%, var(--surface));
@@ -81,7 +82,8 @@
   --scrim: rgba(0, 0, 0, 0.55);
   --focus-color: var(--highlight);
   // The toast panel is the same colour as the footer: a 1px ring keeps its edge.
-  --toast-shadow: var(--shadow-pop), 0 0 0 1px var(--ink-2);
+  --panel-ring: 0 0 0 1px var(--ink-2);
+  --toast-shadow: var(--shadow-pop), var(--panel-ring);
   --track-panel: color-mix(in srgb, var(--muted-on-dark) 75%, var(--panel));
   --track-surface: color-mix(in srgb, var(--ink-2) 50%, var(--surface));
   --sb-thumb: rgba(242, 244, 248, 0.5);

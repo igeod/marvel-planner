@@ -3,7 +3,7 @@
 .toasts {
   position: fixed;
   left: 50%;
-  // With the progress bar stuck to the bottom (phone), --sp-2 above it: --bar-lift is measured in
+  // With the progress bar fixed to the bottom (phone), --sp-2 above it: --bar-lift is measured in
   // BackToTop.tsx (0 with no bar).
   bottom: max(16px, env(safe-area-inset-bottom), calc(var(--bar-lift, 0px) + var(--sp-2)));
   z-index: 20;
