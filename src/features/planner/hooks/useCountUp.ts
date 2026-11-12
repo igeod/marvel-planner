@@ -1,13 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 
 interface CountUpOptions {
-  // Duration of the count from 0 on the first arrival, and of every later change.
-  initialMs: number;
+  // Duration of the count from 0 on the first arrival; left out, the number starts at its target and
+  // only counts when it changes.
+  initialMs?: number;
   changeMs: number;
   enabled: boolean;
-  // While false the value waits at 0 and the "first arrival" count is kept for when it turns true
-  // (a card that starts hidden counts the first time it is opened, not when the page loads).
-  isActive?: boolean;
 }
 
 // Decelerating exit: 1 − (1 − t)³.
@@ -21,16 +19,12 @@ export function countUpValue(from: number, to: number, progress: number): number
 
 // Counts up to `target` (the first time from 0), also down when it drops. With `enabled` false
 // (reduced motion) the value jumps straight to the target.
-export function useCountUp(
-  target: number,
-  { initialMs, changeMs, enabled, isActive = true }: CountUpOptions,
-) {
-  const [value, setValue] = useState(enabled ? 0 : target);
+export function useCountUp(target: number, { initialMs, changeMs, enabled }: CountUpOptions) {
+  const [value, setValue] = useState(enabled && initialMs ? 0 : target);
   const currentRef = useRef(value);
   const isFirstRef = useRef(true);
 
   useEffect(() => {
-    if (!isActive) return;
     const isFirst = isFirstRef.current;
     isFirstRef.current = false;
     const from = currentRef.current;
@@ -42,7 +36,7 @@ export function useCountUp(
       show(target);
       return;
     }
-    const duration = isFirst ? initialMs : changeMs;
+    const duration = isFirst ? (initialMs ?? changeMs) : changeMs;
     const start = performance.now();
     let frame = requestAnimationFrame(function tick(now) {
       const progress = (now - start) / duration;
@@ -50,7 +44,7 @@ export function useCountUp(
       if (progress < 1) frame = requestAnimationFrame(tick);
     });
     return () => cancelAnimationFrame(frame);
-  }, [target, enabled, isActive, initialMs, changeMs]);
+  }, [target, enabled, initialMs, changeMs]);
 
   return enabled ? value : target;
 }

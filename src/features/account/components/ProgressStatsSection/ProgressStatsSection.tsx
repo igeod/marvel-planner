@@ -3,7 +3,9 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { LoadError } from "../../../../components/ui/LoadError/LoadError";
+import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useI18n } from "../../../../i18n/useI18n";
+import { useCountUp } from "../../../planner/hooks/useCountUp";
 import { MEDIA_TYPE_KEYS } from "../../../planner/data/labels";
 import { useResolvedCatalog } from "../../../planner/hooks/useResolvedCatalog";
 import { apiProgressRepository } from "../../../planner/services/apiProgressRepository";
@@ -99,11 +101,65 @@ function ProgressGroup({ title, rows, isOpen, className }: GroupProps) {
   );
 }
 
+const COUNT_INITIAL_MS = 900;
+const COUNT_CHANGE_MS = 400;
+
+// The big figure: it counts from 0 the first time the page loads (like the bar fills) and then only
+// when it changes. Mounted once the data is ready, so the count starts when it appears.
+function OverallProgress({ overall, isFirstFill }: { overall: Progress; isFirstFill: boolean }) {
+  const { t } = useI18n();
+  const [isShareOpen, setIsShareOpen] = useState(false);
+  const { done, total } = overall;
+  const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+  const isMotionAllowed = useMediaQuery("(prefers-reduced-motion: no-preference)");
+  const options = {
+    initialMs: isFirstFill ? COUNT_INITIAL_MS : undefined,
+    changeMs: COUNT_CHANGE_MS,
+    enabled: isMotionAllowed,
+  };
+  const shownDone = useCountUp(done, options);
+  const shownPercent = useCountUp(percent, options);
+
+  return (
+    <div className="progress-total">
+      <div className="progress-total__row">
+        <div>
+          <p className="progress-total__label">{t("account.stats.watched")}</p>
+          <p className="progress-total__count">
+            {shownDone}
+            <span> / {total}</span>
+          </p>
+        </div>
+        <p className="progress-total__percent">{shownPercent}%</p>
+      </div>
+      <div
+        className="progress-total__bar"
+        role="progressbar"
+        aria-label={t("account.stats.watched")}
+        aria-valuenow={percent}
+        aria-valuemin={0}
+        aria-valuemax={100}
+      >
+        <span style={{ width: `${percent}%` }} />
+      </div>
+      <Button
+        variant="ink"
+        size="lg"
+        className="progress-total__share"
+        icon={<Share2 aria-hidden />}
+        onClick={() => setIsShareOpen(true)}
+      >
+        {t("account.stats.share")}
+      </Button>
+      <ShareDialog isOpen={isShareOpen} progress={overall} onClose={() => setIsShareOpen(false)} />
+    </div>
+  );
+}
+
 export function ProgressStatsSection() {
   const { t } = useI18n();
   const catalog = useResolvedCatalog();
   const [state, retry] = useAccountProgress();
-  const [isShareOpen, setIsShareOpen] = useState(false);
   const [isFirstFill] = useState(() => !hasFilledOnce);
   const stats = useMemo(
     () => (state.status === "ready" ? computeStats(catalog, state.watched) : null),
@@ -120,47 +176,9 @@ export function ProgressStatsSection() {
   }
   if (!stats) return null;
 
-  const { done, total } = stats.overall;
-  const percent = total > 0 ? Math.round((done / total) * 100) : 0;
-
   return (
     <section className={`progress-stats${isFirstFill ? " progress-stats--first" : ""}`}>
-      <div className="progress-total">
-        <div className="progress-total__row">
-          <div>
-            <p className="progress-total__label">{t("account.stats.watched")}</p>
-            <p className="progress-total__count">
-              {done}
-              <span> / {total}</span>
-            </p>
-          </div>
-          <p className="progress-total__percent">{percent}%</p>
-        </div>
-        <div
-          className="progress-total__bar"
-          role="progressbar"
-          aria-label={t("account.stats.watched")}
-          aria-valuenow={percent}
-          aria-valuemin={0}
-          aria-valuemax={100}
-        >
-          <span style={{ width: `${percent}%` }} />
-        </div>
-        <Button
-          variant="ink"
-          size="lg"
-          className="progress-total__share"
-          icon={<Share2 aria-hidden />}
-          onClick={() => setIsShareOpen(true)}
-        >
-          {t("account.stats.share")}
-        </Button>
-        <ShareDialog
-          isOpen={isShareOpen}
-          progress={stats.overall}
-          onClose={() => setIsShareOpen(false)}
-        />
-      </div>
+      <OverallProgress overall={stats.overall} isFirstFill={isFirstFill} />
 
       <ProgressGroup
         isOpen

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useI18n } from "../../../../i18n/useI18n";
 import { useCountUp } from "../../hooks/useCountUp";
@@ -10,21 +9,16 @@ interface CompactProgressProps {
   isVisible: boolean;
 }
 
-const COUNT_INITIAL_MS = 900;
 const COUNT_CHANGE_MS = 400;
 
 export function CompactProgress({ progress, nextTitle, isVisible }: CompactProgressProps) {
   const { t, rich } = useI18n();
   const percent = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
 
-  // Counts the first time the card opens and whenever the number changes, not at every reopening.
-  const [hasOpened, setHasOpened] = useState(isVisible);
-  if (isVisible && !hasOpened) setHasOpened(true);
+  // The number counts only when it changes (reopening the card shows it as it is).
   const shownPercent = useCountUp(percent, {
-    initialMs: COUNT_INITIAL_MS,
     changeMs: COUNT_CHANGE_MS,
     enabled: useMediaQuery("(prefers-reduced-motion: no-preference)"),
-    isActive: hasOpened,
   });
 
   return (
