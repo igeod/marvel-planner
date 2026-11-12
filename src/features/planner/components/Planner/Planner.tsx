@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
 import { FOOTER_ID } from "../../../../app/dom";
 import { useSplashReady } from "../../../../app/splash";
@@ -111,7 +111,7 @@ export function Planner({ shareCode }: PlannerProps) {
   useSplashReady("planner", hasPainted);
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
   const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
-  const jumpToLast = useJumpToLastWatched(
+  const { lastId, jump: jumpToLast } = useJumpToLastWatched(
     catalog,
     viewOrder,
     watched,
@@ -139,9 +139,33 @@ export function Planner({ shareCode }: PlannerProps) {
     return { placed: placed.filter(isShown), unplaced: unplaced.filter(isShown) };
   }, [catalog, filters, needle]);
 
+  const listKey = `${viewOrder}${JSON.stringify(filters)}`;
+
+  // While the new set is drawn the list keeps the height it had, so the page below does not jump:
+  // the minimum is set before paint and released a frame later.
+  const listHeightRef = useRef(0);
+  const swapKeyRef = useRef(listKey);
+  useLayoutEffect(() => {
+    const list = listRef.current;
+    if (!list) return;
+    const previousHeight = listHeightRef.current;
+    listHeightRef.current = list.offsetHeight;
+    if (swapKeyRef.current === listKey) return;
+    swapKeyRef.current = listKey;
+    if (previousHeight <= list.offsetHeight) return;
+    list.style.minHeight = `${previousHeight}px`;
+    const frame = requestAnimationFrame(() => {
+      list.style.minHeight = "";
+      listHeightRef.current = list.offsetHeight;
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      list.style.minHeight = "";
+    };
+  });
+
   // Fades the new list in when filters or order really change (not when stored ones load, and not
   // on every letter typed in the search).
-  const listKey = `${viewOrder}${JSON.stringify(filters)}`;
   useEffect(() => {
     const list = listRef.current;
     const previous = previousListKeyRef.current;
@@ -182,11 +206,9 @@ export function Planner({ shareCode }: PlannerProps) {
           storage={storage}
           error={error}
           progressRef={progressRef}
-          strip={strip}
           isDesktop={isDesktop}
           onShare={openShare}
           onReset={() => setIsResetDialogOpen(true)}
-          onJumpToLast={jumpToLast}
         />
 
         {!isLoading && (
@@ -199,7 +221,7 @@ export function Planner({ shareCode }: PlannerProps) {
         )}
       </div>
 
-      {isDesktop && <PhaseStrip phases={strip} variant="card" />}
+      <PhaseStrip phases={strip} isCollapsible={!isDesktop} />
 
       <div className="planner__body">
         {isDesktop ? (
@@ -211,14 +233,7 @@ export function Planner({ shareCode }: PlannerProps) {
                   nextTitle={nextTitle}
                   isVisible={isPastProgress}
                 />
-                <div className="planner__search-row">
-                  <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
-                  <GuideHelp
-                    isReady={hasPainted}
-                    isChronological={viewOrder === "chronological"}
-                    showAlternate={filters.showAlternate}
-                  />
-                </div>
+                <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
                 <PlannerFilters
                   filters={filters}
                   onChange={setFilters}
@@ -239,14 +254,7 @@ export function Planner({ shareCode }: PlannerProps) {
           </>
         ) : (
           <>
-            <div className="planner__search-row">
-              <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
-              <GuideHelp
-                isReady={hasPainted}
-                isChronological={viewOrder === "chronological"}
-                showAlternate={filters.showAlternate}
-              />
-            </div>
+            <PlannerSearch query={query} onQueryChange={setQuery} resultCount={searchCount} />
             <MobileToolbar
               activeFilters={countActiveFilters(filters)}
               shown={shownCount}
@@ -330,7 +338,13 @@ export function Planner({ shareCode }: PlannerProps) {
         />
       )}
 
-      <BackToTop />
+      <GuideHelp
+        isReady={hasPainted}
+        isChronological={viewOrder === "chronological"}
+        showAlternate={filters.showAlternate}
+      />
+
+      <BackToTop lastId={lastId} onJumpToLast={jumpToLast} />
 
       <MergeChoiceDialog conflict={conflict} onResolve={resolveConflict} />
 

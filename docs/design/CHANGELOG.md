@@ -1,5 +1,48 @@
 # Changelog del canvas
 
+## 12 novembre 2026 · regia su mobile (decisione)
+
+- **Pagina Film:** nuovo blocco “Regia su mobile: una riga nel Cast”. Sotto i 40em la sezione “Regia” (titolo, linee e due spazi da 24px per un nome) si nasconde e la regia diventa una riga sotto il titolo “Cast”: etichetta attenuata + nome in grassetto (“Regia Jon Favreau”, “Ideata da …” per le serie). Da 40em in su resta com'è. Nessuna chiave di traduzione nuova (`details.director`, `details.creator`, `details.missing.director`); la riga è sempre nel markup e si alterna con `.film__credit` solo via CSS, così non viene letta due volte.
+
+## 12 novembre 2026 · numero che sale nei tuoi progressi (proposta)
+
+- **Planner:** nuova proposta “Numero che sale nei tuoi progressi”, con due prove vive (scuro e chiaro) e tabella delle regole. Conta solo la percentuale grande: da 0 al valore in 900 ms all'arrivo, 400 ms a ogni cambio (anche al ribasso con “Azzera”), uscita decelerata `1 − (1 − t)³`, passi interi. Larghezza riservata con “100%” invisibile e `tabular-nums`. Con `prefers-reduced-motion` nessun conteggio. “12 di 34 visti” cambia di colpo. Hook `useCountUp(target, { initialMs, changeMs, enabled })` con `requestAnimationFrame`. Il numero resta `aria-hidden`: lo screen reader legge il valore finale.
+- Nota: esiste già `--dur-progress` (600 ms, 0 con movimento ridotto) usato per la barra; il conteggio ha tempi propri, più lunghi.
+
+## 12 novembre 2026 · fascia delle fasi (decisione) e correzione anteprime
+
+- **Planner:** nuova decisione “Fascia delle fasi: solo il ‘prossimo’ con simbolo, celle più basse, accordion proprio su mobile”. Desktop: visti oro senza spunta, play proporzionale `clamp(10px, 60cqw, 16px)` sul prossimo, celle da 32px (oggi 44px). Mobile: la fascia esce dalla scheda dei progressi e diventa un accordion a sé (come le fasi), dopo “Prossimo da guardare”; sparisce la variante `inline`.
+- **Bug trovato nel codice (c520ab1):** `PhaseStrip.less` r.126 usa `var(--strip-on-panel-off)`, non definita in nessun file: su mobile le celle “da vedere” sono trasparenti sul pannello. Si risolve eliminando la variante `inline`.
+- **Corretto nel canvas:** nelle anteprime a schermo (iframe) le icone comparivano tagliate perché l'attributo `viewBox` andava perso; rigenerate Navigation, Pagina Film, Pagine di errore, Planner, Popup generici, Profile Popup, Select. Nessun effetto sul codice.
+- La pagina di confronto “Fascia fasi” (varianti A–E) è stata creata e poi eliminata.
+
+## 12 novembre 2026 · guida nell'header (proposta)
+
+- **Planner:** nuova proposta “Guida ‘Come leggere il planner’ nell'header” (rivede 30): il “?” esce dalla riga della ricerca e va nell'header, come il pulsante del tema, solo sul planner (`/` e `/s/:code`); stesso popup di oggi; invito della prima visita sotto il pulsante. Decisione per ora; popover e pulsante nella scheda dei progressi rimandati. Il blocco “implementata” resta.
+- La pagina di confronto “Guida del planner” (varianti A–F) è stata creata e poi eliminata.
+
+## 12 novembre 2026 · scorciatoie flottanti (proposta)
+
+- **Planner:** nuova proposta “Scorciatoie flottanti: Ultimo visto e Torna su” (rivede 21 e 22): due pillole centrate, animate, “Ultimo visto” solo se la riga non è visibile, evidenziazione della riga per 2,4 s dopo il salto, nascoste sotto i toast. Testi “Ultimo visto” / “Torna su” nelle chiavi esistenti. Il link nella scheda dei progressi si toglie. Il blocco “implementata” resta (è ciò che fa main).
+- **Pagina Film:** proposta “Torna su” (solo quel pulsante, senza riserva per la barra).
+- **Planner, tabella regioni:** barra fluttuante su desktop: c520ab1 la ha (FloatingProgress.less r.17-25), ma secondo Diego sul main attuale non c'è: non verificato.
+- La pagina di confronto “Scorciatoie” (varianti A–E) è stata creata e poi eliminata: le decisioni sono nel Planner.
+
+## 11 novembre 2026 · rigenerato da main c520ab1: funzioni implementate
+
+Riferimento `main` **c520ab1**. Nessuna pagina nuova; Planner, Popup di accesso, Accessibility (più Toast, Accordion, Popup generici, Navigation) aggiornate con i valori letti dal codice.
+
+- **Segnate come implementate** (chip “implementata · main c520ab1”, tolto “da implementare”): funzione **16** (popup di unione `MergeChoiceDialog`, variante A; toast `merge.toast` “Planner uniti: N titoli visti”, senza Annulla), **21** e **22** (“Vai all'ultimo titolo visto”, “Torna all'inizio”, “Segna tutta la fase come vista”, variante A), **23** (pagina Accessibilità, `/accessibilita`, link nel footer), **24** (popup “Multiverso completato” con coriandoli e suono, variante A; l'adesivo non c'è più), **30** (“?” accanto alla ricerca con invito alla prima visita, variante B; il blocco in fondo alla pagina non c'è più).
+- **Guida:** i nomi di scheda e filtro vengono dalle chiavi dell'app (`planner.order.chronological`, `planner.tags.alternate`, `planner.filters.showAlternate`), non sono scritti nel testo; le voci “Vuoi seguire la storia?” e “Continuità alternativa” sono condizionali. Testi nelle 5 lingue e popup nelle 5 lingue nella pagina Planner.
+- **Anche implementate** (stesso chip): X dei popup, importazione del planner condiviso (struttura nuova), toast, switch, select, footer (link Accessibilità, niente icona), logo, Dove guardare, copertina, Regia/Cast, indicatore visto, saga, titoli di serie, accesso senza frase introduttiva, suggerimento e-mail, nota del nome e conferme del profilo. “Password dimenticata?” è nel codice ma spenta di default (flag `VITE_PASSWORD_RESET`). Campo in errore: era già giusto (solo conferma).
+- **Implementata in parte:** filtri (dissolvenza da 0,85 e `needle` fuori da `listKey` fatti; manca l'altezza minima).
+- **Ancora da implementare:** cascata d'ingresso (15), “Prossimo da guardare” sempre montata (16 dell'elenco HANDOFF), layout 1098 px (17), fondo mobile (18), altezza minima dei filtri (20), icone (7), focus dopo un tocco (4); più recupero password lato server (1) e manutenzione HTML (2).
+- **Proposta (12 novembre, non implementata):** casella tri-stato sul sommario della fase al posto del pulsante “Segna tutta la fase come vista” (nessuno / parziale con trattino / tutta vista in rosso), nella pagina Planner. Il blocco del pulsante resta marcato come implementato (è quello che fa main).
+- **Rimandata:** funzione 20 (spunta per episodio): resta nel canvas con chip “rimandata”.
+- **Inventario privacy:** `mcu-planner-sound`, `mcu-planner-guide-seen` aggiunti alla tabella di Popup generici.
+- **Righe citate** rimappate su c520ab1 (diff riga per riga); dove la riga non esiste più è citato solo il file.
+- **Rimosso dal canvas:** adesivo `CompletionSticker`, accordion `PlannerGuide` (sezioni di Planner e Accordion).
+
 ## 11 novembre 2026 · aggiornamento a main 2b5e07a: conferme, decisioni, nuove funzioni
 
 Riferimento `main` **2b5e07a**. Nessuna pagina nuova: tutto è scritto nelle pagine esistenti, con tabelle “Prima, dopo, file”.

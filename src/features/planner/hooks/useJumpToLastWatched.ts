@@ -4,6 +4,8 @@ import { titlesInOrder } from "../utils/order";
 
 // Phases fold and unfold with an animation: wait for it before centring the row.
 const UNFOLD_MS = 420;
+// How long the row stays lit after the jump.
+const FOUND_MS = 2400;
 
 export function useJumpToLastWatched(
   catalog: Saga[],
@@ -29,6 +31,9 @@ export function useJumpToLastWatched(
       if (!row) return;
       const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       row.scrollIntoView({ block: "center", behavior: isReduced ? "auto" : "smooth" });
+      // The row is lit for a moment so the eye finds it.
+      row.classList.add("title-row--found");
+      window.setTimeout(() => row.classList.remove("title-row--found"), FOUND_MS);
       // The row is announced by the screen reader: the focus goes to its first control.
       row.querySelector<HTMLElement>("input, summary")?.focus({ preventScroll: true });
     };
@@ -36,5 +41,5 @@ export function useJumpToLastWatched(
     else reach();
   }, [last, catalog, order, collapsed, setPhaseCollapsed]);
 
-  return last ? jump : null;
+  return { lastId: last?.id ?? null, jump };
 }

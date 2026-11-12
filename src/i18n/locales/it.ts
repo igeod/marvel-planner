@@ -155,8 +155,8 @@ export const it = {
       animated: "animata",
     },
     jump: {
-      last: "Vai all’ultimo titolo visto",
-      top: "Torna all’inizio",
+      last: "Ultimo visto",
+      top: "Torna su",
     },
     phase: {
       progress: "Avanzamento {name}",

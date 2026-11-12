@@ -158,8 +158,8 @@ export const es: Messages = {
       animated: "animada",
     },
     jump: {
-      last: "Ir al último título visto",
-      top: "Volver al inicio",
+      last: "Último visto",
+      top: "Volver arriba",
     },
     phase: {
       progress: "Progreso de {name}",

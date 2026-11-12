@@ -1,9 +1,8 @@
-import { Check } from "lucide-react";
+import { Check, Maximize2 } from "lucide-react";
 import { useId, useState } from "react";
-import { Link } from "react-router";
 import { titlePath } from "../../../../app/paths";
 import { Button } from "../../../../components/ui/Button/Button";
-import { buttonClass } from "../../../../components/ui/Button/buttonClass";
+import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../data/labels";
 import type { PhaseNumber, Title } from "../../types";
@@ -91,9 +90,9 @@ export function NextToWatch({ title, phase, isHiddenByFilters, onMarkWatched }: 
             >
               {t("planner.next.markWatched")}
             </Button>
-            <Link to={titlePath(title.id)} className={buttonClass("text")}>
+            <ButtonLink to={titlePath(title.id)} variant="text" iconEnd={<Maximize2 aria-hidden />}>
               {t("planner.next.details")}
-            </Link>
+            </ButtonLink>
           </div>
         </>
       ) : (

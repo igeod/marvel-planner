@@ -157,7 +157,7 @@ export const en: Messages = {
       animated: "animated",
     },
     jump: {
-      last: "Go to the last watched title",
+      last: "Last watched",
       top: "Back to top",
     },
     phase: {

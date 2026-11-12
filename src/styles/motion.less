@@ -755,6 +755,21 @@ dialog.menu-panel {
   }
 }
 
+@keyframes pill-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+}
+
+// The row found by "Last watched": ring and veil fade out over the 2.4s it stays lit.
+@keyframes row-found {
+  to {
+    box-shadow: 0 0 0 3px transparent;
+    background-color: var(--row);
+  }
+}
+
 @keyframes fade-in {
   from {
     opacity: 0;

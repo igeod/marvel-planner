@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { HEADER_HELP_SLOT_ID } from "../../../app/dom";
 import { PATHS } from "../../../app/paths";
 import { SITE } from "../../../app/site";
 import { AccountMenu } from "../../../features/auth/components/AccountMenu/AccountMenu";
@@ -16,12 +17,15 @@ export function AppHeader() {
         <Link to={PATHS.home} className="wordmark">
           {SITE.name}
         </Link>
-        <div className="site-header__actions">
-          <ThemeSwitcher />
-          <LanguageSwitcher />
-          <AccountMenu />
+        <div className="site-header__end">
+          <div id={HEADER_HELP_SLOT_ID} className="site-header__help" />
+          <div className="site-header__actions">
+            <ThemeSwitcher />
+            <LanguageSwitcher />
+            <AccountMenu />
+          </div>
+          <HeaderMenu />
         </div>
-        <HeaderMenu />
       </nav>
     </header>
   );

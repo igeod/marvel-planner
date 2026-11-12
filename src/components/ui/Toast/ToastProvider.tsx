@@ -3,6 +3,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } fro
 import errToast from "../../../assets/err-toast.webp";
 import { useI18n } from "../../../i18n/useI18n";
 import { Button } from "../Button/Button";
+import { restoreFocus } from "../useDialog";
 import { ToastContext, type ToastContextValue, type ToastOptions } from "./ToastContext";
 import { addToast, type ToastItem } from "./toastQueue";
 
@@ -36,7 +37,7 @@ function ToastItem({ item, onDismiss }: ToastItemProps) {
     const target = previousFocus.current;
     const hadFocus = rootRef.current?.contains(document.activeElement);
     onDismiss(id);
-    if (hadFocus && target instanceof HTMLElement && target.isConnected) target.focus();
+    if (hadFocus) restoreFocus(target);
   };
 
   // The toast closes at the click, before the action runs: an action that fails shows its own

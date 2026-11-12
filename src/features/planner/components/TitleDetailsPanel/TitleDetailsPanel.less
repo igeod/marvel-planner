@@ -211,12 +211,24 @@
   font-weight: 400;
 }
 
-// Stacked, director and cast are two sections: space and a thin line between them.
+// Stacked, the director section is hidden: the director is one line under "Cast", after one rule.
+.film__credit-line {
+  display: none;
+}
+
 @media (max-width: 39.9375em) {
+  .film__credit {
+    display: none;
+  }
+
   .film__cast {
-    margin-top: var(--sp-6);
-    padding-top: var(--sp-6);
+    margin-top: var(--sp-5);
+    padding-top: var(--sp-5);
     border-top: 1px solid var(--line);
+  }
+
+  .film__credit-line {
+    display: block;
   }
 }
 

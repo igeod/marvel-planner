@@ -6,10 +6,28 @@
   .desktop({ padding: 24px 36px 28px; });
 }
 
-.phase-strip--inline {
+.phase-strip__toggle-heading {
+  font: inherit;
+}
+
+.phase-strip__toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--hit);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-md);
+  font-weight: 800;
+  .tones(var(--row-hover), var(--row-press));
+}
+
+.phase-strip__body {
   display: flex;
   flex-direction: column;
   gap: var(--sp-3h);
+  padding: var(--sp-3h) var(--sp-3) var(--sp-2);
 }
 
 .phase-strip__header {
@@ -71,12 +89,14 @@
   gap: 3px;
 }
 
+// 24px on the phone, 32px on desktop; the container sizes the play mark with the cell.
 .phase-strip__cell {
-  width: 20px;
-  height: 20px;
+  container-type: inline-size;
+  width: 24px;
+  height: 24px;
   border-radius: var(--r-tiny);
 
-  .desktop({ flex: 1 0 8px; width: auto; height: 44px; });
+  .desktop({ flex: 1 0 8px; width: auto; height: 32px; });
 }
 
 .phase-strip__cell,
@@ -88,16 +108,17 @@
 
   svg {
     flex: none;
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
   }
 }
 
 .phase-strip__cell svg {
-  .desktop({ width: 10px; height: 10px; });
+  width: clamp(10px, 60cqw, 16px);
+  height: clamp(10px, 60cqw, 16px);
 }
 
-// Watched is gold with a check, next is red with a play mark, to watch is plain.
+// Watched is plain gold, next is red with a play mark, to watch is plain.
 .phase-strip__cell--watched {
   background: var(--highlight);
   color: var(--ink-static);
@@ -115,16 +136,6 @@
 
 .phase-strip__cell--todo {
   background: var(--disabled);
-}
-
-.phase-strip--inline {
-  .phase-strip__cell--next {
-    background: var(--accent-on-dark);
-  }
-
-  .phase-strip__cell--todo {
-    background: var(--strip-on-panel-off);
-  }
 }
 
 .phase-strip__label {

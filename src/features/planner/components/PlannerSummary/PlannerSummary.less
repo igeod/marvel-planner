@@ -26,6 +26,18 @@
   line-height: 0.9;
   color: var(--highlight);
   letter-spacing: 0.01em;
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  justify-content: start;
+}
+
+.progress-card__percent-width,
+.progress-card__percent-value {
+  grid-area: 1 / 1;
+}
+
+.progress-card__percent-width {
+  visibility: hidden;
 }
 
 .progress-card__count {
@@ -67,19 +79,6 @@
     width: 24px;
     height: 24px;
   }
-}
-
-.progress-card__toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  min-height: 3.25rem;
-  padding: 0 1.25rem;
-  .pill();
-  background: var(--panel-2);
-  font-weight: 700;
-  .tones(var(--raised-2), var(--raised-3));
 }
 
 .progress-card__footer {

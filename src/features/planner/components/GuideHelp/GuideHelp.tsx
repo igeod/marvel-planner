@@ -1,5 +1,7 @@
 import { CircleHelp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
+import { HEADER_HELP_SLOT_ID } from "../../../../app/dom";
 import { Button } from "../../../../components/ui/Button/Button";
 import { Modal } from "../../../../components/ui/Modal/Modal";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -15,7 +17,7 @@ interface GuideHelpProps {
   showAlternate: boolean;
 }
 
-// The "?" next to the search opens the guide. On a first visit (signed in or not) a small invitation
+// The "?" in the header opens the guide (it is mounted there through a portal, only while the planner is on screen). On a first visit (signed in or not) a small invitation
 // appears next to it, once: it asks nothing, goes away at the first interaction, and does not return.
 export function GuideHelp({ isReady, isChronological, showAlternate }: GuideHelpProps) {
   const { t, rich } = useI18n();
@@ -47,11 +49,14 @@ export function GuideHelp({ isReady, isChronological, showAlternate }: GuideHelp
     filter: <strong>{t("planner.filters.showAlternate")}</strong>,
   };
 
-  return (
+  const slot = document.getElementById(HEADER_HELP_SLOT_ID);
+  if (!slot) return null;
+
+  return createPortal(
     <div className="guide-help">
       <button
         type="button"
-        className="btn btn--soft btn--icon guide-help__button"
+        className="btn btn--panel btn--icon guide-help__button"
         aria-label={t("planner.guide.help")}
         aria-haspopup="dialog"
         onClick={() => {
@@ -103,6 +108,7 @@ export function GuideHelp({ isReady, isChronological, showAlternate }: GuideHelp
           )}
         </div>
       </Modal>
-    </div>
+    </div>,
+    slot,
   );
 }

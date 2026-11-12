@@ -28,6 +28,16 @@
   }
 }
 
+// Lit for 2.4s after "Last watched" brings the row into view (the class is removed by the hook).
+.title-row--found {
+  box-shadow: 0 0 0 3px var(--highlight);
+  background: color-mix(in srgb, var(--highlight) 22%, var(--row));
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: row-found 2400ms var(--ease-out) forwards;
+  }
+}
+
 .title-row--open {
   // Open rows are 4px taller at the bottom than closed ones (mobile: see the media block below).
   .desktop({ padding: 10px 16px 14px 8px; });

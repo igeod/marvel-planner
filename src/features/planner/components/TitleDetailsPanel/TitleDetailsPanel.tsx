@@ -5,6 +5,7 @@ import { getEasterEggs } from "../../data/easterEggs";
 import { getKeyScenes } from "../../data/keyScenes";
 import { getPostCredits } from "../../data/postCredits";
 import { backdropUrl } from "../../utils/format";
+import { BackToTop } from "../BackToTop/BackToTop";
 import { EasterEggs } from "../EasterEggs/EasterEggs";
 import { KeyScenes } from "../KeyScenes/KeyScenes";
 import { PosterImage } from "../../../../components/ui/PosterImage/PosterImage";
@@ -120,6 +121,15 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                   </div>
                   <section className="film__cast" aria-labelledby={castHeadingId}>
                     <h2 id={castHeadingId}>{t("details.cast")}</h2>
+                    {/* Under 40em the director is one line here and the "Director" section is hidden (CSS only). */}
+                    <p className="film__credit-line">
+                      <span className="muted">{credit.label}</span>{" "}
+                      {credit.names.length > 0 ? (
+                        <strong>{credit.names.join(", ")}</strong>
+                      ) : (
+                        <span className="muted">{t("details.missing.director")}</span>
+                      )}
+                    </p>
                     {details.cast.length === 0 ? (
                       <p className="muted film__missing">{t("details.missing.cast")}</p>
                     ) : (
@@ -160,6 +170,7 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
           );
         }}
       </WithTitleDetails>
+      <BackToTop />
     </div>
   );
 }

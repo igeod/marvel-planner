@@ -1,27 +1,43 @@
 @import (reference) "mixins";
 
-// Dark circle above the progress bar (on desktop the bar leaves no room to reserve: clearance is 0).
-.back-to-top {
+// Two pills side by side, centred above the progress bar (on desktop the bar is not there: clearance is 0).
+// Under a toast they hide: the toast comes first.
+.jump-pills {
   position: fixed;
-  right: var(--sp-4);
-  bottom: calc(var(--floating-progress-clearance) + var(--sp-3));
+  left: 50%;
+  bottom: calc(var(--floating-progress-clearance) + var(--sp-4));
   z-index: 10;
-  display: grid;
-  place-items: center;
-  width: var(--hit);
-  height: var(--hit);
-  border-radius: var(--r-pill);
-  background: var(--panel);
-  color: var(--on-dark);
+  display: flex;
+  gap: var(--sp-2);
+  transform: translateX(-50%);
+}
+
+// The film page has no progress bar to clear.
+.film .jump-pills {
+  bottom: var(--sp-4);
+}
+
+body:has(.toasts .toast) .jump-pills {
+  display: none;
+}
+
+.jump-pills__pill {
   box-shadow: var(--shadow-pop);
-  .tones(var(--panel-2), var(--raised-3));
+}
 
-  svg {
-    width: 20px;
-    height: 20px;
+@media (prefers-reduced-motion: no-preference) {
+  // In: fade and rise 16px, the second pill one step later. Out is handled by the unmount.
+  .jump-pills__pill {
+    animation: pill-in var(--dur-enter) var(--ease-out) backwards;
+
+    &:nth-child(2) {
+      animation-delay: var(--stagger-step);
+    }
   }
+}
 
-  @media (prefers-reduced-motion: no-preference) {
-    animation: fade-in var(--dur-ui) var(--ease-out) both;
+@media (prefers-reduced-motion: reduce) {
+  .jump-pills__pill {
+    animation: fade-in var(--dur-enter) var(--ease-out) both;
   }
 }

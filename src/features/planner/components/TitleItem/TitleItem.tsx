@@ -1,8 +1,7 @@
 import { Check, Maximize2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router";
 import { titlePath } from "../../../../app/paths";
-import { buttonClass } from "../../../../components/ui/Button/buttonClass";
+import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS, NOTE_KEYS } from "../../data/labels";
@@ -112,10 +111,13 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
             <TitleSummaryPanel titleId={title.id} />
             <BeforeYouWatch title={title} watched={watched} />
             <div className="title-row__actions">
-              <Link to={titlePath(title.id)} className={buttonClass("primary")}>
+              <ButtonLink
+                to={titlePath(title.id)}
+                variant="primary"
+                iconEnd={<Maximize2 aria-hidden />}
+              >
                 {t("details.open")}
-                <Maximize2 aria-hidden />
-              </Link>
+              </ButtonLink>
             </div>
           </div>
         )}

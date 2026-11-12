@@ -158,7 +158,7 @@ export const fr: Messages = {
       animated: "animée",
     },
     jump: {
-      last: "Aller au dernier titre vu",
+      last: "Dernier vu",
       top: "Retour en haut",
     },
     phase: {

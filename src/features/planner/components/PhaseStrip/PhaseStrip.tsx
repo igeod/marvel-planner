@@ -1,19 +1,20 @@
-import { Check, Play } from "lucide-react";
-import { useId } from "react";
+import { Play } from "lucide-react";
+import { useId, useState } from "react";
+import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { CellState, StripPhase } from "../../utils/strip";
 
 interface PhaseStripProps {
   phases: StripPhase[];
-  variant: "card" | "inline";
+  // On the phone the strip is an accordion of its own, closed at first.
+  isCollapsible: boolean;
 }
 
 const CELL_STATES: CellState[] = ["watched", "next", "todo"];
 
+// Only the next title carries a symbol; watched cells are plain gold.
 function CellMark({ state }: { state: CellState }) {
-  if (state === "watched") return <Check strokeWidth={4} aria-hidden />;
-  if (state === "next") return <Play aria-hidden />;
-  return null;
+  return state === "next" ? <Play aria-hidden /> : null;
 }
 
 function Legend() {
@@ -69,20 +70,41 @@ function Columns({ phases }: { phases: StripPhase[] }) {
   );
 }
 
-export function PhaseStrip({ phases, variant }: PhaseStripProps) {
+export function PhaseStrip({ phases, isCollapsible }: PhaseStripProps) {
   const { t } = useI18n();
   const headingId = useId();
+  const bodyId = useId();
+  const [isOpen, setIsOpen] = useState(false);
   const total = phases.reduce((sum, phase) => sum + phase.total, 0);
   const done = phases.reduce((sum, phase) => sum + phase.done, 0);
-  const summary = <p className="visually-hidden">{t("planner.watchedCount", { done, total })}</p>;
+  const heading = t("planner.strip.heading", { total });
+  const body = (
+    <>
+      <p className="visually-hidden">{t("planner.watchedCount", { done, total })}</p>
+      <Columns phases={phases} />
+    </>
+  );
 
-  if (variant === "inline") {
+  if (isCollapsible) {
     return (
-      <div className="phase-strip phase-strip--inline">
-        <Legend />
-        {summary}
-        <Columns phases={phases} />
-      </div>
+      <section className="phase-strip card" aria-labelledby={headingId}>
+        <h2 id={headingId} className="phase-strip__toggle-heading">
+          <button
+            type="button"
+            className="phase-strip__toggle"
+            aria-expanded={isOpen}
+            aria-controls={bodyId}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            {heading}
+            <Chevron />
+          </button>
+        </h2>
+        <div id={bodyId} className="phase-strip__body" hidden={!isOpen}>
+          <Legend />
+          {body}
+        </div>
+      </section>
     );
   }
 
@@ -90,12 +112,11 @@ export function PhaseStrip({ phases, variant }: PhaseStripProps) {
     <section className="phase-strip card" aria-labelledby={headingId}>
       <div className="phase-strip__header">
         <h2 id={headingId} className="section-title">
-          {t("planner.strip.heading", { total })}
+          {heading}
         </h2>
         <Legend />
       </div>
-      {summary}
-      <Columns phases={phases} />
+      {body}
     </section>
   );
 }

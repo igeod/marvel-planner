@@ -2,6 +2,7 @@
 
 // Transparent header: red wordmark, ink-ringed controls, ink sign-in pill.
 .site-header {
+  position: relative; // anchors the guide invitation below the "?"
   color: var(--ink);
 
   .wordmark {
@@ -67,6 +68,17 @@
       transform: scale(0.97);
     }
   }
+}
+
+// Wordmark on the left; the "?" (planner only), the controls and Menu stay together on the right.
+.site-header__end {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.site-header__help {
+  display: contents;
 }
 
 .site-header__actions {

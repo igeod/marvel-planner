@@ -1,15 +1,17 @@
-import { LocateFixed, RotateCcw, Share2 } from "lucide-react";
-import { useId, useState, type Ref } from "react";
+import { RotateCcw, Share2 } from "lucide-react";
+import type { Ref } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
-import { Chevron } from "../../../../components/ui/Chevron/Chevron";
+import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { STORAGE_KEYS } from "../../../../lib/storageKeys";
 import { usePersistentState } from "../../../../lib/usePersistentState";
 import type { Progress, ProgressStorage } from "../../types";
-import type { StripPhase } from "../../utils/strip";
 import { CompletionDialog } from "../CompletionDialog/CompletionDialog";
-import { PhaseStrip } from "../PhaseStrip/PhaseStrip";
+import { useCountUp } from "../../hooks/useCountUp";
+
+const COUNT_INITIAL_MS = 900;
+const COUNT_CHANGE_MS = 400;
 
 const isBoolean = (value: unknown): value is boolean => typeof value === "boolean";
 
@@ -24,12 +26,9 @@ interface PlannerSummaryProps {
   storage: ProgressStorage;
   error: TranslationKey | null;
   progressRef: Ref<HTMLParagraphElement>;
-  strip: StripPhase[];
   isDesktop: boolean;
   onShare: () => void;
   onReset: () => void;
-  // Absent while nothing is watched: the next title takes its place.
-  onJumpToLast: (() => void) | null;
 }
 
 export function PlannerSummary({
@@ -37,16 +36,18 @@ export function PlannerSummary({
   storage,
   error,
   progressRef,
-  strip,
   isDesktop,
   onShare,
   onReset,
-  onJumpToLast,
 }: PlannerSummaryProps) {
   const { t } = useI18n();
-  const [isStripOpen, setIsStripOpen] = useState(false);
-  const stripId = useId();
   const percent = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
+  const isMotionAllowed = useMediaQuery("(prefers-reduced-motion: no-preference)");
+  const shownPercent = useCountUp(percent, {
+    initialMs: COUNT_INITIAL_MS,
+    changeMs: COUNT_CHANGE_MS,
+    enabled: isMotionAllowed,
+  });
   // Shown once, when every title is watched; the flag in local storage keeps it from coming back.
   const [isCompletionSeen, setIsCompletionSeen] = usePersistentState(
     STORAGE_KEYS.completedSeen,
@@ -68,7 +69,9 @@ export function PlannerSummary({
           {t("planner.progressHeading")}
         </h1>
         <p className="progress-card__percent" aria-hidden="true" ref={progressRef}>
-          {percent}%
+          {/* Hidden "100%" reserves the final width, so the digits do not push the layout. */}
+          <span className="progress-card__percent-width">100%</span>
+          <span className="progress-card__percent-value">{shownPercent}%</span>
         </p>
         <p className="progress-card__count">
           {t("planner.watchedCount", { done: progress.done, total: progress.total })}
@@ -80,12 +83,6 @@ export function PlannerSummary({
           max={Math.max(progress.total, 1)}
         />
 
-        {onJumpToLast && (
-          <Button variant="text" icon={<LocateFixed aria-hidden />} onClick={onJumpToLast}>
-            {t("planner.jump.last")}
-          </Button>
-        )}
-
         {!isDesktop && (
           <button type="button" className="progress-card__share" onClick={onShare}>
             <span className="progress-card__share-label">
@@ -93,24 +90,6 @@ export function PlannerSummary({
               {t("planner.sharePoster.title")}
             </span>
           </button>
-        )}
-
-        {!isDesktop && (
-          <>
-            <button
-              type="button"
-              className="progress-card__toggle"
-              aria-expanded={isStripOpen}
-              aria-controls={stripId}
-              onClick={() => setIsStripOpen(!isStripOpen)}
-            >
-              {t("planner.strip.heading", { total: progress.total })}
-              <Chevron />
-            </button>
-            <div id={stripId} hidden={!isStripOpen}>
-              {isStripOpen && <PhaseStrip phases={strip} variant="inline" />}
-            </div>
-          </>
         )}
 
         <div className="progress-card__footer">
