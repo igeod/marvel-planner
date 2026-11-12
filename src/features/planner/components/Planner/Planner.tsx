@@ -1,6 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { FOOTER_ID } from "../../../../app/dom";
 import { useSplashReady } from "../../../../app/splash";
 import { PATHS } from "../../../../app/paths";
 import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog/ConfirmDialog";
@@ -110,7 +109,7 @@ export function Planner({ shareCode }: PlannerProps) {
   }, [isLoading]);
   useSplashReady("planner", hasPainted);
   const { collapsed, areAllCollapsed, setPhaseCollapsed, toggleAll } = useCollapsedPhases();
-  const { isPastProgress, isFooterVisible } = useFloatingProgressVisibility(progressRef, FOOTER_ID);
+  const { isPastProgress } = useFloatingProgressVisibility(progressRef);
   const { lastId, jump: jumpToLast } = useJumpToLastWatched(
     catalog,
     viewOrder,
@@ -211,14 +210,13 @@ export function Planner({ shareCode }: PlannerProps) {
           onReset={() => setIsResetDialogOpen(true)}
         />
 
-        {!isLoading && (
-          <NextToWatch
-            title={nextTitle}
-            phase={nextTitle ? findPhaseNumber(catalog, nextTitle.id) : null}
-            isHiddenByFilters={nextTitle !== null && !matchesFilters(nextTitle, filters)}
-            onMarkWatched={toggle}
-          />
-        )}
+        <NextToWatch
+          title={isLoading ? null : nextTitle}
+          phase={nextTitle && !isLoading ? findPhaseNumber(catalog, nextTitle.id) : null}
+          isLoading={isLoading}
+          isHiddenByFilters={nextTitle !== null && !matchesFilters(nextTitle, filters)}
+          onMarkWatched={toggle}
+        />
       </div>
 
       <PhaseStrip phases={strip} isCollapsible={!isDesktop} />
@@ -316,9 +314,7 @@ export function Planner({ shareCode }: PlannerProps) {
         </div>
       </div>
 
-      {!isDesktop && (
-        <FloatingProgress progress={overall} isVisible={isPastProgress && !isFooterVisible} />
-      )}
+      {!isDesktop && <FloatingProgress progress={overall} isVisible={isPastProgress} />}
 
       <ShareDialog
         isOpen={isShareDialogOpen}

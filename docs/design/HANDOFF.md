@@ -19,10 +19,6 @@ Elenco aggiornato a c520ab1. Le voci già riportate nel codice non ci sono più 
 |---|---|---|---|---|
 | 1 | Recupero password, lato server | Il client c'è: viste, rotta `/reset-password` e collegamento “Password dimenticata?”, tutto dietro `VITE_PASSWORD_RESET === "true"` (`features/auth/passwordReset.ts` r.3, `app/router.tsx` r.37, `LoginForm.tsx` r.92). Il commento del file dice: spento finché il server non sa inviare l'e-mail (servizio, durata del link, finestra di reinvio) | Server: invio dell'e-mail con il link, durata del link, attesa tra due invii (risposta 429, che il pulsante “Reinvia” già legge). Poi impostare `VITE_PASSWORD_RESET=true` | Popup di accesso |
 | 2 | Pagina di manutenzione HTML | Oggi la manutenzione è la pagina React `MaintenancePage` (`pages/MaintenancePage/MaintenancePage.tsx`) | Pagina HTML statica servita dal Worker con stato **503** e `<meta name="robots" content="noindex">` | Pagine di errore |
-| 15 | Cascata d'ingresso a ogni arrivo su planner e film (`data-intro`), film nella lista | Comportamento precedente: colonna “Prima” della tabella nella pagina | `motion.less` r.448-470; `Planner.tsx`; `AppLayout.tsx` | Motion |
-| 16 | Prossimo da guardare: scheda sempre montata, solo la locandina cambia stato | Comportamento precedente: colonna “Prima” della tabella nella pagina | `NextToWatch.tsx` | Planner |
-| 17 | Layout 1098 px: pulsante Condividi ultima riga nella scheda, schede a pari altezza | Comportamento precedente: colonna “Prima” della tabella nella pagina | `PlannerSummary.less` r.36-58; `Planner.less` r.16-18 | Planner |
-| 18 | Fondo mobile: barra di avanzamento sticky nella sezione, niente `padding-bottom` di riserva | Comportamento precedente: colonna “Prima” della tabella nella pagina | `Planner.less` r.7; `FloatingProgress.less` | Planner |
 
 Note sulle voci:
 - **1** resta in attesa del server; il collegamento “Password dimenticata?” è già nel client dietro il flag (`LoginForm.tsx` r.91-101).
@@ -39,7 +35,7 @@ Note sulle voci:
 
 ## 5. Già nel codice
 
-**Riportato nel codice dopo c520ab1 (da committare):** voci 4 (focus dopo un tocco), 7 (`ButtonLink`, icone a destra via `iconEnd`), 20 (altezza minima dei filtri), 21b (pillole “Ultimo visto” / “Torna su”, riga evidenziata 2,4 s, “Torna su” anche sul film), 30b (“?” nell'header), 31 (fascia delle fasi), 32 (conteggio della percentuale), 33 (regia su mobile).
+**Riportato nel codice dopo c520ab1 (da committare):** voci 15 (cascata d'ingresso a ogni arrivo, film compreso), 16 (scheda sempre montata), 17 (già a posto nel codice), 18 (barra di avanzamento sticky), casella tri-stato sul sommario della fase al posto di “Segna tutta la fase come vista”, 4 (focus dopo un tocco), 7 (`ButtonLink`, icone a destra via `iconEnd`), 20 (altezza minima dei filtri), 21b (pillole “Ultimo visto” / “Torna su”, riga evidenziata 2,4 s, “Torna su” anche sul film), 30b (“?” nell'header), 31 (fascia delle fasi), 32 (conteggio della percentuale), 33 (regia su mobile).
 
 **Riportato su `main` fino a c520ab1:** funzioni 16 (popup di unione, variante A, con toast “Planner uniti: N titoli visti” senza Annulla), 21 e 22 (“Vai all'ultimo titolo visto”, “Torna all'inizio”, “Segna tutta la fase come vista”, variante A), 23 (pagina Accessibilità su `/accessibilita`, link nel footer), 24 (popup “Multiverso completato” con suono, variante A), 30 (“?” con invito alla prima visita, variante B; nomi di scheda e filtro dalle chiavi `planner.order.chronological`, `planner.tags.alternate`, `planner.filters.showAlternate`); e le decisioni 3, 5, 6, 8-14, 19, 21-24 dell'elenco precedente (toast, X dei popup, importazione, switch, select, footer, logo, Dove guardare, copertina, Regia/Cast, indicatore visto, saga, titoli di serie, accesso, profilo). Il campo in errore (25) era già giusto. Il canvas le descrive come “implementata · main c520ab1”.
 

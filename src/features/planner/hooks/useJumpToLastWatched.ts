@@ -6,6 +6,8 @@ import { titlesInOrder } from "../utils/order";
 const UNFOLD_MS = 420;
 // How long the row stays lit after the jump.
 const FOUND_MS = 2400;
+// The longest wait for the scroll to end before the row is lit anyway.
+const SCROLL_WAIT_MS = 700;
 
 export function useJumpToLastWatched(
   catalog: Saga[],
@@ -31,9 +33,26 @@ export function useJumpToLastWatched(
       if (!row) return;
       const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       row.scrollIntoView({ block: "center", behavior: isReduced ? "auto" : "smooth" });
-      // The row is lit for a moment so the eye finds it.
-      row.classList.add("title-row--found");
-      window.setTimeout(() => row.classList.remove("title-row--found"), FOUND_MS);
+      // The row is lit when the scroll ends (at most SCROLL_WAIT_MS later), so the eye finds it there.
+      const light = () => {
+        row.classList.remove("title-row--found");
+        void row.offsetWidth;
+        row.classList.add("title-row--found");
+        window.setTimeout(() => row.classList.remove("title-row--found"), FOUND_MS);
+      };
+      if (isReduced || !("onscrollend" in window)) {
+        light();
+      } else {
+        let isLit = false;
+        const once = () => {
+          if (isLit) return;
+          isLit = true;
+          window.removeEventListener("scrollend", once);
+          light();
+        };
+        window.addEventListener("scrollend", once);
+        window.setTimeout(once, SCROLL_WAIT_MS);
+      }
       // The row is announced by the screen reader: the focus goes to its first control.
       row.querySelector<HTMLElement>("input, summary")?.focus({ preventScroll: true });
     };

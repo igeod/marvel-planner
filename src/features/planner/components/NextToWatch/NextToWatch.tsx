@@ -1,5 +1,5 @@
 import { Check, Maximize2 } from "lucide-react";
-import { useId, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { titlePath } from "../../../../app/paths";
 import { Button } from "../../../../components/ui/Button/Button";
 import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
@@ -12,12 +12,21 @@ import { backdropUrl, formatRelease } from "../../utils/format";
 interface NextToWatchProps {
   title: Title | null;
   phase: PhaseNumber | null;
+  // The card stays on screen while the watched list loads; only its content waits.
+  isLoading: boolean;
   isHiddenByFilters: boolean;
   onMarkWatched: (id: string) => void;
 }
 
-function BackdropImage({ src }: { src: string }) {
+// How long the new cover fades in over the old one (--dur-enter) before the old one is dropped.
+const COVER_SWAP_MS = 300;
+
+function BackdropImage({ src, onLoaded }: { src: string; onLoaded: () => void }) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const markLoaded = () => {
+    setIsLoaded(true);
+    onLoaded();
+  };
 
   return (
     <img
@@ -26,20 +35,39 @@ function BackdropImage({ src }: { src: string }) {
       src={src}
       alt=""
       ref={(img) => {
-        if (img?.complete) setIsLoaded(true);
+        if (img?.complete && !isLoaded) markLoaded();
       }}
-      onLoad={() => setIsLoaded(true)}
+      onLoad={markLoaded}
     />
   );
 }
 
+// The card never unmounts: when the next title changes, the old cover stays until the new one is
+// ready and fades in over it, so there is never an empty frame.
 function Backdrop({ titleId }: { titleId: string }) {
   const state = useTitleDetails(titleId);
+  const next =
+    state.status === "ready" && state.details.backdropPath
+      ? backdropUrl(state.details.backdropPath)
+      : null;
+  const [shown, setShown] = useState<string | null>(null);
+  const [loaded, setLoaded] = useState<string | null>(null);
 
-  if (state.status !== "ready" || !state.details.backdropPath) return null;
-  const src = backdropUrl(state.details.backdropPath);
-  // Keyed by source so a new cover fades in on its own instead of popping.
-  return <BackdropImage key={src} src={src} />;
+  useEffect(() => {
+    if (!loaded) return;
+    const timer = window.setTimeout(() => setShown(loaded), COVER_SWAP_MS);
+    return () => window.clearTimeout(timer);
+  }, [loaded]);
+
+  return (
+    <>
+      {shown && shown !== next && (
+        <img className="next-card__backdrop" data-loaded src={shown} alt="" />
+      )}
+      {/* Keyed by source so a new cover fades in on its own instead of popping. */}
+      {next && <BackdropImage key={next} src={next} onLoaded={() => setLoaded(next)} />}
+    </>
+  );
 }
 
 const MEDIUM_TITLE_LENGTH = 18;
@@ -51,7 +79,13 @@ function titleSizeClass(name: string): string {
   return "";
 }
 
-export function NextToWatch({ title, phase, isHiddenByFilters, onMarkWatched }: NextToWatchProps) {
+export function NextToWatch({
+  title,
+  phase,
+  isLoading,
+  isHiddenByFilters,
+  onMarkWatched,
+}: NextToWatchProps) {
   const i18n = useI18n();
   const { t } = i18n;
   const headingId = useId();
@@ -95,6 +129,8 @@ export function NextToWatch({ title, phase, isHiddenByFilters, onMarkWatched }: 
             </ButtonLink>
           </div>
         </>
+      ) : isLoading ? (
+        <div className="next-card__loading skeleton" aria-hidden="true" />
       ) : (
         <p className="next-card__meta">{t("planner.next.allDone")}</p>
       )}

@@ -123,11 +123,14 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                     <h2 id={castHeadingId}>{t("details.cast")}</h2>
                     {/* Under 40em the director is one line here and the "Director" section is hidden (CSS only). */}
                     <p className="film__credit-line">
-                      <span className="muted">{credit.label}</span>{" "}
                       {credit.names.length > 0 ? (
-                        <strong>{credit.names.join(", ")}</strong>
+                        <>
+                          <span className="muted">{credit.label}</span>{" "}
+                          <strong>{credit.names.join(", ")}</strong>
+                        </>
                       ) : (
-                        <span className="muted">{t("details.missing.director")}</span>
+                        // The missing text already says "Director": no label in front of it.
+                        <span className="muted film__missing">{t("details.missing.director")}</span>
                       )}
                     </p>
                     {details.cast.length === 0 ? (

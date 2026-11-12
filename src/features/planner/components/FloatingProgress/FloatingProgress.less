@@ -1,28 +1,18 @@
 @import (reference) "mixins";
 
+// Last child of the planner section: it follows the scroll and stops by itself at the end of the
+// section, before the footer. Only the phone shows it.
 .floating-progress {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: sticky;
+  bottom: calc(var(--floating-progress-gap) + env(safe-area-inset-bottom, 0px));
   z-index: 10;
   display: flex;
   flex-direction: column;
   gap: var(--sp-2h);
-  padding: 1rem 1.25rem calc(1.375rem + env(safe-area-inset-bottom, 0px));
+  padding: var(--sp-3h) 1.25rem 1rem;
   .panel-surface();
-  border-radius: var(--r-lg) var(--r-lg) 0 0;
+  border-radius: @radius-block;
   pointer-events: none;
-
-  .desktop({
-    left: 50%;
-    right: auto;
-    bottom: calc(var(--floating-progress-gap) + env(safe-area-inset-bottom, 0px));
-    width: min(560px, calc(100vw - 32px));
-    padding: var(--sp-3h) 1.5rem 1rem;
-    border-radius: @radius-block;
-    transform: translateX(-50%);
-  });
 
   &[hidden] {
     display: none;

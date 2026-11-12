@@ -1,5 +1,5 @@
-import { CheckCheck, Undo2 } from "lucide-react";
-import { Button } from "../../../../components/ui/Button/Button";
+import { Check, Minus } from "lucide-react";
+import { useEffect, useRef } from "react";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Phase } from "../../types";
@@ -31,6 +31,12 @@ export function PhaseSection({
   const ref = usePhaseMotion(isCollapsed);
   // Acts on the titles shown: a filtered phase is marked only where it is visible.
   const isAllWatched = progress.total > 0 && progress.done === progress.total;
+  const isPartial = progress.done > 0 && !isAllWatched;
+  // "Mixed" has no HTML attribute: it is a property, read by assistive technology as aria-checked="mixed".
+  const checkRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {
+    if (checkRef.current) checkRef.current.indeterminate = isPartial;
+  }, [isPartial]);
 
   return (
     <details
@@ -52,6 +58,30 @@ export function PhaseSection({
           onCollapsedChange(!isCollapsed);
         }}
       >
+        {phase.titles.length > 0 && (
+          // Marks or unmarks the titles shown. It does not open or close the phase.
+          <label
+            className="title-row__check phase__check"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <input
+              ref={checkRef}
+              type="checkbox"
+              checked={isAllWatched}
+              aria-label={isAllWatched ? t("planner.phase.unmarkAll") : t("planner.phase.markAll")}
+              onChange={() =>
+                onSetPhase(
+                  phase.titles.map((title) => title.id),
+                  !isAllWatched,
+                  phaseName,
+                )
+              }
+            />
+            <span className="title-row__box" aria-hidden="true">
+              {isAllWatched ? <Check /> : <Minus />}
+            </span>
+          </label>
+        )}
         <span className="phase__heading">
           <h3 className="phase__name">{phaseName}</h3>
           <span className="phase__years muted">{phase.years}</span>
@@ -68,25 +98,6 @@ export function PhaseSection({
         value={progress.done}
         max={Math.max(progress.total, 1)}
       />
-
-      {phase.titles.length > 0 && (
-        <div className="phase__actions">
-          <Button
-            variant="text"
-            size="sm"
-            icon={isAllWatched ? <Undo2 aria-hidden /> : <CheckCheck aria-hidden />}
-            onClick={() =>
-              onSetPhase(
-                phase.titles.map((title) => title.id),
-                !isAllWatched,
-                phaseName,
-              )
-            }
-          >
-            {isAllWatched ? t("planner.phase.unmarkAll") : t("planner.phase.markAll")}
-          </Button>
-        </div>
-      )}
 
       {phase.titles.length > 0 ? (
         <ol className="phase__titles">

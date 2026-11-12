@@ -240,6 +240,15 @@
   }
 }
 
+// Some, not all, of a phase watched: ink outline with an ink dash; red only ever means "watched".
+.title-row__check input:indeterminate + .title-row__box {
+  color: var(--ink);
+
+  svg {
+    opacity: 1;
+  }
+}
+
 .title-row__check input:focus-visible + .title-row__box {
   outline: var(--focus);
   outline-offset: var(--focus-offset);

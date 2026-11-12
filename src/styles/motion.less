@@ -445,8 +445,9 @@ dialog.menu-panel {
     }
   }
 
-  // Intro after the splash: runs once (html[data-intro] is removed ~450ms later), opacity and transform only.
-  // Six items cascade (header, progress, rail or search, next up, first phase); everything else just appears.
+  // Intro at every arrival on the planner or a film (and after the splash): html[data-intro] is removed
+  // ~600ms later, opacity and transform only. The first screen cascades; everything else just appears.
+  // Planner: header, progress, rail or search, next up, first phase.
   // --i is the step; the delay is capped at --stagger-max.
   :root[data-intro] {
     .site-header,
@@ -454,7 +455,12 @@ dialog.menu-panel {
     .planner > .phase-strip,
     .planner__body > :is(.planner__rail, .planner-search, .mobile-toolbar),
     .planner__hero > .next-card,
-    .planner__list > :nth-child(1) .phase:nth-child(2):not([data-motion]) {
+    .planner__list > :nth-child(1) .phase:nth-child(2):not([data-motion]),
+    .film__cover,
+    .film__heading,
+    .film__glass,
+    .film__story,
+    .film__cast {
       will-change: opacity, transform;
       animation: swap-in var(--dur-enter) var(--ease-out) backwards;
       animation-delay: min(calc(var(--stagger-step) * var(--i, 0)), var(--stagger-max));
@@ -479,6 +485,27 @@ dialog.menu-panel {
 
     .planner__list > :nth-child(1) .phase:nth-child(2) {
       --i: 4;
+    }
+
+    // Film page: cover, title and details, where to watch, then synopsis with credits and cast.
+    .film__cover {
+      --i: 1;
+    }
+
+    .film__heading {
+      --i: 2;
+    }
+
+    .film__glass {
+      --i: 3;
+    }
+
+    .film__story {
+      --i: 4;
+    }
+
+    .film__cast {
+      --i: 5;
     }
   }
 
@@ -764,7 +791,13 @@ dialog.menu-panel {
 
 // The row found by "Last watched": ring and veil fade out over the 2.4s it stays lit.
 @keyframes row-found {
-  to {
+  0%,
+  65% {
+    box-shadow: 0 0 0 3px var(--highlight);
+    background-color: color-mix(in srgb, var(--highlight) 22%, var(--row));
+  }
+
+  100% {
     box-shadow: 0 0 0 3px transparent;
     background-color: var(--row);
   }

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const MIN_MS = 450;
 const MAX_MS = 2000;
-const INTRO_MS = 450;
+const INTRO_MS = 600;
 const REMOVE_FALLBACK_MS = 600;
 
 // The splash waits for these keys: fonts, "site" (auth + site status, via AppLayout) and any page that
@@ -11,6 +11,15 @@ const pending = new Set<string>(["site", "fonts"]);
 const html = document.documentElement;
 let active = false;
 let startedAt = 0;
+
+let introTimer = 0;
+
+// Turns on the entrance cascade (see motion.less) and turns it off when it is over.
+export function playIntro() {
+  window.clearTimeout(introTimer);
+  html.dataset.intro = "";
+  introTimer = window.setTimeout(() => delete html.dataset.intro, INTRO_MS);
+}
 
 function finish() {
   if (!active) return;
@@ -24,8 +33,7 @@ function finish() {
   }
   const splash = document.getElementById("splash");
   const root = document.getElementById("root");
-  html.dataset.intro = "";
-  window.setTimeout(() => delete html.dataset.intro, INTRO_MS);
+  playIntro();
   if (!splash) return;
   const remove = () => {
     splash.remove();

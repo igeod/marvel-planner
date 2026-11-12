@@ -56,7 +56,7 @@ export function GuideHelp({ isReady, isChronological, showAlternate }: GuideHelp
     <div className="guide-help">
       <button
         type="button"
-        className="btn btn--panel btn--icon guide-help__button"
+        className="btn btn--panel btn--icon"
         aria-label={t("planner.guide.help")}
         aria-haspopup="dialog"
         onClick={() => {
