@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Splash</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="app.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+button{font:inherit}
+.dc-pg{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;padding:clamp(16px,4vw,48px);display:flex;flex-direction:column;gap:var(--sp-10);max-width:1240px;margin:0 auto;box-sizing:border-box;overflow-wrap:anywhere}
+.dc-pg p,.dc-pg li{text-wrap:pretty}
+.dc-pg h1,.dc-pg h2,.dc-pg h3{text-wrap:balance}
+.dc-pg ul.dc-ul{list-style:disc;padding-left:20px;margin:0;display:flex;flex-direction:column;gap:6px;max-width:90ch}
+.dc-h1{margin:0;font-family:var(--font-display);font-weight:400;font-size:clamp(2.5rem,8vw,3.5rem);line-height:1;text-transform:uppercase;letter-spacing:.01em}
+.dc-pg h2.dc-h2{margin:0;font-size:var(--fs-h2);font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.dc-pg h3.dc-h3{margin:0;font-size:var(--fs-title);font-weight:800}
+.dc-lead{margin:var(--sp-2) 0 0;max-width:78ch;color:var(--ink-2)}
+.dc-sec{display:flex;flex-direction:column;gap:var(--sp-4)}
+.dc-sub{margin:0;max-width:80ch;color:var(--ink-2)}
+.dc-row{display:flex;flex-wrap:wrap;gap:var(--sp-6) var(--sp-4);align-items:flex-start}
+.dc-fw{display:flex;flex-direction:column;gap:var(--sp-2);min-width:0;max-width:100%}
+.dc-fl{font-size:var(--fs-caption);font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2)}
+.dc-fr{max-width:100%;box-sizing:border-box;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;border-radius:var(--r-md);overflow:hidden;box-shadow:var(--shadow-card)}
+.dc-box{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-6);display:flex;flex-direction:column;gap:var(--sp-3)}
+.dc-tbl{width:100%;border-collapse:collapse;font-size:var(--fs-label)}
+.dc-tbl th{text-align:left;font-size:var(--fs-caption);text-transform:uppercase;letter-spacing:.06em;color:var(--ink-2);padding:var(--sp-2) var(--sp-3);border-bottom:2px solid var(--line);white-space:nowrap}
+.dc-tbl td{padding:var(--sp-2) var(--sp-3);border-bottom:1px solid var(--line);vertical-align:top}
+.dc-scroll{overflow-x:auto;max-width:100%}
+.dc-chip{display:inline-block;padding:2px 10px;border-radius:var(--r-pill);font-size:var(--fs-caption);font-weight:800;white-space:nowrap;background:var(--ink);color:var(--bg)}
+.dc-chip.k2{background:var(--highlight);color:var(--ink-static)}
+.dc-chip.k3{background:var(--row-hover);color:var(--ink)}
+.dc-pg code{font-size:.9em;background:var(--row-hover);padding:1px 5px;border-radius:var(--r-tiny);font-family:ui-monospace,Consolas,monospace}
+.dc-pg pre{margin:0;white-space:pre-wrap;background:var(--panel);color:var(--on-dark);padding:var(--sp-4);border-radius:var(--r-md);font-size:var(--fs-label);line-height:1.5}
+.dc-pg pre code{background:none;padding:0}
+.dc-spec td:first-child{min-width:14rem;max-width:26rem}
+.dc-spec .ln{color:var(--ink-2);font-size:var(--fs-caption);margin-left:4px}
+.dc-spec .cx{color:var(--ink-2);font-size:var(--fs-caption);margin-top:2px}
+.dc-src{margin:0;font-size:var(--fs-caption);color:var(--ink-2)}
+.dc-hdr{display:flex;flex-direction:column;background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-card);padding:var(--sp-3) var(--sp-6)}
+.dc-hdr>div{display:grid;grid-template-columns:minmax(0,12rem) 1fr;gap:var(--sp-3);padding:var(--sp-2) 0;border-bottom:1px solid var(--line);font-size:var(--fs-label)}
+.dc-hdr>div:last-child{border-bottom:0}
+.dc-hdr b{color:var(--ink-2)}
+.dc-pad{padding:var(--sp-4);display:flex;flex-direction:column;gap:var(--sp-3)}
+.dc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:var(--sp-3)}
+.dc-cell{display:flex;flex-direction:column;gap:var(--sp-2);align-items:flex-start;font-size:var(--fs-caption);color:var(--ink-2)}
+</style>
+</helmet>
+<div class="dc-pg">
+<div><h1 class="dc-h1">Splash</h1><p class="dc-lead">La schermata rossa del primo caricamento della sessione, la sua uscita e l'intro a cascata.</p></div>
+<div class="dc-hdr"><div><b>Cosa descrive</b><span>Splash: aspetto, tempi, uscita, intro, fallback</span></div><div><b>Cartella del codice</b><span>index.html, public/splash.css, public/splash-start.js, public/splash-root.js, src/app/splash.ts, src/styles/motion.less (#splash, :root[data-intro])</span></div><div><b>Componenti che usa</b><span>Nessun componente; il planner registra la propria disponibilità con <code>useSplashReady</code></span></div><div><b>Ultima modifica</b><span>11 novembre 2026</span></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Aspetto</h2><p class="dc-sub">Testo “MARVEL PLANNER” in font display, <code>--accent</code> su <code>--white</code>, maiuscolo, <code>clamp(3.5rem, 11vw, 9rem)</code>, interlinea 1,02, spaziatura 0,02em, padding 24px. Il resto della pagina è <code>inert</code> finché la splash è visibile (<code>public/splash-root.js</code>).</p><div class="demo-splash" aria-hidden="true">MARVEL PLANNER</div></div>
+<div class="dc-sec"><h2 class="dc-h2">Tempi (splash.ts, splash-start.js)</h2><div class="dc-scroll"><table class="dc-tbl "><thead><tr><th>Costante</th><th>Valore</th><th>Cosa fa</th><th>Fonte</th></tr></thead><tbody><tr><td><code>MIN_MS</code></td><td>450 ms</td><td>la splash non esce prima</td><td>splash.ts r.3</td></tr><tr><td><code>MAX_MS</code></td><td>2000 ms</td><td>tetto: esce comunque, senza aspettare i dati</td><td>splash.ts r.4</td></tr><tr><td><code>INTRO_MS</code></td><td>450 ms</td><td>dopo quanto si toglie <code>data-intro</code></td><td>splash.ts r.5?</td></tr><tr><td><code>REMOVE_FALLBACK_MS</code></td><td>600 ms</td><td>rimozione forzata se <code>animationend</code> non arriva</td><td>splash.ts r.6</td></tr><tr><td>fallback di splash-start.js</td><td>6000 ms</td><td>libera la pagina se il bundle non parte</td><td>public/splash-start.js r.19-23</td></tr></tbody></table></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Cosa aspetta</h2><p class="dc-sub">La splash esce quando sono pronte tutte le chiavi: <code>site</code> (login e stato del sito, da AppLayout), <code>fonts</code> (Anton e Hanken Grotesk Variable) e quelle registrate dalle pagine (<code>planner</code>). Passato il tetto la pagina compare senza dati: gli scheletri partono subito (<code>data-splash-capped</code> annulla <code>--delay-pending</code>).</p></div>
+<div class="dc-sec"><h2 class="dc-h2">Tre casi</h2><p class="dc-sub">Tempi calcolati dalle costanti sopra: uscita = max(MIN_MS, dati pronti), con tetto a MAX_MS; pagina completa = uscita + INTRO_MS.</p><div class="dc-scroll"><table class="dc-tbl "><thead><tr><th>Caso</th><th>Dati pronti a</th><th>Uscita splash</th><th>Pagina completa</th><th>Note</th></tr></thead><tbody><tr><td>Veloce</td><td>prima di 450 ms</td><td>450 ms (MIN_MS)</td><td>900 ms</td><td>dati già presenti</td></tr><tr><td>Medio</td><td>1500 ms</td><td>1500 ms</td><td>1950 ms</td><td>dati già presenti</td></tr><tr><td>Lento</td><td>dopo 2000 ms</td><td>2000 ms (MAX_MS)</td><td>2450 ms</td><td>scheletri subito; i dati li sostituiscono quando arrivano</td></tr></tbody></table></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Quando compare</h2><p class="dc-sub">Solo al primo caricamento della sessione: dopo l'uscita <code>sessionStorage["splash-seen"] = "1"</code>. Ricaricando nella stessa sessione si vede solo l'intro (<code>data-intro</code>, rimosso dopo 450 ms). Se lo storage è bloccato la splash riappare a ogni caricamento.</p></div>
+<div class="dc-sec"><h2 class="dc-h2">Uscita e intro (motion.less)</h2><p class="dc-sub">Uscita: <code>fade-out</code> in <code>--dur-press</code> (80ms) con movimento ridotto; senza riduzione <code>splash-out</code> in <code>--dur-enter</code>: opacità a 0 e scala 1,02. Intro: gli elementi della prima schermata entrano con <code>swap-in</code> (6px) in <code>--dur-enter</code>, ritardo <code>min(--stagger-step × i, --stagger-max)</code>; sei elementi in cascata, tutto il resto compare senza animazione.</p><div class="dc-scroll"><table class="dc-tbl dc-spec"><thead><tr><th>Selettore</th><th>Valori nel codice</th></tr></thead><tbody><tr><td><code>:root[data-splash-capped] .skeleton</code></td><td><code>animation-delay: 0s</code> <span class="ln">r.61</span></td></tr><tr><td><code>#splash[data-leaving]</code></td><td><code>pointer-events: none</code> <span class="ln">r.276</span><br><code>animation: fade-out var(--dur-press) var(--ease-out) forwards</code> <span class="ln">r.277</span></td></tr><tr><td><code>:root[data-intro] .site-header, :root[data-intro] .progress-card, :root[data-intro] .planner &gt; :is(.phase-strip, :root[data-intro] .phase-strip-accordion), :root[data-intro] .planner__body &gt; :is(.planner__rail, :root[data-intro] .planner-search, :root[data-intro] .mobile-toolbar), :root[data-intro] .planner__hero &gt; .next-card, :root[data-intro] .planner__list &gt; :nth-child(1) .phase:nth-child(2):not([data-motion]), :root[data-intro] .film__cover, :root[data-intro] .film__heading, :root[data-intro] .film__glass, :root[data-intro] .film__story, :root[data-intro] .film__cast</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>will-change: opacity, transform</code> <span class="ln">r.464</span><br><code>animation: swap-in var(--dur-enter) var(--ease-out) backwards</code> <span class="ln">r.465</span><br><code>animation-delay: min(calc(var(--stagger-step) * var(--i, 0)), var(--stagger-max))</code> <span class="ln">r.466</span></td></tr><tr><td><code>:root[data-intro] .site-header</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 0</code> <span class="ln">r.470</span></td></tr><tr><td><code>:root[data-intro] .progress-card</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 1</code> <span class="ln">r.474</span></td></tr><tr><td><code>:root[data-intro] .planner &gt; :is(.phase-strip, :root[data-intro] .phase-strip-accordion), :root[data-intro] .planner__body &gt; :is(.planner__rail, :root[data-intro] .planner-search, :root[data-intro] .mobile-toolbar)</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 2</code> <span class="ln">r.479</span></td></tr><tr><td><code>:root[data-intro] .planner__hero &gt; .next-card</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 3</code> <span class="ln">r.483</span></td></tr><tr><td><code>:root[data-intro] .planner__list &gt; :nth-child(1) .phase:nth-child(2)</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 4</code> <span class="ln">r.487</span></td></tr><tr><td><code>:root[data-intro] .film__cover</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 1</code> <span class="ln">r.492</span></td></tr><tr><td><code>:root[data-intro] .film__heading</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 2</code> <span class="ln">r.496</span></td></tr><tr><td><code>:root[data-intro] .film__glass</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 3</code> <span class="ln">r.500</span></td></tr><tr><td><code>:root[data-intro] .film__story</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 4</code> <span class="ln">r.504</span></td></tr><tr><td><code>:root[data-intro] .film__cast</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>--i: 5</code> <span class="ln">r.508</span></td></tr><tr><td><code>#splash[data-leaving]</code><div class="cx">@media (prefers-reduced-motion: no-preference)</div></td><td><code>animation-name: splash-out</code> <span class="ln">r.514</span><br><code>animation-duration: var(--dur-enter)</code> <span class="ln">r.515</span></td></tr><tr><td><code>to</code><div class="cx">@keyframes splash-out</div></td><td><code>opacity: 0</code> <span class="ln">r.866</span><br><code>transform: scale(1.02)</code> <span class="ln">r.867</span></td></tr></tbody></table></div><p class="dc-src">Fonte: <code>src/styles/motion.less</code> (commit 8b15e60), righe indicate come r.N.</p></div>
+<div class="dc-sec"><h2 class="dc-h2">Stile della splash: public/splash.css</h2><p class="dc-sub">Valori nel file CSS statico (<code>public/splash.css</code>, caricato da index.html), non in un .less: serve prima del bundle. Colori e font letti dai token con fallback (<code>#c8202b</code>, <code>#fff</code>, Anton).</p><div class="dc-scroll"><table class="dc-tbl "><thead><tr><th>Proprietà</th><th>Valore</th><th>Riga</th></tr></thead><tbody><tr><td>position / inset / z-index</td><td>fixed · 0 · 2147483647</td><td>public/splash.css r.11-13</td></tr><tr><td>display / place-items / padding</td><td>grid · center · 24px</td><td>public/splash.css r.14-16</td></tr><tr><td>background / color</td><td>var(--accent, #c8202b) · var(--white, #fff)</td><td>public/splash.css r.17-18</td></tr><tr><td>font</td><td>var(--font-display, "Anton", "Impact", "Arial Narrow", sans-serif); clamp(3.5rem, 11vw, 9rem); line-height 1.02; letter-spacing .02em</td><td>public/splash.css r.19-22</td></tr><tr><td>html</td><td>scrollbar-gutter: stable; con splash <code>overflow: hidden</code></td><td>public/splash.css r.1-3, r.7-9</td></tr></tbody></table></div></div>
+<div class="dc-sec"><h2 class="dc-h2">Prima, dopo, file</h2><p class="dc-sub">Che cosa è cambiato rispetto alla pagina precedente del canvas.</p><div class="dc-scroll"><table class="dc-tbl "><thead><tr><th>Cosa</th><th>Prima (canvas vecchio)</th><th>Dopo (codice)</th><th>File</th></tr></thead><tbody><tr><td>Tempi</td><td>minimo 600, tetto 3000, intro 700 (proposta)</td><td>450 / 2000 / 450 già nel codice</td><td>splash.ts</td></tr><tr><td>Quando compare</td><td>sempre</td><td>solo primo caricamento della sessione</td><td>public/splash-start.js r.6-8, splash.ts</td></tr><tr><td>Pagina Splash a parte</td><td>timeline disegnata a mano</td><td>tabella dei tempi dalle costanti</td><td>splash.ts</td></tr></tbody></table></div></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

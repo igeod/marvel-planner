@@ -1,0 +1,21 @@
+const { chromium } = require('playwright'); const fs=require('fs'); const path=require('path');
+const Q=__dirname, ROOT=path.join(Q,'..','artifact-files','712252da-dd69-46bd-a8bc-d04b21af345f');
+const file=p=>fs.readFileSync(p);
+const css=`@font-face{font-family:'Anton';font-weight:400;src:url(http://localhost:8765/__f/anton.woff2)}@font-face{font-family:'Hanken Grotesk';font-weight:100 900;src:url(http://localhost:8765/__f/hanken.woff2)}`;
+(async()=>{
+  const b=await chromium.launch(); const ctx=await b.newContext({viewport:{width:1400,height:900}}); const p=await ctx.newPage();
+  await p.route('**/*',async r=>{const u=r.request().url();
+    if(u.includes('unpkg.com/react@'))return r.fulfill({body:file(path.join(ROOT,'artifact-type/compat/react.production.min.js')),contentType:'text/javascript'});
+    if(u.includes('unpkg.com/react-dom@'))return r.fulfill({body:file(path.join(ROOT,'artifact-type/compat/react-dom.production.min.js')),contentType:'text/javascript'});
+    if(u.includes('unpkg.com/@babel'))return r.fulfill({body:file(path.join(Q,'node_modules/@babel/standalone/babel.min.js')),contentType:'text/javascript'});
+    if(u.includes('fonts.googleapis.com'))return r.fulfill({body:css,contentType:'text/css'});
+    if(u.includes('fonts.gstatic.com')||u.includes('preconnect'))return r.abort();
+    if(u.endsWith('/__f/anton.woff2'))return r.fulfill({body:file(path.join(Q,'node_modules/@fontsource/anton/files/anton-latin-400-normal.woff2')),contentType:'font/woff2'});
+    if(u.endsWith('/__f/hanken.woff2'))return r.fulfill({body:file(path.join(Q,'node_modules/@fontsource-variable/hanken-grotesk/files/hanken-grotesk-latin-wght-normal.woff2')),contentType:'font/woff2'});
+    return r.continue();});
+  await p.goto('http://localhost:8765/Accesso%20stati.dc.html',{waitUntil:'load'}); await p.waitForTimeout(3500);
+  const r2=await p.evaluate(()=>{const f=document.querySelectorAll('[data-theme]')[0]; const lab=f.querySelector('label'); const field=lab.parentElement.parentElement; return [field.parentElement.getAttribute('style'), field.getAttribute('style'), [...field.children].map(c=>c.tagName+':'+Math.round(c.getBoundingClientRect().height))]}); console.log(JSON.stringify(r2)); console.log(JSON.stringify(await p.evaluate(()=>{const f=document.querySelectorAll('[data-theme]')[0]; const lab=f.querySelectorAll('label')[1]; const row=lab.parentElement; return [row.getAttribute('style'), [...row.children].map(c=>c.tagName+':'+Math.round(c.getBoundingClientRect().height)), getComputedStyle(row.querySelector('button')).minHeight]}))); console.log(JSON.stringify(await p.evaluate(()=>{const f=document.querySelectorAll('[data-theme]')[0]; const form=f.querySelector('label').parentElement.parentElement.parentElement; return [...form.children].map(c=>c.tagName+':'+Math.round(c.getBoundingClientRect().height)+':'+(c.getAttribute('style')||'').slice(0,50))})));
+  const r=await p.evaluate(()=>{const f=document.querySelectorAll('[data-theme]')[0]; const inp=[...f.querySelectorAll('input')]; const lab=[...f.querySelectorAll('label')]; const ps=[...f.querySelectorAll('p[id$="-m"]')];
+    const R=e=>e.getBoundingClientRect(); return {inputBottom:R(inp[0]).bottom, msgTop:R(ps[0]).top, msgBottom:R(ps[0]).bottom, msgH:R(ps[0]).height, label2Top:R(lab[1]).top, inputToLabel:R(lab[1]).top-R(inp[0]).bottom, labelToInput:R(inp[0]).top-R(lab[0]).bottom}});
+  console.log(JSON.stringify(r)); await b.close();
+})();

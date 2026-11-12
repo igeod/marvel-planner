@@ -1,0 +1,6 @@
+{
+  "name": "marvel-planner-design-tools",
+  "private": true,
+  "description": "Strumenti per generare il canvas di design (non fa parte dell'app)",
+  "dependencies": { "less": "4.9.1", "lucide-static": "1.70.0" }
+}
