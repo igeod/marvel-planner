@@ -1,5 +1,11 @@
 # Changelog del canvas
 
+## 12 novembre 2026 · bordo di barra e scheda in tema scuro (proposta, main 8b15e60)
+
+- **Progress · “Bordo di barra e scheda in tema scuro” (proposta):** la barra del telefono (FloatingProgress.less r.13) e la scheda piccola desktop (CompactProgress.less r.43) in scuro non hanno bordo: `--panel` #3a4260 fa 1,97 su `--bg`, 1,65 su `--surface`, 1,28 su `--row` (calcolato dai token, non misurato nel browser). Proposta: anello 1px `--ink-2` (5,13 contro `--panel`) come il toast; barra con `--toast-shadow` (galleggia), scheda col solo anello; nuovo token `--panel-ring` (scuro `0 0 0 1px var(--ink-2)`, chiaro `none`) che `--toast-shadow` compone con `--shadow-pop`. Nessun valore nuovo, tema chiaro invariato, mai anello di focus rosso.
+- **Barra in `position: fixed`:** accettata dal design se esce con `--dur-ui` e il footer tiene il `padding-bottom` in più. Su main 8b15e60 è ancora `sticky` (FloatingProgress.less r.6): non verificato. Stessa cosa per la riga aggiornata di DESIGN.md e per i toast che scattano senza animazione: non sono su main.
+- **Scostamento trovato:** nella pagina Progress le tabelle “Valori nel codice” di FloatingProgress.less sono ferme a 450fbb9 (`@radius-block`, padding `1.25rem 1rem`); main ha `--r-row`, `--sp-3h --sp-4 --sp-3` e `width: min(440px, calc(100% - 1rem))` (r.12-19). Da ricalcolare con `remap.py` / a mano (la pagina si modifica a mano).
+
 ## 12 novembre 2026 · toast su telefono e conteggi (main b7ddfe3)
 
 - **Planner · “Barra di avanzamento su telefono: gli stessi bordi dei toast” (proposta):** i toast non cambiano (16 / 374px a 390px, raggio 22px); la barra, che oggi è tutta la colonna (8 / 382px, raggio 32px), sotto 40em prende la loro larghezza (`min(440px, calc(100% − 1rem))`, centrata), il loro raggio (`--r-row`) e un rientro interno di `--sp-4`; il toast le sta a `--sp-2` sopra (oggi 20px, posizione fissa su una barra da 5rem), misurata. Ordine dal basso: barra, toast, pillole, a `--sp-2`.

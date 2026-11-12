@@ -19,8 +19,10 @@ Elenco aggiornato a b7ddfe3. Le voci già riportate nel codice non ci sono più 
 |---|---|---|---|---|
 | 1 | Recupero password, lato server | Il client c'è: viste, rotta `/reset-password` e collegamento “Password dimenticata?”, tutto dietro `VITE_PASSWORD_RESET === "true"` (`features/auth/passwordReset.ts` r.3, `app/router.tsx` r.37, `LoginForm.tsx` r.92). Il commento del file dice: spento finché il server non sa inviare l'e-mail (servizio, durata del link, finestra di reinvio) | Server: invio dell'e-mail con il link, durata del link, attesa tra due invii (risposta 429, che il pulsante “Reinvia” già legge). Poi impostare `VITE_PASSWORD_RESET=true` | Popup di accesso |
 | 2 | Pagina di manutenzione HTML | Oggi la manutenzione è la pagina React `MaintenancePage` (`pages/MaintenancePage/MaintenancePage.tsx`) | Pagina HTML statica servita dal Worker con stato **503** e `<meta name="robots" content="noindex">` | Pagine di errore |
+| 3 | Bordo di barra e scheda in tema scuro | Barra del telefono (`FloatingProgress.less` r.13) e scheda piccola (`CompactProgress.less` r.43) usano solo `.panel-surface()` (`mixins.less` r.61): in scuro nessun bordo, pannello 1,28 su `--row` | `tokens.less`: nuovo `--panel-ring` (scuro `0 0 0 1px var(--ink-2)`, chiaro `none`), `--toast-shadow` scuro = `var(--shadow-pop), var(--panel-ring)` (r.25, r.84). Barra: `box-shadow: var(--toast-shadow)`; scheda: `box-shadow: var(--panel-ring)` | Progress |
 
 Note sulle voci:
+- **3** la barra in `position: fixed` va bene al design se esce con `--dur-ui` e il footer tiene il `padding-bottom` in più; su main è ancora `sticky` (`FloatingProgress.less` r.6), non verificato.
 - **1** resta in attesa del server; il collegamento “Password dimenticata?” è già nel client dietro il flag (`LoginForm.tsx` r.91-101).
 - **Funzione 20 (episodi, spunta per episodio):** rimandata. Resta nel canvas (Planner) con chip “rimandata”, non da implementare ora.
 
