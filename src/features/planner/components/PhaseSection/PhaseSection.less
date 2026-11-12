@@ -9,7 +9,10 @@
   align-items: center;
   gap: var(--sp-3h);
   min-height: 4rem;
-  padding: var(--sp-2h) 1rem var(--sp-2h) 1.25rem;
+  // Left padding as the title rows (12px, 8px on desktop), so the phase box lines up with theirs.
+  padding: var(--sp-2h) 1rem var(--sp-2h) 0.75rem;
+
+  .desktop({ padding-left: 8px; });
   border-radius: var(--r-md);
   .tones(var(--row-hover), var(--row-press));
 
