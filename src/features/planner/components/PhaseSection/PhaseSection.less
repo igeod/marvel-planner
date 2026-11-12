@@ -51,7 +51,8 @@
   padding: 0.5rem 1.25rem 1rem;
 }
 
-// The phase box is the title box: no top margin, so it centres on the summary row.
-.phase__check {
+// The phase box is the title box, but .title-row__check has a top margin meant for the title rows
+// (TitleItem.less is imported later, so a single class would lose): here the summary centres it.
+.phase__summary .phase__check {
   margin-top: 0;
 }
