@@ -1,4 +1,7 @@
+import { useState } from "react";
+import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useI18n } from "../../../../i18n/useI18n";
+import { useCountUp } from "../../hooks/useCountUp";
 import type { Progress, Title } from "../../types";
 
 interface CompactProgressProps {
@@ -7,9 +10,22 @@ interface CompactProgressProps {
   isVisible: boolean;
 }
 
+const COUNT_INITIAL_MS = 900;
+const COUNT_CHANGE_MS = 400;
+
 export function CompactProgress({ progress, nextTitle, isVisible }: CompactProgressProps) {
   const { t, rich } = useI18n();
   const percent = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
+
+  // Counts the first time the card opens and whenever the number changes, not at every reopening.
+  const [hasOpened, setHasOpened] = useState(isVisible);
+  if (isVisible && !hasOpened) setHasOpened(true);
+  const shownPercent = useCountUp(percent, {
+    initialMs: COUNT_INITIAL_MS,
+    changeMs: COUNT_CHANGE_MS,
+    enabled: useMediaQuery("(prefers-reduced-motion: no-preference)"),
+    isActive: hasOpened,
+  });
 
   return (
     <div className="compact-progress-wrap" data-visible={isVisible}>
@@ -23,7 +39,11 @@ export function CompactProgress({ progress, nextTitle, isVisible }: CompactProgr
             <span className="compact-progress__count">
               {t("planner.watchedCount", { done: progress.done, total: progress.total })}
             </span>
-            <span className="compact-progress__percent">{percent}%</span>
+            <span className="compact-progress__percent" aria-hidden="true">
+              {/* Hidden "100%" reserves the final width, so the digits do not push the layout. */}
+              <span className="compact-progress__percent-width">100%</span>
+              <span className="compact-progress__percent-value">{shownPercent}%</span>
+            </span>
           </div>
           <progress
             value={progress.done}

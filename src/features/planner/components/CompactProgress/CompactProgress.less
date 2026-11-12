@@ -79,6 +79,18 @@
   font-size: var(--fs-xl);
   line-height: 1;
   color: var(--highlight);
+  font-variant-numeric: tabular-nums;
+  display: grid;
+  justify-items: end;
+}
+
+.compact-progress__percent-width,
+.compact-progress__percent-value {
+  grid-area: 1 / 1;
+}
+
+.compact-progress__percent-width {
+  visibility: hidden;
 }
 
 .compact-progress__next {

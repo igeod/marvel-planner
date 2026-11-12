@@ -5,6 +5,9 @@ interface CountUpOptions {
   initialMs: number;
   changeMs: number;
   enabled: boolean;
+  // While false the value waits at 0 and the "first arrival" count is kept for when it turns true
+  // (a card that starts hidden counts the first time it is opened, not when the page loads).
+  isActive?: boolean;
 }
 
 // Decelerating exit: 1 − (1 − t)³.
@@ -18,12 +21,16 @@ export function countUpValue(from: number, to: number, progress: number): number
 
 // Counts up to `target` (the first time from 0), also down when it drops. With `enabled` false
 // (reduced motion) the value jumps straight to the target.
-export function useCountUp(target: number, { initialMs, changeMs, enabled }: CountUpOptions) {
+export function useCountUp(
+  target: number,
+  { initialMs, changeMs, enabled, isActive = true }: CountUpOptions,
+) {
   const [value, setValue] = useState(enabled ? 0 : target);
   const currentRef = useRef(value);
   const isFirstRef = useRef(true);
 
   useEffect(() => {
+    if (!isActive) return;
     const isFirst = isFirstRef.current;
     isFirstRef.current = false;
     const from = currentRef.current;
@@ -43,7 +50,7 @@ export function useCountUp(target: number, { initialMs, changeMs, enabled }: Cou
       if (progress < 1) frame = requestAnimationFrame(tick);
     });
     return () => cancelAnimationFrame(frame);
-  }, [target, enabled, initialMs, changeMs]);
+  }, [target, enabled, isActive, initialMs, changeMs]);
 
   return enabled ? value : target;
 }
