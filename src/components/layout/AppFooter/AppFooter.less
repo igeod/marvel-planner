@@ -5,12 +5,13 @@
   flex-direction: column;
   gap: 1.5rem;
   margin-top: var(--sp-10);
-  padding: 2rem 1rem var(--sp-10);
+  // The bottom leaves room for the floating pills, so they never cover the last line when the page ends.
+  padding: 2rem 1rem calc(var(--sp-10) + var(--hit));
   .panel-surface();
 
   .desktop({
     margin-top: var(--sp-14);
-    padding: 48px max(32px, calc((100% - var(--content-max)) / 2 + 32px)) 40px;
+    padding: 48px max(32px, calc((100% - var(--content-max)) / 2 + 32px)) calc(40px + var(--hit));
   });
 }
 

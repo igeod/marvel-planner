@@ -1,20 +1,19 @@
 @import (reference) "mixins";
 
-// Two pills side by side, centred above the progress bar (on desktop the bar is not there: clearance is 0).
+// Two pills side by side, centred at the bottom; with the progress bar showing (phone) they sit above it.
 // Under a toast they hide: the toast comes first.
 .jump-pills {
   position: fixed;
   left: 50%;
-  bottom: calc(var(--floating-progress-clearance) + var(--sp-4));
+  bottom: calc(var(--sp-4) + env(safe-area-inset-bottom, 0px));
   z-index: 10;
   display: flex;
   gap: var(--sp-2);
   transform: translateX(-50%);
 }
 
-// The film page has no progress bar to clear.
-.film .jump-pills {
-  bottom: var(--sp-4);
+.jump-pills--above-bar {
+  bottom: calc(var(--floating-progress-clearance) + var(--sp-4));
 }
 
 body:has(.toasts .toast) .jump-pills {

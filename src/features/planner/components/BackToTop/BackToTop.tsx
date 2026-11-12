@@ -16,17 +16,28 @@ const isRowInView = (id: string) => {
   return bottom > 0 && top < window.innerHeight;
 };
 
+// The progress bar (phone) is sticky: it only needs clearing while it is stuck to the bottom edge, not
+// when it rests at the end of the section above the footer.
+const isBarStuck = () => {
+  const bar = document.querySelector(".floating-progress[data-visible='true']");
+  if (!bar) return false;
+  const { bottom, height } = bar.getBoundingClientRect();
+  return bottom > window.innerHeight - height;
+};
+
 // Two floating pills, centred: "Last watched" while that row is out of the window, and "Back to top"
 // after a long scroll (1.5 screens). Each goes away on its own when it is no use.
 export function BackToTop({ lastId = null, onJumpToLast }: BackToTopProps) {
   const { t } = useI18n();
   const [isFar, setIsFar] = useState(false);
   const [isLastOut, setIsLastOut] = useState(false);
+  const [isAboveBar, setIsAboveBar] = useState(false);
 
   useEffect(() => {
     const update = () => {
       setIsFar(window.scrollY > window.innerHeight * 1.5);
       setIsLastOut(lastId !== null && !isRowInView(lastId));
+      setIsAboveBar(isBarStuck());
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -50,7 +61,7 @@ export function BackToTop({ lastId = null, onJumpToLast }: BackToTopProps) {
   };
 
   return (
-    <div className="jump-pills">
+    <div className={`jump-pills${isAboveBar ? " jump-pills--above-bar" : ""}`}>
       {showLast && (
         <Button
           variant="panel"
