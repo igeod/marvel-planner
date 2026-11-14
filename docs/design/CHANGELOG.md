@@ -1,5 +1,12 @@
 # Changelog del canvas
 
+## 15 novembre 2026 · pillola «Visto», movimento delle fasi, etichette della sottoriga (proposte, main 8a8adc8)
+
+- **Accordion · “Pillola ‘Visto’ nella riga aperta” (voce 8):** la pillola esiste solo a riga aperta e sta sotto il sottotitolo, non a destra; sotto 64em il fondo era agganciato alla locandina (`min-height: 4.3125rem`, TitleItem.less r.164). Regola: segue il sottotitolo a `--sp-3h` dal bordo visibile, ovunque; area da 44px con margine `-0.3125rem` esatto. Cambia solo sotto 64em. Calcolato dai `.less`, non misurato.
+- **Motion · “Fasi: altezza animata solo nel clic singolo” (voce 9):** clic singolo e fascia mobile restano animati, ancora la riga cliccata, `overflow-anchor: none` sulla fase; chiusura che accorcerebbe lo scorrimento: salta al finale. “Apri / Chiudi tutto”: altezza finale subito, `pop-in` scaglionato in apertura, chiusura istantanea, ancora la fase al centro dello schermo con un solo `scrollBy`. Movimento ridotto: solo `--dur-press`. Riserva: stesso compromesso anche nel clic singolo. Non misurato.
+- **Badges · “Etichette della sottoriga del titolo” (voce 10):** tipo, data, “animata”, “corti” restano testo con la virgola; “Continuità alternativa” (contorno) e “In arrivo” (pieno) diventano etichette sulla stessa riga, nuova classe `.title-tag`; stessa forma nella riga aperta e in “Prossimo da guardare”; spiegazione con `InfoTip` solo nella pagina del film (la riga è un `<summary>`), nuova chiave `planner.tags.alternateHint`.
+- **Scritte a mano** (nessun `add_*.py`): una rigenerazione di `p_accordion.py`, `p_motion.py`, `p_badges.py` le cancella. Voci 3, 4, 5-7 ancora da marcare quando Code conferma i commit.
+
 ## 14 novembre 2026 · contrasto alto, focus nei campi, accordion delle fasi (proposte, main 9bd4cd8)
 
 - **Accessibility · “Contrasto alto (forced-colors)” (proposta, voce 5):** bordo di riserva 1px in colori di sistema: `CanvasText` sui contenitori (barra, scheda compatta, toast, card, dialog, sheet, menu, elenco del select), `ButtonBorder` sui controlli (ricerca, campi, trigger del select). Un solo blocco in `base.less`. Barra: traccia `Canvas` + `outline` `CanvasText`, riempimento `Highlight`. Casella “segna tutto”: vista `Highlight` + `HighlightText`, parziale e vuota distinguibili dal segno. Non verificato su Windows.
