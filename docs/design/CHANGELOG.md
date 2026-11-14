@@ -1,5 +1,12 @@
 # Changelog del canvas
 
+## 14 novembre 2026 · toast: uscita, spostamento, chiusura, anello in chiaro (proposta, main a4f78d4)
+
+- **Toast · “Toast: uscita, spostamento, chiusura, anello in chiaro” (proposta, voce 4):** (1) uscita in `--dur-ui` con dissolvenza e scivolamento di 6px (solo dissolvenza con movimento ridotto), via `transition` su `opacity`/`translate`; (2a) i toast si spostano con `translate` quando la barra entra o esce (`--dur-enter` in salita, `--dur-ui` in discesa, come le pillole); (2b) pila in slot a griglia (`0fr` ↔ `1fr`) così gli altri scorrono; il toast in uscita non conta per `MAX_VISIBLE`; (3) pulsante di chiusura in ogni toast, sempre visibile, `--hit`, icona `X` 20px, hover `--raised`, focus oro 3px; (4) in chiaro `--panel-ring: none` resta, `--toast-shadow` prende l'anello 1px `--muted-on-dark` perché il toast sul footer (`--panel`) è 1:1.
+- **Sostituisce** la parte “la X resta solo sul toast persistente” della decisione “X o Annulla” (pagina Toast, “implementata · main c520ab1”): la X ora è l'uscita accessibile, non rumore.
+- **Voce 3 (bordo scuro)** è su main (9cadb25, anello scuro su barra e scheda; barra `fixed` nascosta dal footer). Il canvas non è ancora marcato “implementata”: aspetto il commit di conferma.
+- **Il blocco della pagina Toast è scritto a mano** (non c'è un `add_*.py`): una rigenerazione di `p_toast.py` lo cancella. Non misurato nel browser: contrasti calcolati dai token, larghezza del titolo a 360px con azione e X, supporto di `overflow-clip-margin` in Safari.
+
 ## 12 novembre 2026 · bordo di barra e scheda in tema scuro (proposta, main 8b15e60)
 
 - **Progress · “Bordo di barra e scheda in tema scuro” (proposta):** la barra del telefono (FloatingProgress.less r.13) e la scheda piccola desktop (CompactProgress.less r.43) in scuro non hanno bordo: `--panel` #3a4260 fa 1,97 su `--bg`, 1,65 su `--surface`, 1,28 su `--row` (calcolato dai token, non misurato nel browser). Proposta: anello 1px `--ink-2` (5,13 contro `--panel`) come il toast; barra con `--toast-shadow` (galleggia), scheda col solo anello; nuovo token `--panel-ring` (scuro `0 0 0 1px var(--ink-2)`, chiaro `none`) che `--toast-shadow` compone con `--shadow-pop`. Nessun valore nuovo, tema chiaro invariato, mai anello di focus rosso.
