@@ -1,5 +1,12 @@
 # Changelog del canvas
 
+## 14 novembre 2026 · contrasto alto, focus nei campi, accordion delle fasi (proposte, main 9bd4cd8)
+
+- **Accessibility · “Contrasto alto (forced-colors)” (proposta, voce 5):** bordo di riserva 1px in colori di sistema: `CanvasText` sui contenitori (barra, scheda compatta, toast, card, dialog, sheet, menu, elenco del select), `ButtonBorder` sui controlli (ricerca, campi, trigger del select). Un solo blocco in `base.less`. Barra: traccia `Canvas` + `outline` `CanvasText`, riempimento `Highlight`. Casella “segna tutto”: vista `Highlight` + `HighlightText`, parziale e vuota distinguibili dal segno. Non verificato su Windows.
+- **Accessibility · “Anello di focus nei campi” (voce 6):** confermato: AccountSettings r.16 è il solo `dialog--profile:focus`, PlannerSearch ha l'anello sul contenitore (`:focus-within`), tutti con `--focus` (≥5,17:1 in chiaro e scuro, calcolato). **Trovato:** nel select l'opzione attiva e selezionata (è così all'apertura) ha l'anello dello stesso colore dello sfondo (1:1, 1,73:1, 1:1); proposta `outline-color: var(--bg)` (in linea `--ink-static`).
+- **Accessibility · “Accordion delle fasi con `<h3><button>`” (voce 7):** anello sulla riga (`--focus`, offset −3px, `--r-md`) con `:has()`, come le righe dei titoli; hover e premuto del pulsante tingono la riga, la casella ha i suoi (non tinge più la riga); casella a 44px nella stessa posizione; il pulsante prende il padding perché l'area cliccabile non cambi. Anche la fascia mobile.
+- **Scritte a mano** (nessun `add_*.py`): una rigenerazione di `p_access.py` le cancella. Voci 3 e 4 ancora da marcare quando Code conferma i commit.
+
 ## 14 novembre 2026 · toast: uscita, spostamento, chiusura, anello in chiaro (proposta, main a4f78d4)
 
 - **Toast · “Toast: uscita, spostamento, chiusura, anello in chiaro” (proposta, voce 4):** (1) uscita in `--dur-ui` con dissolvenza e scivolamento di 6px (solo dissolvenza con movimento ridotto), via `transition` su `opacity`/`translate`; (2a) i toast si spostano con `translate` quando la barra entra o esce (`--dur-enter` in salita, `--dur-ui` in discesa, come le pillole); (2b) pila in slot a griglia (`0fr` ↔ `1fr`) così gli altri scorrono; il toast in uscita non conta per `MAX_VISIBLE`; (3) pulsante di chiusura in ogni toast, sempre visibile, `--hit`, icona `X` 20px, hover `--raised`, focus oro 3px; (4) in chiaro `--panel-ring: none` resta, `--toast-shadow` prende l'anello 1px `--muted-on-dark` perché il toast sul footer (`--panel`) è 1:1.
