@@ -18,6 +18,8 @@ export interface SelectOption {
   value: string;
   label: string;
   lang?: string;
+  // Compact trigger text (the popover layout only); the full label stays for the list and the name read.
+  short?: string;
 }
 
 interface SelectFieldProps {
@@ -260,7 +262,16 @@ function CustomSelect({
       >
         {icon}
         <span id={`${baseId}-value`} lang={options[selectedIndex]?.lang}>
-          {options[selectedIndex]?.label}
+          {isPopover && options[selectedIndex]?.short ? (
+            <>
+              <span className="select-field__short" aria-hidden="true">
+                {options[selectedIndex].short}
+              </span>
+              <span className="visually-hidden">{options[selectedIndex].label}</span>
+            </>
+          ) : (
+            options[selectedIndex]?.label
+          )}
         </span>
         <Chevron />
       </button>

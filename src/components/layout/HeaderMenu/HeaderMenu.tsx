@@ -102,10 +102,10 @@ export function HeaderMenu() {
                   onClick={close}
                 />
               </div>
-              <ThemeChoice />
               <div className="menu-panel__language">
                 <LanguageSwitcher layout="inline" />
               </div>
+              <ThemeChoice />
               <MenuAccount onNavigate={close} />
             </div>
           )}

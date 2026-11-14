@@ -21,6 +21,15 @@
   color: var(--muted-on-dark);
 }
 
+// The compact trigger (language in the header): the two-letter code, so less padding.
+.select-field--popover .select-field__trigger:has(.select-field__short) {
+  padding-inline: var(--sp-3);
+}
+
+.select-field__short {
+  text-transform: uppercase;
+}
+
 .select-field__trigger {
   display: inline-flex;
   align-items: center;

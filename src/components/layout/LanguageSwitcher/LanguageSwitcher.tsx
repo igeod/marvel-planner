@@ -7,6 +7,7 @@ const OPTIONS: SelectOption[] = LANGUAGES.map((code) => ({
   value: code,
   label: LANGUAGE_NAMES[code],
   lang: code,
+  short: code,
 }));
 
 interface LanguageSwitcherProps {
