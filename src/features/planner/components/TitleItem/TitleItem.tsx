@@ -50,8 +50,13 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
   useEffect(() => {
     if (!isOpen) return;
     const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Smooth, not instant: a jump right after the row has grown reads as a stutter.
     const timer = window.setTimeout(
-      () => rowRef.current?.scrollIntoView({ block: "nearest" }),
+      () =>
+        rowRef.current?.scrollIntoView({
+          block: "nearest",
+          behavior: isReduced ? "auto" : "smooth",
+        }),
       isReduced ? 0 : OPEN_ANIMATION_MS,
     );
     return () => window.clearTimeout(timer);
