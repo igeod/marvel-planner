@@ -6,11 +6,16 @@
   .desktop({ padding: 24px 36px 28px; });
 }
 
-// Phone: the strip is an accordion like the phases (details.phase), more compact: closed it is
+// Phone: the strip is an accordion like the phases (.phase), more compact: closed it is
 // --pad-card + --hit + --pad-card = 60px, with no second line.
-.phase-strip-accordion .phase__summary {
+.phase-strip-accordion .phase__head {
   min-height: var(--hit);
+  padding-left: 0;
+}
+
+.phase-strip-accordion .phase__toggle {
   padding-block: 0;
+  padding-left: 0.75rem;
 }
 
 .phase-strip__name {

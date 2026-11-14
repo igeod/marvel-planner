@@ -47,7 +47,6 @@ export function Modal({
       ref={dialogRef}
       tabIndex={isBare ? -1 : undefined}
       className={`dialog dialog--${size}`}
-      aria-modal="true"
       aria-labelledby={ownTitleId || !isBare ? titleId : undefined}
       aria-label={isBare && !ownTitleId ? title : undefined}
       onCancel={(event) => {

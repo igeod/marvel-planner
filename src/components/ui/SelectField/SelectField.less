@@ -197,6 +197,15 @@
   .tones(var(--highlight), var(--highlight));
 }
 
+// The ring of the active option would match the fill of the selected one.
+.select-field__option[aria-selected="true"][data-active="true"] {
+  outline-color: var(--bg);
+}
+
+.select-field--inline .select-field__option[aria-selected="true"][data-active="true"] {
+  outline-color: var(--ink-static);
+}
+
 .select-field__list:focus-visible {
   outline: var(--focus);
   outline-offset: 2px;

@@ -4,20 +4,65 @@
   padding: var(--pad-card);
 }
 
-.phase__summary {
+// Closed content goes away (display) so the head alone is left; data-open stays "true" while the
+// close animates (usePhaseMotion).
+.phase[data-open="false"] > :not(.phase__head) {
+  display: none;
+}
+
+.phase__head {
   display: flex;
   align-items: center;
-  gap: var(--sp-3h);
   min-height: 4rem;
   // Left padding as the title rows (12px, 8px on desktop), so the phase box lines up with theirs.
-  padding: var(--sp-2h) 1rem var(--sp-2h) 0.75rem;
+  padding-left: 0.75rem;
 
   .desktop({ padding-left: 8px; });
   border-radius: var(--r-md);
-  .tones(var(--row-hover), var(--row-press));
+
+  // Hover, pressed and focus colour the whole row, but only for the toggle: the box has its own.
+  @media (hover: hover) and (pointer: fine) {
+    &:has(.phase__toggle:hover) {
+      background: var(--row-hover);
+    }
+  }
+
+  &:has(.phase__toggle:active) {
+    background: var(--row-press);
+  }
+
+  &:has(.phase__toggle:focus-visible) {
+    outline: var(--focus);
+    outline-offset: -3px;
+  }
+}
+
+.phase__title {
+  display: flex;
+  flex: 1;
+  align-self: stretch;
+  min-width: 0;
+  margin: 0;
+}
+
+// The button takes the rest of the row; its left padding is the gap that used to sit after the box.
+.phase__toggle {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  align-self: stretch;
+  gap: var(--sp-3h);
+  min-width: 0;
+  padding: var(--sp-2h) 1rem var(--sp-2h) var(--sp-3h);
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
 
   &:focus-visible {
-    outline-offset: -3px;
+    outline: none;
   }
 }
 
@@ -27,6 +72,7 @@
 }
 
 .phase__name {
+  display: block;
   font-size: var(--fs-h3);
   font-weight: 800;
   line-height: 1.2;
@@ -52,7 +98,7 @@
 }
 
 // The phase box is the title box, but .title-row__check has a top margin meant for the title rows
-// (TitleItem.less is imported later, so a single class would lose): here the summary centres it.
-.phase__summary .phase__check {
+// (TitleItem.less is imported later, so a single class would lose): here the head centres it.
+.phase__head .phase__check {
   margin-top: 0;
 }

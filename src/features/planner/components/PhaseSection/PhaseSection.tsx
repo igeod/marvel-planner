@@ -39,31 +39,11 @@ export function PhaseSection({
   }, [isPartial]);
 
   return (
-    <details
-      ref={ref}
-      className="phase card"
-      open={!isCollapsed}
-      onToggle={(event) => {
-        // Ignore toggles caused by the animation; react only to native ones (e.g. find in page).
-        const details = event.currentTarget;
-        if (details.dataset.motion || details.open === !isCollapsed) return;
-        onCollapsedChange(!details.open);
-      }}
-    >
-      <summary
-        className="phase__summary"
-        onClick={(event) => {
-          // State drives open/closed so the close can animate before the attribute is removed.
-          event.preventDefault();
-          onCollapsedChange(!isCollapsed);
-        }}
-      >
+    <div ref={ref} className="phase card" data-open={!isCollapsed}>
+      <div className="phase__head">
         {phase.titles.length > 0 && (
           // Marks or unmarks the titles shown. It does not open or close the phase.
-          <label
-            className="title-row__check phase__check"
-            onClick={(event) => event.stopPropagation()}
-          >
+          <label className="title-row__check phase__check">
             <input
               ref={checkRef}
               type="checkbox"
@@ -82,15 +62,25 @@ export function PhaseSection({
             </span>
           </label>
         )}
-        <span className="phase__heading">
-          <h3 className="phase__name">{phaseName}</h3>
-          <span className="phase__years muted">{phase.years}</span>
-        </span>
-        <span className="phase__count">
-          {t("common.ofCount", { done: progress.done, total: progress.total })}
-        </span>
-        <Chevron />
-      </summary>
+        <h3 className="phase__title">
+          <button
+            type="button"
+            className="phase__toggle"
+            aria-expanded={!isCollapsed}
+            // State drives open/closed so the close can animate before the content goes away.
+            onClick={() => onCollapsedChange(!isCollapsed)}
+          >
+            <span className="phase__heading">
+              <span className="phase__name">{phaseName}</span>{" "}
+              <span className="phase__years muted">{phase.years}</span>
+            </span>{" "}
+            <span className="phase__count">
+              {t("common.ofCount", { done: progress.done, total: progress.total })}
+            </span>
+            <Chevron />
+          </button>
+        </h3>
+      </div>
 
       <progress
         className="visually-hidden"
@@ -114,6 +104,6 @@ export function PhaseSection({
       ) : (
         <p className="phase__empty muted">{t("planner.phase.empty")}</p>
       )}
-    </details>
+    </div>
   );
 }

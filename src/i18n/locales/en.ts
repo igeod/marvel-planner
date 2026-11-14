@@ -150,6 +150,7 @@ export const en: Messages = {
     },
     tags: {
       alternate: "Alternate continuity",
+      alternateHint: "Parallel universe: not needed to follow the main story.",
       upcoming: "Upcoming",
     },
     notes: {
@@ -527,6 +528,7 @@ export const en: Messages = {
   },
   common: {
     close: "Close",
+    notifications: "Notifications",
     cancel: "Cancel",
     loading: "Loading…",
     retry: "Try again",

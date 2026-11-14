@@ -1,10 +1,12 @@
 import { useLayoutEffect, useRef } from "react";
 
-// Animates a phase <details> on every browser. CSS (motion.less) owns durations and easing; this hook only
-// measures the closed/open heights and sets data-motion while the animation runs. On close the "open"
-// attribute is kept until the animation ends.
+// Animates a phase (data-open on its root) on every browser. CSS (motion.less) owns durations and
+// easing; this hook measures the closed/open heights and sets data-motion while the animation runs.
+// The height is animated only for a single click. Collapse all / Expand all (inside
+// .planner__list--bulk) and a close that would leave the page shorter than where it is scrolled
+// change the height at once: animating it moves the scrollbar frame by frame.
 export function usePhaseMotion(isCollapsed: boolean) {
-  const ref = useRef<HTMLDetailsElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const previous = useRef(isCollapsed);
   const run = useRef(0);
 
@@ -14,14 +16,31 @@ export function usePhaseMotion(isCollapsed: boolean) {
     previous.current = isCollapsed;
     const id = ++run.current;
     const closing = isCollapsed;
+    const isBulk = Boolean(el.closest(".planner__list--bulk"));
 
     delete el.dataset.motion;
-    el.open = false;
+    el.style.removeProperty("--phase-h0");
+    el.style.removeProperty("--phase-h1");
+    el.dataset.open = "false";
     const closedHeight = el.offsetHeight;
-    el.open = true;
+    el.dataset.open = "true";
     const openHeight = el.offsetHeight;
-    el.style.setProperty("--phase-h0", `${closedHeight}px`);
-    el.style.setProperty("--phase-h1", `${openHeight}px`);
+
+    if (closing) {
+      // The shorter page may not reach the current scroll position: the browser would clamp it.
+      const isTooShort =
+        window.scrollY >
+        document.documentElement.scrollHeight - (openHeight - closedHeight) - window.innerHeight;
+      if (isBulk || isTooShort) {
+        el.dataset.open = "false";
+        return;
+      }
+    }
+
+    if (!isBulk) {
+      el.style.setProperty("--phase-h0", `${closedHeight}px`);
+      el.style.setProperty("--phase-h1", `${openHeight}px`);
+    }
     el.dataset.motion = closing ? "closing" : "opening";
 
     const animations = el.getAnimations({ subtree: true });
@@ -30,7 +49,7 @@ export function usePhaseMotion(isCollapsed: boolean) {
       delete el.dataset.motion;
       el.style.removeProperty("--phase-h0");
       el.style.removeProperty("--phase-h1");
-      if (closing) el.open = false;
+      if (closing) el.dataset.open = "false";
     });
   }, [isCollapsed]);
 

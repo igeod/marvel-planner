@@ -151,6 +151,7 @@ export const es: Messages = {
     },
     tags: {
       alternate: "Continuidad alternativa",
+      alternateHint: "Universo paralelo: no hace falta para seguir la historia principal.",
       upcoming: "Próximamente",
     },
     notes: {
@@ -530,6 +531,7 @@ export const es: Messages = {
   },
   common: {
     close: "Cerrar",
+    notifications: "Notificaciones",
     cancel: "Cancelar",
     loading: "Cargando…",
     retry: "Reintentar",

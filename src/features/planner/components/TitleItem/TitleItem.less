@@ -157,17 +157,14 @@
       margin: 0 0.5rem 0 0;
     }
 
-    // 69px = poster 108 - the 34px pill - the 5px the button's hit area adds above it, so the pill's
-    // bottom edge lines up with the poster's bottom edge. A longer title pushes the button down.
+    // The pill sits --sp-3h under the subtitle at every width (MarkWatchedButton.less).
     .title-row__summary {
       align-items: flex-start;
-      min-height: 4.3125rem;
       padding-top: 0;
     }
 
     .title-row__content {
       display: block;
-      padding-top: 0;
 
       > * + * {
         margin-top: 1rem;
@@ -176,10 +173,6 @@
       > :not(.mark-watched) {
         clear: both;
       }
-    }
-
-    .mark-watched {
-      margin: 0;
     }
   }
 }
@@ -288,7 +281,10 @@
 }
 
 .title-row__meta {
-  display: block;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
   margin-top: 2px;
   font-size: var(--fs-label);
   color: var(--ink-2);

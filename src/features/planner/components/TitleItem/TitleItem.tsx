@@ -10,6 +10,7 @@ import { formatRelease } from "../../utils/format";
 import { BeforeYouWatch } from "../BeforeYouWatch/BeforeYouWatch";
 import { MarkWatchedButton } from "../MarkWatchedButton/MarkWatchedButton";
 import { PosterThumb } from "../PosterThumb/PosterThumb";
+import { TitleTags } from "../TitleTags/TitleTags";
 import { TitleSummaryPanel } from "../TitleSummaryPanel/TitleSummaryPanel";
 
 // Matches --dur-enter (240ms), the accordion opening time.
@@ -60,8 +61,6 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
     t(MEDIA_TYPE_KEYS[title.type]),
     formatRelease(title.release, i18n),
     title.note && t(NOTE_KEYS[title.note]),
-    title.continuity === "alternate" && t("planner.tags.alternate"),
-    title.status === "upcoming" && t("planner.tags.upcoming"),
   ]
     .filter(Boolean)
     .join(", ");
@@ -100,7 +99,10 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
             <span lang="en" className="title-row__name">
               {isWatched && !isOpen ? <s>{title.name}</s> : title.name}
             </span>
-            <span className="title-row__meta">{meta}</span>
+            <span className="title-row__meta">
+              <span>{meta}</span>
+              <TitleTags title={title} />
+            </span>
           </span>
           <Chevron />
         </summary>

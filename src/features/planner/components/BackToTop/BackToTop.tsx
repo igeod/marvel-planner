@@ -20,23 +20,43 @@ const root = document.documentElement;
 
 // The progress bar (phone) is fixed to the bottom edge. --bar-lift is its height plus its gap from the
 // edge (0 while it is hidden); toasts and pills sit --sp-2 above it. Layout sizes, not the bounding
-// rect: the rect moves while the bar slides in, and would leave the pills over it.
-function measureBar() {
+// rect: the rect moves while the bar slides in, and would leave the pills over it. Returns the lift.
+function measureBar(): number {
   const bar = document.querySelector<HTMLElement>(".floating-progress[data-visible='true']");
   const lift = bar ? bar.offsetHeight + parseFloat(getComputedStyle(bar).bottom) : 0;
   root.style.setProperty("--bar-lift", `${lift}px`);
+  // Tells the toasts to rise (with the longer duration), like the pills do.
+  const toasts = document.querySelector<HTMLElement>(".toasts");
+  if (toasts) toasts.dataset.lifted = String(lift > 0);
+  return lift;
 }
 
-// How far the pills rise to stay --sp-2 above the pile of toasts (0 with no toast). Measured, not
-// guessed: the pills rest where their own rule puts them, the toasts where theirs does.
-function measureToastsLift(): number {
-  const toasts = document.querySelector(".toasts");
-  const pills = document.querySelector(".jump-pills");
+// A CSS length (max(), env(), var()) as pixels, resolved by the browser on a hidden fixed box.
+function resolveBottom(probe: HTMLElement, length: string): number {
+  probe.style.bottom = length;
+  return parseFloat(getComputedStyle(probe).bottom);
+}
+
+// How far the pills rise to stay --sp-2 above the pile of toasts (0 with no toast). Both rest places
+// come from their rules (bar lift, floors), and the pile height from the toasts themselves: the
+// rects are in flight while the toasts slide and fold, so they are not read.
+function measureToastsLift(barLift: number, probe: HTMLElement): number {
+  const toasts = document.querySelectorAll<HTMLElement>(
+    ".toast-slot:not([data-leaving='true']) .toast",
+  );
   let lift = 0;
-  if (toasts && pills && toasts.childElementCount > 0) {
+  if (toasts.length > 0) {
     const gap = parseFloat(getComputedStyle(root).fontSize) * 0.5;
-    const pillsEdge = window.innerHeight - parseFloat(getComputedStyle(pills).bottom);
-    lift = Math.max(0, pillsEdge - (toasts.getBoundingClientRect().top - gap));
+    const toastsBottom = Math.max(
+      resolveBottom(probe, "max(16px, env(safe-area-inset-bottom, 0px))"),
+      barLift + gap,
+    );
+    const pillsBottom = Math.max(
+      resolveBottom(probe, "calc(var(--sp-4) + env(safe-area-inset-bottom, 0px))"),
+      barLift + gap,
+    );
+    const pile = Array.from(toasts).reduce((sum, toast) => sum + toast.offsetHeight, 0);
+    lift = Math.max(0, toastsBottom + pile + (toasts.length - 1) * gap + gap - pillsBottom);
   }
   root.style.setProperty("--toasts-lift", `${lift}px`);
   return lift;
@@ -54,11 +74,14 @@ export function BackToTop({ lastId = null, onJumpToLast }: BackToTopProps) {
   const hasPills = isFar || showLast;
 
   useEffect(() => {
+    const probe = document.createElement("div");
+    probe.style.position = "fixed";
+    probe.style.visibility = "hidden";
+    document.body.append(probe);
     const update = () => {
       setIsFar(window.scrollY > window.innerHeight * 1.5);
       setIsLastOut(lastId !== null && !isRowInView(lastId));
-      measureBar();
-      setIsLifted(measureToastsLift() > 0);
+      setIsLifted(measureToastsLift(measureBar(), probe) > 0);
     };
     update();
     window.addEventListener("scroll", update, { passive: true });
@@ -70,7 +93,13 @@ export function BackToTop({ lastId = null, onJumpToLast }: BackToTopProps) {
     const mutations = new MutationObserver(update);
     if (toasts) {
       observer.observe(toasts);
-      mutations.observe(toasts, { childList: true });
+      // A toast starting to leave leaves the pile at once, though it stays in the DOM a moment.
+      mutations.observe(toasts, {
+        childList: true,
+        subtree: true,
+        attributes: true,
+        attributeFilter: ["data-leaving"],
+      });
     }
     // The bar showing or hiding changes no scroll or size, so listen to its own flag.
     const barFlag = new MutationObserver(update);
@@ -85,6 +114,7 @@ export function BackToTop({ lastId = null, onJumpToLast }: BackToTopProps) {
       observer.disconnect();
       mutations.disconnect();
       barFlag.disconnect();
+      probe.remove();
       root.style.removeProperty("--bar-lift");
       root.style.removeProperty("--toasts-lift");
     };

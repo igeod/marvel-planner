@@ -152,6 +152,7 @@ export const de: Messages = {
     },
     tags: {
       alternate: "Alternative Kontinuität",
+      alternateHint: "Paralleluniversum: nicht nötig, um die Hauptgeschichte zu verfolgen.",
       upcoming: "Demnächst",
     },
     notes: {
@@ -532,6 +533,7 @@ export const de: Messages = {
   },
   common: {
     close: "Schließen",
+    notifications: "Benachrichtigungen",
     cancel: "Abbrechen",
     loading: "Wird geladen …",
     retry: "Erneut versuchen",

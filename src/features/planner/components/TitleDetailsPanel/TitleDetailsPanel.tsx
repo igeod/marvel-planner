@@ -1,6 +1,7 @@
 import { ArrowLeft, ImageOff, VideoOff } from "lucide-react";
 import { useId } from "react";
 import { useI18n } from "../../../../i18n/useI18n";
+import { TITLES_BY_ID } from "../../data/catalog";
 import { getEasterEggs } from "../../data/easterEggs";
 import { getKeyScenes } from "../../data/keyScenes";
 import { getPostCredits } from "../../data/postCredits";
@@ -14,6 +15,7 @@ import { PlotSection } from "../PlotSection/PlotSection";
 import { PostCreditsInfo } from "../PostCreditsInfo/PostCreditsInfo";
 import { TitleDetailsSkeleton } from "../TitleDetailsSkeleton/TitleDetailsSkeleton";
 import { SynopsisSection } from "../SynopsisSection/SynopsisSection";
+import { TitleTags } from "../TitleTags/TitleTags";
 import { TrailerButton } from "../TrailerButton/TrailerButton";
 import { WhereToWatch } from "../WhereToWatch/WhereToWatch";
 import { WithTitleDetails } from "../WithTitleDetails/WithTitleDetails";
@@ -91,6 +93,9 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                         )}
                         {!details.releaseDate && !details.runtime && (
                           <span className="film__meta-missing">{t("details.missing.meta")}</span>
+                        )}
+                        {TITLES_BY_ID[titleId] && (
+                          <TitleTags title={TITLES_BY_ID[titleId]} withHint />
                         )}
                       </div>
                     </div>

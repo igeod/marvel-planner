@@ -148,6 +148,7 @@ export const it = {
     },
     tags: {
       alternate: "Continuità alternativa",
+      alternateHint: "Universo parallelo: non serve per seguire la storia principale.",
       upcoming: "In arrivo",
     },
     notes: {
@@ -527,6 +528,7 @@ export const it = {
   },
   common: {
     close: "Chiudi",
+    notifications: "Notifiche",
     cancel: "Annulla",
     loading: "Caricamento…",
     retry: "Riprova",

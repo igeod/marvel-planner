@@ -21,8 +21,10 @@ a {
   animation: fade-in var(--dur-ui) var(--ease-out) both;
 }
 
+// `backwards`, not `both`: once it has entered, the exit is a transition on opacity (Toast.less),
+// which a forwards-filled animation would keep from running.
 .toast {
-  animation: fade-in var(--dur-enter) var(--ease-out) both;
+  animation: fade-in var(--dur-enter) var(--ease-out) backwards;
 }
 
 .state-box--card {
@@ -83,7 +85,7 @@ a {
 .mark-watched__pill,
 .select-field__trigger,
 .select-field__option,
-.phase__summary,
+.phase__head,
 .profile__tab,
 .progress-card__share,
 .progress-card__toggle {
@@ -278,11 +280,11 @@ dialog.menu-panel {
 }
 
 // Phase open/close under reduced motion: no height or movement, content fades in/out in 80ms.
-.phase[data-motion="opening"] > :not(summary) {
+.phase[data-motion="opening"] > :not(.phase__head) {
   animation: fade-in var(--dur-press) var(--ease-out) both;
 }
 
-.phase[data-motion="closing"] > :not(summary) {
+.phase[data-motion="closing"] > :not(.phase__head) {
   animation: fade-out var(--dur-press) var(--ease-out) both;
 }
 
@@ -386,14 +388,16 @@ dialog.menu-panel {
   }
 
   // Phase open/close (all browsers): usePhaseMotion sets data-motion and --phase-h0/--phase-h1.
+  // overflow-anchor: the browser must not pick an anchor inside the phase whose height changes.
   .phase[data-motion] {
     overflow: clip;
+    overflow-anchor: none;
   }
 
   .phase[data-motion="opening"] {
     animation: phase-height-open var(--dur-enter) var(--ease-out) both;
 
-    > :not(summary) {
+    > :not(.phase__head) {
       animation: pop-in var(--dur-enter) var(--ease-out) both;
     }
   }
@@ -401,19 +405,24 @@ dialog.menu-panel {
   .phase[data-motion="closing"] {
     animation: phase-height-close var(--dur-ui) var(--ease-out) both;
 
-    > :not(summary) {
+    > :not(.phase__head) {
       animation:
         fade-out var(--dur-press) var(--ease-out) both,
         content-sink var(--dur-ui) var(--ease-out) both;
     }
 
     // The attribute stays open until the animation ends; the chevron turns back right away.
-    > summary .chevron {
+    > .phase__head .chevron {
       transform: none;
     }
   }
 
-  // Collapse all / Expand all: phases follow each other in 30ms steps (height, content and chevron).
+  // Collapse all / Expand all: no height animation (usePhaseMotion); phases follow each other in 30ms
+  // steps (content and chevron).
+  .planner__list--bulk .phase[data-motion="opening"] {
+    animation: none;
+  }
+
   .planner__list--bulk .phase {
     &:nth-child(3) {
       --bulk-delay: min(calc(var(--stagger-step) * 1), var(--stagger-max));
@@ -436,11 +445,11 @@ dialog.menu-panel {
     }
 
     &[data-motion],
-    &[data-motion] > :not(summary) {
+    &[data-motion] > :not(.phase__head) {
       animation-delay: var(--bulk-delay, 0ms);
     }
 
-    > summary .chevron {
+    > .phase__head .chevron {
       transition-delay: var(--bulk-delay, 0ms);
     }
   }

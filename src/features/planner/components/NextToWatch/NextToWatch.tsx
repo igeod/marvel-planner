@@ -6,6 +6,7 @@ import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
 import { useI18n } from "../../../../i18n/useI18n";
 import { MEDIA_TYPE_KEYS } from "../../data/labels";
 import type { PhaseNumber, Title } from "../../types";
+import { TitleTags } from "../TitleTags/TitleTags";
 import { useTitleDetails } from "../../hooks/useTitleDetails";
 import { backdropUrl, formatRelease } from "../../utils/format";
 
@@ -111,6 +112,7 @@ export function NextToWatch({
                 .filter(Boolean)
                 .join(", ")}
             </p>
+            <TitleTags title={title} className="next-card__tags" />
             {isHiddenByFilters && (
               <p className="next-card__note">{t("planner.next.hiddenByFilters")}</p>
             )}

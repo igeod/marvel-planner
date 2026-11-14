@@ -3,16 +3,42 @@
 .toasts {
   position: fixed;
   left: 50%;
-  // With the progress bar fixed to the bottom (phone), --sp-2 above it: --bar-lift is measured in
-  // BackToTop.tsx (0 with no bar).
-  bottom: max(16px, env(safe-area-inset-bottom), calc(var(--bar-lift, 0px) + var(--sp-2)));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  // With the progress bar fixed to the bottom (phone) the pile rises to sit --sp-2 above it. Only
+  // `translate` moves (never `bottom`); --bar-lift is measured in BackToTop.tsx (0 with no bar).
+  translate: 0
+    ~"calc(-1 * max(0px, var(--bar-lift, 0px) + var(--sp-2) - max(16px, env(safe-area-inset-bottom))))";
+  transition: translate var(--dur-ui) var(--ease-out);
   z-index: 20;
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
   width: min(440px, calc(100vw - 32px));
   transform: translateX(-50%);
   pointer-events: none;
+
+  &[data-lifted="true"] {
+    transition-duration: var(--dur-enter);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toasts {
+    transition: none;
+  }
+}
+
+// One slot per toast. The gap lives inside (above the toast), so a folded slot leaves no space behind.
+.toast-slot {
+  display: grid;
+  grid-template-rows: 1fr;
+
+  &[data-leaving="true"] {
+    pointer-events: none;
+  }
+}
+
+.toast-slot__clip {
+  min-height: 0;
 }
 
 .toast {
@@ -26,7 +52,41 @@
   padding: var(--sp-2) var(--sp-2) var(--sp-2) var(--sp-3);
   border-radius: var(--r-row);
   box-shadow: var(--toast-shadow);
+  margin-top: var(--sp-2);
   pointer-events: auto;
+  transition:
+    opacity var(--dur-ui) var(--ease-out),
+    translate var(--dur-ui) var(--ease-out);
+}
+
+.toast-slot[data-leaving="true"] .toast {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .toast-slot {
+    transition: grid-template-rows var(--dur-enter) var(--ease-out);
+
+    @starting-style {
+      grid-template-rows: 0fr;
+    }
+
+    &[data-leaving="true"] {
+      grid-template-rows: 0fr;
+      transition-duration: var(--dur-ui);
+
+      .toast {
+        translate: 0 6px;
+      }
+    }
+
+    // Clipped only while it folds; at rest the shadow and the ring show whole.
+    &:not([data-settled="true"]) > .toast-slot__clip,
+    &[data-leaving="true"] > .toast-slot__clip {
+      overflow: clip;
+      overflow-clip-margin: 1px;
+    }
+  }
 }
 
 .toast__icon {

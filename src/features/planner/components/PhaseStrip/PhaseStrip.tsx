@@ -89,38 +89,26 @@ export function PhaseStrip({ phases, isCollapsible }: PhaseStripProps) {
 
   if (isCollapsible) {
     return (
-      <details
-        ref={ref}
-        className="phase phase-strip-accordion card"
-        aria-labelledby={headingId}
-        open={!isCollapsed}
-        onToggle={(event) => {
-          // Same as the phases: ignore toggles caused by the animation, react only to native ones.
-          const details = event.currentTarget;
-          if (details.dataset.motion || details.open === !isCollapsed) return;
-          setIsCollapsed(!details.open);
-        }}
-      >
-        <summary
-          className="phase__summary"
-          onClick={(event) => {
-            // State drives open/closed so the close can animate before the attribute is removed.
-            event.preventDefault();
-            setIsCollapsed(!isCollapsed);
-          }}
-        >
-          <span className="phase__heading">
-            <h2 id={headingId} className="phase-strip__name">
-              {heading}
-            </h2>
-          </span>
-          <Chevron />
-        </summary>
+      <div ref={ref} className="phase phase-strip-accordion card" data-open={!isCollapsed}>
+        <div className="phase__head">
+          <h2 id={headingId} className="phase__title phase-strip__name">
+            <button
+              type="button"
+              className="phase__toggle"
+              aria-expanded={!isCollapsed}
+              // State drives open/closed so the close can animate before the content goes away.
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
+              <span className="phase__heading">{heading}</span>
+              <Chevron />
+            </button>
+          </h2>
+        </div>
         <div className="phase-strip__body">
           <Legend />
           {body}
         </div>
-      </details>
+      </div>
     );
   }
 

@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { useNavigate } from "react-router";
 import { useSplashReady } from "../../../../app/splash";
 import { PATHS } from "../../../../app/paths";
@@ -175,10 +176,32 @@ export function Planner({ shareCode }: PlannerProps) {
     list.classList.add("planner__list--swap");
   }, [listKey]);
 
-  // The flag only enables the 30ms phase stagger for Collapse all / Expand all.
+  // The flag marks Collapse all / Expand all: no height animation, only the 30ms phase stagger.
+  // The phase under the middle of the screen (or the nearest) is the anchor: its row stays where it
+  // is, or comes to --sp-4 from the top edge if it had scrolled past. One instant scroll, no matter
+  // what scroll-behavior says.
   const toggleAllPhases = () => {
-    setIsBulkToggle(true);
-    toggleAll();
+    const phases = Array.from(document.querySelectorAll<HTMLElement>(".planner__list .phase"));
+    const middle = window.innerHeight / 2;
+    const distance = (phase: HTMLElement) => {
+      const { top, bottom } = phase.getBoundingClientRect();
+      return top <= middle && middle <= bottom
+        ? 0
+        : Math.min(Math.abs(top - middle), Math.abs(bottom - middle));
+    };
+    const head = phases
+      .sort((a, b) => distance(a) - distance(b))[0]
+      ?.querySelector<HTMLElement>(".phase__head");
+    const oldTop = head?.getBoundingClientRect().top ?? 0;
+    flushSync(() => {
+      setIsBulkToggle(true);
+      toggleAll();
+    });
+    if (head) {
+      const wantedTop =
+        oldTop < 0 ? parseFloat(getComputedStyle(document.documentElement).fontSize) : oldTop;
+      window.scrollBy({ top: head.getBoundingClientRect().top - wantedTop, behavior: "instant" });
+    }
     window.setTimeout(() => setIsBulkToggle(false), BULK_STAGGER_MS);
   };
 

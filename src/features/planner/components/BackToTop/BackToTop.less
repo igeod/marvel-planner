@@ -44,7 +44,6 @@
 
 .jump-pills__inner {
   min-width: 0;
-  padding-inline: var(--sp-1);
 
   // Clipped only while folded; at rest the pill's shadow must stay free.
   .jump-pills__slot:not([data-visible="true"]) > & {
@@ -52,7 +51,10 @@
   }
 }
 
+// The gap is the pill's own margin, not padding on the folding box: padding cannot fold below its
+// own width, so it would leave 8px behind and drop them in one step when the slot goes away.
 .jump-pills__pill {
+  margin-inline: var(--sp-1);
   white-space: nowrap;
   box-shadow: var(--shadow-pop);
 }

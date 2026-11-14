@@ -66,6 +66,16 @@
   overscroll-behavior-x: contain;
 }
 
+// Keeps scroll gestures in any modal from reaching the page behind (replaces locking the body).
+dialog:modal {
+  overscroll-behavior: contain;
+}
+
+dialog::backdrop {
+  overflow: hidden;
+  overscroll-behavior: contain;
+}
+
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-bottom: var(--floating-progress-clearance);

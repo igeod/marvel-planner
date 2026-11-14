@@ -1,0 +1,87 @@
+// High-contrast mode (Windows): shadows and backgrounds are dropped, so surfaces get a real border
+// in system colours. Imported last, so it wins over the component rules at equal specificity.
+@media (forced-colors: active) {
+  .floating-progress,
+  .compact-progress,
+  .toast,
+  .card,
+  .film__card,
+  dialog.dialog,
+  dialog.filters-sheet,
+  dialog.menu-panel,
+  .select-field--popover .select-field__list {
+    border: 1px solid CanvasText;
+  }
+
+  .planner-search__field,
+  .field__control input,
+  .select-field__trigger {
+    border: 1px solid ButtonBorder;
+  }
+
+  :focus-visible,
+  .planner-search__field:focus-within {
+    outline-color: Highlight;
+  }
+
+  progress,
+  .floating-progress progress,
+  .compact-progress progress {
+    forced-color-adjust: none;
+    background: Canvas;
+    outline: 1px solid CanvasText;
+
+    &::-webkit-progress-bar {
+      background: Canvas;
+    }
+
+    &::-webkit-progress-value {
+      background: Highlight;
+    }
+
+    &::-moz-progress-bar {
+      background: Highlight;
+    }
+  }
+
+  .title-row__box {
+    forced-color-adjust: none;
+    border-color: ButtonText;
+    background: Canvas;
+  }
+
+  .title-row__check input:checked + .title-row__box {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .title-row__check input:indeterminate + .title-row__box {
+    border-color: ButtonText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .title-row__check:hover input:not(:checked) + .title-row__box {
+      border-color: Highlight;
+    }
+  }
+
+  .select-field__option[data-active="true"],
+  .select-field--inline .select-field__option[data-active="true"] {
+    outline-color: Highlight;
+  }
+
+  .select-field__option[aria-selected="true"],
+  .select-field--inline .select-field__option[aria-selected="true"] {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .select-field__option[aria-selected="true"][data-active="true"],
+  .select-field--inline .select-field__option[aria-selected="true"][data-active="true"] {
+    outline-color: HighlightText;
+  }
+}

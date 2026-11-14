@@ -1,15 +1,5 @@
 import { useEffect, useRef } from "react";
 
-// Counted, so a confirm dialog opened over another dialog does not unlock the page early.
-let scrollLocks = 0;
-
-function lockPageScroll() {
-  if (scrollLocks++ === 0) document.body.style.overflow = "hidden";
-  return () => {
-    if (--scrollLocks === 0) document.body.style.overflow = "";
-  };
-}
-
 // How the last interaction happened: a touch or a click gives the focus back without the ring,
 // the keyboard with it.
 let isPointerInput = false;
@@ -40,8 +30,6 @@ export function useDialog(isOpen: boolean) {
       restoreFocus(openerRef.current);
     }
   }, [isOpen]);
-
-  useEffect(() => (isOpen ? lockPageScroll() : undefined), [isOpen]);
 
   return ref;
 }

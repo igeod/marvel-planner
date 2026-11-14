@@ -1,0 +1,35 @@
+.title-tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-1) var(--sp-2);
+}
+
+// A label next to the title's text. The border is a real border (it stays in high contrast) and the
+// words carry the meaning, never the colour alone. Red is never used: in a row it means "watched".
+.title-tag {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: var(--sp-1);
+  padding: var(--sp-1) var(--sp-2h);
+  border: 1px solid var(--ink-2);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ink);
+
+  svg {
+    flex: none;
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.title-tag--status {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--bg);
+}

@@ -151,6 +151,7 @@ export const fr: Messages = {
     },
     tags: {
       alternate: "Continuité alternative",
+      alternateHint: "Univers parallèle : inutile pour suivre l'histoire principale.",
       upcoming: "À venir",
     },
     notes: {
@@ -532,6 +533,7 @@ export const fr: Messages = {
   },
   common: {
     close: "Fermer",
+    notifications: "Notifications",
     cancel: "Annuler",
     loading: "Chargement…",
     retry: "Réessayer",

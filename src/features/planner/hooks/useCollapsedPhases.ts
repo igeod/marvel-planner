@@ -10,10 +10,16 @@ const toPreferences = (collapsed: ReadonlySet<number>): Preferences => ({
   collapsedPhases: [...collapsed].sort((a, b) => a - b),
 });
 
-// Anything that is not what we wrote (a hand edit, an old version) counts as nothing saved.
+// First visit: only phase 1 is open, the rest start closed.
+const FIRST_VISIT_COLLAPSED: ReadonlySet<number> = new Set(
+  ALL_PHASE_NUMBERS.filter((number) => number !== 1),
+);
+
+// Anything that is not what we wrote (a hand edit, an old version) counts as nothing saved. Saved
+// "all open" is a choice and stays: only nothing saved gets the first-visit layout.
 function readDevice(): ReadonlySet<number> {
   const parsed = preferencesSchema.safeParse(readJson<unknown>(STORAGE_KEYS.preferences, null));
-  return new Set(parsed.success ? parsed.data.collapsedPhases : []);
+  return parsed.success ? new Set(parsed.data.collapsedPhases) : FIRST_VISIT_COLLAPSED;
 }
 
 // The device always keeps a copy, so a refresh opens as you left it; an account's copy on the server
