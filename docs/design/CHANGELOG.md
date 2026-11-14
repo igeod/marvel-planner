@@ -1,5 +1,11 @@
 # Changelog del canvas
 
+## 16 novembre 2026 · header più leggero (proposta, main 0ac98e7)
+
+- **Navigation · “Header più leggero: lingua compatta, tema, scheda ‘Aspetto e lingua’” (voce 11):** la proposta di togliere lingua e tema dall'header **non regge**: il Menu esiste solo sotto 48em (HeaderMenu.less r.3-5), quindi da 48em un ospite non avrebbe dove cambiarli. Decisione: da 48em la lingua resta ma compatta (icona + codice a due lettere + chevron, nome intero per il lettore di schermo); sotto 48em resta nel Menu, come prima voce; il tema resta nell'header (da 48em) e nel Menu (sotto); nessun secondo punto nel footer; nuova scheda del profilo “Aspetto e lingua” (solo account) con tema, lingua e una frase vera sul dove si salva (`account.preferences.savedAccount` solo se lo schema le prende, altrimenti `savedDevice`); il cambio lingua dal profilo è immediato, senza “Salva” e senza ricaricare.
+- Larghezze a 390 / 768 / 1280px non misurate (stime nel blocco); a 390px nulla cambia.
+- **Scritto a mano** (nessun `add_*.py`): una rigenerazione di `p_nav.py` lo cancella.
+
 ## 15 novembre 2026 · pillola «Visto», movimento delle fasi, etichette della sottoriga (proposte, main 8a8adc8)
 
 - **Accordion · “Pillola ‘Visto’ nella riga aperta” (voce 8):** la pillola esiste solo a riga aperta e sta sotto il sottotitolo, non a destra; sotto 64em il fondo era agganciato alla locandina (`min-height: 4.3125rem`, TitleItem.less r.164). Regola: segue il sottotitolo a `--sp-3h` dal bordo visibile, ovunque; area da 44px con margine `-0.3125rem` esatto. Cambia solo sotto 64em. Calcolato dai `.less`, non misurato.
