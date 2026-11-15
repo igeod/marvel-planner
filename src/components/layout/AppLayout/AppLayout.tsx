@@ -50,7 +50,8 @@ export function AppLayout() {
     <>
       <div className="site-shell">
         <SkipLink />
-        <AppHeader />
+        {/* Like the footer, not before the site status is known: in maintenance the header never was part of the page. */}
+        {!isLoading && <AppHeader />}
         <main className="site-main" id={MAIN_CONTENT_ID} ref={mainRef} tabIndex={-1}>
           {isLoading ? null : <Outlet />}
         </main>
