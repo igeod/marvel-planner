@@ -12,8 +12,8 @@ interface CountUpOptions {
 }
 
 // The first count takes --dur-progress, the same as the bars' first fill and the strip's battery:
-// one source, read from the stylesheet (600ms if the token is missing).
-export const countInitialMs = () => readCssMs("--dur-progress", 600);
+// one source, read from the stylesheet (300ms if the token is missing).
+export const countInitialMs = () => readCssMs("--dur-progress", 300);
 
 // Decelerating exit: 1 − (1 − t)³.
 export const easeOutCubic = (t: number) => 1 - (1 - t) ** 3;

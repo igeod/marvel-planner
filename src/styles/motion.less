@@ -531,38 +531,46 @@ dialog.menu-panel {
     }
   }
 
-  // The strip's "battery": the watched cells light up as the big number passes their share
-  // (PhaseStrip sets data-charge, --c on each cell, --n on the columns). Background colour only. Same
-  // clock as the number: T = --dur-progress, curve easeOutCubic. Cell c (0 to n-1) stands for the
-  // share (c+1)/n of the final level and finishes when the number reaches it: t = T × (1 − (1 −
+  // The strip's "battery": the lit cells (watched, and the next one) light up in strip order as the
+  // big number passes their share (PhaseStrip sets data-charge, --c on each cell, --n on the
+  // columns). Background colour only. Same clock as the number: T = --dur-progress, curve
+  // easeOutCubic. Cell c (0 to n-1) stands for the share (c+1)/n of the final level: t = T × (1 − (1 −
   // (c+1)/n)^(1/3)), the inverse of easeOutCubic (useCountUp.ts). If that curve changes, change this.
+  // Each cell takes --dur-ui, so the times are spread over T minus that: the last one ends with the
+  // number, and the first ones do not all start together.
   :is(.phase-strip, .phase-strip-accordion)[data-charge] {
-    // Not the legend swatches, which share the state classes.
-    .phase-strip__cell.phase-strip__cell--watched {
-      --lit: ~"calc(var(--dur-progress) * (1 - pow(1 - (var(--c, 0) + 1) / var(--n, 1), calc(1 / 3))))";
-      animation: cell-charge var(--dur-ui) var(--ease-out) backwards;
-      animation-delay: ~"calc(var(--charge-delay) + max(0ms, var(--lit) - var(--dur-ui)))";
-    }
-
-    // "Next" lights up once the number is done; its play mark fades in a moment after.
-    .phase-strip__cell.phase-strip__cell--next {
-      --next-delay: ~"calc(var(--charge-delay) + var(--dur-progress) * min(var(--n, 0), 1))";
-      animation: cell-charge var(--dur-ui) var(--ease-out) backwards;
-      animation-delay: var(--next-delay);
-
-      svg {
-        animation: fade-in var(--dur-ui) var(--ease-out) backwards;
-        animation-delay: ~"calc(var(--next-delay) + var(--dur-ui))";
-      }
-    }
-  }
-
-  .phase-strip[data-charge] {
     --charge-delay: calc(var(--dur-hover) * 3);
   }
 
   .phase-strip-accordion[data-charge] {
     --charge-delay: var(--dur-enter);
+  }
+
+  // Held gray until the entrance starts (no lit flash first).
+  :is(.phase-strip, .phase-strip-accordion)[data-charge="wait"] {
+    .phase-strip__cell:is(.phase-strip__cell--watched, .phase-strip__cell--next) {
+      background-color: var(--disabled);
+
+      svg {
+        opacity: 0;
+      }
+    }
+  }
+
+  :is(.phase-strip, .phase-strip-accordion)[data-charge="play"] {
+    // Not the legend swatches, which share the state classes.
+    .phase-strip__cell:is(.phase-strip__cell--watched, .phase-strip__cell--next) {
+      --lit: ~"calc((var(--dur-progress) - var(--dur-ui)) * (1 - pow(1 - (var(--c, 0) + 1) / var(--n, 1), calc(1 / 3))))";
+      --cell-delay: ~"calc(var(--charge-delay) + var(--lit))";
+      animation: cell-charge var(--dur-ui) var(--ease-out) backwards;
+      animation-delay: var(--cell-delay);
+    }
+
+    // The play mark of "next" fades in a moment after its cell.
+    .phase-strip__cell--next svg {
+      animation: fade-in var(--dur-ui) var(--ease-out) backwards;
+      animation-delay: ~"calc(var(--cell-delay) + var(--dur-ui))";
+    }
   }
 
   // Splash exit: fade and slight scale.
