@@ -21,6 +21,14 @@ a {
   animation: fade-in var(--dur-ui) var(--ease-out) both;
 }
 
+// Controls that appear after the header is in (the sign-in button or avatar, the "?"): a fade of
+// their own, opacity only, so the controls next to them do not move.
+.site-header__help > *,
+.site-header__actions > .btn--ink,
+.site-header__actions > .account-menu {
+  animation: fade-in var(--dur-enter) var(--ease-out) both;
+}
+
 // `backwards`, not `both`: once it has entered, the exit is a transition on opacity (Toast.less),
 // which a forwards-filled animation would keep from running.
 .toast {
@@ -472,7 +480,12 @@ dialog.menu-panel {
     .film__cast {
       will-change: opacity, transform;
       animation: swap-in var(--dur-enter) var(--ease-out) backwards;
-      animation-delay: min(calc(var(--stagger-step) * var(--i, 0)), var(--stagger-max));
+      // Starts --dur-hover in, halfway through the splash's exit; the fill keeps each element at its
+      // starting pose until then. Steps and cap are doubled: 120 to 360ms, all done by 600ms.
+      animation-delay: calc(
+        var(--dur-hover) +
+          min(calc(var(--stagger-step) * 2 * var(--i, 0)), calc(var(--stagger-max) * 2))
+      );
     }
 
     .site-header {
@@ -516,6 +529,41 @@ dialog.menu-panel {
     .film__cast {
       --i: 5;
     }
+  }
+
+  // The strip's "battery": the watched cells light up one after another (PhaseStrip sets data-charge,
+  // --c on each cell, --n on the columns). Background colour only. The whole strip takes at most
+  // --dur-progress, whatever the number of cells.
+  :is(.phase-strip, .phase-strip-accordion)[data-charge] {
+    .phase-strip__columns {
+      --cell-step: min(var(--stagger-step), calc(var(--dur-progress) / var(--n, 1)));
+    }
+
+    // Not the legend swatches, which share the state classes.
+    .phase-strip__cell.phase-strip__cell--watched {
+      animation: cell-charge var(--dur-ui) var(--ease-out) backwards;
+      animation-delay: calc(var(--charge-delay) + var(--c, 0) * var(--cell-step));
+    }
+
+    // "Next" lights up last; its play mark fades in a moment after.
+    .phase-strip__cell.phase-strip__cell--next {
+      --next-delay: calc(var(--charge-delay) + var(--c, 0) * var(--cell-step) + var(--dur-hover));
+      animation: cell-charge var(--dur-ui) var(--ease-out) backwards;
+      animation-delay: var(--next-delay);
+
+      svg {
+        animation: fade-in var(--dur-ui) var(--ease-out) backwards;
+        animation-delay: calc(var(--next-delay) + var(--dur-ui));
+      }
+    }
+  }
+
+  .phase-strip[data-charge] {
+    --charge-delay: calc(var(--dur-hover) * 3);
+  }
+
+  .phase-strip-accordion[data-charge] {
+    --charge-delay: var(--dur-enter);
   }
 
   // Splash exit: fade and slight scale.
@@ -781,6 +829,12 @@ dialog.menu-panel {
   from {
     opacity: 0;
     transform: translateX(var(--view-shift));
+  }
+}
+
+@keyframes cell-charge {
+  from {
+    background-color: var(--disabled);
   }
 }
 

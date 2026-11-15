@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 const MIN_MS = 450;
 const MAX_MS = 2000;
-const INTRO_MS = 600;
+const INTRO_MS = 700;
 const REMOVE_FALLBACK_MS = 600;
 
 // The splash waits for these keys: fonts, "site" (auth + site status, via AppLayout) and any page that

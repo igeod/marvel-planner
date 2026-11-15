@@ -1,5 +1,6 @@
 import { CircleHelp } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { useSplashReady } from "../../../../app/splash";
 import { createPortal } from "react-dom";
 import { HEADER_HELP_SLOT_ID } from "../../../../app/dom";
 import { Button } from "../../../../components/ui/Button/Button";
@@ -24,6 +25,13 @@ export function GuideHelp({ isReady, isChronological, showAlternate }: GuideHelp
   const [isOpen, setIsOpen] = useState(false);
   const [isSeen, setIsSeen] = usePersistentState(STORAGE_KEYS.guideSeen, false, isBoolean);
   const calloutRef = useRef<HTMLDivElement>(null);
+  // The slot is in the header, which is committed after the planner's first render: look it up after.
+  const [slot, setSlot] = useState<HTMLElement | null>(null);
+  useEffect(() => {
+    queueMicrotask(() => setSlot(document.getElementById(HEADER_HELP_SLOT_ID)));
+  }, []);
+  // The splash holds until the "?" is in the header.
+  useSplashReady("guide", slot !== null);
   const isCalloutShown = isReady && !isSeen && !isOpen;
 
   useEffect(() => {
@@ -49,7 +57,6 @@ export function GuideHelp({ isReady, isChronological, showAlternate }: GuideHelp
     filter: <strong>{t("planner.filters.showAlternate")}</strong>,
   };
 
-  const slot = document.getElementById(HEADER_HELP_SLOT_ID);
   if (!slot) return null;
 
   return createPortal(

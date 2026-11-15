@@ -10,7 +10,7 @@
     d.dataset.intro = "";
     setTimeout(function () {
       delete d.dataset.intro;
-    }, 450);
+    }, 700);
     return;
   }
   d.dataset.splash = "on";

@@ -1,3 +1,4 @@
+import { useSplashReady } from "../../../../app/splash";
 import { Button } from "../../../../components/ui/Button/Button";
 import { useI18n } from "../../../../i18n/useI18n";
 import { AdminBadge } from "../../../admin/components/AdminBadge/AdminBadge";
@@ -11,6 +12,9 @@ export function AccountMenu() {
   const { user, status } = useAuth();
   const { open } = useAuthDialog();
   const { isAdmin } = useSiteStatus();
+
+  // The splash holds until the sign-in button or the avatar is in the page.
+  useSplashReady("account", status !== "loading");
 
   if (status === "loading") return null;
 

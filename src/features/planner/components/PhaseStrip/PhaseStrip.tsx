@@ -1,5 +1,5 @@
 import { Play } from "lucide-react";
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import { usePhaseMotion } from "../../hooks/usePhaseMotion";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -42,9 +42,19 @@ function Legend() {
 
 function Columns({ phases }: { phases: StripPhase[] }) {
   const { t } = useI18n();
+  // The battery: --c is the cell's place among the watched ones, counted across the whole strip (not
+  // restarting at each phase); --n is how many there are. "Next" comes last, at --n.
+  const watchedCount = phases.reduce(
+    (sum, phase) => sum + phase.cells.filter((state) => state === "watched").length,
+    0,
+  );
+  let charged = 0;
 
   return (
-    <div className="phase-strip__columns">
+    <div
+      className="phase-strip__columns"
+      style={{ "--n": Math.max(watchedCount, 1) } as CSSProperties}
+    >
       {phases.map((phase) => (
         <div
           key={phase.number}
@@ -52,7 +62,15 @@ function Columns({ phases }: { phases: StripPhase[] }) {
         >
           <div className="phase-strip__cells" aria-hidden="true">
             {phase.cells.map((state, index) => (
-              <span key={index} className={`phase-strip__cell phase-strip__cell--${state}`}>
+              <span
+                key={index}
+                className={`phase-strip__cell phase-strip__cell--${state}`}
+                style={
+                  state === "todo"
+                    ? undefined
+                    : ({ "--c": state === "watched" ? charged++ : watchedCount } as CSSProperties)
+                }
+              >
                 <CellMark state={state} />
               </span>
             ))}
@@ -71,12 +89,49 @@ function Columns({ phases }: { phases: StripPhase[] }) {
   );
 }
 
+// The battery plays once per arrival: on desktop as soon as the entrance (html[data-intro]) is on,
+// on the phone the first time the accordion opens. data-charge goes away afterwards, so a cell that
+// turns watched later does not start with a delay.
+const CHARGE_MS = 1500;
+
+function useCharge(isCollapsible: boolean, isCollapsed: boolean): boolean {
+  const [isCharging, setIsCharging] = useState(false);
+  const hasPlayed = useRef(false);
+
+  useEffect(() => {
+    if (hasPlayed.current || (isCollapsible && isCollapsed)) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const html = document.documentElement;
+    let timer = 0;
+    const play = () => {
+      hasPlayed.current = true;
+      setIsCharging(true);
+      timer = window.setTimeout(() => setIsCharging(false), CHARGE_MS);
+    };
+    // The splash ends after the strip has rendered, so the entrance may start later than the strip.
+    const observer = new MutationObserver(() => {
+      if (!html.hasAttribute("data-intro")) return;
+      observer.disconnect();
+      play();
+    });
+    if (isCollapsible || html.hasAttribute("data-intro")) play();
+    else observer.observe(html, { attributes: true, attributeFilter: ["data-intro"] });
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(timer);
+    };
+  }, [isCollapsible, isCollapsed]);
+
+  return isCharging;
+}
+
 export function PhaseStrip({ phases, isCollapsible }: PhaseStripProps) {
   const { t } = useI18n();
   const headingId = useId();
   // On the phone the strip is closed at first; it opens and closes like a phase.
   const [isCollapsed, setIsCollapsed] = useState(true);
   const ref = usePhaseMotion(isCollapsed);
+  const isCharging = useCharge(isCollapsible, isCollapsed);
   const total = phases.reduce((sum, phase) => sum + phase.total, 0);
   const done = phases.reduce((sum, phase) => sum + phase.done, 0);
   const heading = t("planner.strip.heading", { total });
@@ -89,7 +144,12 @@ export function PhaseStrip({ phases, isCollapsible }: PhaseStripProps) {
 
   if (isCollapsible) {
     return (
-      <div ref={ref} className="phase phase-strip-accordion card" data-open={!isCollapsed}>
+      <div
+        ref={ref}
+        className="phase phase-strip-accordion card"
+        data-open={!isCollapsed}
+        data-charge={isCharging || undefined}
+      >
         <div className="phase__head">
           <h2 id={headingId} className="phase__title phase-strip__name">
             <button
@@ -113,7 +173,11 @@ export function PhaseStrip({ phases, isCollapsible }: PhaseStripProps) {
   }
 
   return (
-    <section className="phase-strip card" aria-labelledby={headingId}>
+    <section
+      className="phase-strip card"
+      aria-labelledby={headingId}
+      data-charge={isCharging || undefined}
+    >
       <div className="phase-strip__header">
         <h2 id={headingId} className="section-title">
           {heading}
