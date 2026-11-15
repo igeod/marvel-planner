@@ -8,9 +8,10 @@ import { STORAGE_KEYS } from "../../../../lib/storageKeys";
 import { usePersistentState } from "../../../../lib/usePersistentState";
 import type { Progress, ProgressStorage } from "../../types";
 import { CompletionDialog } from "../CompletionDialog/CompletionDialog";
-import { useCountUp } from "../../hooks/useCountUp";
+import { countInitialMs, useCountUp } from "../../hooks/useCountUp";
+import { useIntroStart } from "../../../../app/splash";
+import { readCssMs } from "../../../../lib/cssDuration";
 
-const COUNT_INITIAL_MS = 900;
 const COUNT_CHANGE_MS = 400;
 
 const isBoolean = (value: unknown): value is boolean => typeof value === "boolean";
@@ -43,10 +44,13 @@ export function PlannerSummary({
   const { t } = useI18n();
   const percent = progress.total > 0 ? Math.round((progress.done / progress.total) * 100) : 0;
   const isMotionAllowed = useMediaQuery("(prefers-reduced-motion: no-preference)");
+  // Starts with the entrance, at the same moment as the strip's battery (--dur-hover × 3).
+  const isStarted = useIntroStart(readCssMs("--dur-hover", 120) * 3);
   const shownPercent = useCountUp(percent, {
-    initialMs: COUNT_INITIAL_MS,
+    initialMs: countInitialMs(),
     changeMs: COUNT_CHANGE_MS,
     enabled: isMotionAllowed,
+    isStarted,
   });
   // Shown once, when every title is watched; the flag in local storage keeps it from coming back.
   const [isCompletionSeen, setIsCompletionSeen] = usePersistentState(

@@ -5,7 +5,7 @@ import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { LoadError } from "../../../../components/ui/LoadError/LoadError";
 import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useI18n } from "../../../../i18n/useI18n";
-import { useCountUp } from "../../../planner/hooks/useCountUp";
+import { countInitialMs, useCountUp } from "../../../planner/hooks/useCountUp";
 import { MEDIA_TYPE_KEYS } from "../../../planner/data/labels";
 import { useResolvedCatalog } from "../../../planner/hooks/useResolvedCatalog";
 import { apiProgressRepository } from "../../../planner/services/apiProgressRepository";
@@ -101,7 +101,6 @@ function ProgressGroup({ title, rows, isOpen, className }: GroupProps) {
   );
 }
 
-const COUNT_INITIAL_MS = 900;
 const COUNT_CHANGE_MS = 400;
 
 // The big figure: it counts from 0 the first time the page loads (like the bar fills) and then only
@@ -113,7 +112,7 @@ function OverallProgress({ overall, isFirstFill }: { overall: Progress; isFirstF
   const percent = total > 0 ? Math.round((done / total) * 100) : 0;
   const isMotionAllowed = useMediaQuery("(prefers-reduced-motion: no-preference)");
   const options = {
-    initialMs: isFirstFill ? COUNT_INITIAL_MS : undefined,
+    initialMs: isFirstFill ? countInitialMs() : undefined,
     changeMs: COUNT_CHANGE_MS,
     enabled: isMotionAllowed,
   };

@@ -1,5 +1,6 @@
 import { Play } from "lucide-react";
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { onIntro } from "../../../../app/splash";
 import { usePhaseMotion } from "../../hooks/usePhaseMotion";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -43,7 +44,7 @@ function Legend() {
 function Columns({ phases }: { phases: StripPhase[] }) {
   const { t } = useI18n();
   // The battery: --c is the cell's place among the watched ones, counted across the whole strip (not
-  // restarting at each phase); --n is how many there are. "Next" comes last, at --n.
+  // restarting at each phase); --n is how many there are. "Next" lights up after them all.
   const watchedCount = phases.reduce(
     (sum, phase) => sum + phase.cells.filter((state) => state === "watched").length,
     0,
@@ -51,10 +52,7 @@ function Columns({ phases }: { phases: StripPhase[] }) {
   let charged = 0;
 
   return (
-    <div
-      className="phase-strip__columns"
-      style={{ "--n": Math.max(watchedCount, 1) } as CSSProperties}
-    >
+    <div className="phase-strip__columns" style={{ "--n": watchedCount } as CSSProperties}>
       {phases.map((phase) => (
         <div
           key={phase.number}
@@ -65,11 +63,7 @@ function Columns({ phases }: { phases: StripPhase[] }) {
               <span
                 key={index}
                 className={`phase-strip__cell phase-strip__cell--${state}`}
-                style={
-                  state === "todo"
-                    ? undefined
-                    : ({ "--c": state === "watched" ? charged++ : watchedCount } as CSSProperties)
-                }
+                style={state === "watched" ? ({ "--c": charged++ } as CSSProperties) : undefined}
               >
                 <CellMark state={state} />
               </span>
@@ -101,7 +95,6 @@ function useCharge(isCollapsible: boolean, isCollapsed: boolean): boolean {
   useEffect(() => {
     if (hasPlayed.current || (isCollapsible && isCollapsed)) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const html = document.documentElement;
     let timer = 0;
     const play = () => {
       hasPlayed.current = true;
@@ -109,15 +102,10 @@ function useCharge(isCollapsible: boolean, isCollapsed: boolean): boolean {
       timer = window.setTimeout(() => setIsCharging(false), CHARGE_MS);
     };
     // The splash ends after the strip has rendered, so the entrance may start later than the strip.
-    const observer = new MutationObserver(() => {
-      if (!html.hasAttribute("data-intro")) return;
-      observer.disconnect();
-      play();
-    });
-    if (isCollapsible || html.hasAttribute("data-intro")) play();
-    else observer.observe(html, { attributes: true, attributeFilter: ["data-intro"] });
+    // On the phone it is the first opening that counts.
+    const stop = isCollapsible ? (play(), () => undefined) : onIntro(play);
     return () => {
-      observer.disconnect();
+      stop();
       window.clearTimeout(timer);
     };
   }, [isCollapsible, isCollapsed]);

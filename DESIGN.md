@@ -71,3 +71,4 @@ Da completare con i difetti concreti che il proprietario nota nella grafica ("tr
 Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design la risolve e poi la cancella.
 
 - Header | `LanguageSwitcher.tsx`, `HeaderMenu.tsx`, `AccountSettings.tsx`, `SelectField.less` | nessuna scheda di preferenze nel profilo (la lingua compatta e l'ordine del Menu sono fatti; la scheda "Aspetto e lingua" è rimandata) | voce 11 di HANDOFF §2, decisa da Design il 16 novembre
+- Apertura del planner | `useCountUp.ts`, `PlannerSummary.tsx`, `ProgressStatsSection.tsx`, `motion.less` | numero da 900ms al montaggio, fascia a passo costante: tre orologi diversi | voce 13 di HANDOFF §2, decisa da Design il 18 novembre

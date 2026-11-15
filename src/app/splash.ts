@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const MIN_MS = 450;
 const MAX_MS = 2000;
@@ -19,6 +19,44 @@ export function playIntro() {
   window.clearTimeout(introTimer);
   html.dataset.intro = "";
   introTimer = window.setTimeout(() => delete html.dataset.intro, INTRO_MS);
+}
+
+// Runs `callback` when the entrance starts (html[data-intro]): at once if it is on, or when the splash
+// ends. It gets `true` if there is an entrance, `false` if there is none and none is coming (no
+// splash to wait for). Returns the cleanup.
+export function onIntro(callback: (hasIntro: boolean) => void): () => void {
+  if (html.hasAttribute("data-intro")) {
+    callback(true);
+    return () => undefined;
+  }
+  if (html.dataset.splash !== "on") {
+    callback(false);
+    return () => undefined;
+  }
+  const observer = new MutationObserver(() => {
+    if (!html.hasAttribute("data-intro")) return;
+    observer.disconnect();
+    callback(true);
+  });
+  observer.observe(html, { attributes: true, attributeFilter: ["data-intro"] });
+  return () => observer.disconnect();
+}
+
+// True `delayMs` after the entrance starts (at once if there is none). The planner's number and
+// the strip's battery share this clock.
+export function useIntroStart(delayMs: number): boolean {
+  const [isStarted, setIsStarted] = useState(false);
+  useEffect(() => {
+    let timer = 0;
+    const stop = onIntro((hasIntro) => {
+      timer = window.setTimeout(() => setIsStarted(true), hasIntro ? delayMs : 0);
+    });
+    return () => {
+      stop();
+      window.clearTimeout(timer);
+    };
+  }, [delayMs]);
+  return isStarted;
 }
 
 function finish() {
