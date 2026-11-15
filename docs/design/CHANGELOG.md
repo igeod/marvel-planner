@@ -1,5 +1,10 @@
 # Changelog del canvas
 
+## 18 novembre 2026 · numero e fascia a batteria: lo stesso orologio (proposta, main fb121fd)
+
+- **Motion · “Numero e fascia a batteria: lo stesso orologio” (voce 13):** il numero grande passa da 900ms a `--dur-progress` (600ms; la fascia non si allunga); parte con l'introduzione, insieme alla fascia (`--dur-hover × 3` dopo `html[data-intro]`); la fascia segue la curva del numero: ritardo della barretta c `--charge-delay + max(0, --dur-progress × (1 − (1 − (c + 1) / n)^(1/3)) − --dur-ui)` (inversa di `easeOutCubic`, in CSS con `pow()`), così l'ultima finisce con il numero; “Prossimo” dopo, `--charge-delay + --dur-progress × min(--n, 1)`; durata sempre intera anche con valori piccoli; movimento ridotto: tutto al valore finale. Prova viva “oggi” e “proposta” nella pagina. Sostituisce il ritardo della fascia della voce 12. Non misurato; `COUNT_CHANGE_MS` (400ms) fuori scala, non toccato.
+- **Scritto a mano** (nessun `add_*.py`): una rigenerazione di `p_motion.py` lo cancella.
+
 ## 17 novembre 2026 · voci 3-12 su main (main b5ec124)
 
 - **Marcate “implementata · main <commit>”:** 3 bordo scuro (Progress, 9cadb25); 4 toast (Toast), 5 contrasto alto, 6 select, 7 fasi come `<h3><button>` (Accessibility), 8 pillola “Visto” (Accordion), 9 fasi, scorrimento (Motion), 10 etichette `TitleTags` (Badges): tutte b5ea965; 11 **in parte** (Navigation, 743c1e9: lingua compatta a 92px e lingua prima del tema; la scheda “Aspetto e lingua” e la sincronizzazione con l'account sono rimandate dal committente e restano nella §2 di HANDOFF); 12 apertura del planner (Motion, 124a93f).
