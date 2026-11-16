@@ -12,6 +12,7 @@ import {
 } from "../../../../lib/validation";
 import { useAuth } from "../../hooks/useAuth";
 import { useAuthAction } from "../../hooks/useAuthAction";
+import { useTitleAlerts } from "../../../planner/hooks/useTitleAlerts";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { PASSWORD_RESET_ENABLED } from "../../passwordReset";
 import { AuthFormError } from "../AuthFormError/AuthFormError";
@@ -23,15 +24,18 @@ export function LoginForm() {
   const { login } = useAuth();
   const { close, open } = useAuthDialog();
   const toast = useToast();
+  const [email, setEmail] = useState("");
+  const { resumeAfterAuth } = useTitleAlerts();
   const { run, reset, error, errorCode, isPending, isBlocked } = useAuthAction(login, () => {
+    // A guest who came from a bell: the alert turns on and one toast says both things.
+    const isResumed = resumeAfterAuth(email.trim());
     close();
-    toast.show({ tone: "info", title: t("auth.login.done") });
+    if (!isResumed) toast.show({ tone: "info", title: t("auth.login.done") });
   });
   const formRef = useRef<HTMLFormElement>(null);
   const passwordId = useId();
   // Wrong credentials belong to both fields and to neither alone: one message, under the password.
   const isCredentialsError = errorCode === "auth.errors.invalidCredentials";
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors<LoginField>>({});
 

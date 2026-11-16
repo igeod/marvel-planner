@@ -1,0 +1,31 @@
+@import (reference) "mixins";
+
+// The bell in the closed row. Same area and place as the checkbox (.title-row__check); only the look
+// is its own. Rest ink-2, on the "ink on light, gold on dark" colour; never red (red is "watched").
+.title-row__alert {
+  border-radius: var(--r-pill);
+  color: var(--ink-2);
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .tones(var(--row-hover), var(--row-press));
+
+  .on-hover({ color: var(--ink); });
+
+  &[aria-pressed="true"] {
+    color: var(--focus-color);
+  }
+}
+
+// The pill in the open row reuses the "Mark as watched" one (MarkWatchedButton.less): only the
+// icon of an alert that is on turns gold.
+.mark-watched__button--alert[aria-pressed="true"] .mark-watched__pill svg {
+  color: var(--highlight);
+}
+
+.title-alert-panel[aria-pressed="true"] svg {
+  color: var(--highlight);
+}

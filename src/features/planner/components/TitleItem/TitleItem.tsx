@@ -5,10 +5,12 @@ import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { typeLabelKey } from "../../data/labels";
+import { TITLE_ALERTS_ENABLED } from "../../titleAlerts";
 import type { Title } from "../../types";
 import { formatRelease } from "../../utils/format";
 import { BeforeYouWatch } from "../BeforeYouWatch/BeforeYouWatch";
 import { MarkWatchedButton } from "../MarkWatchedButton/MarkWatchedButton";
+import { TitleAlertButton } from "../TitleAlertButton/TitleAlertButton";
 import { PosterThumb } from "../PosterThumb/PosterThumb";
 import { TitleTags } from "../TitleTags/TitleTags";
 import { TitleSummaryPanel } from "../TitleSummaryPanel/TitleSummaryPanel";
@@ -76,7 +78,10 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
       className={`title-row${isOpen ? " title-row--open" : ""}`}
       data-just-marked={isJustMarked || undefined}
     >
-      {isUpcoming ? (
+      {isUpcoming && TITLE_ALERTS_ENABLED ? (
+        // Hidden in the open row, where the alert is a pill in the panel (as the checkbox is hidden).
+        !isOpen && <TitleAlertButton title={title} variant="icon" />
+      ) : isUpcoming ? (
         // Not a control: the words "Upcoming" in the subtitle say it, so the icon is decoration.
         <span className="title-row__check title-row__check--upcoming" aria-hidden="true">
           <CalendarClock />
@@ -129,6 +134,9 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
         {hasBeenOpened && (
           <div className="title-row__content">
             {!isUpcoming && <MarkWatchedButton isWatched={isWatched} onToggle={toggle} />}
+            {isUpcoming && TITLE_ALERTS_ENABLED && (
+              <TitleAlertButton title={title} variant="pill" />
+            )}
             <TitleSummaryPanel titleId={title.id} />
             <BeforeYouWatch title={title} watched={watched} />
             <div className="title-row__actions">

@@ -557,6 +557,14 @@ export const de: Messages = {
     title: "Daten konnten nicht geladen werden",
     body: "Das Laden wurde unterbrochen, aber der Rest der Seite funktioniert weiterhin.",
   },
+  titleAlerts: {
+    label: "Per E-Mail benachrichtigen, wenn es erscheint: {title}",
+    hint: "E-Mail erhalten, wenn es erscheint",
+    button: "Benachrichtigen",
+    loginNote: "Melde dich an, um per E-Mail zu erfahren, wann {title} erscheint.",
+    activated: "Wir schreiben an {email}, sobald es erscheint.",
+    deactivated: "Benachrichtigung ausgeschaltet.",
+  },
   prerequisites: {
     heading: "Bevor du es ansiehst",
     levels: {

@@ -552,6 +552,14 @@ export const en: Messages = {
     title: "Unable to load the data",
     body: "Loading was interrupted, but the rest of the page still works.",
   },
+  titleAlerts: {
+    label: "Email me when it is out: {title}",
+    hint: "Get an email when it is out",
+    button: "Notify me",
+    loginNote: "Sign in to get an email when {title} is out.",
+    activated: "We will email {email} when it is out.",
+    deactivated: "Alert turned off.",
+  },
   prerequisites: {
     heading: "Before you watch",
     levels: {

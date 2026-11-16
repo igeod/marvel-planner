@@ -27,7 +27,7 @@ export function InfoTip({ label, children, placement = "top", tone = "info" }: I
           aria-label={label}
           aria-describedby={describedBy}
         >
-          <Icon data-tooltip-anchor aria-hidden />
+          <Icon aria-hidden />
         </button>
       )}
     </Tooltip>

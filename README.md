@@ -170,6 +170,7 @@ Lo stato "in arrivo" e le date non sono scritti a mano: il Worker legge da TMDB 
 - Diritti degli utenti: l'account si modifica, si esporta (JSON) e si elimina dal popup account.
 - Intestazioni di sicurezza su tutte le risposte (Worker e `public/_headers`), con Content-Security-Policy su HTTPS.
 - **Prima di attivare il recupero password** (`VITE_PASSWORD_RESET=true`): le e-mail oggi non sono mai verificate e si possono cambiare senza conferma. Chi sbaglia a scrivere l'indirizzo in registrazione, o scrive quello di un altro, farebbe arrivare il link di recupero a un estraneo, che prenderebbe l'account. Servono prima la verifica dell'e-mail (alla registrazione e al cambio) e un servizio per inviarla.
+- **Prima di attivare gli avvisi sui titoli in arrivo** (`VITE_TITLE_ALERTS=true`): l'interfaccia c'è ma la porta degli avvisi (`titleAlertsRepository.ts`) salva solo in memoria. Servono la verifica dell'e-mail, un servizio che la invii, una tabella e API per le iscrizioni, il job che controlla le uscite, e l'informativa privacy aggiornata (nuova finalità, fornitore dell'e-mail). Il link per disiscriversi nell'e-mail e lo spegnimento automatico all'uscita sono del server.
 
 ## Fonti dei dati
 

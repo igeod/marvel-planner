@@ -12,6 +12,7 @@ import {
 } from "../../../account/components/AccountSettings/AccountSettings";
 import type { AuthDialogPayload, AuthDialogView } from "../../context/AuthDialogContext";
 import { useAuth } from "../../hooks/useAuth";
+import { useTitleAlerts } from "../../../planner/hooks/useTitleAlerts";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { useViewTransition } from "../../hooks/useViewTransition";
 import { AUTH_TITLE_ID, AuthResult } from "../AuthResult/AuthResult";
@@ -38,6 +39,7 @@ export function AuthDialogs() {
   const { t, rich } = useI18n();
   const { user, status, requestPasswordReset } = useAuth();
   const { view, payload, open, close } = useAuthDialog();
+  const { pending: pendingAlert } = useTitleAlerts();
   const reducedMotion = useMediaQuery(REDUCED_MOTION);
 
   // The height of the old view, taken just before the new one replaces it.
@@ -229,15 +231,24 @@ export function AuthDialogs() {
       {currentView === "account" ? (
         user && <AccountSettings user={user} onClose={close} closeRef={accountClose} />
       ) : (
-        <div
-          ref={viewRef}
-          key={currentView}
-          className="auth-view view-motion"
-          data-dir={direction}
-          data-phase={leaving ? "out" : "in"}
-        >
-          {content}
-        </div>
+        <>
+          {pendingAlert && (currentView === "login" || currentView === "register") && (
+            <p className="muted auth-dialog__note">
+              {rich("titleAlerts.loginNote", {
+                title: <span lang="en">{pendingAlert.name}</span>,
+              })}
+            </p>
+          )}
+          <div
+            ref={viewRef}
+            key={currentView}
+            className="auth-view view-motion"
+            data-dir={direction}
+            data-phase={leaving ? "out" : "in"}
+          >
+            {content}
+          </div>
+        </>
       )}
     </Modal>
   );

@@ -17,6 +17,7 @@ import { isLongEnough } from "../../../../../shared/passwordPolicy";
 import { useAuth } from "../../hooks/useAuth";
 import { usePasswordPolicy } from "../../hooks/usePasswordPolicy";
 import { useAuthAction } from "../../hooks/useAuthAction";
+import { useTitleAlerts } from "../../../planner/hooks/useTitleAlerts";
 import { useAuthDialog } from "../../hooks/useAuthDialog";
 import { AuthFormError } from "../AuthFormError/AuthFormError";
 
@@ -38,13 +39,15 @@ export function RegisterForm() {
   const { register } = useAuth();
   const { close } = useAuthDialog();
   const toast = useToast();
+  const [email, setEmail] = useState("");
+  const { resumeAfterAuth } = useTitleAlerts();
   const { run, reset, error, errorCode, isPending, isBlocked } = useAuthAction(register, () => {
+    const isResumed = resumeAfterAuth(email.trim());
     close();
-    toast.show({ tone: "info", title: t("auth.register.done") });
+    if (!isResumed) toast.show({ tone: "info", title: t("auth.register.done") });
   });
   const formRef = useRef<HTMLFormElement>(null);
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<FieldErrors<RegisterField>>({});
 
