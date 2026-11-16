@@ -1,4 +1,4 @@
-import { Check, Minus } from "lucide-react";
+import { CalendarClock, Check, Minus } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -30,7 +30,9 @@ export function PhaseSection({
 
   const ref = usePhaseMotion(isCollapsed);
   // Acts on the titles shown: a filtered phase is marked only where it is visible.
+  // Titles not out yet are not counted: a phase made only of them has nothing to mark.
   const isAllWatched = progress.total > 0 && progress.done === progress.total;
+  const hasNothingOut = phase.titles.length > 0 && progress.total === 0;
   const isPartial = progress.done > 0 && !isAllWatched;
   // "Mixed" has no HTML attribute: it is a property, read by assistive technology as aria-checked="mixed".
   const checkRef = useRef<HTMLInputElement>(null);
@@ -41,7 +43,15 @@ export function PhaseSection({
   return (
     <div ref={ref} className="phase card" data-open={!isCollapsed}>
       <div className="phase__head">
-        {phase.titles.length > 0 && (
+        {hasNothingOut && (
+          <span
+            className="title-row__check title-row__check--upcoming phase__check"
+            aria-hidden="true"
+          >
+            <CalendarClock />
+          </span>
+        )}
+        {phase.titles.length > 0 && !hasNothingOut && (
           // Marks or unmarks the titles shown. It does not open or close the phase.
           <label className="title-row__check phase__check">
             <input
@@ -74,9 +84,11 @@ export function PhaseSection({
               <span className="phase__name">{phaseName}</span>{" "}
               <span className="phase__years muted">{phase.years}</span>
             </span>{" "}
-            <span className="phase__count">
-              {t("common.ofCount", { done: progress.done, total: progress.total })}
-            </span>
+            {!hasNothingOut && (
+              <span className="phase__count">
+                {t("common.ofCount", { done: progress.done, total: progress.total })}
+              </span>
+            )}
             <Chevron />
           </button>
         </h3>

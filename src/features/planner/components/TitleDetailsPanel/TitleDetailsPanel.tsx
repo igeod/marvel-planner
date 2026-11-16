@@ -94,6 +94,9 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                         {!details.releaseDate && !details.runtime && (
                           <span className="film__meta-missing">{t("details.missing.meta")}</span>
                         )}
+                        {TITLES_BY_ID[titleId]?.status === "upcoming" && (
+                          <span>{t("planner.tags.upcoming")}</span>
+                        )}
                         {TITLES_BY_ID[titleId] && (
                           <TitleTags title={TITLES_BY_ID[titleId]} withHint />
                         )}

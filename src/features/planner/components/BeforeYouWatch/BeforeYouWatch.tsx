@@ -4,7 +4,7 @@ import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
 import { useI18n } from "../../../../i18n/useI18n";
 import { TITLES_BY_ID } from "../../data/catalog";
 import { getGuide } from "../../data/guides";
-import type { PrerequisiteLevel } from "../../data/guides/types";
+import type { Localized, PrerequisiteLevel } from "../../data/guides/types";
 import type { Title } from "../../types";
 
 const LEVELS: PrerequisiteLevel[] = ["essential", "recommended", "optional"];
@@ -12,6 +12,16 @@ const LEVELS: PrerequisiteLevel[] = ["essential", "recommended", "optional"];
 interface BeforeYouWatchProps {
   title: Title;
   watched: ReadonlySet<string>;
+}
+
+// One list for both kinds: a title in this planner (it has a state) and one outside it (it has none).
+interface Row {
+  key: string;
+  level: PrerequisiteLevel;
+  name: string;
+  reason: Localized;
+  // Undefined for a title outside the planner: it cannot be marked.
+  isWatched?: boolean;
 }
 
 function nameOf(id: string): string {
@@ -25,13 +35,21 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
   const reasonsId = useId();
 
   const guide = getGuide(title.id);
-  const reasonIds = guide.prerequisites.map((item) => `${reasonsId}-${item.id}`).join(" ");
-  const ordered = LEVELS.flatMap((level) =>
-    guide.prerequisites.filter((item) => item.level === level),
-  );
+  const rows: Row[] = [
+    ...guide.prerequisites.map((item) => ({
+      key: item.id,
+      level: item.level,
+      name: nameOf(item.id),
+      reason: item.reason,
+      isWatched: watched.has(item.id),
+    })),
+    ...(guide.outside ?? []).map((item) => ({ key: `outside-${item.name}`, ...item })),
+  ];
+  const ordered = LEVELS.flatMap((level) => rows.filter((row) => row.level === level));
+  const reasonIds = ordered.map((row) => `${reasonsId}-${row.key}`).join(" ");
 
-  // Nothing to watch first: one reassuring box instead of the heading and the list.
-  if (guide.prerequisites.length === 0) {
+  // Nothing to watch first, here or outside: one reassuring box instead of the heading and the list.
+  if (rows.length === 0) {
     return (
       <section className="before-you-watch" aria-label={t("prerequisites.heading")}>
         {title.status === "upcoming" && (
@@ -41,11 +59,6 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
           <Check aria-hidden />
           <strong>{t("prerequisites.standalone")}</strong>
         </p>
-        {guide.outside && (
-          <p className="before-you-watch__outside">
-            <strong>{t("prerequisites.outside")}:</strong> {guide.outside[language]}
-          </p>
-        )}
       </section>
     );
   }
@@ -56,63 +69,54 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
         <h5 id={headingId} className="section-title">
           {t("prerequisites.heading")}
         </h5>
-        {guide.prerequisites.length > 0 && (
-          <Tooltip tone="warning" content={t("prerequisites.warning")}>
-            {(describedBy) => (
-              <button
-                type="button"
-                className="why-toggle"
-                aria-expanded={areReasonsRevealed}
-                aria-controls={reasonIds}
-                aria-describedby={describedBy}
-                onClick={() => setAreReasonsRevealed(!areReasonsRevealed)}
-              >
-                <Eye data-tooltip-anchor aria-hidden />
-                {t("prerequisites.why")}
-              </button>
-            )}
-          </Tooltip>
-        )}
+        <Tooltip tone="warning" content={t("prerequisites.warning")}>
+          {(describedBy) => (
+            <button
+              type="button"
+              className="why-toggle"
+              aria-expanded={areReasonsRevealed}
+              aria-controls={reasonIds}
+              aria-describedby={describedBy}
+              onClick={() => setAreReasonsRevealed(!areReasonsRevealed)}
+            >
+              <Eye data-tooltip-anchor aria-hidden />
+              {t("prerequisites.why")}
+            </button>
+          )}
+        </Tooltip>
       </div>
 
       {title.status === "upcoming" && (
         <p className="before-you-watch__status muted">{t("prerequisites.provisional")}</p>
       )}
 
-      {ordered.length > 0 && (
-        <ul className="before-you-watch__list">
-          {ordered.map((item) => {
-            const isWatched = watched.has(item.id);
-            return (
-              <li key={item.id} className="prereq">
-                <span className="prereq__level muted">
-                  {t(`prerequisites.levels.${item.level}`)}
-                </span>
-                <span lang="en" className="prereq__name">
-                  {nameOf(item.id)}
-                </span>
-                <span className={`prereq__state prereq__state--${isWatched ? "done" : "todo"}`}>
-                  {isWatched && <Check aria-hidden />}
-                  {t(isWatched ? "prerequisites.watched" : "prerequisites.notWatched")}
-                </span>
-                <p
-                  id={`${reasonsId}-${item.id}`}
-                  className="prereq__reason"
-                  hidden={!areReasonsRevealed}
-                >
-                  {item.reason[language]}
-                </p>
-              </li>
-            );
-          })}
-        </ul>
-      )}
-
-      {guide.outside && (
-        <p className="before-you-watch__outside">
-          <strong>{t("prerequisites.outside")}:</strong> {guide.outside[language]}
-        </p>
-      )}
+      <ul className="before-you-watch__list">
+        {ordered.map((row) => (
+          <li key={row.key} className="prereq">
+            <span className="prereq__level muted">{t(`prerequisites.levels.${row.level}`)}</span>
+            <span lang="en" className="prereq__name">
+              {row.name}
+            </span>
+            {row.isWatched === undefined ? (
+              <span className="prereq__state prereq__state--outside">
+                {t("prerequisites.outside")}
+              </span>
+            ) : (
+              <span className={`prereq__state prereq__state--${row.isWatched ? "done" : "todo"}`}>
+                {row.isWatched && <Check aria-hidden />}
+                {t(row.isWatched ? "prerequisites.watched" : "prerequisites.notWatched")}
+              </span>
+            )}
+            <p
+              id={`${reasonsId}-${row.key}`}
+              className="prereq__reason"
+              hidden={!areReasonsRevealed}
+            >
+              {row.reason[language]}
+            </p>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

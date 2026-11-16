@@ -149,15 +149,13 @@ export const de: Messages = {
       film: "Film",
       serie: "Serie",
       special: "Special",
+      animated: "Animationsserie",
+      shorts: "Kurzfilmserie",
     },
     tags: {
       alternate: "Alternative Kontinuität",
       alternateHint: "Paralleluniversum: nicht nötig, um die Hauptgeschichte zu verfolgen.",
       upcoming: "Demnächst",
-    },
-    notes: {
-      shorts: "Kurzfilme",
-      animated: "animiert",
     },
     jump: {
       last: "Zuletzt gesehen",

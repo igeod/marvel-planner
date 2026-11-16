@@ -7,10 +7,15 @@ export const MEDIA_TYPE_KEYS: Record<MediaType, TranslationKey> = {
   special: "planner.types.special",
 };
 
-export const NOTE_KEYS: Record<NoteKey, TranslationKey> = {
-  shorts: "planner.notes.shorts",
-  animated: "planner.notes.animated",
+// A note turns the type into one phrase ("Animated series"), so the row shows one label, not two.
+const NOTE_TYPE_KEYS: Record<NoteKey, TranslationKey> = {
+  shorts: "planner.types.shorts",
+  animated: "planner.types.animated",
 };
+
+export function typeLabelKey(type: MediaType, note?: NoteKey): TranslationKey {
+  return note ? NOTE_TYPE_KEYS[note] : MEDIA_TYPE_KEYS[type];
+}
 
 export const TYPE_FILTER_OPTIONS: { value: MediaType; labelKey: TranslationKey }[] = [
   { value: "film", labelKey: "planner.filters.film" },

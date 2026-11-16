@@ -128,6 +128,25 @@ export function Planner({ shareCode }: PlannerProps) {
     () => new Set(flattenTitles(catalog).map((title) => title.id)),
     [catalog],
   );
+  // Defense: a title not out yet cannot be marked, whatever the interface sends.
+  const upcomingIds = useMemo(
+    () =>
+      new Set(
+        flattenTitles(catalog)
+          .filter((title) => title.status === "upcoming")
+          .map((title) => title.id),
+      ),
+    [catalog],
+  );
+  const toggleTitle = (id: string) => {
+    if (!upcomingIds.has(id)) void toggle(id);
+  };
+  const setPhaseTitles = (ids: string[], isWatched: boolean, label: string) =>
+    setMany(
+      ids.filter((id) => !upcomingIds.has(id)),
+      isWatched,
+      label,
+    );
   const nextTitle = findNextTitle(titlesInOrder(catalog, viewOrder), watched);
   const strip = useMemo(
     () => buildPhaseStrip(catalog, watched, nextTitle?.id ?? null),
@@ -238,7 +257,7 @@ export function Planner({ shareCode }: PlannerProps) {
           phase={nextTitle && !isLoading ? findPhaseNumber(catalog, nextTitle.id) : null}
           isLoading={isLoading}
           isHiddenByFilters={nextTitle !== null && !matchesFilters(nextTitle, filters)}
-          onMarkWatched={toggle}
+          onMarkWatched={toggleTitle}
         />
       </div>
 
@@ -322,8 +341,8 @@ export function Planner({ shareCode }: PlannerProps) {
                 watched={watched}
                 collapsed={collapsed}
                 onPhaseCollapsedChange={setPhaseCollapsed}
-                onToggleTitle={toggle}
-                onSetPhase={setMany}
+                onToggleTitle={toggleTitle}
+                onSetPhase={setPhaseTitles}
               />
             ))
           ) : (
@@ -331,7 +350,7 @@ export function Planner({ shareCode }: PlannerProps) {
               placed={chronological.placed}
               unplaced={chronological.unplaced}
               watched={watched}
-              onToggleTitle={toggle}
+              onToggleTitle={toggleTitle}
             />
           )}
         </div>

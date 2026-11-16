@@ -35,6 +35,17 @@ describe("catalogo", () => {
     }
   });
 
+  it("i titoli fuori dal planner hanno un nome e il motivo in tutte le lingue", () => {
+    for (const title of titles) {
+      for (const item of getGuide(title.id).outside ?? []) {
+        expect(item.name, title.id).not.toBe("");
+        for (const language of LANGUAGES) {
+          expect(item.reason[language], `${title.id} / ${item.name} / ${language}`).toBeTruthy();
+        }
+      }
+    }
+  });
+
   it("scene post-credit, easter egg e scene chiave riguardano titoli esistenti", () => {
     expect(Object.keys(POST_CREDITS).filter((id) => !ids.has(id))).toEqual([]);
     expect(Object.keys(EASTER_EGGS).filter((id) => !ids.has(id))).toEqual([]);

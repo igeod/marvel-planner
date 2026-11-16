@@ -1,4 +1,12 @@
-import { essential, guide, localized as l, optional, recommended, type TitleGuide } from "./types";
+import {
+  essential,
+  external,
+  guide,
+  localized as l,
+  optional,
+  recommended,
+  type TitleGuide,
+} from "./types";
 
 const SAME_SERIES = l(
   "The story continues directly from the previous season.",
@@ -406,13 +414,30 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
         ),
       ),
     ],
-    l(
-      "Many cameos come from earlier Spider-Man films, not in this planner: Sam Raimi's trilogy and The Amazing Spider-Man.",
-      "Molti cameo vengono dai vecchi film di Spider-Man, che non sono in questo planner: la trilogia di Sam Raimi e The Amazing Spider-Man.",
-      "De nombreux caméos viennent des anciens films Spider-Man, absents de ce planificateur : la trilogie de Sam Raimi et The Amazing Spider-Man.",
-      "Muchos cameos proceden de las películas anteriores de Spider-Man, que no están en este planificador: la trilogía de Sam Raimi y The Amazing Spider-Man.",
-      "Viele Gastauftritte stammen aus früheren Spider-Man-Filmen, die nicht in diesem Planer stehen: Sam Raimis Trilogie und The Amazing Spider-Man.",
-    ),
+    [
+      external(
+        "recommended",
+        "Spider-Man trilogy (2002–2007)",
+        l(
+          "Many of its villains and cameos come from these films.",
+          "Molti suoi nemici e cameo vengono da questi film.",
+          "Beaucoup de ses méchants et caméos viennent de ces films.",
+          "Muchos de sus villanos y cameos proceden de estas películas.",
+          "Viele seiner Schurken und Gastauftritte stammen aus diesen Filmen.",
+        ),
+      ),
+      external(
+        "recommended",
+        "The Amazing Spider-Man (2012–2014)",
+        l(
+          "Many of its villains and cameos come from these films.",
+          "Molti suoi nemici e cameo vengono da questi film.",
+          "Beaucoup de ses méchants et caméos viennent de ces films.",
+          "Muchos de sus villanos y cameos proceden de estas películas.",
+          "Viele seiner Schurken und Gastauftritte stammen aus diesen Filmen.",
+        ),
+      ),
+    ],
   ),
 
   "i-moon-knight": guide([]),
@@ -912,28 +937,49 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
     ),
   ]),
 
-  "i-echo": guide([
-    essential(
-      "i-hawkeye",
-      l(
-        "Maya Lopez and Kingpin first appear there.",
-        "Maya Lopez e Kingpin compaiono lì per la prima volta.",
-        "Maya Lopez et Kingpin y apparaissent pour la première fois.",
-        "Maya Lopez y Kingpin aparecen allí por primera vez.",
-        "Maya Lopez und Kingpin treten dort zum ersten Mal auf.",
+  "i-echo": guide(
+    [
+      essential(
+        "i-hawkeye",
+        l(
+          "Maya Lopez and Kingpin first appear there.",
+          "Maya Lopez e Kingpin compaiono lì per la prima volta.",
+          "Maya Lopez et Kingpin y apparaissent pour la première fois.",
+          "Maya Lopez y Kingpin aparecen allí por primera vez.",
+          "Maya Lopez und Kingpin treten dort zum ersten Mal auf.",
+        ),
       ),
-    ),
-  ]),
+    ],
+    [
+      external(
+        "optional",
+        "Daredevil (Netflix, 2015–2018)",
+        l(
+          "It shows Kingpin’s past.",
+          "Mostra il passato di Kingpin.",
+          "Elle montre le passé de Kingpin.",
+          "Muestra el pasado de Kingpin.",
+          "Sie zeigt Kingpins Vergangenheit.",
+        ),
+      ),
+    ],
+  ),
 
   "i-x-men-97-stagione-1": guide(
     [],
-    l(
-      "It is a continuation of the 1990s X-Men animated series, which is not in this planner: knowing it helps a lot.",
-      "È il seguito della serie animata X-Men degli anni '90, che non è in questo planner: conoscerla aiuta molto.",
-      "C'est la suite de la série animée X-Men des années 90, absente de ce planificateur : la connaître aide beaucoup.",
-      "Es la continuación de la serie animada X-Men de los años 90, que no está en este planificador: conocerla ayuda mucho.",
-      "Sie setzt die Zeichentrickserie X-Men aus den 90ern fort, die nicht in diesem Planer steht: sie zu kennen hilft sehr.",
-    ),
+    [
+      external(
+        "recommended",
+        "X-Men: The Animated Series (1992–1997)",
+        l(
+          "This series continues it directly.",
+          "Questa serie ne è il seguito diretto.",
+          "Cette série en est la suite directe.",
+          "Esta serie es su continuación directa.",
+          "Diese Serie setzt sie direkt fort.",
+        ),
+      ),
+    ],
   ),
 
   "i-deadpool-wolverine": guide(
@@ -959,13 +1005,63 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
         ),
       ),
     ],
-    l(
-      "Meant for those who know the earlier X-Men films, Deadpool, Deadpool 2 and Logan, which are not in this planner.",
-      "Pensato per chi conosce i vecchi film degli X-Men, Deadpool, Deadpool 2 e Logan, che non sono in questo planner.",
-      "Pensé pour ceux qui connaissent les anciens films X-Men, Deadpool, Deadpool 2 et Logan, absents de ce planificateur.",
-      "Pensado para quienes conocen las películas anteriores de X-Men, Deadpool, Deadpool 2 y Logan, que no están en este planificador.",
-      "Gedacht für alle, die die früheren X-Men-Filme, Deadpool, Deadpool 2 und Logan kennen, die nicht in diesem Planer stehen.",
-    ),
+    [
+      external(
+        "recommended",
+        "Deadpool (2016)",
+        l(
+          "The character’s story and relationships.",
+          "La storia del personaggio e le sue relazioni.",
+          "L’histoire du personnage et ses relations.",
+          "La historia del personaje y sus relaciones.",
+          "Die Geschichte der Figur und ihre Beziehungen.",
+        ),
+      ),
+      external(
+        "recommended",
+        "Deadpool 2 (2018)",
+        l(
+          "Its time-travel ideas lead straight into this film.",
+          "Le sue idee sui viaggi nel tempo portano dritte a questo film.",
+          "Ses idées de voyage dans le temps mènent droit à ce film.",
+          "Sus ideas de viajes en el tiempo llevan directas a esta película.",
+          "Seine Zeitreise-Ideen führen direkt zu diesem Film.",
+        ),
+      ),
+      external(
+        "recommended",
+        "Logan (2017)",
+        l(
+          "This film plays with its ending.",
+          "Questo film gioca con il suo finale.",
+          "Ce film joue avec sa fin.",
+          "Esta película juega con su final.",
+          "Dieser Film spielt mit seinem Ende.",
+        ),
+      ),
+      external(
+        "recommended",
+        "X-Men Origins: Wolverine (2009)",
+        l(
+          "Where this version of Deadpool first appeared.",
+          "Dove compare per la prima volta questa versione di Deadpool.",
+          "Là où cette version de Deadpool apparaît pour la première fois.",
+          "Donde aparece por primera vez esta versión de Deadpool.",
+          "Dort tritt diese Version von Deadpool zum ersten Mal auf.",
+        ),
+      ),
+      external(
+        "optional",
+        "X-Men films (2000–2014)",
+        l(
+          "The film pokes fun at them.",
+          "Il film li prende in giro.",
+          "Le film s’en moque.",
+          "La película se burla de ellos.",
+          "Der Film macht sich darüber lustig.",
+        ),
+      ),
+    ],
   ),
 
   "i-agatha-all-along": guide([
@@ -1083,13 +1179,19 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
         ),
       ),
     ],
-    l(
-      "It continues the story of Netflix's Daredevil series, which is not in this planner: watching it first helps a lot.",
-      "Continua la storia della serie Daredevil di Netflix, che non è in questo planner: vederla prima aiuta molto.",
-      "Elle poursuit l'histoire de la série Daredevil de Netflix, absente de ce planificateur : la voir avant aide beaucoup.",
-      "Continúa la historia de la serie Daredevil de Netflix, que no está en este planificador: verla antes ayuda mucho.",
-      "Sie setzt die Geschichte der Netflix-Serie Daredevil fort, die nicht in diesem Planer steht: sie vorher zu sehen hilft sehr.",
-    ),
+    [
+      external(
+        "recommended",
+        "Daredevil (Netflix, 2015–2018)",
+        l(
+          "It continues the story of Matt Murdock and Kingpin.",
+          "Continua la storia di Matt Murdock e Kingpin.",
+          "Elle continue l’histoire de Matt Murdock et Kingpin.",
+          "Continúa la historia de Matt Murdock y Kingpin.",
+          "Sie setzt die Geschichte von Matt Murdock und Kingpin fort.",
+        ),
+      ),
+    ],
   ),
 
   "i-thunderbolts": guide([
@@ -1158,7 +1260,22 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
     ),
   ]),
 
-  "i-the-fantastic-four-first-steps": guide([]),
+  "i-the-fantastic-four-first-steps": guide(
+    [],
+    [
+      external(
+        "optional",
+        "Fantastic Four (2005, 2007, 2015)",
+        l(
+          "Other versions of the characters.",
+          "Altre versioni dei personaggi.",
+          "D’autres versions des personnages.",
+          "Otras versiones de los personajes.",
+          "Andere Versionen der Figuren.",
+        ),
+      ),
+    ],
+  ),
 
   "i-eyes-of-wakanda": guide([
     recommended(
@@ -1236,13 +1353,19 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
         ),
       ),
     ],
-    l(
-      "It continues the story of Netflix's The Punisher, which is not in this planner.",
-      "Continua la storia di The Punisher di Netflix, che non è in questo planner.",
-      "Elle poursuit l'histoire de The Punisher de Netflix, absente de ce planificateur.",
-      "Continúa la historia de The Punisher de Netflix, que no está en este planificador.",
-      "Sie setzt die Geschichte von Netflix' The Punisher fort, die nicht in diesem Planer steht.",
-    ),
+    [
+      external(
+        "recommended",
+        "The Punisher (Netflix, 2017–2019)",
+        l(
+          "It continues Frank Castle’s story.",
+          "Continua la storia di Frank Castle.",
+          "Elle continue l’histoire de Frank Castle.",
+          "Continúa la historia de Frank Castle.",
+          "Sie setzt Frank Castles Geschichte fort.",
+        ),
+      ),
+    ],
   ),
 
   "i-x-men-97-stagione-2": guide([essential("i-x-men-97-stagione-1", SAME_SERIES)]),
@@ -1280,105 +1403,190 @@ export const MULTIVERSE_GUIDES: Record<string, TitleGuide> = {
     ),
   ]),
 
-  "i-spider-man-brand-new-day": guide([
-    essential(
-      "i-spider-man-no-way-home",
-      l(
-        "It continues directly from the ending of that film.",
-        "Continua direttamente dal finale di quel film.",
-        "Il continue directement depuis la fin de ce film.",
-        "Continúa directamente desde el final de esa película.",
-        "Er setzt direkt am Ende jenes Films an.",
+  "i-spider-man-brand-new-day": guide(
+    [
+      essential(
+        "i-spider-man-no-way-home",
+        l(
+          "It continues directly from the ending of that film.",
+          "Continua direttamente dal finale di quel film.",
+          "Il continue directement depuis la fin de ce film.",
+          "Continúa directamente desde el final de esa película.",
+          "Er setzt direkt am Ende jenes Films an.",
+        ),
       ),
-    ),
-    recommended(
-      "i-spider-man-homecoming",
-      l(
-        "Peter's friends and his first steps as Spider-Man.",
-        "Gli amici di Peter e i suoi primi passi come Spider-Man.",
-        "Les amis de Peter et ses premiers pas en Spider-Man.",
-        "Los amigos de Peter y sus primeros pasos como Spider-Man.",
-        "Peters Freunde und seine ersten Schritte als Spider-Man.",
+      recommended(
+        "i-spider-man-homecoming",
+        l(
+          "Peter's friends and his first steps as Spider-Man.",
+          "Gli amici di Peter e i suoi primi passi come Spider-Man.",
+          "Les amis de Peter et ses premiers pas en Spider-Man.",
+          "Los amigos de Peter y sus primeros pasos como Spider-Man.",
+          "Peters Freunde und seine ersten Schritte als Spider-Man.",
+        ),
       ),
-    ),
-    recommended(
-      "i-spider-man-far-from-home",
-      l(
-        "Peter's life after the Blip.",
-        "La vita di Peter dopo lo Schiocco.",
-        "La vie de Peter après le Blip.",
-        "La vida de Peter tras el Chasquido.",
-        "Peters Leben nach dem Blip.",
+      recommended(
+        "i-spider-man-far-from-home",
+        l(
+          "Peter's life after the Blip.",
+          "La vita di Peter dopo lo Schiocco.",
+          "La vie de Peter après le Blip.",
+          "La vida de Peter tras el Chasquido.",
+          "Peters Leben nach dem Blip.",
+        ),
       ),
-    ),
-    optional(
-      "i-daredevil-born-again-stagione-1",
-      l(
-        "Matt Murdock is part of the same corner of the MCU.",
-        "Matt Murdock fa parte dello stesso angolo del MCU.",
-        "Matt Murdock fait partie du même coin du MCU.",
-        "Matt Murdock forma parte del mismo rincón del MCU.",
-        "Matt Murdock gehört zur selben Ecke des MCU.",
+      optional(
+        "i-daredevil-born-again-stagione-1",
+        l(
+          "Matt Murdock is part of the same corner of the MCU.",
+          "Matt Murdock fa parte dello stesso angolo del MCU.",
+          "Matt Murdock fait partie du même coin du MCU.",
+          "Matt Murdock forma parte del mismo rincón del MCU.",
+          "Matt Murdock gehört zur selben Ecke des MCU.",
+        ),
       ),
-    ),
-  ]),
+    ],
+    [
+      external(
+        "optional",
+        "Daredevil (Netflix, 2015–2018)",
+        l(
+          "The street-level corner of the MCU.",
+          "L’angolo del MCU a livello di strada.",
+          "Le coin du MCU à hauteur de rue.",
+          "El rincón del MCU a pie de calle.",
+          "Die bodenständige Ecke des MCU.",
+        ),
+      ),
+      external(
+        "optional",
+        "The Punisher (Netflix, 2017–2019)",
+        l(
+          "The street-level corner of the MCU.",
+          "L’angolo del MCU a livello di strada.",
+          "Le coin du MCU à hauteur de rue.",
+          "El rincón del MCU a pie de calle.",
+          "Die bodenständige Ecke des MCU.",
+        ),
+      ),
+    ],
+  ),
 
   "i-your-friendly-neighborhood-spider-man-stagione-2": guide([
     essential("i-your-friendly-neighborhood-spider-man-stagione-1", SAME_SERIES),
   ]),
 
-  "i-avengers-doomsday": guide([
-    essential(
-      "i-avengers-endgame",
-      l(
-        "The end of the saga with the original Avengers.",
-        "La conclusione della saga con i Vendicatori originali.",
-        "La fin de la saga avec les Avengers d'origine.",
-        "El final de la saga con los Vengadores originales.",
-        "Das Ende der Saga mit den ursprünglichen Avengers.",
+  "i-avengers-doomsday": guide(
+    [
+      essential(
+        "i-avengers-endgame",
+        l(
+          "The end of the saga with the original Avengers.",
+          "La conclusione della saga con i Vendicatori originali.",
+          "La fin de la saga avec les Avengers d'origine.",
+          "El final de la saga con los Vengadores originales.",
+          "Das Ende der Saga mit den ursprünglichen Avengers.",
+        ),
       ),
-    ),
-    recommended(
-      "i-thunderbolts",
-      l(
-        "A recent team that may matter in this film.",
-        "Una squadra recente che potrebbe contare in questo film.",
-        "Une équipe récente qui pourrait compter dans ce film.",
-        "Un equipo reciente que podría importar en esta película.",
-        "Ein junges Team, das in diesem Film eine Rolle spielen könnte.",
+      recommended(
+        "i-thunderbolts",
+        l(
+          "A recent team that may matter in this film.",
+          "Una squadra recente che potrebbe contare in questo film.",
+          "Une équipe récente qui pourrait compter dans ce film.",
+          "Un equipo reciente que podría importar en esta película.",
+          "Ein junges Team, das in diesem Film eine Rolle spielen könnte.",
+        ),
       ),
-    ),
-    recommended(
-      "i-the-fantastic-four-first-steps",
-      l(
-        "A new team from another world of the multiverse.",
-        "Una nuova squadra proveniente da un altro mondo del multiverso.",
-        "Une nouvelle équipe venue d'un autre monde du multivers.",
-        "Un nuevo equipo de otro mundo del multiverso.",
-        "Ein neues Team aus einer anderen Welt des Multiversums.",
+      recommended(
+        "i-the-fantastic-four-first-steps",
+        l(
+          "A new team from another world of the multiverse.",
+          "Una nuova squadra proveniente da un altro mondo del multiverso.",
+          "Une nouvelle équipe venue d'un autre monde du multivers.",
+          "Un nuevo equipo de otro mundo del multiverso.",
+          "Ein neues Team aus einer anderen Welt des Multiversums.",
+        ),
       ),
-    ),
-    recommended(
-      "i-deadpool-wolverine",
-      l(
-        "Shows how worlds of the multiverse can collide.",
-        "Mostra come i mondi del multiverso possano scontrarsi.",
-        "Montre comment les mondes du multivers peuvent entrer en collision.",
-        "Muestra cómo pueden chocar los mundos del multiverso.",
-        "Zeigt, wie Welten des Multiversums aufeinanderprallen können.",
+      recommended(
+        "i-deadpool-wolverine",
+        l(
+          "Shows how worlds of the multiverse can collide.",
+          "Mostra come i mondi del multiverso possano scontrarsi.",
+          "Montre comment les mondes du multivers peuvent entrer en collision.",
+          "Muestra cómo pueden chocar los mundos del multiverso.",
+          "Zeigt, wie Welten des Multiversums aufeinanderprallen können.",
+        ),
       ),
-    ),
-    recommended(
-      "i-loki-stagione-2",
-      l(
-        "The multiverse story that leads to this film.",
-        "La storia del multiverso che porta a questo film.",
-        "L'histoire du multivers qui mène à ce film.",
-        "La historia del multiverso que lleva a esta película.",
-        "Die Multiversum-Geschichte, die zu diesem Film führt.",
+      recommended(
+        "i-loki-stagione-2",
+        l(
+          "The multiverse story that leads to this film.",
+          "La storia del multiverso che porta a questo film.",
+          "L'histoire du multivers qui mène à ce film.",
+          "La historia del multiverso que lleva a esta película.",
+          "Die Multiversum-Geschichte, die zu diesem Film führt.",
+        ),
       ),
-    ),
-  ]),
+    ],
+    [
+      external(
+        "recommended",
+        "X-Men (2000)",
+        l(
+          "Disney’s list includes it: the Fox X-Men return in this film.",
+          "È nella lista di Disney: gli X-Men della Fox tornano in questo film.",
+          "Elle figure sur la liste de Disney : les X-Men de la Fox reviennent dans ce film.",
+          "Está en la lista de Disney: los X-Men de Fox vuelven en esta película.",
+          "Steht auf Disneys Liste: die X-Men von Fox kehren in diesem Film zurück.",
+        ),
+      ),
+      external(
+        "recommended",
+        "X2 (2003)",
+        l(
+          "Disney’s list includes it: the Fox X-Men return in this film.",
+          "È nella lista di Disney: gli X-Men della Fox tornano in questo film.",
+          "Elle figure sur la liste de Disney : les X-Men de la Fox reviennent dans ce film.",
+          "Está en la lista de Disney: los X-Men de Fox vuelven en esta película.",
+          "Steht auf Disneys Liste: die X-Men von Fox kehren in diesem Film zurück.",
+        ),
+      ),
+      external(
+        "optional",
+        "X-Men: Days of Future Past (2014)",
+        l(
+          "It changed the end of the original trilogy.",
+          "Ha cambiato il finale della trilogia originale.",
+          "Il a changé la fin de la trilogie originale.",
+          "Cambió el final de la trilogía original.",
+          "Er hat das Ende der ursprünglichen Trilogie verändert.",
+        ),
+      ),
+      external(
+        "optional",
+        "Logan (2017)",
+        l(
+          "More context on the last stories of the Fox X-Men.",
+          "Più contesto sulle ultime storie degli X-Men della Fox.",
+          "Plus de contexte sur les dernières histoires des X-Men de la Fox.",
+          "Más contexto sobre las últimas historias de los X-Men de Fox.",
+          "Mehr Kontext zu den letzten Geschichten der Fox-X-Men.",
+        ),
+      ),
+      external(
+        "optional",
+        "Fantastic Four (2005, 2007)",
+        l(
+          "Other versions of the characters.",
+          "Altre versioni dei personaggi.",
+          "D’autres versions des personnages.",
+          "Otras versiones de los personajes.",
+          "Andere Versionen der Figuren.",
+        ),
+      ),
+    ],
+  ),
 
   "i-daredevil-born-again-stagione-3": guide([
     essential("i-daredevil-born-again-stagione-2", SAME_SERIES),

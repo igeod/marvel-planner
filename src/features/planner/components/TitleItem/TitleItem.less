@@ -166,6 +166,10 @@
       padding-top: 0;
     }
 
+    .title-row__status {
+      font-weight: 700;
+    }
+
     .title-row__content {
       display: block;
 
@@ -242,6 +246,17 @@
 
   svg {
     opacity: 1;
+  }
+}
+
+// Not out yet: not a control but a piece of information, so just the icon: no box, no input, no hover.
+.title-row__check--upcoming {
+  cursor: default;
+  color: var(--ink-2);
+
+  svg {
+    width: 20px;
+    height: 20px;
   }
 }
 

@@ -13,10 +13,18 @@ import { nextTheme } from "../src/features/theme/theme";
 const titles = flattenTitles(CATALOG);
 
 describe("striscia dei progressi", () => {
-  it("ha una colonna per fase e una cella per titolo", () => {
+  it("ha una colonna per fase e una cella per titolo uscito", () => {
     const strip = buildPhaseStrip(CATALOG, new Set(), null);
     expect(strip).toHaveLength(6);
-    expect(strip.reduce((sum, phase) => sum + phase.cells.length, 0)).toBe(titles.length);
+    const released = titles.filter((title) => title.status === "released");
+    expect(strip.reduce((sum, phase) => sum + phase.cells.length, 0)).toBe(released.length);
+  });
+
+  it("non ha celle per i titoli in arrivo, nemmeno se segnati", () => {
+    const upcoming = titles.find((title) => title.status === "upcoming")!;
+    const withMark = buildPhaseStrip(CATALOG, new Set([upcoming.id]), null);
+    const without = buildPhaseStrip(CATALOG, new Set(), null);
+    expect(withMark).toEqual(without);
   });
 
   it("distingue visti, prossimo e da vedere", () => {

@@ -10,9 +10,16 @@ export interface Prerequisite {
   reason: Localized;
 }
 
+// A title worth watching first that is not in this planner: it has no state (it cannot be marked).
+export interface ExternalPrerequisite {
+  name: string;
+  level: PrerequisiteLevel;
+  reason: Localized;
+}
+
 export interface TitleGuide {
   prerequisites: Prerequisite[];
-  outside?: Localized;
+  outside?: ExternalPrerequisite[];
 }
 
 export function localized(en: string, it: string, fr: string, es: string, de: string): Localized {
@@ -27,6 +34,12 @@ export const essential = prerequisite("essential");
 export const recommended = prerequisite("recommended");
 export const optional = prerequisite("optional");
 
-export function guide(prerequisites: Prerequisite[], outside?: Localized): TitleGuide {
+export const external = (
+  level: PrerequisiteLevel,
+  name: string,
+  reason: Localized,
+): ExternalPrerequisite => ({ name, level, reason });
+
+export function guide(prerequisites: Prerequisite[], outside?: ExternalPrerequisite[]): TitleGuide {
   return { prerequisites, outside };
 }

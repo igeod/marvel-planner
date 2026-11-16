@@ -145,15 +145,13 @@ export const it = {
       film: "Film",
       serie: "Serie",
       special: "Speciale",
+      animated: "Serie animata",
+      shorts: "Serie di cortometraggi",
     },
     tags: {
       alternate: "Continuità alternativa",
       alternateHint: "Universo parallelo: non serve per seguire la storia principale.",
       upcoming: "In arrivo",
-    },
-    notes: {
-      shorts: "corti",
-      animated: "animata",
     },
     jump: {
       last: "Ultimo visto",

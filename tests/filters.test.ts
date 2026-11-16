@@ -45,9 +45,19 @@ describe("filtri", () => {
   });
 });
 
+const released = all.filter((title) => title.status === "released");
+
 describe("progresso", () => {
   it("conta solo i titoli visti presenti nell'elenco", () => {
     const watched = new Set([all[0].id, all[1].id, "inesistente"]);
-    expect(computeProgress(all, watched)).toEqual({ done: 2, total: all.length });
+    expect(computeProgress(all, watched)).toEqual({ done: 2, total: released.length });
+  });
+
+  it("non conta i titoli in arrivo, nemmeno se segnati", () => {
+    const upcoming = all.find((title) => title.status === "upcoming")!;
+    expect(computeProgress(all, new Set([upcoming.id]))).toEqual({
+      done: 0,
+      total: released.length,
+    });
   });
 });

@@ -17,10 +17,13 @@ export function buildPhaseStrip(
   return catalog
     .flatMap((saga) => saga.phases)
     .map((phase) => {
-      const cells = phase.titles.map((title): CellState => {
-        if (watched.has(title.id)) return "watched";
-        return title.id === nextId ? "next" : "todo";
-      });
+      // A title not out yet has no cell: it appears when it is released.
+      const cells = phase.titles
+        .filter((title) => title.status === "released")
+        .map((title): CellState => {
+          if (watched.has(title.id)) return "watched";
+          return title.id === nextId ? "next" : "todo";
+        });
       return {
         number: phase.number,
         done: cells.filter((cell) => cell === "watched").length,

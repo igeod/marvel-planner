@@ -4,7 +4,7 @@ import { titlePath } from "../../../../app/paths";
 import { Button } from "../../../../components/ui/Button/Button";
 import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
 import { useI18n } from "../../../../i18n/useI18n";
-import { MEDIA_TYPE_KEYS } from "../../data/labels";
+import { typeLabelKey } from "../../data/labels";
 import type { PhaseNumber, Title } from "../../types";
 import { TitleTags } from "../TitleTags/TitleTags";
 import { useTitleDetails } from "../../hooks/useTitleDetails";
@@ -105,7 +105,7 @@ export function NextToWatch({
             </p>
             <p className="next-card__meta">
               {[
-                t(MEDIA_TYPE_KEYS[title.type]),
+                t(typeLabelKey(title.type, title.note)),
                 formatRelease(title.release, i18n),
                 phase && t(`catalog.phases.${phase}`),
               ]

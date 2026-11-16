@@ -74,7 +74,9 @@ function Columns({ phases }: { phases: StripPhase[] }) {
               {t("planner.strip.phase", { number: phase.number })}
             </span>
             <span className="muted">
-              {t("common.ofCount", { done: phase.done, total: phase.total })}
+              {phase.total > 0
+                ? t("common.ofCount", { done: phase.done, total: phase.total })
+                : t("planner.tags.upcoming")}
             </span>
           </p>
         </div>

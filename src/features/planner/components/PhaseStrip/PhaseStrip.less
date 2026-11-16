@@ -151,6 +151,11 @@
   font-weight: 700;
 }
 
+// A phase with only titles not out yet has no cells: its column shows just the label.
+.phase-strip__phase--size-0 {
+  .desktop({ flex-grow: 1; });
+}
+
 .phase-size-loop(@i) when (@i > 0) {
   .phase-strip__phase--size-@{i} {
     .desktop({ flex-grow: @i; });

@@ -1,10 +1,10 @@
-import { Check, Maximize2 } from "lucide-react";
+import { CalendarClock, Check, Maximize2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { titlePath } from "../../../../app/paths";
 import { ButtonLink } from "../../../../components/ui/Button/ButtonLink";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
-import { MEDIA_TYPE_KEYS, NOTE_KEYS } from "../../data/labels";
+import { typeLabelKey } from "../../data/labels";
 import type { Title } from "../../types";
 import { formatRelease } from "../../utils/format";
 import { BeforeYouWatch } from "../BeforeYouWatch/BeforeYouWatch";
@@ -38,6 +38,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
 
   // Only a click on an unwatched title animates its row; loading, filters and "mark all" do not.
   const toggle = () => {
+    if (isUpcoming) return;
     window.clearTimeout(markedTimerRef.current);
     setIsJustMarked(!isWatched);
     if (!isWatched) {
@@ -62,11 +63,9 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
     return () => window.clearTimeout(timer);
   }, [isOpen]);
 
-  const meta = [
-    t(MEDIA_TYPE_KEYS[title.type]),
-    formatRelease(title.release, i18n),
-    title.note && t(NOTE_KEYS[title.note]),
-  ]
+  // Not out yet: it cannot be marked, and it is said in words after the date, not in a chip.
+  const isUpcoming = title.status === "upcoming";
+  const meta = [t(typeLabelKey(title.type, title.note)), formatRelease(title.release, i18n)]
     .filter(Boolean)
     .join(", ");
 
@@ -77,17 +76,24 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
       className={`title-row${isOpen ? " title-row--open" : ""}`}
       data-just-marked={isJustMarked || undefined}
     >
-      <label className="title-row__check">
-        <input
-          type="checkbox"
-          checked={isWatched}
-          aria-label={t("planner.markWatched", { name: title.name })}
-          onChange={toggle}
-        />
-        <span className="title-row__box" aria-hidden="true">
-          <Check />
+      {isUpcoming ? (
+        // Not a control: the words "Upcoming" in the subtitle say it, so the icon is decoration.
+        <span className="title-row__check title-row__check--upcoming" aria-hidden="true">
+          <CalendarClock />
         </span>
-      </label>
+      ) : (
+        <label className="title-row__check">
+          <input
+            type="checkbox"
+            checked={isWatched}
+            aria-label={t("planner.markWatched", { name: title.name })}
+            onChange={toggle}
+          />
+          <span className="title-row__box" aria-hidden="true">
+            <Check />
+          </span>
+        </label>
+      )}
 
       <PosterThumb titleId={title.id} isLarge={isOpen} />
 
@@ -105,7 +111,15 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
               {isWatched && !isOpen ? <s>{title.name}</s> : title.name}
             </span>
             <span className="title-row__meta">
-              <span>{meta}</span>
+              <span>
+                {meta}
+                {isUpcoming && (
+                  <>
+                    <span aria-hidden="true"> · </span>
+                    <span className="title-row__status">{t("planner.tags.upcoming")}</span>
+                  </>
+                )}
+              </span>
               <TitleTags title={title} />
             </span>
           </span>
@@ -114,7 +128,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
 
         {hasBeenOpened && (
           <div className="title-row__content">
-            <MarkWatchedButton isWatched={isWatched} onToggle={toggle} />
+            {!isUpcoming && <MarkWatchedButton isWatched={isWatched} onToggle={toggle} />}
             <TitleSummaryPanel titleId={title.id} />
             <BeforeYouWatch title={title} watched={watched} />
             <div className="title-row__actions">

@@ -147,15 +147,13 @@ export const en: Messages = {
       film: "Film",
       serie: "Series",
       special: "Special",
+      animated: "Animated series",
+      shorts: "Short-form series",
     },
     tags: {
       alternate: "Alternate continuity",
       alternateHint: "Parallel universe: not needed to follow the main story.",
       upcoming: "Upcoming",
-    },
-    notes: {
-      shorts: "shorts",
-      animated: "animated",
     },
     jump: {
       last: "Last watched",

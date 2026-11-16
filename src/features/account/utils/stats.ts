@@ -1,4 +1,5 @@
-import type { MediaType, PhaseNumber, Progress, Saga, Title } from "../../planner/types";
+import { computeProgress as tally } from "../../planner/utils/progress";
+import type { MediaType, PhaseNumber, Progress, Saga } from "../../planner/types";
 
 export interface ProgressStats {
   overall: Progress;
@@ -9,10 +10,7 @@ export interface ProgressStats {
 
 const MEDIA_TYPES: MediaType[] = ["film", "serie", "special"];
 
-function tally(titles: Title[], watched: ReadonlySet<string>): Progress {
-  return { done: titles.filter((title) => watched.has(title.id)).length, total: titles.length };
-}
-
+// Titles not out yet do not count (see computeProgress), so a group made only of them is left out.
 export function computeStats(catalog: Saga[], watched: ReadonlySet<string>): ProgressStats {
   const phases = catalog.flatMap((saga) => saga.phases);
   const titles = phases.flatMap((phase) => phase.titles);
@@ -20,7 +18,9 @@ export function computeStats(catalog: Saga[], watched: ReadonlySet<string>): Pro
 
   return {
     overall: tally(titles, watched),
-    byPhase: phases.map((phase) => ({ number: phase.number, ...tally(phase.titles, watched) })),
+    byPhase: phases
+      .map((phase) => ({ number: phase.number, ...tally(phase.titles, watched) }))
+      .filter((entry) => entry.total > 0),
     byType: MEDIA_TYPES.map((type) => ({
       type,
       ...tally(
@@ -28,12 +28,14 @@ export function computeStats(catalog: Saga[], watched: ReadonlySet<string>): Pro
         watched,
       ),
     })).filter((entry) => entry.total > 0),
-    byYear: years.map((year) => ({
-      year,
-      ...tally(
-        titles.filter((title) => title.release.startsWith(year)),
-        watched,
-      ),
-    })),
+    byYear: years
+      .map((year) => ({
+        year,
+        ...tally(
+          titles.filter((title) => title.release.startsWith(year)),
+          watched,
+        ),
+      }))
+      .filter((entry) => entry.total > 0),
   };
 }
