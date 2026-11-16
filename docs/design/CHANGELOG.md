@@ -1,5 +1,10 @@
 # Changelog del canvas
 
+## 19 novembre 2026 · titoli “in arrivo” (proposta, main fdbf870)
+
+- **Badges · “Titoli ‘in arrivo’: testo nel sottotitolo, casella non attiva, fuori dal totale” (voce 14):** (1) “In arrivo” non è più un chip: testo in coda al sottotitolo, ` · In arrivo`, peso 700, `--ink-2`; resta chip solo “Continuità alternativa”; (2) la casella non si può segnare: `aria-disabled`, bordo `3px dashed --ink-2`, `Clock` 16px, `not-allowed`, nessun hover, `Tooltip` “Non ancora uscito” (cinque lingue); il pulsante “Segna come visto” della riga aperta non si mostra; la casella della fase guarda solo i titoli usciti (piena se sono tutti visti), non attiva se non ne ha; (3) fuori dal totale in `computeProgress` (numero, scheda, barra, Account) e nella fascia (le barrette spariscono, “Tutti i N titoli”). “Prossimo da guardare” non cambia: `findNextTitle` esclude già gli in arrivo (nextTitle.ts r.3-8). Testi “Serie animata, 2024” e “Serie di cortometraggi, 2022”: li scrive Code, nessun cambio di stile.
+- **Scritto a mano** (nessun `add_*.py`): una rigenerazione di `p_badges.py` lo cancella. Non visto nel browser. Il blocco “Etichette della sottoriga” (voce 10, implementata) descrive ancora “In arrivo” come chip pieno: questa voce lo sostituisce.
+
 ## 18 novembre 2026 · numero e fascia a batteria: lo stesso orologio (proposta, main fb121fd)
 
 - **Motion · “Numero e fascia a batteria: lo stesso orologio” (voce 13):** il numero grande passa da 900ms a `--dur-progress` (600ms; la fascia non si allunga); parte con l'introduzione, insieme alla fascia (`--dur-hover × 3` dopo `html[data-intro]`); la fascia segue la curva del numero: ritardo della barretta c `--charge-delay + max(0, --dur-progress × (1 − (1 − (c + 1) / n)^(1/3)) − --dur-ui)` (inversa di `easeOutCubic`, in CSS con `pow()`), così l'ultima finisce con il numero; “Prossimo” dopo, `--charge-delay + --dur-progress × min(--n, 1)`; durata sempre intera anche con valori piccoli; movimento ridotto: tutto al valore finale. Prova viva “oggi” e “proposta” nella pagina. Sostituisce il ritardo della fascia della voce 12. Non misurato; `COUNT_CHANGE_MS` (400ms) fuori scala, non toccato.
