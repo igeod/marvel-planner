@@ -7,6 +7,9 @@
   padding: var(--sp-3h) var(--sp-3h) var(--sp-3h) 0.75rem;
   border-radius: @radius-row;
   background: var(--row);
+  // When an opened row is scrolled into view, it stops this far above the bottom edge: enough to clear
+  // the floating pills (a hit area plus a gap on each side), not flush against the edge.
+  scroll-margin-bottom: calc(var(--hit) + var(--sp-4) * 2);
 
   .desktop({ gap: 12px; padding: 10px 16px 10px 8px; });
 
