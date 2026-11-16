@@ -24,6 +24,7 @@ Elenco aggiornato a b7ddfe3. Le voci già riportate nel codice non ci sono più 
 | 14 | Titoli “in arrivo” | Chip pieno con `Clock` (`TitleTags.tsx` r.34-40); si segna e conta nel totale (`progress.ts` r.3-8, `strip.ts` r.12-31) | Testo ` · In arrivo` nel sottotitolo (peso 700, `--ink-2`); casella `aria-disabled` con bordo `dashed`, `Clock`, tooltip `planner.upcoming.notYet`; niente pulsante nella riga aperta; totale e fascia solo con i titoli usciti (`computeProgress`, `buildPhaseStrip`); casella della fase sui soli usciti | Badges |
 
 Note sulle voci:
+- **14 rivista (20 novembre):** la casella spenta con tooltip e il testo “In arrivo” nella fase sono sostituiti da un'icona sola (nessun `input`, nessun tooltip, nessun hover), `CalendarClock` raccomandata; resta il resto (testo in sottoriga, totale e fascia sui soli usciti, niente `MarkWatchedButton`). Scelta dell'icona al committente.
 - **14** non visto nel browser; la finestra “Multiverso completato” non ricompare se il totale cresce (`completedSeen`), da decidere se va bene.
 - **13** non misurato nel browser; `COUNT_CHANGE_MS` 400ms resta fuori scala (non deciso).
 - **11** finché lingua e tema non sono nello schema dell'account si mostra `savedDevice`, mai `savedAccount`.

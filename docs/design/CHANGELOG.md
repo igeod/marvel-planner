@@ -1,5 +1,11 @@
 # Changelog del canvas
 
+## 20 novembre 2026 · titoli “in arrivo”, revisione della voce 14 (proposta, main 7d0b11e)
+
+- **Badges · “Titoli ‘in arrivo’, revisione: una sola formula, icona sola, nessun hover”:** la voce 14 aveva fatto di un'informazione una casella spenta. Revisione: “In arrivo” **una volta** per riga, in coda al sottotitolo dopo la data; niente tooltip (via `planner.upcoming.notYet`); la casella diventa **l'icona sola** (nessun riquadro, nessun `input`, `aria-hidden`), stessa area e posizione di `.title-row__check` (`--hit`), 20px, `stroke-width: 2`, `--ink-2`, `cursor: default`, nessun hover/focus/tap; la fase di soli titoli in arrivo mostra nome, anni e la stessa icona, senza conteggio né parola; alto contrasto senza regole (si cancella la riga `GrayText`). Icona raccomandata `CalendarClock` (riserva `Hourglass`); confronto di otto icone Lucide (disegni veri di lucide-react 1.61) a 20 e 16px, chiaro e scuro, nella pagina. Il committente sceglie l'icona.
+- Il blocco della voce 14 resta (testo di prima) con il chip “rivista”. Totale, fascia, casella della fase sui soli usciti e `MarkWatchedButton` nascosto: invariati.
+- **Scritto a mano** (nessun `add_*.py`): una rigenerazione di `p_badges.py` lo cancella. Non visto nel browser.
+
 ## 19 novembre 2026 · titoli “in arrivo” (proposta, main fdbf870)
 
 - **Badges · “Titoli ‘in arrivo’: testo nel sottotitolo, casella non attiva, fuori dal totale” (voce 14):** (1) “In arrivo” non è più un chip: testo in coda al sottotitolo, ` · In arrivo`, peso 700, `--ink-2`; resta chip solo “Continuità alternativa”; (2) la casella non si può segnare: `aria-disabled`, bordo `3px dashed --ink-2`, `Clock` 16px, `not-allowed`, nessun hover, `Tooltip` “Non ancora uscito” (cinque lingue); il pulsante “Segna come visto” della riga aperta non si mostra; la casella della fase guarda solo i titoli usciti (piena se sono tutti visti), non attiva se non ne ha; (3) fuori dal totale in `computeProgress` (numero, scheda, barra, Account) e nella fascia (le barrette spariscono, “Tutti i N titoli”). “Prossimo da guardare” non cambia: `findNextTitle` esclude già gli in arrivo (nextTitle.ts r.3-8). Testi “Serie animata, 2024” e “Serie di cortometraggi, 2022”: li scrive Code, nessun cambio di stile.
