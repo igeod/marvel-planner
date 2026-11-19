@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'Se la richiesta riguarda design (canvas, token, DESIGN.md, stile dei componenti, UI/UX), usa prima la skill design-suite.'"
+          }
+        ]
+      }
+    ]
+  }
+}

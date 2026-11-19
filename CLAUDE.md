@@ -32,6 +32,6 @@ Planner per tracciare film e serie del MCU. React 19 + TypeScript + Vite (LESS),
 
 ## Due sessioni
 
-- **Design:** token, `DESIGN.md`, stile dei componenti (`src/styles`, i `.less`). Non tocca la logica.
+- **Design:** token, `DESIGN.md`, stile dei componenti (`src/styles`, i `.less`). Non tocca la logica. Per ogni lavoro di design usa sempre la skill `design-suite` prima di rispondere o scrivere, anche se non richiesto (regola della sola sessione Design).
 - **Code:** logica, dati, API, feature. Non cambia l'aspetto: se serve una deviazione, la scrive in `DESIGN.md` e la passa a Design.
 - La continuità tra sessioni sta nei file, non nella chat: a fine lavoro aggiorna il file giusto, poi si può fare `/clear`.
