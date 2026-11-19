@@ -1,5 +1,12 @@
+@import (reference) "mixins";
+
+// The rows sit on a surface, as in the phases (.phase.card): their own fill (--row) is the colour of
+// the page in light mode, so without it they would not show.
 .title-list {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1h);
+  padding: var(--pad-card);
+  border-radius: @radius-block;
+  background: var(--surface);
 }
