@@ -231,3 +231,58 @@ export function PasswordField(props: PasswordFieldProps) {
     </div>
   );
 }
+
+interface TextAreaProps {
+  label: string;
+  name: string;
+  value: string;
+  onChange: (value: string) => void;
+  maxLength: number;
+  rows?: number;
+  hint?: string;
+  error?: string | null;
+  disabled?: boolean;
+}
+
+// A long text in the same field as TextField: label with a counter, a message line under it.
+export function TextArea({
+  label,
+  name,
+  value,
+  onChange,
+  maxLength,
+  rows = 5,
+  hint,
+  error,
+  disabled,
+}: TextAreaProps) {
+  const id = useId();
+  const messageId = `${id}-message`;
+
+  return (
+    <div className="field">
+      <div className="field__label">
+        <label htmlFor={id} onClick={keepFocus}>
+          {label}
+        </label>
+        <span className="field__counter" aria-hidden="true">
+          {value.length}/{maxLength}
+        </span>
+      </div>
+      <div className="field__control">
+        <textarea
+          id={id}
+          name={name}
+          value={value}
+          rows={rows}
+          maxLength={maxLength}
+          disabled={disabled}
+          aria-invalid={Boolean(error)}
+          aria-describedby={messageId}
+          onChange={(event) => onChange(event.target.value)}
+        />
+      </div>
+      <FieldMessage id={messageId} hint={hint} error={error} />
+    </div>
+  );
+}

@@ -8,6 +8,7 @@ import { todayIso } from "../../../planner/utils/releases";
 import { useAdminOverview } from "../../hooks/useAdminOverview";
 import { buildAdminTitles } from "../../utils/adminTitles";
 import { ContentTodoSection } from "../ContentTodoSection/ContentTodoSection";
+import { SuggestionsSection } from "../SuggestionsSection/SuggestionsSection";
 import { ReleaseDatesSection } from "../ReleaseDatesSection/ReleaseDatesSection";
 import { AutomationSection } from "../AutomationSection/AutomationSection";
 import { CandidatesSection } from "../CandidatesSection/CandidatesSection";
@@ -19,6 +20,7 @@ function AdminSkeleton() {
   const titles = [
     "admin.todo.heading",
     "admin.dates.heading",
+    "admin.suggestions.heading",
     "admin.maintenance.heading",
     "admin.automation.heading",
     "admin.users.heading",
@@ -48,6 +50,7 @@ export function AdminDashboard() {
     setDate,
     clearDate,
     keepDate,
+    handleSuggestion,
     reload,
   } = useAdminOverview();
   const overview = state.status === "ready" ? state.overview : null;
@@ -88,6 +91,10 @@ export function AdminDashboard() {
             setDate={setDate}
             clearDate={clearDate}
             keepDate={keepDate}
+          />
+          <SuggestionsSection
+            suggestions={overview?.suggestions ?? []}
+            onHandle={handleSuggestion}
           />
           <MaintenanceSection isOn={state.overview.maintenance} onChange={toggleMaintenance} />
           <AutomationSection

@@ -31,7 +31,8 @@
 
 // A field has a background of its own, so the ring hugs it: 3px out instead of 6px, and it never
 // reaches the label or the message line.
-.field__control input:focus-visible {
+.field__control input:focus-visible,
+.field__control textarea:focus-visible {
   outline-offset: 0;
 }
 

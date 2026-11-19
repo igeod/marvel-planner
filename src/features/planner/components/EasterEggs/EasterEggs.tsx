@@ -1,9 +1,10 @@
-import { Info } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { MissingNote } from "../MissingNote/MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
+import { SuggestButton } from "../../../suggest/components/SuggestButton/SuggestButton";
 import { getEasterEggs, type EasterEggKind } from "../../data/easterEggs";
 
 const KIND_KEYS: Record<EasterEggKind, TranslationKey> = {
@@ -44,20 +45,25 @@ export function EasterEggs({ titleId }: EasterEggsProps) {
             <span>
               <strong>{t(KIND_KEYS[egg.kind])}:</strong> {egg.description[language]}
             </span>
-            <Tooltip content={t("details.easterEggs.source")}>
-              {(describedBy) => (
-                <a
-                  className="spoiler-item__source"
-                  href={egg.sourceUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("details.easterEggs.source")}
-                  aria-describedby={describedBy}
-                >
-                  <Info aria-hidden />
-                </a>
-              )}
-            </Tooltip>
+            <span className="spoiler-item__tools">
+              <Tooltip content={t("details.easterEggs.source")}>
+                {() => (
+                  <a
+                    className="spoiler-item__source"
+                    href={egg.sourceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={t("details.easterEggs.source")}
+                  >
+                    <ExternalLink aria-hidden />
+                  </a>
+                )}
+              </Tooltip>
+              <SuggestButton
+                variant="icon"
+                target={{ titleId, section: "easterEggs", item: egg.description.en }}
+              />
+            </span>
           </li>
         ))}
       </ul>

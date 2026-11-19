@@ -1,6 +1,7 @@
 import { MissingNote } from "../MissingNote/MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 import { useI18n } from "../../../../i18n/useI18n";
+import { SuggestButton } from "../../../suggest/components/SuggestButton/SuggestButton";
 import { getPostCredits } from "../../data/postCredits";
 
 interface PostCreditsInfoProps {
@@ -45,6 +46,10 @@ export function PostCreditsInfo({ titleId }: PostCreditsInfoProps) {
           {scenes.map((scene, index) => (
             <li key={index} className="spoiler-item">
               <p>{scene.description[language]}</p>
+              <SuggestButton
+                variant="icon"
+                target={{ titleId, section: "postCredits", item: scene.description.en }}
+              />
             </li>
           ))}
         </ol>

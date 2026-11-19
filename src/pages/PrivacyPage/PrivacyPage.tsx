@@ -13,9 +13,14 @@ const DATA_ITEMS: { label: TranslationKey; text: TranslationKey }[] = [
   { label: "privacy.data.technicalLabel", text: "privacy.data.technicalText" },
   { label: "privacy.data.deviceLabel", text: "privacy.data.deviceText" },
   { label: "privacy.data.shareLabel", text: "privacy.data.shareText" },
+  { label: "privacy.data.suggestionsLabel", text: "privacy.data.suggestionsText" },
 ];
 
-const PURPOSE_KEYS: TranslationKey[] = ["privacy.purposes.service", "privacy.purposes.security"];
+const PURPOSE_KEYS: TranslationKey[] = [
+  "privacy.purposes.service",
+  "privacy.purposes.security",
+  "privacy.purposes.suggestions",
+];
 
 const PLAIN_SECTIONS: { heading: TranslationKey; body: TranslationKey }[] = [
   { heading: "privacy.providers.heading", body: "privacy.providers.body" },

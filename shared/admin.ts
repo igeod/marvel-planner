@@ -1,4 +1,5 @@
 import type { CatalogCandidate } from "./catalogCandidate";
+import type { SuggestionSection } from "./suggestions";
 
 export interface JobRun {
   at: string;
@@ -22,6 +23,7 @@ export interface AdminOverview {
   candidates: AdminCandidate[];
   releases: AdminRelease[];
   reviews: AdminReview[];
+  suggestions: AdminSuggestion[];
 }
 
 export interface SiteStatus {
@@ -45,4 +47,16 @@ export interface AdminRelease {
 export interface AdminReview {
   titleId: string;
   topic: ReviewTopic;
+}
+
+export interface AdminSuggestion {
+  id: string;
+  titleId: string;
+  section: SuggestionSection;
+  item: string | null;
+  text: string;
+  isDone: boolean;
+  authorName: string;
+  createdAt: string;
+  resolvedAt: string | null;
 }

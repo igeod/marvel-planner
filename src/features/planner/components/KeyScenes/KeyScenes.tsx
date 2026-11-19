@@ -1,5 +1,4 @@
-import { Info } from "lucide-react";
-import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
+import { SuggestButton } from "../../../suggest/components/SuggestButton/SuggestButton";
 import { MissingNote } from "../MissingNote/MissingNote";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -37,18 +36,10 @@ export function KeyScenes({ titleId }: KeyScenesProps) {
         {scenes.map((scene) => (
           <li key={scene.en} className="spoiler-item">
             <span>{scene[language]}</span>
-            <Tooltip content={t("details.keyScenes.editorial")} opensOnTap>
-              {(describedBy) => (
-                <button
-                  type="button"
-                  className="spoiler-item__source"
-                  aria-label={t("details.keyScenes.source")}
-                  aria-describedby={describedBy}
-                >
-                  <Info aria-hidden />
-                </button>
-              )}
-            </Tooltip>
+            <SuggestButton
+              variant="icon"
+              target={{ titleId, section: "keyScenes", item: scene.en }}
+            />
           </li>
         ))}
       </ul>

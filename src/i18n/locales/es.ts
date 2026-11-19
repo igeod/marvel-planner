@@ -293,8 +293,6 @@ export const es: Messages = {
     },
     keyScenes: {
       heading: "Escenas a las que prestar atención",
-      editorial: "Fuentes editoriales",
-      source: "Fuente de estos consejos",
       show: "Mostrar las escenas",
       hide: "Ocultar las escenas",
       warning: "Atención: contiene spoilers.",
@@ -305,7 +303,7 @@ export const es: Messages = {
       warning: "Atención: contiene spoilers.",
       heading: "Easter eggs y cameos",
       stanLee: "Cameo de Stan Lee",
-      source: "Fuente",
+      source: "Fuente: Wikipedia",
     },
     trailer: {
       open: "Ver el tráiler",
@@ -351,7 +349,8 @@ export const es: Messages = {
       noEpisodeSummary: "Trama no disponible.",
       noEpisodeTitle: "Título no disponible",
       fallbackLanguage: "Argumento disponible solo en {language}.",
-      sourceBefore: "Texto extraído de",
+      sourceLabel: "Fuente:",
+      sourceTmdb: "Fuente: TMDB",
       sourceLink: "Wikipedia",
       license: "licencia CC BY-SA 4.0",
     },
@@ -555,6 +554,20 @@ export const es: Messages = {
     title: "No se pueden cargar los datos",
     body: "La carga se interrumpió, pero el resto de la página sigue funcionando.",
   },
+  suggest: {
+    label: "Sugerir una corrección: {item}",
+    title: "Sugerir una corrección",
+    button: "Sugerir",
+    field: "¿Qué hay que corregir?",
+    placeholder: "Escribe la corrección",
+    send: "Enviar",
+    thanks: "Gracias, lo hemos recibido.",
+    error: "No hemos podido enviarlo. Inténtalo de nuevo en un momento.",
+    rateTitle: "Un momento",
+    rate: "Has enviado demasiadas sugerencias. Inténtalo de nuevo en unos minutos.",
+    guest:
+      "Para sugerir una corrección tienes que iniciar sesión. El formulario se vuelve a abrir al iniciarla.",
+  },
   titleAlerts: {
     label: "Avisarme por correo cuando salga: {title}",
     hint: "Recibe un correo cuando salga",
@@ -707,6 +720,17 @@ export const es: Messages = {
     actionError: "La operación ha fallado. Inténtalo de nuevo.",
     notice: "Hay {count} títulos nuevos por revisar.",
     openDashboard: "Abrir el panel",
+    suggestions: {
+      heading: "Sugerencias",
+      new: "Nueva",
+      done: "Hecha el {date}",
+      from: "De {name}",
+      item: "Elemento: «{item}»",
+      openTitle: "Abrir la película",
+      markDone: "Marcar como hecha",
+      discard: "Descartar",
+      empty: "Ninguna sugerencia por leer.",
+    },
     todo: {
       heading: "Contenidos por completar",
       intro:
@@ -869,6 +893,9 @@ export const es: Messages = {
       shareLabel: "Compartir",
       shareText:
         "si activas la opción de compartir, tu nombre de superhéroe y los títulos que has visto son visibles para cualquiera que tenga el enlace, hasta la caducidad que elijas o hasta que lo desactives. El enlace contiene un código aleatorio, no tu identificador.",
+      suggestionsLabel: "Sugerencias",
+      suggestionsText:
+        "Si envías una sugerencia de corrección, guardamos el texto que escribes (es texto libre: no escribas datos personales), la película y la parte de la página a la que se refiere, la fecha y tu nombre de superhéroe, visibles solo para nosotros. Se eliminan junto con la cuenta.",
     },
     purposes: {
       heading: "Por qué los tratamos",
@@ -876,6 +903,8 @@ export const es: Messages = {
         "Para prestarte el servicio: crear y gestionar tu cuenta y conservar tu progreso (ejecución del servicio solicitado, art. 6.1.b RGPD).",
       security:
         "Para la seguridad del servicio y la prevención de abusos (interés legítimo, art. 6.1.f RGPD).",
+      suggestions:
+        "Para leer y gestionar las correcciones que sugieres (ejecución del servicio solicitado, art. 6.1.b RGPD).",
       noProfiling:
         "No usamos tus datos para publicidad ni elaboración de perfiles, no los vendemos y no los cedemos a terceros.",
     },

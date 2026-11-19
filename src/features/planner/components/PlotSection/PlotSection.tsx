@@ -8,6 +8,22 @@ import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
 
 const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
 
+// The attribution Wikipedia's licence asks for, as a line that stays at the foot of the box while
+// the text scrolls (and is blurred with it while the spoiler is hidden).
+function PlotSource({ plot }: { plot: TitleDetails["plot"] }) {
+  const { t } = useI18n();
+  if (!plot) return <p className="plot__source">{t("details.plot.sourceTmdb")}</p>;
+  return (
+    <p className="plot__source">
+      {t("details.plot.sourceLabel")}{" "}
+      <a href={plot.sourceUrl} rel="noreferrer">
+        {t("details.plot.sourceLink")}
+      </a>
+      , <a href={LICENSE_URL}>{t("details.plot.license")}</a>
+    </p>
+  );
+}
+
 function PlotText({ plot }: { plot: NonNullable<TitleDetails["plot"]> }) {
   const { t, language } = useI18n();
 
@@ -19,13 +35,6 @@ function PlotText({ plot }: { plot: NonNullable<TitleDetails["plot"]> }) {
       {plot.text.split("\n\n").map((paragraph) => (
         <p key={paragraph}>{paragraph}</p>
       ))}
-      <p>
-        {t("details.plot.sourceBefore")}{" "}
-        <a href={plot.sourceUrl} rel="noreferrer">
-          {t("details.plot.sourceLink")}
-        </a>
-        , <a href={LICENSE_URL}>{t("details.plot.license")}</a>
-      </p>
     </>
   );
 }
@@ -113,6 +122,7 @@ export function PlotSection({ details }: PlotSectionProps) {
           ) : (
             details.plot && <PlotText plot={details.plot} />
           )}
+          <PlotSource plot={hasSeasons ? null : details.plot} />
         </div>
       )}
     </SpoilerBox>

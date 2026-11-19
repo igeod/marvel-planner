@@ -292,8 +292,6 @@ export const en: Messages = {
     },
     keyScenes: {
       heading: "Key scenes",
-      editorial: "Editorial sources",
-      source: "Source of these tips",
       show: "Show the scenes",
       hide: "Hide the scenes",
       warning: "Warning: contains spoilers.",
@@ -304,7 +302,7 @@ export const en: Messages = {
       warning: "Warning: contains spoilers.",
       heading: "Easter eggs and cameos",
       stanLee: "Stan Lee cameo",
-      source: "Source",
+      source: "Source: Wikipedia",
     },
     trailer: {
       open: "Watch trailer",
@@ -350,7 +348,8 @@ export const en: Messages = {
       noEpisodeSummary: "Plot not available.",
       noEpisodeTitle: "Title not available",
       fallbackLanguage: "Plot only available in {language}.",
-      sourceBefore: "Text from",
+      sourceLabel: "Source:",
+      sourceTmdb: "Source: TMDB",
       sourceLink: "Wikipedia",
       license: "CC BY-SA 4.0 license",
     },
@@ -552,6 +551,19 @@ export const en: Messages = {
     title: "Unable to load the data",
     body: "Loading was interrupted, but the rest of the page still works.",
   },
+  suggest: {
+    label: "Suggest a correction: {item}",
+    title: "Suggest a correction",
+    button: "Suggest",
+    field: "What needs fixing?",
+    placeholder: "Write the correction",
+    send: "Send",
+    thanks: "Thank you, we have received it.",
+    error: "We could not send it. Try again shortly.",
+    rateTitle: "One moment",
+    rate: "You have sent too many suggestions. Try again in a few minutes.",
+    guest: "To suggest a correction you need to sign in. The form opens again after you sign in.",
+  },
   titleAlerts: {
     label: "Email me when it is out: {title}",
     hint: "Get an email when it is out",
@@ -704,6 +716,17 @@ export const en: Messages = {
     actionError: "The operation failed. Please try again.",
     notice: "There are {count} new titles to review.",
     openDashboard: "Open the dashboard",
+    suggestions: {
+      heading: "Suggestions",
+      new: "New",
+      done: "Done on {date}",
+      from: "From {name}",
+      item: "Line: “{item}”",
+      openTitle: "Open the film",
+      markDone: "Mark as done",
+      discard: "Discard",
+      empty: "No suggestion to read.",
+    },
     todo: {
       heading: "Content to complete",
       intro:
@@ -867,6 +890,9 @@ export const en: Messages = {
       shareLabel: "Sharing",
       shareText:
         "if you turn on sharing, your superhero name and the titles you have watched are visible to anyone with the link, until the expiry you choose or until you turn it off. The link contains a random code, not your identifier.",
+      suggestionsLabel: "Suggestions",
+      suggestionsText:
+        "If you send a suggested correction we keep the text you write (it is free text: do not write personal data), the film and the part of the page it refers to, the date and your superhero name, visible only to us. They are deleted together with the account.",
     },
     purposes: {
       heading: "Why we process it",
@@ -874,6 +900,8 @@ export const en: Messages = {
         "To provide the service: create and manage your account and keep your progress (performance of the requested service, art. 6.1.b GDPR).",
       security:
         "For the security of the service and the prevention of abuse (legitimate interest, art. 6.1.f GDPR).",
+      suggestions:
+        "To read and handle the corrections you suggest (performance of the service requested, Art. 6.1.b GDPR).",
       noProfiling:
         "We do not use your data for advertising or profiling, we do not sell it and we do not share it with third parties.",
     },

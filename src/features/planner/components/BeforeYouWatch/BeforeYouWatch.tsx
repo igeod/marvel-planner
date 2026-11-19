@@ -2,6 +2,7 @@ import { Check, Eye } from "lucide-react";
 import { useId, useState } from "react";
 import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
 import { useI18n } from "../../../../i18n/useI18n";
+import { SuggestButton } from "../../../suggest/components/SuggestButton/SuggestButton";
 import { TITLES_BY_ID } from "../../data/catalog";
 import { getGuide } from "../../data/guides";
 import type { Localized, PrerequisiteLevel } from "../../data/guides/types";
@@ -59,6 +60,9 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
           <Check aria-hidden />
           <strong>{t("prerequisites.standalone")}</strong>
         </p>
+        <div className="before-you-watch__suggest">
+          <SuggestButton variant="text" target={{ titleId: title.id, section: "guide" }} />
+        </div>
       </section>
     );
   }
@@ -117,6 +121,9 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
           </li>
         ))}
       </ul>
+      <div className="before-you-watch__suggest">
+        <SuggestButton variant="text" target={{ titleId: title.id, section: "guide" }} />
+      </div>
     </section>
   );
 }

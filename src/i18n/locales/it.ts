@@ -291,8 +291,6 @@ export const it = {
     },
     keyScenes: {
       heading: "Scene chiave",
-      editorial: "Fonti redazionali",
-      source: "Fonte di queste indicazioni",
       show: "Mostra le scene",
       hide: "Nascondi le scene",
       warning: "Attenzione: contiene spoiler.",
@@ -303,7 +301,7 @@ export const it = {
       warning: "Attenzione: contiene spoiler.",
       heading: "Easter egg e cameo",
       stanLee: "Cameo di Stan Lee",
-      source: "Fonte",
+      source: "Fonte: Wikipedia",
     },
     trailer: {
       open: "Guarda il trailer",
@@ -349,7 +347,8 @@ export const it = {
       noEpisodeSummary: "Trama non disponibile.",
       noEpisodeTitle: "Titolo non disponibile",
       fallbackLanguage: "Trama disponibile solo in {language}.",
-      sourceBefore: "Testo tratto da",
+      sourceLabel: "Fonte:",
+      sourceTmdb: "Fonte: TMDB",
       sourceLink: "Wikipedia",
       license: "licenza CC BY-SA 4.0",
     },
@@ -552,6 +551,19 @@ export const it = {
     title: "Impossibile caricare i dati",
     body: "Il caricamento si è interrotto, ma il resto della pagina funziona ancora.",
   },
+  suggest: {
+    label: "Suggerisci una modifica: {item}",
+    title: "Suggerisci una modifica",
+    button: "Suggerisci",
+    field: "Cosa va corretto?",
+    placeholder: "Scrivi la correzione",
+    send: "Invia",
+    thanks: "Grazie, l'abbiamo ricevuto.",
+    error: "Non siamo riusciti a inviarlo. Riprova tra poco.",
+    rateTitle: "Un momento",
+    rate: "Hai inviato troppi suggerimenti. Riprova tra qualche minuto.",
+    guest: "Per suggerire una modifica devi accedere. Dopo l'accesso si riapre il modulo.",
+  },
   titleAlerts: {
     label: "Avvisami via e-mail quando esce: {title}",
     hint: "Ricevi un'e-mail quando esce",
@@ -705,6 +717,17 @@ export const it = {
     actionError: "L'operazione non è riuscita. Riprova.",
     notice: "Ci sono {count} nuovi titoli da valutare.",
     openDashboard: "Apri la dashboard",
+    suggestions: {
+      heading: "Suggerimenti",
+      new: "Nuovo",
+      done: "Fatto il {date}",
+      from: "Da {name}",
+      item: "Voce: «{item}»",
+      openTitle: "Apri il film",
+      markDone: "Segna come fatto",
+      discard: "Scarta",
+      empty: "Nessun suggerimento da leggere.",
+    },
     todo: {
       heading: "Contenuti da completare",
       intro:
@@ -869,6 +892,9 @@ export const it = {
       shareLabel: "Condivisione",
       shareText:
         "se attivi la condivisione, il tuo nome da supereroe e i titoli che hai visto sono visibili a chiunque abbia il link, fino alla scadenza che scegli o finché non lo disattivi. Il link contiene un codice casuale, non il tuo identificativo.",
+      suggestionsLabel: "Suggerimenti",
+      suggestionsText:
+        "Se invii un suggerimento di modifica conserviamo il testo che scrivi (è testo libero: non scrivere dati personali), il film e la parte della pagina a cui si riferisce, la data e il tuo nome da supereroe, visibili solo a noi. Vengono eliminati insieme all'account.",
     },
     purposes: {
       heading: "Perché li trattiamo",
@@ -876,6 +902,8 @@ export const it = {
         "Per fornirti il servizio: creare e gestire l'account e conservare i tuoi progressi (esecuzione del servizio richiesto, art. 6.1.b GDPR).",
       security:
         "Per la sicurezza del servizio e la prevenzione degli abusi (legittimo interesse, art. 6.1.f GDPR).",
+      suggestions:
+        "Per leggere e gestire i suggerimenti di modifica che invii (esecuzione del servizio richiesto, art. 6.1.b GDPR).",
       noProfiling:
         "Non usiamo i tuoi dati per pubblicità o profilazione, non li vendiamo e non li cediamo a terzi.",
     },

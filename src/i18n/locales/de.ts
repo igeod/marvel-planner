@@ -295,8 +295,6 @@ export const de: Messages = {
     },
     keyScenes: {
       heading: "Schlüsselszenen",
-      editorial: "Redaktionelle Quellen",
-      source: "Quelle dieser Tipps",
       show: "Szenen anzeigen",
       hide: "Szenen ausblenden",
       warning: "Achtung: enthält Spoiler.",
@@ -307,7 +305,7 @@ export const de: Messages = {
       warning: "Achtung: enthält Spoiler.",
       heading: "Easter Eggs und Cameos",
       stanLee: "Cameo von Stan Lee",
-      source: "Quelle",
+      source: "Quelle: Wikipedia",
     },
     trailer: {
       open: "Trailer ansehen",
@@ -353,7 +351,8 @@ export const de: Messages = {
       noEpisodeSummary: "Handlung nicht verfügbar.",
       noEpisodeTitle: "Titel nicht verfügbar",
       fallbackLanguage: "Handlung nur auf {language} verfügbar.",
-      sourceBefore: "Text von",
+      sourceLabel: "Quelle:",
+      sourceTmdb: "Quelle: TMDB",
       sourceLink: "Wikipedia",
       license: "Lizenz CC BY-SA 4.0",
     },
@@ -557,6 +556,20 @@ export const de: Messages = {
     title: "Daten konnten nicht geladen werden",
     body: "Das Laden wurde unterbrochen, aber der Rest der Seite funktioniert weiterhin.",
   },
+  suggest: {
+    label: "Korrektur vorschlagen: {item}",
+    title: "Korrektur vorschlagen",
+    button: "Vorschlagen",
+    field: "Was muss korrigiert werden?",
+    placeholder: "Schreibe die Korrektur",
+    send: "Senden",
+    thanks: "Danke, wir haben es erhalten.",
+    error: "Wir konnten es nicht senden. Versuche es gleich noch einmal.",
+    rateTitle: "Einen Moment",
+    rate: "Du hast zu viele Vorschläge gesendet. Versuche es in ein paar Minuten noch einmal.",
+    guest:
+      "Um eine Korrektur vorzuschlagen, musst du dich anmelden. Nach der Anmeldung öffnet sich das Formular wieder.",
+  },
   titleAlerts: {
     label: "Per E-Mail benachrichtigen, wenn es erscheint: {title}",
     hint: "E-Mail erhalten, wenn es erscheint",
@@ -710,6 +723,17 @@ export const de: Messages = {
     actionError: "Der Vorgang ist fehlgeschlagen. Versuche es erneut.",
     notice: "Es gibt {count} neue Titel zu prüfen.",
     openDashboard: "Dashboard öffnen",
+    suggestions: {
+      heading: "Vorschläge",
+      new: "Neu",
+      done: "Erledigt am {date}",
+      from: "Von {name}",
+      item: "Eintrag: „{item}“",
+      openTitle: "Film öffnen",
+      markDone: "Als erledigt markieren",
+      discard: "Verwerfen",
+      empty: "Kein Vorschlag zu lesen.",
+    },
     todo: {
       heading: "Inhalte zu ergänzen",
       intro:
@@ -874,6 +898,9 @@ export const de: Messages = {
       shareLabel: "Teilen",
       shareText:
         "wenn du das Teilen aktivierst, sind dein Superheldenname und die Titel, die du gesehen hast, für alle mit dem Link sichtbar – bis zum gewählten Ablauf oder bis du ihn deaktivierst. Der Link enthält einen zufälligen Code, nicht deine Kennung.",
+      suggestionsLabel: "Vorschläge",
+      suggestionsText:
+        "Wenn du einen Korrekturvorschlag sendest, speichern wir den Text, den du schreibst (es ist freier Text: schreibe keine personenbezogenen Daten), den Film und den Teil der Seite, auf den er sich bezieht, das Datum und deinen Superheldennamen, nur für uns sichtbar. Sie werden zusammen mit dem Konto gelöscht.",
     },
     purposes: {
       heading: "Warum wir sie verarbeiten",
@@ -881,6 +908,8 @@ export const de: Messages = {
         "Um dir den Dienst bereitzustellen: Konto erstellen und verwalten und deinen Fortschritt speichern (Erfüllung des gewünschten Dienstes, Art. 6 Abs. 1 lit. b DSGVO).",
       security:
         "Für die Sicherheit des Dienstes und die Missbrauchsprävention (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO).",
+      suggestions:
+        "Um die von dir vorgeschlagenen Korrekturen zu lesen und zu bearbeiten (Erfüllung des gewünschten Dienstes, Art. 6.1.b DSGVO).",
       noProfiling:
         "Wir verwenden deine Daten nicht für Werbung oder Profiling, wir verkaufen sie nicht und geben sie nicht an Dritte weiter.",
     },

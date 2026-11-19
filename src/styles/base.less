@@ -188,6 +188,7 @@ summary {
 input[type="text"],
 input[type="email"],
 input[type="password"],
+textarea,
 select {
   width: 100%;
   min-height: 3rem;
@@ -224,6 +225,13 @@ select {
   }
 }
 
+// A long text: the same field, with room above and below the lines (its height comes from rows).
+textarea {
+  padding: var(--sp-3) var(--sp-4);
+  line-height: 1.5;
+  resize: vertical;
+}
+
 input[readonly] {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -231,6 +239,8 @@ input[readonly] {
 
 input[aria-invalid="true"],
 input[aria-invalid="true"]:hover,
+textarea[aria-invalid="true"],
+textarea[aria-invalid="true"]:hover,
 select[aria-invalid="true"],
 select[aria-invalid="true"]:hover {
   background: color-mix(in srgb, var(--danger) 12%, var(--field-bg, var(--bg)));

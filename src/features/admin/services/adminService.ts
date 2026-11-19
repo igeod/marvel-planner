@@ -38,3 +38,6 @@ export const clearReleaseDate = (titleId: string) =>
 
 export const keepReleaseDate = (titleId: string) =>
   apiRequest(titlePath(titleId, "release-date/keep"), { method: "POST" });
+
+export const resolveSuggestion = (id: string, action: "done" | "discard") =>
+  apiRequest(`/admin/suggestions/${encodeURIComponent(id)}/${action}`, { method: "POST" });

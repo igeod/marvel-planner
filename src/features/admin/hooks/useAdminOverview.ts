@@ -7,6 +7,7 @@ import {
   keepReleaseDate,
   markCandidateCopied,
   markGuideReviewed,
+  resolveSuggestion,
   setMaintenance,
   setReleaseDate,
   setVerified,
@@ -199,6 +200,26 @@ export function useAdminOverview() {
     [run, update],
   );
 
+  const handleSuggestion = useCallback(
+    (id: string, action: "done" | "discard") =>
+      run(
+        () => resolveSuggestion(id, action),
+        () =>
+          update((overview) => ({
+            ...overview,
+            suggestions:
+              action === "discard"
+                ? overview.suggestions.filter((item) => item.id !== id)
+                : overview.suggestions.map((item) =>
+                    item.id === id
+                      ? { ...item, isDone: true, resolvedAt: new Date().toISOString() }
+                      : item,
+                  ),
+          })),
+      ),
+    [run, update],
+  );
+
   return {
     state,
     hasActionFailed,
@@ -210,6 +231,7 @@ export function useAdminOverview() {
     setDate,
     clearDate,
     keepDate,
+    handleSuggestion,
     reload,
   };
 }

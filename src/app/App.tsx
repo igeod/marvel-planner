@@ -1,6 +1,7 @@
 import { RouterProvider } from "react-router";
 import { AuthDialogProvider } from "../features/auth/context/AuthDialogProvider";
 import { AuthProvider } from "../features/auth/context/AuthProvider";
+import { SuggestProvider } from "../features/suggest/context/SuggestProvider";
 import { TitleAlertsProvider } from "../features/planner/context/TitleAlertsProvider";
 import { ToastProvider } from "../components/ui/Toast/ToastProvider";
 import { ThemeProvider } from "../features/theme/ThemeProvider";
@@ -19,7 +20,9 @@ export function App() {
               <PrivacySettingsProvider>
                 <ToastProvider>
                   <TitleAlertsProvider>
-                    <RouterProvider router={router} />
+                    <SuggestProvider>
+                      <RouterProvider router={router} />
+                    </SuggestProvider>
                   </TitleAlertsProvider>
                 </ToastProvider>
               </PrivacySettingsProvider>

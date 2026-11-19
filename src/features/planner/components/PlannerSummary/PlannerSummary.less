@@ -6,7 +6,8 @@
   gap: 1.5rem;
   padding: 1.5rem 1.25rem;
 
-  .desktop({ padding: 32px 36px; });
+  // From the desktop layout the poster stays beside the text (the text column shrinks), never below.
+  .desktop({ padding: 32px 36px; flex-wrap: nowrap; });
 }
 
 .progress-card__main {
@@ -108,7 +109,7 @@
 
 .share-poster__title {
   .display-font();
-  font-size: var(--fs-xl);
+  font-size: var(--fs-h2);
   line-height: 0.95;
   margin-bottom: 0.75rem;
 }

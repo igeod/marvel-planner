@@ -94,8 +94,14 @@ Colori e tema: le variabili in `tokens.less`; il tema (sistema, chiaro, scuro) �
 | `DELETE` | `/api/share`                 | Disattiva il link                          |
 | `GET`    | `/api/shared/:code`          | Planner condiviso (pubblico, `no-store`)   |
 
+| `POST` | `/api/suggestions` | Suggerisce una correzione (utente registrato, max 5 all'ora) `{ titleId, section, item?, text }` |
+
 Gli endpoint `/api/progress` richiedono una sessione valida e operano solo sui dati dell'utente autenticato.
 Al login, i progressi salvati sul dispositivo vengono uniti a quelli dell'account.
+
+## Suggerimenti di modifica
+
+Un utente registrato può suggerire una correzione a scene chiave, easter egg, scene dopo i titoli e guida di un film (`POST /api/suggestions`, testo libero fino a 500 caratteri, 5 all'ora per account). Il testo è legato all'account: si cancella con l'account e compare nell'esportazione dei dati; l'informativa privacy lo dice. L'amministratore li legge in `/admin` e li segna fatti o li scarta. L'autore non riceve notifiche. Il testo degli utenti si mostra sempre come testo, mai come HTML.
 
 ## Condivisione del planner
 

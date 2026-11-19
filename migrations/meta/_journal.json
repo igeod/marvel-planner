@@ -85,6 +85,13 @@
       "when": 1795108357189,
       "tag": "0011_title_admin",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1795109736350,
+      "tag": "0012_suggestions",
+      "breakpoints": true
     }
   ]
 }

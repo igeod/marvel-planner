@@ -1,4 +1,4 @@
-import { integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import { user } from "./auth-schema";
 
 export * from "./auth-schema";
@@ -76,6 +76,26 @@ export const titleReleaseOverride = sqliteTable("title_release_override", {
   tmdbDateAtOverride: text("tmdb_date_at_override"),
   setAt: integer("set_at", { mode: "timestamp_ms" }).notNull(),
 });
+
+// A correction an account suggested for a title page. It goes with the account when it is deleted.
+export const suggestion = sqliteTable(
+  "suggestion",
+  {
+    id: text("id").primaryKey(),
+    userId: text("user_id")
+      .notNull()
+      .references(() => user.id, { onDelete: "cascade" }),
+    titleId: text("title_id").notNull(),
+    section: text("section").notNull(),
+    item: text("item"),
+    text: text("text").notNull(),
+    // new, done or discarded
+    status: text("status").notNull().default("new"),
+    createdAt: integer("created_at", { mode: "timestamp_ms" }).notNull(),
+    resolvedAt: integer("resolved_at", { mode: "timestamp_ms" }),
+  },
+  (table) => [index("suggestion_user_idx").on(table.userId, table.createdAt)],
+);
 
 export const siteSetting = sqliteTable("site_setting", {
   key: text("key").primaryKey(),

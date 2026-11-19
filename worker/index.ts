@@ -11,6 +11,7 @@ import { adminRoutes } from "./routes/admin";
 import { imageRoutes } from "./routes/images";
 import { preferencesRoutes } from "./routes/preferences";
 import { progressRoutes } from "./routes/progress";
+import { suggestionRoutes } from "./routes/suggestions";
 import { releaseRoutes } from "./routes/releases";
 import { seoRoutes } from "./routes/seo";
 import { shareRoutes, sharedRoutes } from "./routes/share";
@@ -41,6 +42,7 @@ const api = new Hono<AppEnv>()
   .route("/share", shareRoutes)
   .route("/shared", sharedRoutes)
   .route("/status", statusRoutes)
+  .route("/suggestions", suggestionRoutes)
   .route("/titles", titleRoutes)
   .all("*", (c) => c.json({ error: "not_found" }, 404));
 
