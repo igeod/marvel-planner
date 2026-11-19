@@ -567,8 +567,7 @@ export const de: Messages = {
     error: "Wir konnten es nicht senden. Versuche es gleich noch einmal.",
     rateTitle: "Einen Moment",
     rate: "Du hast zu viele Vorschläge gesendet. Versuche es in ein paar Minuten noch einmal.",
-    guest:
-      "Um eine Korrektur vorzuschlagen, musst du dich anmelden. Nach der Anmeldung öffnet sich das Formular wieder.",
+    guest: "Um eine Korrektur vorzuschlagen, musst du dich anmelden.",
   },
   titleAlerts: {
     label: "Per E-Mail benachrichtigen, wenn es erscheint: {title}",

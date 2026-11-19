@@ -562,7 +562,7 @@ export const it = {
     error: "Non siamo riusciti a inviarlo. Riprova tra poco.",
     rateTitle: "Un momento",
     rate: "Hai inviato troppi suggerimenti. Riprova tra qualche minuto.",
-    guest: "Per suggerire una modifica devi accedere. Dopo l'accesso si riapre il modulo.",
+    guest: "Per suggerire una modifica devi accedere.",
   },
   titleAlerts: {
     label: "Avvisami via e-mail quando esce: {title}",

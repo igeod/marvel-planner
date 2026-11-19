@@ -562,7 +562,7 @@ export const en: Messages = {
     error: "We could not send it. Try again shortly.",
     rateTitle: "One moment",
     rate: "You have sent too many suggestions. Try again in a few minutes.",
-    guest: "To suggest a correction you need to sign in. The form opens again after you sign in.",
+    guest: "To suggest a correction you need to sign in.",
   },
   titleAlerts: {
     label: "Email me when it is out: {title}",

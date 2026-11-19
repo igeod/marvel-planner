@@ -565,8 +565,7 @@ export const es: Messages = {
     error: "No hemos podido enviarlo. Inténtalo de nuevo en un momento.",
     rateTitle: "Un momento",
     rate: "Has enviado demasiadas sugerencias. Inténtalo de nuevo en unos minutos.",
-    guest:
-      "Para sugerir una corrección tienes que iniciar sesión. El formulario se vuelve a abrir al iniciarla.",
+    guest: "Para sugerir una corrección tienes que iniciar sesión.",
   },
   titleAlerts: {
     label: "Avisarme por correo cuando salga: {title}",

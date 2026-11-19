@@ -567,8 +567,7 @@ export const fr: Messages = {
     error: "Nous n'avons pas pu l'envoyer. Réessaie dans un instant.",
     rateTitle: "Un instant",
     rate: "Tu as envoyé trop de suggestions. Réessaie dans quelques minutes.",
-    guest:
-      "Pour suggérer une correction, tu dois te connecter. Le formulaire se rouvre après la connexion.",
+    guest: "Pour suggérer une correction, tu dois te connecter.",
   },
   titleAlerts: {
     label: "Me prévenir par e-mail à sa sortie : {title}",
