@@ -1,5 +1,11 @@
 # Changelog del canvas
 
+## Novembre 2026 · pagina Admin: contenuti da completare e date (proposta, main 559f8bb)
+
+- **Admin (pagina nuova, `p_admin.py`):** sezione “Contenuti da completare” (una riga per titolo uscito, quattro pillole Presente / Manca / Verificato / Da rivedere, filtro a tre voci, 10 righe per volta, popup “Segna verificato…”, “Copia modello”, stato vuoto), segnale “Guida da rivedere” con pulsante “Rivista” (solo admin), sezione “Date di uscita” con editor della data (solo AAAA-MM-GG, TMDB / scritta a mano / in uso, errore, conferma se cambia lo stato in arrivo↔uscito, “Torna alla data di TMDB” con toast e Annulla), riga “Data diversa” (non raccomandata). Aggiunta all'Indice (27 pagine).
+- **Raccomandazioni:** punto 4 (Wikidata) non ora; punto 5 (aggiunta titoli senza codice) resta lo snippet, non disegnato. Prompt per Code: `PROMPT_CODE_ADMIN.md`.
+- **Non verificato:** dati e date degli esempi sono di prova; sezione con padding fisso 1.5rem anche a 390px (nel codice 1.25rem sotto 40em); nessuna misura nel browser con dati reali. Pagina `p_admin.py` non passa da `add_*.py`.
+
 ## 22 novembre 2026 · distanza dei tooltip (proposta, main 95509b7)
 
 - **Tooltip · “Distanza del fumetto: dal disegno visibile, con l'anello quando c'è” (voce 16):** il difetto vero non è la distanza ma che nei cinque punti ancorati all'icona il fumetto (10px dall'icona) **copre la parte alta dell'anello di focus** del pulsante da 44px (anello a 18px dall'icona); i due punti ancorati al contenitore lo lasciano libero ma col mouse sembrano a 22px. Regola unica e automatica: si misura dal disegno visibile (`Range.selectNodeContents(trigger)`: icona, testo o pillola, mai l'area di tocco né lo sfondo di hover); con la tastiera (`:focus-visible`) dall'anello (bordo del pulsante + `outline-width` + `outline-offset`); 10px (`--sp-2h`) dal bordo del fumetto, invariati (la punta della freccia a circa 4px); margine 8px dal bordo della finestra e freccia che segue l'elemento invariati; touch invariato; si toglie `data-tooltip-anchor`. Scene: icona 20px in area 44px (oggi e regola), icona 16px in un testo, pillola, tastiera, campanella a sinistra su 390px, chiaro e scuro, con le misure.
