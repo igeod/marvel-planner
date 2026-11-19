@@ -79,7 +79,7 @@ export function BeforeYouWatch({ title, watched }: BeforeYouWatchProps) {
               aria-describedby={describedBy}
               onClick={() => setAreReasonsRevealed(!areReasonsRevealed)}
             >
-              <Eye data-tooltip-anchor aria-hidden />
+              <Eye aria-hidden />
               {t("prerequisites.why")}
             </button>
           )}

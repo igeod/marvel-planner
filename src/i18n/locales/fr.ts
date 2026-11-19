@@ -557,6 +557,14 @@ export const fr: Messages = {
     title: "Impossible de charger les données",
     body: "Le chargement a été interrompu, mais le reste de la page fonctionne toujours.",
   },
+  titleAlerts: {
+    label: "Me prévenir par e-mail à sa sortie : {title}",
+    hint: "Recevoir un e-mail à sa sortie",
+    button: "Me prévenir",
+    loginNote: "Connecte-toi pour être prévenu par e-mail à la sortie de {title}.",
+    activated: "Nous écrirons à {email} à sa sortie.",
+    deactivated: "Alerte désactivée.",
+  },
   prerequisites: {
     heading: "Avant de le regarder",
     levels: {

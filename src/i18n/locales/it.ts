@@ -552,6 +552,14 @@ export const it = {
     title: "Impossibile caricare i dati",
     body: "Il caricamento si è interrotto, ma il resto della pagina funziona ancora.",
   },
+  titleAlerts: {
+    label: "Avvisami via e-mail quando esce: {title}",
+    hint: "Ricevi un'e-mail quando esce",
+    button: "Avvisami",
+    loginNote: "Accedi per essere avvisato via e-mail quando esce {title}.",
+    activated: "Ti avviseremo a {email} quando esce.",
+    deactivated: "Avviso disattivato.",
+  },
   prerequisites: {
     heading: "Prima di guardarlo",
     levels: {

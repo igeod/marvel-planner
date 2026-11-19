@@ -555,6 +555,14 @@ export const es: Messages = {
     title: "No se pueden cargar los datos",
     body: "La carga se interrumpió, pero el resto de la página sigue funcionando.",
   },
+  titleAlerts: {
+    label: "Avisarme por correo cuando salga: {title}",
+    hint: "Recibe un correo cuando salga",
+    button: "Avisarme",
+    loginNote: "Inicia sesión para recibir un correo cuando salga {title}.",
+    activated: "Escribiremos a {email} cuando salga.",
+    deactivated: "Aviso desactivado.",
+  },
   prerequisites: {
     heading: "Antes de verlo",
     levels: {

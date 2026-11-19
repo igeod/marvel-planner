@@ -45,7 +45,7 @@ export function KeyScenes({ titleId }: KeyScenesProps) {
                   aria-label={t("details.keyScenes.source")}
                   aria-describedby={describedBy}
                 >
-                  <Info data-tooltip-anchor aria-hidden />
+                  <Info aria-hidden />
                 </button>
               )}
             </Tooltip>

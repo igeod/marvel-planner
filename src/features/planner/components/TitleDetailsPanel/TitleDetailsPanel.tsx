@@ -1,10 +1,12 @@
 import { ArrowLeft, ImageOff, VideoOff } from "lucide-react";
 import { useId } from "react";
 import { useI18n } from "../../../../i18n/useI18n";
-import { TITLES_BY_ID } from "../../data/catalog";
 import { getEasterEggs } from "../../data/easterEggs";
 import { getKeyScenes } from "../../data/keyScenes";
 import { getPostCredits } from "../../data/postCredits";
+import { useResolvedCatalog } from "../../hooks/useResolvedCatalog";
+import { TITLE_ALERTS_ENABLED } from "../../titleAlerts";
+import { flattenTitles } from "../../utils/filters";
 import { backdropUrl } from "../../utils/format";
 import { BackToTop } from "../BackToTop/BackToTop";
 import { EasterEggs } from "../EasterEggs/EasterEggs";
@@ -15,6 +17,7 @@ import { PlotSection } from "../PlotSection/PlotSection";
 import { PostCreditsInfo } from "../PostCreditsInfo/PostCreditsInfo";
 import { TitleDetailsSkeleton } from "../TitleDetailsSkeleton/TitleDetailsSkeleton";
 import { SynopsisSection } from "../SynopsisSection/SynopsisSection";
+import { TitleAlertButton } from "../TitleAlertButton/TitleAlertButton";
 import { TitleTags } from "../TitleTags/TitleTags";
 import { TrailerButton } from "../TrailerButton/TrailerButton";
 import { WhereToWatch } from "../WhereToWatch/WhereToWatch";
@@ -31,6 +34,9 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
   const creditHeadingId = useId();
   const castHeadingId = useId();
   const spoilerHeadingId = useId();
+  // The status comes from the release dates, not from the catalog alone (a date can have passed).
+  const catalog = useResolvedCatalog();
+  const catalogTitle = flattenTitles(catalog).find((candidate) => candidate.id === titleId);
 
   return (
     <div className="film">
@@ -94,12 +100,10 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                         {!details.releaseDate && !details.runtime && (
                           <span className="film__meta-missing">{t("details.missing.meta")}</span>
                         )}
-                        {TITLES_BY_ID[titleId]?.status === "upcoming" && (
+                        {catalogTitle?.status === "upcoming" && (
                           <span>{t("planner.tags.upcoming")}</span>
                         )}
-                        {TITLES_BY_ID[titleId] && (
-                          <TitleTags title={TITLES_BY_ID[titleId]} withHint />
-                        )}
+                        {catalogTitle && <TitleTags title={catalogTitle} withHint />}
                       </div>
                     </div>
                     <div className="film__glass on-panel">
@@ -109,6 +113,9 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
                         <MissingNote tone="dark" icon={VideoOff}>
                           {t("details.missing.trailer")}
                         </MissingNote>
+                      )}
+                      {catalogTitle?.status === "upcoming" && TITLE_ALERTS_ENABLED && (
+                        <TitleAlertButton title={catalogTitle} variant="panel" />
                       )}
                       <WhereToWatch titleId={titleId} />
                     </div>

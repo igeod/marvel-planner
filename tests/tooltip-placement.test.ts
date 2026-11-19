@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computePlacement, type Rect } from "../src/components/ui/Tooltip/placement";
+import { computePlacement, referenceRect, type Rect } from "../src/components/ui/Tooltip/placement";
 
 const viewport = { width: 1000, height: 800 };
 const box = { width: 200, height: 40 };
@@ -48,5 +48,31 @@ describe("posizione del tooltip", () => {
     const tiny = { width: 100, height: 60 };
     const result = computePlacement(anchorAt(40, 20), { width: 300, height: 200 }, tiny, "top");
     expect(result.placement).toBe("top");
+  });
+});
+
+describe("riferimento del tooltip", () => {
+  const content: Rect = { left: 100, top: 100, right: 120, bottom: 120 };
+  const box: Rect = { left: 88, top: 88, right: 132, bottom: 132 };
+
+  it("senza anello è il contenuto, non l'area di tocco", () => {
+    expect(referenceRect(content, box, 0)).toEqual(content);
+  });
+
+  it("con l'anello di focus è il box allargato di 6 px per lato", () => {
+    expect(referenceRect(content, box, 6)).toEqual({ left: 82, top: 82, right: 138, bottom: 138 });
+  });
+
+  it("un'icona da 20 px a sinistra su 390 px: fumetto a 8 px dal bordo, 10 px sopra, freccia sull'icona", () => {
+    const icon: Rect = { left: 12, top: 300, right: 32, bottom: 320 };
+    const result = computePlacement(
+      icon,
+      { width: 240, height: 40 },
+      { width: 390, height: 800 },
+      "top",
+    );
+    expect(result.left).toBe(8);
+    expect(result.top).toBe(300 - 10 - 40);
+    expect(result.arrow).toBe(22 - 8 - 5);
   });
 });

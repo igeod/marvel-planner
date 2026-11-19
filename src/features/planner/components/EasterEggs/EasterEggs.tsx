@@ -54,7 +54,7 @@ export function EasterEggs({ titleId }: EasterEggsProps) {
                   aria-label={t("details.easterEggs.source")}
                   aria-describedby={describedBy}
                 >
-                  <Info data-tooltip-anchor aria-hidden />
+                  <Info aria-hidden />
                 </a>
               )}
             </Tooltip>

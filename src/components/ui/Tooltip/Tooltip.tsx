@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { computePlacement, type Placement } from "./placement";
+import { computePlacement, referenceRect, type Placement, type Rect } from "./placement";
 
 // Reads --delay-tooltip (400ms, 0 under reduced motion) so the delay lives with the other tokens.
 function hoverOpenDelay(): number {
@@ -8,6 +8,24 @@ function hoverOpenDelay(): number {
 }
 
 const HOVER_CLOSE_DELAY_MS = 100;
+
+const toRect = ({ left, top, right, bottom }: DOMRect): Rect => ({ left, top, right, bottom });
+
+// The painted content of the trigger (the range ignores its padding and touch area); an empty one
+// falls back to the trigger box. While the keyboard focus ring shows, the ring is the reference.
+function triggerReference(trigger: Element): Rect {
+  const box = toRect(trigger.getBoundingClientRect());
+  const range = document.createRange();
+  range.selectNodeContents(trigger);
+  const painted = range.getBoundingClientRect();
+  const content = painted.width > 0 || painted.height > 0 ? toRect(painted) : box;
+  let ring = 0;
+  if (trigger.matches(":focus-visible")) {
+    const style = getComputedStyle(trigger);
+    ring = Number.parseFloat(style.outlineWidth) + Number.parseFloat(style.outlineOffset);
+  }
+  return referenceRect(content, box, Number.isFinite(ring) ? ring : 0);
+}
 
 interface TooltipProps {
   content: ReactNode;
@@ -44,9 +62,10 @@ export function Tooltip({
     const wrapper = wrapperRef.current;
     if (!bubble || !wrapper) return;
 
-    const anchor = wrapper.querySelector("[data-tooltip-anchor]") ?? wrapper;
+    // The trigger is the first child; the bubble is the last.
+    const trigger = wrapper.firstElementChild ?? wrapper;
     const result = computePlacement(
-      anchor.getBoundingClientRect(),
+      triggerReference(trigger),
       { width: bubble.offsetWidth, height: bubble.offsetHeight },
       { width: window.innerWidth, height: window.innerHeight },
       placement,
@@ -76,11 +95,17 @@ export function Tooltip({
       if (event.key === "Escape") setIsOpen(false);
     };
 
+    // The focus ring appears or goes away without the bubble closing.
+    const wrapper = wrapperRef.current;
+    wrapper?.addEventListener("focusin", position);
+    wrapper?.addEventListener("focusout", position);
     window.addEventListener("scroll", position, true);
     window.addEventListener("resize", position);
     document.addEventListener("pointerdown", onPointerDown);
     document.addEventListener("keydown", onKeyDown);
     return () => {
+      wrapper?.removeEventListener("focusin", position);
+      wrapper?.removeEventListener("focusout", position);
       window.removeEventListener("scroll", position, true);
       window.removeEventListener("resize", position);
       document.removeEventListener("pointerdown", onPointerDown);

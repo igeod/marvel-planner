@@ -31,6 +31,19 @@ const ORDER: Record<Placement, Placement[]> = {
   right: ["right", "left", "top", "bottom"],
 };
 
+// What the bubble is measured from. The painted content of the trigger (icon, text, pill): never its
+// transparent touch area or its hover background. With ring > 0 (the keyboard focus ring) it is the
+// trigger box grown by the ring on every side, so the bubble never covers the ring.
+export function referenceRect(content: Rect, box: Rect, ring: number): Rect {
+  if (ring <= 0) return content;
+  return {
+    left: box.left - ring,
+    top: box.top - ring,
+    right: box.right + ring,
+    bottom: box.bottom + ring,
+  };
+}
+
 const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(value, Math.max(min, max)));
 
