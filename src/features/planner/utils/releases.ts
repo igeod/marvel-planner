@@ -1,3 +1,4 @@
+import { isRealIsoDate } from "../../../../shared/isoDate";
 import type { Saga, Title } from "../types";
 
 export type ReleaseDates = Record<string, string | null>;
@@ -9,7 +10,13 @@ export function todayIso(now = new Date()): string {
 }
 
 function resolveTitle(title: Title, releaseDate: string | null | undefined, today: string): Title {
-  if (!releaseDate) return title;
+  // No date from the server: a full date written in the catalog that has passed is a release too
+  // (an approximate one, "2026-mid", cannot be told, so it stays as it is).
+  if (!releaseDate) {
+    const isPassed =
+      title.status === "upcoming" && isRealIsoDate(title.release) && title.release <= today;
+    return isPassed ? { ...title, release: title.release.slice(0, 4), status: "released" } : title;
+  }
   const isUpcoming = releaseDate > today;
   return {
     ...title,

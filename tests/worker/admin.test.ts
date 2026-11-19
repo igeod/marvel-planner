@@ -2,7 +2,8 @@ import type { AdminOverview } from "../../shared/admin";
 import { Hono } from "hono";
 import { beforeEach, describe, expect, it } from "vitest";
 import { adminRoutes } from "../../worker/routes/admin";
-import { catalogCandidate, siteSetting, user } from "../../worker/db/schema";
+import { getReleases } from "../../worker/services/releases";
+import { catalogCandidate, siteSetting, titleRelease, user } from "../../worker/db/schema";
 import type { Env } from "../../worker/env";
 import {
   describeError,
@@ -42,11 +43,11 @@ function createApp() {
   });
   app.route("/admin", adminRoutes);
   const env = { ADMIN_USER_ID: "admin-id" } as Env;
-  return (path: string, session?: string, body?: unknown) =>
+  return (path: string, session?: string, body?: unknown, method?: string) =>
     app.request(
       path,
       {
-        method: body === undefined ? "GET" : "POST",
+        method: method ?? (body === undefined ? "GET" : "POST"),
         headers: {
           ...(session ? { "x-session": session } : {}),
           "content-type": "application/json",
@@ -145,5 +146,74 @@ describe("rotte dell'amministratore", () => {
     expect((await call("/admin/candidates/copied", "admin", { key: "x" })).status).toBe(400);
     expect((await call("/admin/candidates/copied", "utente", { key })).status).not.toBe(204);
     expect((await call("/admin/candidates/copied", undefined, { key })).status).not.toBe(204);
+  });
+});
+
+describe("date e controlli dei titoli", () => {
+  const id = "i-iron-man";
+
+  it("la data scritta a mano vince su quella di TMDB e si può togliere", async () => {
+    const call = createApp();
+    await db
+      .insert(titleRelease)
+      .values({ titleId: id, releaseDate: "2008-05-02", checkedAt: new Date() });
+    expect(
+      (await call(`/admin/titles/${id}/release-date`, "admin", { date: "2008-05-09" }, "PUT"))
+        .status,
+    ).toBe(204);
+    expect((await getReleases(db))[id]).toBe("2008-05-09");
+
+    const removed = await call(`/admin/titles/${id}/release-date`, "admin", undefined, "DELETE");
+    expect(await removed.json()).toEqual({ tmdbDate: "2008-05-02", previous: "2008-05-09" });
+    expect((await getReleases(db))[id]).toBe("2008-05-02");
+  });
+
+  it("segnala quando TMDB cambia la data dopo la correzione, e si può tenere la propria", async () => {
+    const call = createApp();
+    await db
+      .insert(titleRelease)
+      .values({ titleId: id, releaseDate: "2008-05-02", checkedAt: new Date() });
+    await call(`/admin/titles/${id}/release-date`, "admin", { date: "2008-05-09" }, "PUT");
+    await db.update(titleRelease).set({ releaseDate: "2008-06-01" });
+
+    let overview = (await (await call("/admin/overview", "admin")).json()) as AdminOverview;
+    expect(overview.releases.find((row) => row.titleId === id)).toEqual({
+      titleId: id,
+      tmdbDate: "2008-06-01",
+      manualDate: "2008-05-09",
+      tmdbDateAtOverride: "2008-05-02",
+    });
+
+    await call(`/admin/titles/${id}/release-date/keep`, "admin", {});
+    overview = (await (await call("/admin/overview", "admin")).json()) as AdminOverview;
+    expect(overview.releases.find((row) => row.titleId === id)?.tmdbDateAtOverride).toBe(
+      "2008-06-01",
+    );
+  });
+
+  it("rifiuta date non valide, titoli sconosciuti e chi non è amministratore", async () => {
+    const call = createApp();
+    for (const date of ["2026-13-40", "20/10/2026", "2026-02-30", ""]) {
+      expect(
+        (await call(`/admin/titles/${id}/release-date`, "admin", { date }, "PUT")).status,
+      ).toBe(400);
+    }
+    expect((await call("/admin/titles/i-inventato/guide-reviewed", "admin", {})).status).toBe(404);
+    expect((await call(`/admin/titles/${id}/guide-reviewed`, "utente", {})).status).toBe(403);
+  });
+
+  it("i controlli: l'insieme sostituisce i precedenti e la guida si segna una volta", async () => {
+    const call = createApp();
+    await call(
+      `/admin/titles/${id}/verified`,
+      "admin",
+      { topics: ["postCredits", "keyScenes"] },
+      "PUT",
+    );
+    await call(`/admin/titles/${id}/verified`, "admin", { topics: ["keyScenes"] }, "PUT");
+    await call(`/admin/titles/${id}/guide-reviewed`, "admin", {});
+    await call(`/admin/titles/${id}/guide-reviewed`, "admin", {});
+    const overview = (await (await call("/admin/overview", "admin")).json()) as AdminOverview;
+    expect(overview.reviews.map((row) => row.topic).sort()).toEqual(["guide", "keyScenes"]);
   });
 });

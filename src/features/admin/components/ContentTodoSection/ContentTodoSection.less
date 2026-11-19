@@ -1,0 +1,19 @@
+// The four contents of a title, each a label above its state pill: 4 columns on a wide row, 2 on a phone.
+.adm-kinds {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: var(--sp-2) var(--sp-3);
+}
+
+.adm-kind {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+}
+
+.adm-kind__label {
+  font-size: var(--fs-caption);
+  font-weight: 800;
+  color: var(--ink-2);
+}

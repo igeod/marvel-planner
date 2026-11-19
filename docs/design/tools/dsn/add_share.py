@@ -1,4 +1,4 @@
-"""Blocco Planner: biglietto «Condividi il tuo planner» tra 1024 e 1142 px (voce 38).
+"""Blocco Planner: biglietto «Condividi il tuo planner» tra 1024 e 1142 px (voce 19).
 Scritto a mano nel canvas: `python add_share.py` inserisce il blocco in canvas/Planner.dc.html (una volta sola).
 Non è in add.py: una rigenerazione di p_planner.py lo cancellerebbe."""
 from addlib import *

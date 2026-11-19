@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useId, useRef, useState, type ReactNode } from "react";
-import { computePlacement, referenceRect, type Placement, type Rect } from "./placement";
+import {
+  computePlacement,
+  isReferenceVisible,
+  referenceRect,
+  type Placement,
+  type Rect,
+} from "./placement";
 
 // Reads --delay-tooltip (400ms, 0 under reduced motion) so the delay lives with the other tokens.
 function hoverOpenDelay(): number {
@@ -64,10 +70,16 @@ export function Tooltip({
 
     // The trigger is the first child; the bubble is the last.
     const trigger = wrapper.firstElementChild ?? wrapper;
+    const reference = triggerReference(trigger);
+    const viewport = { width: window.innerWidth, height: window.innerHeight };
+    if (!isReferenceVisible(reference, viewport)) {
+      setIsOpen(false);
+      return;
+    }
     const result = computePlacement(
-      triggerReference(trigger),
+      reference,
       { width: bubble.offsetWidth, height: bubble.offsetHeight },
-      { width: window.innerWidth, height: window.innerHeight },
+      viewport,
       placement,
     );
     bubble.dataset.placement = result.placement;

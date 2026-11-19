@@ -44,6 +44,14 @@ export function referenceRect(content: Rect, box: Rect, ring: number): Rect {
   };
 }
 
+// Whether the middle of the reference is on screen. Once it has scrolled away the bubble has nothing
+// to point at: it would be pushed against the edge of the window and stay there.
+export function isReferenceVisible(reference: Rect, viewport: Box): boolean {
+  const x = (reference.left + reference.right) / 2;
+  const y = (reference.top + reference.bottom) / 2;
+  return x >= 0 && x <= viewport.width && y >= 0 && y <= viewport.height;
+}
+
 const clamp = (value: number, min: number, max: number) =>
   Math.max(min, Math.min(value, Math.max(min, max)));
 

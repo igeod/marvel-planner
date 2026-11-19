@@ -57,6 +57,26 @@ export const titleRelease = sqliteTable("title_release", {
   checkedAt: integer("checked_at", { mode: "timestamp_ms" }).notNull(),
 });
 
+// What the admin checked by hand for a title: "none to add" for a content kind, or "guide reviewed".
+export const titleReview = sqliteTable(
+  "title_review",
+  {
+    titleId: text("title_id").notNull(),
+    topic: text("topic").notNull(),
+    checkedAt: integer("checked_at", { mode: "timestamp_ms" }).notNull(),
+  },
+  (table) => [primaryKey({ columns: [table.titleId, table.topic] })],
+);
+
+// A date the admin wrote by hand. It wins over TMDB; tmdbDateAtOverride is what TMDB said at that
+// moment, so a later difference can be shown.
+export const titleReleaseOverride = sqliteTable("title_release_override", {
+  titleId: text("title_id").primaryKey(),
+  releaseDate: text("release_date").notNull(),
+  tmdbDateAtOverride: text("tmdb_date_at_override"),
+  setAt: integer("set_at", { mode: "timestamp_ms" }).notNull(),
+});
+
 export const siteSetting = sqliteTable("site_setting", {
   key: text("key").primaryKey(),
   value: text("value").notNull(),

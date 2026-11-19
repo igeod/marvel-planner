@@ -1,6 +1,6 @@
 import { TMDB_REFS, type TmdbRef } from "../../shared/tmdbRefs";
 import type { Database } from "../db/client";
-import { titleRelease } from "../db/schema";
+import { titleRelease, titleReleaseOverride } from "../db/schema";
 import { UPSTREAM_TIMEOUT_MS } from "./upstream";
 
 const API_URL = "https://api.themoviedb.org/3";
@@ -84,7 +84,13 @@ export async function refreshReleases(db: Database, token: string, limit: number
   return refreshed;
 }
 
+// The date a title is shown with: the one written by hand, if any, otherwise TMDB's.
 export async function getReleases(db: Database): Promise<Record<string, string | null>> {
-  const rows = await db.select().from(titleRelease);
-  return Object.fromEntries(rows.map((row) => [row.titleId, row.releaseDate]));
+  const [rows, overrides] = await Promise.all([
+    db.select().from(titleRelease),
+    db.select().from(titleReleaseOverride),
+  ]);
+  const dates = Object.fromEntries(rows.map((row) => [row.titleId, row.releaseDate]));
+  for (const row of overrides) dates[row.titleId] = row.releaseDate;
+  return dates;
 }
