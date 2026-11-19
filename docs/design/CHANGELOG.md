@@ -1,5 +1,11 @@
 # Changelog del canvas
 
+## 23 novembre 2026 · riga della fonte nel riquadro Trama (proposta, main e0db763)
+
+- **Fonti e suggerimenti · “Decisione · la riga della fonte nel riquadro Trama” (voce 20):** a metà scorrimento il testo che passa sotto la riga fissa viene tagliato di netto a metà riga. **Raccomandazione A (1):** sfumatura da `--panel-2` a trasparente alta `--sp-6` sopra `.plot__source` e `padding-top` da `--sp-2` a `--sp-3`; la riga resta dentro l'area che scorre. (2) sfondo pieno con più spazio non toglie il taglio (il margine di un elemento sticky non è dipinto); (3) già scartata; (4) riga fuori dallo scorrimento (nuova uscita in `SpoilerBox`) è l'alternativa, da scegliere solo se la fonte deve restare nitida con la trama sfocata.
+- **B:** nessun padding in più sotto il testo: la riga è nel flusso dopo il testo (a fine scorrimento 24 px dall'ultima riga, 24 px dal bordo del riquadro, nessuna sovrapposizione). **C:** una riga da un riquadro di 297 px in su (fr la più lunga; it 285, de 286, en 293, es 296), sotto due righe: 32 px o 51 px. **D:** resta sfocata insieme al testo (`inert` e `aria-hidden`).
+- Misurato nel browser con il CSS del canvas e i font veri. **Non verificato:** larghezza vera del riquadro nella pagina intera (assunto finestra − 56 px su telefono), Safari e Firefox, testo di trame reali più lunghe. **Scritto a mano** (`tools/dsn/add_fonte_riga.py`): una rigenerazione di `p_fonti.py` lo cancella.
+
 ## 22 novembre 2026 · biglietto “Condividi il tuo planner” tra 1024 e 1142 px (proposta, main 559f8bb)
 
 - **Planner · “Decisione · biglietto ‘Condividi’ tra 1024 e 1142 px” (voce 19):** dal desktop (64em) la scheda dei progressi vale 592 px a 1024 di finestra e 666 px a 1142 (barra da 12 px): sotto 666 il biglietto da 250 px (`.share-poster`) va a capo, la scheda è alta 628-661 px invece di 354-381 e resta vuoto il lato destro. **Raccomandazione (a):** `flex-wrap: nowrap` su `.progress-card` da 64em (una riga di LESS in `PlannerSummary.less`, niente token nuovi); la colonna del testo si stringe fino a 246 px, la percentuale scala da sola con `cqi` (111 px a 592). Nessuna soglia nuova. Telefono e tablet invariati (il biglietto non c'è, `isDesktop`).
