@@ -116,14 +116,16 @@ export function PlotSection({ details }: PlotSectionProps) {
       }}
     >
       {(isHidden) => (
-        <div className="plot">
-          {hasSeasons ? (
-            <Episodes season={details.seasons[0]} isHidden={isHidden} />
-          ) : (
-            details.plot && <PlotText plot={details.plot} />
-          )}
+        <>
+          <div className="plot">
+            {hasSeasons ? (
+              <Episodes season={details.seasons[0]} isHidden={isHidden} />
+            ) : (
+              details.plot && <PlotText plot={details.plot} />
+            )}
+          </div>
           <PlotSource plot={hasSeasons ? null : details.plot} />
-        </div>
+        </>
       )}
     </SpoilerBox>
   );
