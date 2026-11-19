@@ -22,5 +22,5 @@ Testi nuovi (it): suggest.label «Suggerisci una modifica: {item}» · suggest.t
 Server (a tua discrezione; API e privacy nel README): input validato con Zod (lunghezza massima 500, titolo e sezione da una lista nota, voce opzionale), scrittura protetta da Origin/Sec-Fetch-Site, limite di invii per utente, solo Drizzle. Cosa fare dei suggerimenti alla cancellazione dell'account (anonimizzare l'autore?) e il testo dell'informativa (testo libero legato all'account) li decide il committente.
 
 TEST (tests/): input non valido rifiutato; ospite senza invio; limite di invii; il Modal non ha «Annulla».
-DESIGN.md · una riga in «Deviazioni del codice dal design» (se resta qualcosa di diverso): Fonti e suggerimenti | PlotSection.tsx, KeyScenes.tsx, componenti nuovi del suggerimento, AdminDashboard | fonte solo dove serve; «Suggerisci» per voce con modulo interno | voce 17 di HANDOFF §2, da confermare con Design
+DESIGN.md · una riga in «Deviazioni del codice dal design» (se resta qualcosa di diverso): Fonti e suggerimenti | PlotSection.tsx, KeyScenes.tsx, componenti nuovi del suggerimento, AdminDashboard | fonte solo dove serve; «Suggerisci» per voce con modulo interno | voce 18 di HANDOFF §2, da confermare con Design
 Prima di dire fatto: npm run lint, npm test, npm run build, npm run format:check.
