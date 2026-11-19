@@ -1,16 +1,16 @@
-# Prompt per la sessione Code: tre consegne di Design (biglietto "Condividi", Fonti e suggerimenti, /admin)
+# Prompt per la sessione Code: biglietto "Condividi" e Fonti e suggerimenti
 
 Riferimento: main 559f8bb. Questo testo è autosufficiente: non serve la chat di Design. Il codice su `main` vince sul canvas; dove differiscono, vale il codice e si scrive in `DESIGN.md`, sezione "Deviazioni".
 
 ## Prima di cominciare
 
-1. Le tre consegne stanno su tre branch di Design, non ancora su `main`. Verifica che siano unite (`git log --oneline main` deve mostrare i commit "Design: pagina Admin nel canvas…", "Design: Fonti e suggerimenti…" e quello del biglietto "Condividi"). Se mancano, fermati e chiedilo al committente: i file da leggere (canvas e prompt) non esistono altrimenti.
-2. Il committente deve aver scelto, per ogni punto, la raccomandazione o un'alternativa. Se non c'è una scelta scritta (nel prompt della consegna o in chat), implementa **la raccomandazione** solo per le voci 1 e 2 sotto; per la voce 3 (Admin) chiedi prima.
-3. Regole di sempre (`CLAUDE.md`): lavora su `main`, niente branch nuovi, commit solo se richiesto. Solo token esistenti, niente stili inline, niente risorse di terzi, ogni testo nelle cinque lingue (it scritto da te; en/fr/es/de: valore provvisorio uguale all'italiano e segnalalo, li traduce il committente), titoli delle opere in inglese con `lang="en"`, spoiler dietro il pulsante. Prima di dire "fatto": `npm run lint`, `npm test`, `npm run build`, `npm run format:check`.
+1. Le consegne di Design stanno su `main` (canvas in `docs/design/canvas`, prompt in `docs/design/`). Se non le trovi, fermati e chiedilo al committente.
+2. Le scelte del committente sono fatte: biglietto con titolo a `--fs-h2` **approvato**; Fonti e suggerimenti con **modulo interno al sito** (server, moderazione, antispam) **confermato** e informativa privacy da aggiornare; la verifica della licenza CC BY-SA di Wikipedia è **già stata fatta**. L'Admin è **già implementato**: non rifarlo.
+3. Regole di sempre (`CLAUDE.md`): lavora su `main`, niente branch nuovi, commit solo se richiesto. Solo token esistenti, niente stili inline, niente risorse di terzi, ogni testo nelle cinque lingue (it scritto da te; en/fr/es/de: valore provvisorio uguale all'italiano, segnalalo), titoli delle opere in inglese con `lang="en"`, spoiler dietro il pulsante. Prima di dire "fatto": `npm run lint`, `npm test`, `npm run build`, `npm run format:check`.
 
-## Ordine consigliato
+## Ordine
 
-1 → 3 → 2. La voce 2 aggiunge una sezione "Suggerimenti" in `/admin` e tocca gli stessi file della voce 3 (`AdminDashboard.tsx`, `shared/admin.ts`, `worker/routes/admin.ts`, i cinque locale): fai prima l'Admin, poi i Suggerimenti sullo stesso schema, in commit separati.
+1 poi 2. La voce 2 aggiunge una sezione "Suggerimenti" in `/admin`: riusa lo schema delle sezioni Admin già presenti.
 
 ## 1. Biglietto "Condividi il tuo planner" tra 1024 e 1142 px (solo CSS)
 
@@ -29,15 +29,7 @@ Design: `docs/design/canvas/Fonti e suggerimenti.dc.html`. Brief completo per Co
 
 File: `PlotSection`, `WhereToWatch`, `EasterEggs`, `KeyScenes`, `SynopsisSection`, `BeforeYouWatch`, `PostCreditsInfo`, `ChronologicalList` in `src/features/planner/components/`, locale it/en/fr/es/de, sezione "Suggerimenti" in `/admin`.
 
-Da non dare per scontato: la parte 2 richiede un server che riceve testo dagli utenti (Zod, Origin/Sec-Fetch-Site, limite di invii, Drizzle) e un'informativa privacy aggiornata. Il committente deve confermare la scelta (modulo interno o l'alternativa) e la verifica sulla licenza CC BY-SA di Wikipedia **prima** di togliere la riga di attribuzione dal testo della trama. Senza conferma fai solo la parte 1 senza toccare la riga della trama, e dillo.
-
-## 3. /admin: contenuti da completare, guida da rivedere, date di uscita
-
-Design: `docs/design/canvas/Admin.dc.html`. Brief completo per Code: `docs/design/PROMPT_CODE_ADMIN.md` (sezioni, componenti, dati nuovi in `AdminOverview`, endpoint, tabelle D1, test, riga per le Deviazioni). Leggilo per intero e seguilo.
-
-File: `src/features/admin`, `shared/admin.ts`, `worker/routes/admin.ts`, `worker/db/schema.ts` (nuove tabelle e migrazione), cron giornaliero (`worker/services/releases.ts`: la data manuale vince su TMDB), locale it/en/fr/es/de.
-
-Il committente sceglie le raccomandazioni di quel brief prima che tu parta. Per il punto "discrepanze tra fonti (Wikidata)" la raccomandazione è **non farlo ora**; per "aggiunta titoli senza codice" è **resta lo snippet**: non implementarli.
+Confermato dal committente: modulo interno al sito (la parte 2 richiede un server che riceve testo dagli utenti: Zod, Origin/Sec-Fetch-Site, limite di invii, Drizzle) e **aggiornamento dell'informativa privacy** (testo libero legato all'account, cosa succede alla cancellazione dell'account): fallo, in tutte le lingue. La licenza CC BY-SA è già stata verificata: puoi spostare la riga di attribuzione come da brief.
 
 ## Da non fare
 
