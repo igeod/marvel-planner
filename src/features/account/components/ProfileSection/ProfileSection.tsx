@@ -214,6 +214,9 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
         />
         {emailFormError && <FormError>{emailFormError}</FormError>}
         <div className="profile-section__actions" ref={emailActions}>
+          <Status tone="success" resultKey={emailAction.resultId}>
+            {emailAction.isDone ? t("account.profile.emailSaved") : ""}
+          </Status>
           <Button
             type="submit"
             variant="primary"
@@ -223,9 +226,6 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
           >
             {t("account.profile.emailSave")}
           </Button>
-          <Status tone="success" resultKey={emailAction.resultId}>
-            {emailAction.isDone ? t("account.profile.emailSaved") : ""}
-          </Status>
         </div>
       </form>
     </section>

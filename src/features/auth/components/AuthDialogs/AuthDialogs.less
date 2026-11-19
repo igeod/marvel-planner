@@ -9,7 +9,10 @@
   // moves nothing): label 8px above the field, message 8px under it, 8px between fields. That leaves
   // 36px from one field to the next label and 16px from the last field to the button, and 5px free
   // beside the focus ring (3px thick, hugging the field).
+  // No width cap of its own: the popup already limits it, and the generic form's 30rem left 16px
+  // more on the right than on the left.
   .form {
+    max-width: none;
     gap: var(--sp-2);
   }
 
