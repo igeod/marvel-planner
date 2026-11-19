@@ -1,4 +1,4 @@
-import type { AdminOverview } from "../../../../shared/admin";
+import type { AdminOverview, ReviewTopic } from "../../../../shared/admin";
 import type { CatalogCandidate } from "../../../../shared/catalogCandidate";
 import { apiRequest } from "../../../lib/apiClient";
 
@@ -17,3 +17,24 @@ export function tmdbUrl(candidate: CatalogCandidate): string {
   const base = `https://www.themoviedb.org/${candidate.kind === "movie" ? "movie" : "tv"}/${candidate.tmdbId}`;
   return candidate.season === null ? base : `${base}/season/${candidate.season}`;
 }
+
+const titlePath = (titleId: string, rest: string) =>
+  `/admin/titles/${encodeURIComponent(titleId)}/${rest}`;
+
+export const setVerified = (titleId: string, topics: ReviewTopic[]) =>
+  apiRequest(titlePath(titleId, "verified"), { method: "PUT", body: JSON.stringify({ topics }) });
+
+export const markGuideReviewed = (titleId: string) =>
+  apiRequest(titlePath(titleId, "guide-reviewed"), { method: "POST" });
+
+export const setReleaseDate = (titleId: string, date: string) =>
+  apiRequest(titlePath(titleId, "release-date"), { method: "PUT", body: JSON.stringify({ date }) });
+
+export const clearReleaseDate = (titleId: string) =>
+  apiRequest<{ tmdbDate: string | null; previous: string | null }>(
+    titlePath(titleId, "release-date"),
+    { method: "DELETE" },
+  );
+
+export const keepReleaseDate = (titleId: string) =>
+  apiRequest(titlePath(titleId, "release-date/keep"), { method: "POST" });
