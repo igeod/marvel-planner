@@ -1,11 +1,39 @@
 import { useCallback, useEffect, useState } from "react";
-import type { AdminOverview } from "../../../../shared/admin";
+import type { AdminOverview, AdminRelease, ReviewTopic } from "../../../../shared/admin";
 import {
+  clearReleaseDate,
   dismissCandidate,
   getAdminOverview,
+  keepReleaseDate,
   markCandidateCopied,
+  markGuideReviewed,
   setMaintenance,
+  setReleaseDate,
+  setVerified,
 } from "../services/adminService";
+
+const VERIFIABLE: ReviewTopic[] = ["postCredits", "keyScenes", "easterEggs"];
+
+// Changes the release row of one title (made if it had none), leaving the others as they are.
+function withRelease(
+  overview: AdminOverview,
+  titleId: string,
+  change: (row: AdminRelease) => AdminRelease,
+): AdminOverview {
+  const empty: AdminRelease = {
+    titleId,
+    tmdbDate: null,
+    manualDate: null,
+    tmdbDateAtOverride: null,
+  };
+  const rows = overview.releases.some((row) => row.titleId === titleId)
+    ? overview.releases
+    : [...overview.releases, empty];
+  return {
+    ...overview,
+    releases: rows.map((row) => (row.titleId === titleId ? change(row) : row)),
+  };
+}
 
 type State =
   { status: "loading" } | { status: "error" } | { status: "ready"; overview: AdminOverview };
@@ -90,5 +118,98 @@ export function useAdminOverview() {
     [run, update],
   );
 
-  return { state, hasActionFailed, toggleMaintenance, dismiss, markCopied, reload };
+  const verify = useCallback(
+    (titleId: string, topics: ReviewTopic[]) =>
+      run(
+        () => setVerified(titleId, topics),
+        () =>
+          update((overview) => ({
+            ...overview,
+            reviews: [
+              ...overview.reviews.filter(
+                (row) => row.titleId !== titleId || !VERIFIABLE.includes(row.topic),
+              ),
+              ...topics.map((topic) => ({ titleId, topic })),
+            ],
+          })),
+      ),
+    [run, update],
+  );
+
+  const reviewGuide = useCallback(
+    (titleId: string) =>
+      run(
+        () => markGuideReviewed(titleId),
+        () =>
+          update((overview) => ({
+            ...overview,
+            reviews: [...overview.reviews, { titleId, topic: "guide" }],
+          })),
+      ),
+    [run, update],
+  );
+
+  const setDate = useCallback(
+    (titleId: string, date: string) =>
+      run(
+        () => setReleaseDate(titleId, date),
+        () =>
+          update((overview) =>
+            withRelease(overview, titleId, (row) => ({
+              ...row,
+              manualDate: date,
+              tmdbDateAtOverride: row.tmdbDate,
+            })),
+          ),
+      ),
+    [run, update],
+  );
+
+  // Resolves to the hand-written date it took away (null if it failed), so the toast can put it back.
+  const clearDate = useCallback(
+    async (titleId: string): Promise<string | null> => {
+      let previous: string | null = null;
+      const done = await run(
+        async () => {
+          previous = (await clearReleaseDate(titleId)).previous;
+        },
+        () =>
+          update((overview) =>
+            withRelease(overview, titleId, (row) => ({
+              ...row,
+              manualDate: null,
+              tmdbDateAtOverride: null,
+            })),
+          ),
+      );
+      return done ? previous : null;
+    },
+    [run, update],
+  );
+
+  const keepDate = useCallback(
+    (titleId: string) =>
+      run(
+        () => keepReleaseDate(titleId),
+        () =>
+          update((overview) =>
+            withRelease(overview, titleId, (row) => ({ ...row, tmdbDateAtOverride: row.tmdbDate })),
+          ),
+      ),
+    [run, update],
+  );
+
+  return {
+    state,
+    hasActionFailed,
+    toggleMaintenance,
+    dismiss,
+    markCopied,
+    verify,
+    reviewGuide,
+    setDate,
+    clearDate,
+    keepDate,
+    reload,
+  };
 }

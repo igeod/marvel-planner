@@ -1,5 +1,10 @@
 import { describe, expect, it } from "vitest";
-import { computePlacement, referenceRect, type Rect } from "../src/components/ui/Tooltip/placement";
+import {
+  computePlacement,
+  isReferenceVisible,
+  referenceRect,
+  type Rect,
+} from "../src/components/ui/Tooltip/placement";
 
 const viewport = { width: 1000, height: 800 };
 const box = { width: 200, height: 40 };
@@ -74,5 +79,18 @@ describe("riferimento del tooltip", () => {
     expect(result.left).toBe(8);
     expect(result.top).toBe(300 - 10 - 40);
     expect(result.arrow).toBe(22 - 8 - 5);
+  });
+});
+
+describe("riferimento fuori dallo schermo", () => {
+  const view = { width: 390, height: 800 };
+
+  it("è visibile finché il suo centro è nella finestra", () => {
+    expect(isReferenceVisible({ left: 10, top: 300, right: 30, bottom: 320 }, view)).toBe(true);
+  });
+
+  it("non lo è più quando è scorso sopra o sotto la finestra", () => {
+    expect(isReferenceVisible({ left: 10, top: -60, right: 30, bottom: -40 }, view)).toBe(false);
+    expect(isReferenceVisible({ left: 10, top: 900, right: 30, bottom: 920 }, view)).toBe(false);
   });
 });

@@ -20,9 +20,29 @@ export interface AdminOverview {
   lastRuns: { daily: JobRun | null; weekly: JobRun | null };
   users: { total: number; newLastWeek: number; deleted: number; deletedSince: string | null };
   candidates: AdminCandidate[];
+  releases: AdminRelease[];
+  reviews: AdminReview[];
 }
 
 export interface SiteStatus {
   maintenance: boolean;
   isAdmin: boolean;
+}
+
+// What the admin checks by hand for a title (title_review.topic).
+export const REVIEW_TOPICS = ["postCredits", "keyScenes", "easterEggs", "guide"] as const;
+export type ReviewTopic = (typeof REVIEW_TOPICS)[number];
+
+// One title that has a date from TMDB, one written by hand, or both. The day TMDB gave when the
+// hand-written date was set lets the page say that TMDB has changed its mind since.
+export interface AdminRelease {
+  titleId: string;
+  tmdbDate: string | null;
+  manualDate: string | null;
+  tmdbDateAtOverride: string | null;
+}
+
+export interface AdminReview {
+  titleId: string;
+  topic: ReviewTopic;
 }

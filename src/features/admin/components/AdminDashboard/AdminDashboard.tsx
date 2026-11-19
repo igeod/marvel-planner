@@ -2,7 +2,13 @@ import { useEffect, useRef } from "react";
 import { useLocation } from "react-router";
 import { LoadError } from "../../../../components/ui/LoadError/LoadError";
 import { useI18n } from "../../../../i18n/useI18n";
+import { useMemo } from "react";
+import { CATALOG } from "../../../planner/data/catalog";
+import { todayIso } from "../../../planner/utils/releases";
 import { useAdminOverview } from "../../hooks/useAdminOverview";
+import { buildAdminTitles } from "../../utils/adminTitles";
+import { ContentTodoSection } from "../ContentTodoSection/ContentTodoSection";
+import { ReleaseDatesSection } from "../ReleaseDatesSection/ReleaseDatesSection";
 import { AutomationSection } from "../AutomationSection/AutomationSection";
 import { CandidatesSection } from "../CandidatesSection/CandidatesSection";
 import { MaintenanceSection } from "../MaintenanceSection/MaintenanceSection";
@@ -11,6 +17,8 @@ import { UsersSection } from "../UsersSection/UsersSection";
 function AdminSkeleton() {
   const { t } = useI18n();
   const titles = [
+    "admin.todo.heading",
+    "admin.dates.heading",
     "admin.maintenance.heading",
     "admin.automation.heading",
     "admin.users.heading",
@@ -29,8 +37,25 @@ function AdminSkeleton() {
 export function AdminDashboard() {
   const { t } = useI18n();
   const { hash } = useLocation();
-  const { state, hasActionFailed, toggleMaintenance, dismiss, markCopied, reload } =
-    useAdminOverview();
+  const {
+    state,
+    hasActionFailed,
+    toggleMaintenance,
+    dismiss,
+    markCopied,
+    verify,
+    reviewGuide,
+    setDate,
+    clearDate,
+    keepDate,
+    reload,
+  } = useAdminOverview();
+  const overview = state.status === "ready" ? state.overview : null;
+  const titles = useMemo(
+    () =>
+      overview ? buildAdminTitles(CATALOG, overview.releases, overview.reviews, todayIso()) : [],
+    [overview],
+  );
   const titleRef = useRef<HTMLHeadingElement>(null);
   const wantsCandidates = hash === "#candidati";
 
@@ -56,6 +81,13 @@ export function AdminDashboard() {
             onCopied={(key) => void markCopied(key)}
             tmdbConfigured={state.overview.tmdbConfigured}
             weeklyRun={state.overview.lastRuns.weekly}
+          />
+          <ContentTodoSection titles={titles} onVerify={verify} onReviewGuide={reviewGuide} />
+          <ReleaseDatesSection
+            titles={titles}
+            setDate={setDate}
+            clearDate={clearDate}
+            keepDate={keepDate}
           />
           <MaintenanceSection isOn={state.overview.maintenance} onChange={toggleMaintenance} />
           <AutomationSection

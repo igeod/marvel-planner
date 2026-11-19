@@ -28,4 +28,19 @@ describe("date di uscita", () => {
   it("senza data nota lascia il titolo invariato", () => {
     expect(resolveFirst(null)).toEqual(first);
   });
+
+  it("senza data dal server, una data completa del catalogo già passata vale come uscito", () => {
+    const resolved = flattenTitles(applyReleaseDates(CATALOG, {}, "2026-11-19"));
+    const find = (id: string) => resolved.find((title) => title.id === id);
+    expect(find("i-spider-man-brand-new-day")).toMatchObject({
+      release: "2026",
+      status: "released",
+    });
+    expect(find("i-avengers-doomsday")).toMatchObject({ status: "upcoming" });
+    // An approximate date cannot be told from the calendar: it waits for the server.
+    expect(find("i-x-men-97-stagione-2")).toMatchObject({
+      release: "2026-mid",
+      status: "upcoming",
+    });
+  });
 });
