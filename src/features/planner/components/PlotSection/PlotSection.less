@@ -76,29 +76,3 @@
     font-style: italic;
   }
 }
-
-// The source line of the plot: fixed at the foot of the scrolling box. The fade above it keeps the
-// text from being cut off sharply under it.
-.plot__source {
-  position: sticky;
-  bottom: 0;
-  margin: var(--sp-3) 0 0;
-  padding-top: var(--sp-3);
-  background: var(--panel-2);
-  font-size: var(--fs-caption);
-  color: var(--muted-on-dark);
-
-  a {
-    color: var(--highlight);
-  }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset-inline: 0;
-    bottom: 100%;
-    height: var(--sp-6);
-    background: linear-gradient(to top, var(--panel-2), transparent);
-    pointer-events: none;
-  }
-}

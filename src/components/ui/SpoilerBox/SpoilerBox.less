@@ -64,6 +64,16 @@
   }
 }
 
+// Under the area that scrolls, so the scrollbar ends above it; the box's own gap is the space between.
+.spoiler-box__foot {
+  font-size: var(--fs-caption);
+  color: var(--muted-on-dark);
+
+  a {
+    color: var(--highlight);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .spoiler-box__content {
     transition: none;
