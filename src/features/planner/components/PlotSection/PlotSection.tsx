@@ -12,9 +12,9 @@ const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
 // the text scrolls (and is blurred with it while the spoiler is hidden).
 function PlotSource({ plot }: { plot: TitleDetails["plot"] }) {
   const { t } = useI18n();
-  if (!plot) return <p className="plot__source">{t("details.plot.sourceTmdb")}</p>;
+  if (!plot) return <p>{t("details.plot.sourceTmdb")}</p>;
   return (
-    <p className="plot__source">
+    <p>
       {t("details.plot.sourceLabel")}{" "}
       <a href={plot.sourceUrl} rel="noreferrer">
         {t("details.plot.sourceLink")}
@@ -114,18 +114,16 @@ export function PlotSection({ details }: PlotSectionProps) {
         hideLabel: t("details.plot.hide"),
         warning: t("details.plot.warning"),
       }}
+      footer={<PlotSource plot={hasSeasons ? null : details.plot} />}
     >
       {(isHidden) => (
-        <>
-          <div className="plot">
-            {hasSeasons ? (
-              <Episodes season={details.seasons[0]} isHidden={isHidden} />
-            ) : (
-              details.plot && <PlotText plot={details.plot} />
-            )}
-          </div>
-          <PlotSource plot={hasSeasons ? null : details.plot} />
-        </>
+        <div className="plot">
+          {hasSeasons ? (
+            <Episodes season={details.seasons[0]} isHidden={isHidden} />
+          ) : (
+            details.plot && <PlotText plot={details.plot} />
+          )}
+        </div>
       )}
     </SpoilerBox>
   );

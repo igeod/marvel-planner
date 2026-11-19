@@ -17,7 +17,7 @@ interface Actions {
 }
 
 export function TitleAlertsProvider({ children }: { children: ReactNode }) {
-  const { t } = useI18n();
+  const { t, rich } = useI18n();
   const toast = useToast();
   const { user } = useAuth();
   const { view, open } = useAuthDialog();
@@ -46,7 +46,6 @@ export function TitleAlertsProvider({ children }: { children: ReactNode }) {
     setPreviousView(view);
     if (view === null) setPendingTitle(null);
   }
-  const pending = pendingTitle;
 
   const failed = useCallback(
     (retry: () => void) =>
@@ -122,12 +121,15 @@ export function TitleAlertsProvider({ children }: { children: ReactNode }) {
       toggle: (title) => {
         if (!user) {
           setPendingTitle(title);
-          open("login");
+          open(
+            "login",
+            undefined,
+            rich("titleAlerts.loginNote", { title: <span lang="en">{title.name}</span> }),
+          );
           return;
         }
         void (ids.has(title.id) ? deactivate(title) : activate(title, user.email, false));
       },
-      pending,
       resumeAfterAuth: (email) => {
         const title = pendingRef.current;
         if (!title) return false;
@@ -136,7 +138,7 @@ export function TitleAlertsProvider({ children }: { children: ReactNode }) {
         return true;
       },
     }),
-    [ids, user, pending, open, activate, deactivate],
+    [ids, user, open, rich, activate, deactivate],
   );
 
   return <TitleAlertsContext value={value}>{children}</TitleAlertsContext>;

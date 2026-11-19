@@ -227,7 +227,6 @@ export const de: Messages = {
     intro:
       "Wer den Link hat, sieht deinen Superheldennamen und die Titel, die du gesehen hast. Keine anderen Daten deines Kontos.",
     loginRequired: "Melde dich an, um deinen Planer zu teilen.",
-    loginButton: "Anmelden",
     loading: "Wird geladen…",
     error: "Ich kann den Link gerade nicht verwalten. Versuche es erneut.",
     duration: "Gültigkeit des Links",
@@ -567,7 +566,7 @@ export const de: Messages = {
     error: "Wir konnten es nicht senden. Versuche es gleich noch einmal.",
     rateTitle: "Einen Moment",
     rate: "Du hast zu viele Vorschläge gesendet. Versuche es in ein paar Minuten noch einmal.",
-    guest: "Um eine Korrektur vorzuschlagen, musst du dich anmelden.",
+    guest: "Melde dich an, um eine Korrektur vorzuschlagen.",
   },
   titleAlerts: {
     label: "Per E-Mail benachrichtigen, wenn es erscheint: {title}",

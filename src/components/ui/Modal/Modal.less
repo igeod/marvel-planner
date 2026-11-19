@@ -25,6 +25,9 @@
 
 .dialog__scroll {
   max-height: calc(100dvh - 64px);
+  // No reserved strip on the right: the body has the same 2rem on both sides. The scrollbar takes
+  // its width only when the content really overflows.
+  scrollbar-gutter: auto;
 }
 
 .dialog__header {

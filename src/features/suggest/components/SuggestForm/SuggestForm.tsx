@@ -44,6 +44,7 @@ export function SuggestForm({ target, onDone }: { target: SuggestTarget; onDone:
 
   return (
     <form
+      className="suggest"
       onSubmit={(event) => {
         event.preventDefault();
         void submit();
@@ -78,17 +79,16 @@ export function SuggestForm({ target, onDone }: { target: SuggestTarget; onDone:
         </FormError>
       )}
       {failure === "send" && <FormError>{t("suggest.error")}</FormError>}
-      <div className="dialog__actions">
-        <Button
-          type="submit"
-          variant="primary"
-          icon={<Send aria-hidden />}
-          isLoading={isPending}
-          aria-disabled={!canSend || undefined}
-        >
-          {t("suggest.send")}
-        </Button>
-      </div>
+      <Button
+        type="submit"
+        variant="primary"
+        size="lg"
+        icon={<Send aria-hidden />}
+        isLoading={isPending}
+        aria-disabled={!canSend || undefined}
+      >
+        {t("suggest.send")}
+      </Button>
     </form>
   );
 }

@@ -19,6 +19,8 @@ interface SpoilerBoxProps {
   intro?: ReactNode;
   // A function receives whether the content is still hidden, to drop its buttons from the tab order.
   children?: ReactNode | ((isHidden: boolean) => ReactNode);
+  // Below the scrolling area, always visible and sharp (a source line, for example).
+  footer?: ReactNode;
 }
 
 export function SpoilerBox({
@@ -28,6 +30,7 @@ export function SpoilerBox({
   headerExtra,
   intro,
   children,
+  footer,
 }: SpoilerBoxProps) {
   const { t } = useI18n();
   const [isRevealed, setIsRevealed] = useState(false);
@@ -76,6 +79,7 @@ export function SpoilerBox({
           {typeof children === "function" ? children(isHidden) : children}
         </div>
       )}
+      {footer && <div className="spoiler-box__foot">{footer}</div>}
     </article>
   );
 }

@@ -16,6 +16,8 @@ import { ShareDialog } from "../../../share/components/ShareDialog/ShareDialog";
 import { useCollapsedPhases } from "../../hooks/useCollapsedPhases";
 import { useJumpToLastWatched } from "../../hooks/useJumpToLastWatched";
 import { useFloatingProgressVisibility } from "../../hooks/useFloatingProgressVisibility";
+import { useAuth } from "../../../auth/hooks/useAuth";
+import { useAuthDialog } from "../../../auth/hooks/useAuthDialog";
 import { useResolvedCatalog } from "../../hooks/useResolvedCatalog";
 import { useWatched } from "../../hooks/useWatched";
 import type { Title } from "../../types";
@@ -59,6 +61,8 @@ interface PlannerProps {
 
 export function Planner({ shareCode }: PlannerProps) {
   const { t } = useI18n();
+  const { user } = useAuth();
+  const { open: openAuthDialog, view: authView } = useAuthDialog();
   const navigate = useNavigate();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const isDesktop = useIsDesktopWithReset(() => setIsFiltersOpen(false));
@@ -225,7 +229,27 @@ export function Planner({ shareCode }: PlannerProps) {
   };
 
   const canCollapse = viewOrder === "release";
-  const openShare = () => setIsShareDialogOpen(true);
+  // A guest is asked to sign in first (the sign-in dialog says why) and the share dialog opens after
+  // it; if the sign-in closes without one, nothing opens. Adjusted while rendering, not in an effect.
+  const [isAwaitingShare, setIsAwaitingShare] = useState(false);
+  const [previousUser, setPreviousUser] = useState(user);
+  const [previousAuthView, setPreviousAuthView] = useState(authView);
+  if (user !== previousUser) {
+    setPreviousUser(user);
+    if (user && isAwaitingShare) {
+      setIsShareDialogOpen(true);
+      setIsAwaitingShare(false);
+    }
+  }
+  if (authView !== previousAuthView) {
+    setPreviousAuthView(authView);
+    if (authView === null && !user && isAwaitingShare) setIsAwaitingShare(false);
+  }
+  const openShare = () => {
+    if (user) return setIsShareDialogOpen(true);
+    setIsAwaitingShare(true);
+    openAuthDialog("login", undefined, t("share.loginRequired"));
+  };
 
   const confirmReset = () => {
     setIsResetDialogOpen(false);
