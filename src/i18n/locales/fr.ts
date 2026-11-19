@@ -225,7 +225,6 @@ export const fr: Messages = {
     intro:
       "Toute personne qui a le lien voit votre nom de super-héros et les titres que vous avez vus. Aucune autre donnée de votre compte.",
     loginRequired: "Connectez-vous à votre compte pour partager votre planificateur.",
-    loginButton: "Se connecter",
     loading: "Chargement…",
     error: "Je ne peux pas gérer le lien pour le moment. Réessayez.",
     duration: "Validité du lien",
@@ -567,7 +566,7 @@ export const fr: Messages = {
     error: "Nous n'avons pas pu l'envoyer. Réessaie dans un instant.",
     rateTitle: "Un instant",
     rate: "Tu as envoyé trop de suggestions. Réessaie dans quelques minutes.",
-    guest: "Pour suggérer une correction, tu dois te connecter.",
+    guest: "Connecte-toi pour suggérer une correction.",
   },
   titleAlerts: {
     label: "Me prévenir par e-mail à sa sortie : {title}",

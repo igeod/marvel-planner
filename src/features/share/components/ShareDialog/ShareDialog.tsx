@@ -8,7 +8,6 @@ import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Progress } from "../../../planner/types";
 import { useAuth } from "../../../auth/hooks/useAuth";
-import { useAuthDialog } from "../../../auth/hooks/useAuthDialog";
 import { useShareLink } from "../../hooks/useShareLink";
 import { renderShareImage } from "../../utils/shareImage";
 import { shareUrl } from "../../utils/shareUrl";
@@ -231,28 +230,12 @@ function ShareManager({ name, progress }: { name: string; progress: Progress }) 
   );
 }
 
-function ShareContent({ progress, onClose }: { progress: Progress; onClose: () => void }) {
+function ShareContent({ progress }: { progress: Progress }) {
   const { t } = useI18n();
   const { user } = useAuth();
-  const { open } = useAuthDialog();
 
-  if (!user) {
-    return (
-      <div>
-        <p>{t("share.loginRequired")}</p>
-        <Button
-          variant="primary"
-          size="lg"
-          onClick={() => {
-            onClose();
-            open("login");
-          }}
-        >
-          {t("share.loginButton")}
-        </Button>
-      </div>
-    );
-  }
+  // Only an account can share: a guest is sent to the sign-in dialog before this one opens.
+  if (!user) return null;
 
   return (
     <>
@@ -273,7 +256,7 @@ export function ShareDialog({ isOpen, progress, onClose }: ShareDialogProps) {
 
   return (
     <Modal isOpen={isOpen} title={t("share.title")} onClose={onClose}>
-      <ShareContent progress={progress} onClose={onClose} />
+      <ShareContent progress={progress} />
     </Modal>
   );
 }

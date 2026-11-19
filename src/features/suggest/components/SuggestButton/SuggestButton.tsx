@@ -1,4 +1,5 @@
 import { MessageSquarePlus } from "lucide-react";
+import { Tooltip } from "../../../../components/ui/Tooltip/Tooltip";
 import { useI18n } from "../../../../i18n/useI18n";
 import { SECTION_KEYS } from "../../sectionKeys";
 import type { SuggestTarget } from "../../context/SuggestContext";
@@ -30,14 +31,19 @@ export function SuggestButton({ target, variant }: SuggestButtonProps) {
     );
   }
 
+  // The name already says what it is; the tooltip names the icon for the pointer and the keyboard.
   return (
-    <button
-      type="button"
-      className="spoiler-item__source"
-      aria-label={label}
-      onClick={() => open(target)}
-    >
-      <MessageSquarePlus aria-hidden />
-    </button>
+    <Tooltip content={t("suggest.title")}>
+      {() => (
+        <button
+          type="button"
+          className="spoiler-item__source"
+          aria-label={label}
+          onClick={() => open(target)}
+        >
+          <MessageSquarePlus aria-hidden />
+        </button>
+      )}
+    </Tooltip>
   );
 }

@@ -225,7 +225,6 @@ export const es: Messages = {
     intro:
       "Quien tenga el enlace ve tu nombre de superhéroe y los títulos que has visto. Ningún otro dato de tu cuenta.",
     loginRequired: "Inicia sesión en tu cuenta para compartir tu planificador.",
-    loginButton: "Iniciar sesión",
     loading: "Cargando…",
     error: "No puedo gestionar el enlace ahora mismo. Inténtalo de nuevo.",
     duration: "Validez del enlace",
@@ -565,7 +564,7 @@ export const es: Messages = {
     error: "No hemos podido enviarlo. Inténtalo de nuevo en un momento.",
     rateTitle: "Un momento",
     rate: "Has enviado demasiadas sugerencias. Inténtalo de nuevo en unos minutos.",
-    guest: "Para sugerir una corrección tienes que iniciar sesión.",
+    guest: "Inicia sesión para sugerir una corrección.",
   },
   titleAlerts: {
     label: "Avisarme por correo cuando salga: {title}",

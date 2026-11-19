@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useState, type ReactNode } from "react";
-import { Button } from "../../../components/ui/Button/Button";
 import { Modal } from "../../../components/ui/Modal/Modal";
 import { useI18n } from "../../../i18n/useI18n";
 import { useAuth } from "../../auth/hooks/useAuth";
@@ -32,33 +31,28 @@ export function SuggestProvider({ children }: { children: ReactNode }) {
     if (view === null && !user && awaiting) setAwaiting(null);
   }
 
-  const open = useCallback((next: SuggestTarget) => setTarget(next), []);
+  // A guest is sent to sign in; the form opens by itself afterwards.
+  const open = useCallback(
+    (next: SuggestTarget) => {
+      if (user) return setTarget(next);
+      setAwaiting(next);
+      openAuthDialog("login", undefined, t("suggest.guest"));
+    },
+    [user, openAuthDialog, t],
+  );
   const value = useMemo<SuggestContextValue>(() => ({ open }), [open]);
 
   return (
     <SuggestContext value={value}>
       {children}
-      <Modal isOpen={target !== null} title={t("suggest.title")} onClose={() => setTarget(null)}>
-        {target &&
-          (user ? (
-            <SuggestForm key={draftKey(target)} target={target} onDone={() => setTarget(null)} />
-          ) : (
-            <>
-              <p>{t("suggest.guest")}</p>
-              <div className="dialog__actions">
-                <Button
-                  variant="primary"
-                  onClick={() => {
-                    setAwaiting(target);
-                    setTarget(null);
-                    openAuthDialog("login");
-                  }}
-                >
-                  {t("nav.login")}
-                </Button>
-              </div>
-            </>
-          ))}
+      <Modal
+        isOpen={target !== null && user !== null}
+        title={t("suggest.title")}
+        onClose={() => setTarget(null)}
+      >
+        {target && user && (
+          <SuggestForm key={draftKey(target)} target={target} onDone={() => setTarget(null)} />
+        )}
       </Modal>
     </SuggestContext>
   );

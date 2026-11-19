@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, type ReactNode } from "react";
 
 export type AuthDialogView =
   | "login"
@@ -19,7 +19,10 @@ export interface AuthDialogPayload {
 export interface AuthDialogContextValue {
   view: AuthDialogView | null;
   payload: AuthDialogPayload;
-  open(view: AuthDialogView, payload?: AuthDialogPayload): void;
+  // Why the sign-in was asked ("Sign in to share your planner"): a line above the form, kept while
+  // the dialog moves between sign-in and sign-up, gone when it closes.
+  note: ReactNode | null;
+  open(view: AuthDialogView, payload?: AuthDialogPayload, note?: ReactNode): void;
   close(): void;
 }
 

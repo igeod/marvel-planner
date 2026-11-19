@@ -160,6 +160,14 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
         />
         {nameFormError && <FormError>{nameFormError}</FormError>}
         <div className="profile-section__actions" ref={nameActions}>
+          <Status tone="success" resultKey={nameAction.resultId}>
+            {nameAction.isDone ? t("account.profile.saved") : ""}
+          </Status>
+          {!hasChanges && (
+            <span id="profile-name-nothing" className="visually-hidden">
+              {t("account.profile.nothingToSave")}
+            </span>
+          )}
           <Button
             type="submit"
             variant="primary"
@@ -170,14 +178,6 @@ export function ProfileSection({ user, isActive }: ProfileSectionProps) {
           >
             {t("account.profile.save")}
           </Button>
-          {!hasChanges && (
-            <span id="profile-name-nothing" className="visually-hidden">
-              {t("account.profile.nothingToSave")}
-            </span>
-          )}
-          <Status tone="success" resultKey={nameAction.resultId}>
-            {nameAction.isDone ? t("account.profile.saved") : ""}
-          </Status>
         </div>
       </form>
       <hr className="profile__rule" />

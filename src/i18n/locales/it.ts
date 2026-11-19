@@ -223,7 +223,6 @@ export const it = {
     intro:
       "Chi ha il link vede il tuo nome da supereroe e i titoli che hai visto. Nessun altro dato del tuo account.",
     loginRequired: "Accedi al tuo account per condividere il tuo planner.",
-    loginButton: "Accedi",
     loading: "Caricamento…",
     error: "Non riesco a gestire il link in questo momento. Riprova.",
     duration: "Validità del link",
@@ -562,7 +561,7 @@ export const it = {
     error: "Non siamo riusciti a inviarlo. Riprova tra poco.",
     rateTitle: "Un momento",
     rate: "Hai inviato troppi suggerimenti. Riprova tra qualche minuto.",
-    guest: "Per suggerire una modifica devi accedere.",
+    guest: "Accedi per suggerire una modifica.",
   },
   titleAlerts: {
     label: "Avvisami via e-mail quando esce: {title}",

@@ -224,7 +224,6 @@ export const en: Messages = {
     intro:
       "Anyone with the link sees your superhero name and the titles you have watched. No other data from your account.",
     loginRequired: "Sign in to your account to share your planner.",
-    loginButton: "Sign in",
     loading: "Loading…",
     error: "I can't manage the link right now. Please try again.",
     duration: "Link validity",
@@ -562,7 +561,7 @@ export const en: Messages = {
     error: "We could not send it. Try again shortly.",
     rateTitle: "One moment",
     rate: "You have sent too many suggestions. Try again in a few minutes.",
-    guest: "To suggest a correction you need to sign in.",
+    guest: "Sign in to suggest a correction.",
   },
   titleAlerts: {
     label: "Email me when it is out: {title}",
