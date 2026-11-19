@@ -108,11 +108,8 @@ export const fr: Messages = {
       heading: "Ordre de visionnage",
       release: "Par sortie",
       chronological: "Chronologique",
-      chronologicalHeading: "Dans l'ordre chronologique",
-      chronologicalNote:
-        "Suit la chronologie de Disney+, rapportée par Wikipédia. Ce n'est pas un ordre officiel définitif : par exemple Loki, What If…? et Werewolf by Night n'ont pas de place fixe dans l'histoire.",
-      sourceLink: "Chronologie sur Wikipédia",
-      unplacedHeading: "Sans place chronologique",
+      chronologicalHeading: "Ordre chronologique",
+      unplacedHeading: "Sans place",
       unplacedNote:
         "Ces titres ne figurent pas dans la chronologie que nous utilisons comme source ; nous ne les plaçons donc pas au hasard.",
     },

@@ -2,6 +2,7 @@ import { useId } from "react";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { PhaseNumber, Saga } from "../../types";
 import { computeProgress } from "../../utils/progress";
+import { SagaHeader } from "./SagaHeader";
 import { PhaseSection } from "../PhaseSection/PhaseSection";
 
 interface SagaSectionProps {
@@ -30,14 +31,7 @@ export function SagaSection({
 
   return (
     <section className="saga" aria-labelledby={headingId}>
-      <div className="saga__header">
-        <h2 id={headingId} className="saga__title">
-          {t(`catalog.sagas.${saga.id}`)}
-        </h2>
-        <p className="saga__count muted">
-          {t("planner.watchedCount", { done: progress.done, total: progress.total })}
-        </p>
-      </div>
+      <SagaHeader headingId={headingId} title={t(`catalog.sagas.${saga.id}`)} progress={progress} />
       {saga.phases.map((phase) => (
         <PhaseSection
           key={phase.number}

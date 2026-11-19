@@ -258,6 +258,13 @@ dialog.menu-panel {
   animation: list-swap-in var(--dur-hover) var(--ease-out);
 }
 
+// Reduced motion: a change of order is only this fade of the list (the strip and the headers just change).
+@media (prefers-reduced-motion: reduce) {
+  .planner[data-order-swap] .planner__list {
+    animation: list-swap-in var(--dur-hover) var(--ease-out);
+  }
+}
+
 // Profile tab panel, unsaved banner and field errors fade in under reduced motion too (80ms);
 // their movement is added inside the no-preference block below.
 .profile__panel:not([hidden]) {
@@ -528,6 +535,30 @@ dialog.menu-panel {
 
     .film__cast {
       --i: 5;
+    }
+  }
+
+  // A change between the release and the chronological order (Planner sets data-order-swap for
+  // --dur-enter + two steps): strip, section headers, then the lists, top to bottom, 300ms in all.
+  // The rows come in as a block, one step for the whole list.
+  .planner[data-order-swap] {
+    > :is(.phase-strip, .phase-strip-accordion),
+    .saga__head,
+    .saga > :is(.title-list, .phase:not([data-motion])) {
+      animation: swap-in var(--dur-enter) var(--ease-out) backwards;
+      animation-delay: min(calc(var(--stagger-step) * var(--i, 0)), var(--stagger-max));
+    }
+
+    > :is(.phase-strip, .phase-strip-accordion) {
+      --i: 0;
+    }
+
+    .saga__head {
+      --i: 1;
+    }
+
+    .saga > :is(.title-list, .phase) {
+      --i: 2;
     }
   }
 

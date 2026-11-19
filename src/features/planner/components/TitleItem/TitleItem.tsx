@@ -6,7 +6,7 @@ import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { useI18n } from "../../../../i18n/useI18n";
 import { typeLabelKey } from "../../data/labels";
 import { TITLE_ALERTS_ENABLED } from "../../titleAlerts";
-import type { Title } from "../../types";
+import type { PhaseNumber, Title } from "../../types";
 import { formatRelease } from "../../utils/format";
 import { BeforeYouWatch } from "../BeforeYouWatch/BeforeYouWatch";
 import { MarkWatchedButton } from "../MarkWatchedButton/MarkWatchedButton";
@@ -25,9 +25,11 @@ interface TitleItemProps {
   isWatched: boolean;
   watched: ReadonlySet<string>;
   onToggle: (id: string) => void;
+  // Only in the chronological order, which has no phase headings: the phase goes in the meta line.
+  phase?: PhaseNumber;
 }
 
-export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProps) {
+export function TitleItem({ title, isWatched, watched, onToggle, phase }: TitleItemProps) {
   const i18n = useI18n();
   const { t } = i18n;
   const [hasBeenOpened, setHasBeenOpened] = useState(false);
@@ -67,7 +69,11 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
 
   // Not out yet: it cannot be marked, and it is said in words after the date, not in a chip.
   const isUpcoming = title.status === "upcoming";
-  const meta = [t(typeLabelKey(title.type, title.note)), formatRelease(title.release, i18n)]
+  const meta = [
+    t(typeLabelKey(title.type, title.note)),
+    formatRelease(title.release, i18n),
+    phase !== undefined && t("planner.strip.phase", { number: phase }),
+  ]
     .filter(Boolean)
     .join(", ");
 
@@ -120,7 +126,7 @@ export function TitleItem({ title, isWatched, watched, onToggle }: TitleItemProp
                 {meta}
                 {isUpcoming && (
                   <>
-                    <span aria-hidden="true"> · </span>
+                    {", "}
                     <span className="title-row__status">{t("planner.tags.upcoming")}</span>
                   </>
                 )}

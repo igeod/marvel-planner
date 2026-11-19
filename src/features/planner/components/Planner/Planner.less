@@ -43,6 +43,20 @@
   .desktop({ position: sticky; top: 16px; z-index: 10; max-height: calc(100dvh - 20px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 6px; margin: -6px; });
 }
 
+// Chronological order: its header has a small line under the title (the source), so the first row is
+// that much lower and the column starts level with it.
+.planner__body[data-order="chronological"] {
+  .desktop({
+    > .planner__rail {
+      margin-top: calc(@saga-header-height + 8px + var(--fs-caption) * 1.5);
+    }
+
+    .planner__list > .state-box {
+      margin-top: calc(@saga-header-height + 8px + var(--fs-caption) * 1.5);
+    }
+  });
+}
+
 .planner__list {
   display: flex;
   flex-direction: column;
