@@ -13,8 +13,8 @@ Il committente non capisce perché le due pagine si vedano **come una scheda (bo
 ## Evidenze trovate provando il sito (20 novembre 2026, `docs/AUDIT.md`)
 
 - **Posizione verticale incoerente** (P6): la 404 sta centrata, Privacy e Accessibilità in alto, con distanze dal header e dal footer diverse. Fissa una regola per le pagine di testo.
-- **Privacy** (P7, `privacy.*` in `src/i18n/locales/it.ts`): undici sezioni (`h2`) in una colonna lunga, nessun indice; la riga «Ultimo aggiornamento» sta subito sotto il titolo. Valuta un indice di ancore o altro modo di orientarsi. **Il testo non lo scrivi tu**: dopo il tuo disegno lo rivede Code con la skill di scrittura `scrittura-ux` (`docs/ux-writing-pack/`), poi lo rilegge il committente con un esperto. Disegna per testi **più brevi di oggi** (frasi corte, niente ripetizioni, titoli chiari).
-- **Accessibilità** (P8): oggi è un elenco di cinque paragrafi, l'ultimo dice «Stiamo ancora controllando lo zoom al 400%…» (superato: verificato a 320 px). Deve diventare una **dichiarazione di accessibilità**: livello di conformità dichiarato (WCAG 2.2 AA), data dell'ultima verifica, limiti noti, come segnalare un ostacolo (contatto), data di aggiornamento. Disegna con segnaposto realistici; i testi finali li riscrive Code con la skill `scrittura-ux` e li rivede il committente.
+- **Privacy** (P7, `privacy.*` in `src/i18n/locales/it.ts`): undici sezioni (`h2`) in una colonna lunga, nessun indice; la riga «Ultimo aggiornamento» sta subito sotto il titolo. Valuta un indice di ancore o altro modo di orientarsi. **I testi li riscrivi tu con la skill `scrittura-ux`** (vedi «Testi» sotto); il significato legale non cambia e ogni modifica va segnalata per la rilettura del committente con un esperto. Punta a testi **più brevi di oggi** (frasi corte, niente ripetizioni, titoli chiari).
+- **Accessibilità** (P8): oggi è un elenco di cinque paragrafi, l'ultimo dice «Stiamo ancora controllando lo zoom al 400%…» (superato: verificato a 320 px). Deve diventare una **dichiarazione di accessibilità**: livello di conformità dichiarato (WCAG 2.2 AA), data dell'ultima verifica, limiti noti, come segnalare un ostacolo (contatto), data di aggiornamento. Disegna con segnaposto realistici; i testi li scrivi tu con la skill `scrittura-ux` e li rivede il committente.
 - **Popup «Preferenze privacy»** (D2, D3 e altre): è già disegnato in `Popup generici.dc.html` («Impostazioni privacy (PrivacySettingsDialog)» e «Tabella dati (StorageTable.less)»), identico al codice com'è, compresi i difetti sotto. Il canvas **non ha una variante stretta** per la tabella.
   - l'introduzione («Questo sito non usa cookie…») e la sezione «Nessun consenso da dare» dicono la stessa cosa: tieni una sola voce;
   - «Questa pagina elenca tutto ciò che…» è un `h3` ma dovrebbe essere la didascalia della tabella (e dice «pagina» dentro un popup);
@@ -31,15 +31,17 @@ Il committente non capisce perché le due pagine si vedano **come una scheda (bo
 - WCAG 2.2 AA: bersagli da 44 px (`--hit`), focus sempre visibile (**mai anello rosso**), nessuna informazione solo nel colore, `prefers-reduced-motion`. **Contrasto forzato** (`src/styles/forced-colors.less`): disegna anche come si vede in contrasto forzato (schede senza sfondo hanno bisogno di un contorno).
 - CSP rigida: niente stili inline o risorse esterne. Icone solo Lucide, `aria-hidden`. Elementi nascosti con `hidden`.
 - Cinque lingue (it, en, fr, es, de), chiaro e scuro, 390 px e 1280 px; controlla anche 320 px (zoom 400%).
-- Nessun testo nuovo senza dirlo: se ti serve un testo (didascalia, etichetta dell'indice, «Aggiornato il…»), elencalo e Code lo traduce nelle cinque lingue.
+- Ogni testo nuovo o riscritto va nelle cinque lingue (it, en, fr, es, de) nelle pagine «Testi nelle 5 lingue» del canvas; Code poi lo copia in `src/i18n/locales` senza cambiarlo.
 
-## Testi: chi li scrive e come
+## Testi: li scrivi tu, con la skill `scrittura-ux`
 
-Le tre superfici (Accessibilità, Privacy, Preferenze privacy) passano **tutte** dalla skill `scrittura-ux` (revisione di lunghezza, chiarezza, ripetizioni, pulsanti, traduzioni en/fr/es/de non letterali). Succede **dopo** il tuo disegno, in una sessione Code, e prima della rilettura legale. Quindi:
+Le tre superfici (Accessibilità, Privacy, Preferenze privacy) vanno riscritte da **te** con la skill di scrittura che sta in `docs/ux-writing-pack/scrittura-ux/` (non serve installarla: leggi `SKILL.md`, `glossario.md` e, quando serve, le cartelle in `fonti/`; in alternativa installa lo zip `docs/ux-writing-pack/scrittura-ux.zip`). Le regole di `SKILL.md` vincono su quelle generiche delle fonti, che sono scritte per l'inglese.
 
-- usa testi segnaposto realistici ma **non definitivi**, e segnala dove ti aspetti che il testo cambi lunghezza;
-- progetta senza contare sulla lunghezza attuale (oggi la Privacy ha undici sezioni lunghe; il popup ripete lo stesso concetto due volte);
-- elenca i testi nuovi che ti servono (didascalie, etichette dell'indice, «Aggiornato il…»): li scrive Code.
+- Fai prima il **giro di revisione** del testo attuale (`it.ts`, chiavi `a11y.*`, `privacy.*`, `privacySettings.*`, `cookiePage.*`): per ogni testo un verdetto (tenere, accorciare, riscrivere, togliere, unire) con il motivo.
+- Poi scrivi i testi nuovi in italiano e nelle altre quattro lingue **dall'intento**, non per traduzione letterale, usando il glossario (`glossario.md`: completalo; il registro del francese, tu o vous, va deciso con il committente).
+- **Il significato legale non cambia**: si rende più chiaro, non si toglie né si aggiunge un obbligo. Segna ogni modifica di sostanza in una tabella «prima, dopo, perché» per la rilettura del committente e di un esperto.
+- Il disegno e i testi si decidono insieme: lunghezze e a capo dipendono dalle parole. Controlla fr e de a 320 e 390 px.
+- Code non riscrive niente: copia nei file di lingua ciò che consegni.
 
 ## Cosa deve uscire dal tuo lavoro
 
