@@ -2,11 +2,10 @@ import { useId, useState } from "react";
 import { LANGUAGE_NAMES } from "../../../../../shared/languages";
 import type { TitleDetails } from "../../../../../shared/titleDetails";
 import { useI18n } from "../../../../i18n/useI18n";
+import { LICENSE_URL } from "../../data/sources";
 import { MissingNote } from "../MissingNote/MissingNote";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 import { SpoilerBox } from "../../../../components/ui/SpoilerBox/SpoilerBox";
-
-const LICENSE_URL = "https://creativecommons.org/licenses/by-sa/4.0/";
 
 // The attribution Wikipedia's licence asks for, as a line that stays at the foot of the box while
 // the text scrolls (and is blurred with it while the spoiler is hidden).

@@ -55,7 +55,7 @@ function Columns({ phases }: { phases: StripPhase[] }) {
     <div className="phase-strip__columns" style={{ "--n": litCount } as CSSProperties}>
       {phases.map((phase) => (
         <div
-          key={phase.number}
+          key={phase.number ?? "all"}
           className={`phase-strip__phase phase-strip__phase--size-${phase.total}`}
         >
           <div className="phase-strip__cells" aria-hidden="true">
@@ -69,16 +69,18 @@ function Columns({ phases }: { phases: StripPhase[] }) {
               </span>
             ))}
           </div>
-          <p className="phase-strip__label">
-            <span className="phase-strip__name">
-              {t("planner.strip.phase", { number: phase.number })}
-            </span>
-            <span className="muted">
-              {phase.total > 0
-                ? t("common.ofCount", { done: phase.done, total: phase.total })
-                : t("planner.tags.upcoming")}
-            </span>
-          </p>
+          {phase.number !== undefined && (
+            <p className="phase-strip__label">
+              <span className="phase-strip__name">
+                {t("planner.strip.phase", { number: phase.number })}
+              </span>
+              <span className="muted">
+                {phase.total > 0
+                  ? t("common.ofCount", { done: phase.done, total: phase.total })
+                  : t("planner.tags.upcoming")}
+              </span>
+            </p>
+          )}
         </div>
       ))}
     </div>

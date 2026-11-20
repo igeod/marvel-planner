@@ -35,12 +35,29 @@
   .desktop({ grid-area: rail; align-self: stretch; margin-top: calc(@saga-header-height + 8px); });
 }
 
+// No overscroll-behavior: contain here. The panel scrolls only when the window is too short for it, but
+// as a scroll container it would swallow the wheel even when it has nothing to scroll, and the page
+// would stop under the pointer.
 .planner__rail-content {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 
-  .desktop({ position: sticky; top: 16px; z-index: 10; max-height: calc(100dvh - 20px); overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; padding: 6px; margin: -6px; });
+  .desktop({ position: sticky; top: 16px; z-index: 10; max-height: calc(100dvh - 20px); overflow-x: hidden; overflow-y: auto; padding: 6px; margin: -6px; });
+}
+
+// Chronological order: its header has a small line under the title (the source), so the first row is
+// that much lower and the column starts level with it.
+.planner__body[data-order="chronological"] {
+  .desktop({
+    > .planner__rail {
+      margin-top: calc(@saga-header-height + 8px + var(--fs-caption) * 1.5);
+    }
+
+    .planner__list > .state-box {
+      margin-top: calc(@saga-header-height + 8px + var(--fs-caption) * 1.5);
+    }
+  });
 }
 
 .planner__list {

@@ -1,27 +1,12 @@
 @import (reference) "mixins";
 
-.chrono {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.5rem;
-  .block();
-  background: var(--surface);
-
-  > h2,
-  > p {
-    padding: 0 0.75rem;
-  }
-
-  > h2 {
-    padding-top: 0.75rem;
-    font-size: var(--fs-h3);
-    font-weight: 800;
-  }
-}
-
+// The rows sit on a surface, as in the phases (.phase.card): their own fill (--row) is the colour of
+// the page in light mode, so without it they would not show.
 .title-list {
   display: flex;
   flex-direction: column;
   gap: var(--sp-1h);
+  padding: var(--pad-card);
+  border-radius: @radius-block;
+  background: var(--surface);
 }

@@ -105,11 +105,8 @@ export const it = {
       heading: "Ordine di visione",
       release: "Per uscita",
       chronological: "Cronologico",
-      chronologicalHeading: "In ordine cronologico",
-      chronologicalNote:
-        "Segue la linea temporale di Disney+, riportata da Wikipedia. Non è un ordine ufficiale definitivo: per esempio Loki, What If…? e Werewolf by Night non hanno una collocazione fissa nella storia.",
-      sourceLink: "Linea temporale su Wikipedia",
-      unplacedHeading: "Senza collocazione cronologica",
+      chronologicalHeading: "Ordine cronologico",
+      unplacedHeading: "Senza collocazione",
       unplacedNote:
         "Questi titoli non compaiono nella linea temporale che usiamo come fonte, quindi non li collochiamo a caso.",
     },

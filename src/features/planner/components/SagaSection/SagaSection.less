@@ -6,6 +6,20 @@
   gap: 0.5rem;
 }
 
+// The title row, and under it (only in the chronological order) a small line.
+.saga__head {
+  display: flex;
+  flex-direction: column;
+
+  .saga__header {
+    padding-bottom: var(--sp-1);
+  }
+}
+
+.saga__source {
+  font-size: var(--fs-caption);
+}
+
 .saga__header {
   display: flex;
   align-items: flex-end;

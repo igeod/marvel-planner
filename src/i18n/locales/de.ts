@@ -109,11 +109,8 @@ export const de: Messages = {
       heading: "Ansehreihenfolge",
       release: "Nach Erscheinen",
       chronological: "Chronologisch",
-      chronologicalHeading: "In chronologischer Reihenfolge",
-      chronologicalNote:
-        "Folgt der Disney+-Zeitleiste, wie sie Wikipedia wiedergibt. Sie ist keine endgültige offizielle Reihenfolge: Zum Beispiel haben Loki, What If…? und Werewolf by Night keinen festen Platz in der Handlung.",
-      sourceLink: "Zeitleiste auf Wikipedia",
-      unplacedHeading: "Ohne chronologische Einordnung",
+      chronologicalHeading: "Chronologische Reihenfolge",
+      unplacedHeading: "Ohne Einordnung",
       unplacedNote:
         "Diese Titel kommen in der Zeitleiste, die wir als Quelle nutzen, nicht vor; wir ordnen sie daher nicht willkürlich ein.",
     },

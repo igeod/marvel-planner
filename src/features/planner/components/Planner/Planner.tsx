@@ -18,6 +18,7 @@ import { useJumpToLastWatched } from "../../hooks/useJumpToLastWatched";
 import { useFloatingProgressVisibility } from "../../hooks/useFloatingProgressVisibility";
 import { useAuth } from "../../../auth/hooks/useAuth";
 import { useAuthDialog } from "../../../auth/hooks/useAuthDialog";
+import { readCssMs } from "../../../../lib/cssDuration";
 import { useResolvedCatalog } from "../../hooks/useResolvedCatalog";
 import { useWatched } from "../../hooks/useWatched";
 import type { Title } from "../../types";
@@ -32,9 +33,9 @@ import {
   normalizeQuery,
 } from "../../utils/filters";
 import { findNextTitle, findPhaseNumber } from "../../utils/nextTitle";
-import { chronologicalTitles, isViewOrder, titlesInOrder } from "../../utils/order";
+import { chronologicalTitles, isViewOrder, phaseByTitle, titlesInOrder } from "../../utils/order";
 import { computeProgress } from "../../utils/progress";
-import { buildPhaseStrip } from "../../utils/strip";
+import { buildChronologicalStrip, buildPhaseStrip } from "../../utils/strip";
 import { ChronologicalList } from "../ChronologicalList/ChronologicalList";
 import { CompactProgress } from "../CompactProgress/CompactProgress";
 import { CollapseToggle } from "../CollapseToggle/CollapseToggle";
@@ -81,6 +82,20 @@ export function Planner({ shareCode }: PlannerProps) {
   const progressRef = useRef<HTMLParagraphElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
   const previousListKeyRef = useRef<string | null>(null);
+  const previousOrderRef = useRef(viewOrder);
+  // A change of order (not the stored one loading, not a filter) plays its own entrance for a moment.
+  const [previousOrder, setPreviousOrder] = useState(viewOrder);
+  const [isOrderSwap, setIsOrderSwap] = useState(false);
+  if (viewOrder !== previousOrder) {
+    setPreviousOrder(viewOrder);
+    setIsOrderSwap(true);
+  }
+  useEffect(() => {
+    if (!isOrderSwap) return;
+    const duration = readCssMs("--dur-enter", 240) + 2 * readCssMs("--stagger-step", 30);
+    const timer = window.setTimeout(() => setIsOrderSwap(false), duration);
+    return () => window.clearTimeout(timer);
+  }, [isOrderSwap]);
   const [isBulkToggle, setIsBulkToggle] = useState(false);
 
   const [query, setQuery] = useState("");
@@ -152,10 +167,19 @@ export function Planner({ shareCode }: PlannerProps) {
       label,
     );
   const nextTitle = findNextTitle(titlesInOrder(catalog, viewOrder), watched);
+  // By phase for the release order, one column in the order of the list for the chronological one.
   const strip = useMemo(
-    () => buildPhaseStrip(catalog, watched, nextTitle?.id ?? null),
-    [catalog, watched, nextTitle?.id],
+    () =>
+      viewOrder === "release"
+        ? buildPhaseStrip(catalog, watched, nextTitle?.id ?? null)
+        : buildChronologicalStrip(
+            titlesInOrder(catalog, "chronological"),
+            watched,
+            nextTitle?.id ?? null,
+          ),
+    [catalog, viewOrder, watched, nextTitle?.id],
   );
+  const phaseOf = useMemo(() => phaseByTitle(catalog), [catalog]);
   const chronological = useMemo(() => {
     const { placed, unplaced } = chronologicalTitles(catalog);
     const isShown = (title: Title) => matchesFilters(title, filters) && matchesQuery(title, needle);
@@ -193,11 +217,15 @@ export function Planner({ shareCode }: PlannerProps) {
     const list = listRef.current;
     const previous = previousListKeyRef.current;
     previousListKeyRef.current = listKey;
+    const previousOrderValue = previousOrderRef.current;
+    previousOrderRef.current = viewOrder;
     if (!list || previous === null || previous === listKey) return;
+    // A change of order has its own entrance (data-order-swap): not two fades on top of each other.
+    if (previousOrderValue !== viewOrder) return;
     list.classList.remove("planner__list--swap");
     void list.offsetWidth;
     list.classList.add("planner__list--swap");
-  }, [listKey]);
+  }, [listKey, viewOrder]);
 
   // The flag marks Collapse all / Expand all: no height animation, only the 30ms phase stagger.
   // The phase under the middle of the screen (or the nearest) is the anchor: its row stays where it
@@ -264,7 +292,7 @@ export function Planner({ shareCode }: PlannerProps) {
   };
 
   return (
-    <div className="planner">
+    <div className="planner" data-order-swap={isOrderSwap || undefined}>
       <div className="planner__hero">
         <PlannerSummary
           progress={overall}
@@ -287,7 +315,7 @@ export function Planner({ shareCode }: PlannerProps) {
 
       <PhaseStrip phases={strip} isCollapsible={!isDesktop} />
 
-      <div className="planner__body">
+      <div className="planner__body" data-order={viewOrder}>
         {isDesktop ? (
           <>
             <div className="planner__rail">
@@ -373,6 +401,7 @@ export function Planner({ shareCode }: PlannerProps) {
             <ChronologicalList
               placed={chronological.placed}
               unplaced={chronological.unplaced}
+              phaseOf={phaseOf}
               watched={watched}
               onToggleTitle={toggleTitle}
             />
