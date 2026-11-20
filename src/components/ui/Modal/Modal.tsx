@@ -1,8 +1,10 @@
 import { X } from "lucide-react";
-import { useEffect, useId, type ReactNode } from "react";
+import { useCallback, useEffect, useId, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { useI18n } from "../../../i18n/useI18n";
 import { useDialog } from "../useDialog";
+import { SHEET_QUERY, useMediaQuery } from "../useMediaQuery";
+import { useSheetDrag } from "../useSheetDrag";
 
 interface ModalProps {
   isOpen: boolean;
@@ -36,6 +38,15 @@ export function Modal({
   const titleId = ownTitleId ?? generatedId;
   // The profile dialog draws its own header.
   const isBare = size === "profile";
+
+  // The bottom sheet (the handle at the top) follows the finger: a downward drag from the header, or
+  // from content scrolled to the top, does what Esc does. The profile dialog does this itself.
+  const isSheet = useMediaQuery(SHEET_QUERY);
+  useSheetDrag(
+    useCallback(() => dialogRef.current, [dialogRef]),
+    onClose,
+    isOpen && isSheet && !isBare,
+  );
 
   // Focus starts on the dialog itself, not on its first control.
   useEffect(() => {

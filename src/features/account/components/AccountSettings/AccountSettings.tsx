@@ -13,7 +13,7 @@ import {
 } from "react";
 import { Link } from "react-router";
 import { PATHS } from "../../../../app/paths";
-import { useMediaQuery } from "../../../../components/ui/useMediaQuery";
+import { SHEET_QUERY, useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -32,7 +32,6 @@ import { ProgressStatsSection } from "../ProgressStatsSection/ProgressStatsSecti
 
 export const PROFILE_TITLE_ID = "profile-title";
 
-const SHEET_QUERY = "(max-width: 39.9375em)";
 // Space kept between a focused field and the edge of the visible area.
 const FIELD_MARGIN = 16;
 const FIELD_SCROLL_DELAY = 250;

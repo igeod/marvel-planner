@@ -1,6 +1,8 @@
 import { useCallback, useState, useSyncExternalStore } from "react";
 
 export const TABLET_QUERY = "(min-width: 48em)";
+// Below this width popups are bottom sheets (same breakpoint as Modal.less).
+export const SHEET_QUERY = "(max-width: 39.9375em)";
 const DESKTOP_QUERY = "(min-width: 64em)";
 
 export function useMediaQuery(query: string): boolean {
