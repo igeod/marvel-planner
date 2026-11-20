@@ -1,38 +1,45 @@
-@import (reference) "mixins";
+.storage-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
 
-.storage-table {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0 4px;
+.storage-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-1h);
+  padding: var(--sp-3h) var(--sp-4);
+  // Only visible in forced-colors mode, where the background is dropped.
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: var(--row);
   font-size: var(--fs-label);
 
-  th,
-  td {
-    padding: var(--sp-2h) 0.75rem;
-    text-align: left;
-    vertical-align: top;
+  p {
+    margin: 0;
   }
 
-  thead th {
+  dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 2px var(--sp-3);
+    margin: var(--sp-1) 0 0;
     color: var(--ink-2);
   }
 
-  tbody tr {
-    background: var(--row-hover);
+  dl > div {
+    display: contents;
   }
 
-  tbody th {
-    border-radius: @radius-sub 0 0 @radius-sub;
-    overflow-wrap: anywhere;
+  dd {
+    margin: 0;
   }
+}
 
-  tbody td:last-child {
-    border-radius: 0 @radius-sub @radius-sub 0;
-  }
-
-  caption {
-    padding-bottom: 0.5rem;
-    text-align: left;
-    font-weight: 700;
-  }
+.storage-card__name {
+  font-weight: 700;
+  overflow-wrap: break-word;
 }

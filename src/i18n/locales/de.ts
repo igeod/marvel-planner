@@ -18,8 +18,8 @@ export const de: Messages = {
     accessibility: "Barrierefreiheit",
     cookies: "Cookies",
     privacySettings: "Datenschutzeinstellungen",
-    credits: "Verfügbarkeitsdaten: {justwatch}. Handlungen: {wikipedia}, {license}.",
-    creditsLicense: "Lizenz CC BY-SA 4.0",
+    version: "Version {version}",
+    copyright: "© {year} Marvel Planner",
     coffee: "Wenn ich dir weitergeholfen habe, spendier mir einen Kaffee",
     fonts: "Schriften Anton und Hanken Grotesk, {license}.",
     fontsLicense: "SIL-OFL-1.1-Lizenz",
@@ -605,9 +605,35 @@ export const de: Messages = {
     warning: "Achtung: Die Szenen enthalten Spoiler.",
   },
   a11y: {
-    title: "Barrierefreiheit",
+    title: "Erklärung zur Barrierefreiheit",
     intro:
-      "Marvel Planner lässt sich mit Tastatur, Screenreader und Zoom bedienen. Hier steht, wie – und was noch fehlt.",
+      "Marvel Planner lässt sich mit Tastatur, Screenreader und Zoom nutzen. Hier siehst du, wo wir stehen.",
+    conformance: {
+      heading: "Konformitätsstatus",
+      standardLabel: "Standard",
+      standard: "WCAG 2.2, Stufe AA",
+      statusLabel: "Stand",
+      status: "Teilweise konform: siehe bekannte Einschränkungen",
+      checkedLabel: "Geprüft am",
+      howLabel: "Methode",
+      how: "Tastaturtests, 400 % Zoom, automatische Prüfung (axe) und manuelle Tests in Chromium und WebKit. Noch nicht mit einem echten Screenreader.",
+    },
+    use: {
+      heading: "Was du nutzen kannst",
+    },
+    limits: {
+      heading: "Bekannte Einschränkungen",
+      contrast:
+        "Bei erzwungenen Farben in Windows verlieren Schaltflächen und der Phasenstreifen ihre Form: Man kann sie lesen, sie sehen aber wie normaler Text aus. Wir arbeiten daran.",
+      title:
+        "Wenn der Dienst für die Titeldaten nicht antwortet, hat die Seite eines Titels keine Seitenüberschrift.",
+      screenReader:
+        "Wir haben die Seite noch nicht mit einem echten Screenreader getestet (NVDA, VoiceOver).",
+    },
+    report: {
+      heading: "Ein Hindernis melden",
+      body: "Wenn du auf ein Hindernis stößt, sag uns, welche Seite, was du gerade getan hast und welches Hilfsmittel du nutzt.",
+    },
     vision: {
       heading: "Bei Sehbeeinträchtigung",
       body: "Du kannst das helle oder dunkle Design wählen oder dem System folgen (Menü oben). Jeder Zustand hat ein Symbol oder einen Text, nicht nur eine Farbe. Bedienelemente haben einen gut sichtbaren Fokusrahmen.",
@@ -624,21 +650,14 @@ export const de: Messages = {
       heading: "Tastatur",
       body: "Tab zum Bewegen, Enter oder Leertaste zum Aktivieren, Esc zum Schließen von Fenstern und Meldungen. Beim ersten Tab erscheint „Zum Inhalt springen“.",
     },
-    missing: {
-      heading: "Was noch fehlt",
-      body: "Wir prüfen noch 400 % Zoom und den Modus für erzwungenen Kontrast. Wenn du auf eine Barriere stößt, sag uns Bescheid.",
-    },
   },
   cookiePage: {
-    intro: "Diese Seite listet alles auf, was die Seite auf deinem Gerät speichert.",
     noBannerHeading: "Nichts, dem du zustimmen musst",
     noBannerBody:
-      "Die Seite verwendet nur technische Mittel, die für den von dir gewünschten Dienst nötig sind (Anmeldung, Sprache, Fortschritt, Filter). Dafür verlangt das Recht weder eine Einwilligung noch ein Banner. Wir setzen keine Analyse-, Werbe- oder Profiling-Cookies ein und laden keine Ressourcen von Dritten, außer dem Trailer-Video, das nur von YouTube geladen wird, wenn du auf „Trailer abspielen“ klickst: Sollte sich das ändern, fragen wir vorher nach deiner Einwilligung.",
+      "Wir nutzen nur technische Mittel, die für den gewünschten Dienst nötig sind: Anmeldung, Sprache, Fortschritt, Filter. Dafür verlangt das Recht weder Einwilligung noch Banner. Wir setzen keine Analyse-, Werbe- oder Profiling-Cookies ein. Die einzige Ressource von Dritten ist das Trailer-Video: YouTube lädt es nur, wenn du auf „Trailer abspielen“ klickst. Sollte sich das ändern, fragen wir vorher nach deiner Einwilligung.",
     tableCaption: "Cookies und im Browser gespeicherte Daten",
     columns: {
-      name: "Name",
       kind: "Art",
-      purpose: "Zweck",
       duration: "Dauer",
     },
     session: {
@@ -691,22 +710,25 @@ export const de: Messages = {
       purpose: "Merkt sich, welche Planer-Phasen du eingeklappt hast.",
       duration: "Bis du ihn löschst",
     },
-    manageHeading: "So verwaltest du sie",
-    manageBody:
-      "Die auf diesem Gerät gespeicherten Daten kannst du unter „Datenschutzeinstellungen“ oder in den Browsereinstellungen löschen. Das Sitzungs-Cookie wird beim Abmelden entfernt.",
   },
   privacySettings: {
     title: "Datenschutzeinstellungen",
-    intro:
-      "Diese Seite verwendet keine Analyse-, Werbe- oder Profiling-Cookies und lädt keine Ressourcen von Dritten, außer dem Trailer-Video, das nur von YouTube geladen wird, wenn du auf „Trailer abspielen“ klickst: Es gibt nichts zu akzeptieren oder abzulehnen.",
     clearHeading: "Daten auf diesem Gerät",
     clearBody:
-      "Löscht den Fortschritt (wenn du kein Konto hast), die Sprache und die Filter, die in diesem Browser gespeichert sind. Du wirst dabei nicht abgemeldet.",
+      "Löscht den Fortschritt (wenn du kein Konto hast), die Sprache und die Filter, die in diesem Browser gespeichert sind. Du bleibst angemeldet: Das Sitzungs-Cookie wird erst beim Abmelden entfernt. Du kannst die Daten auch in den Browsereinstellungen löschen.",
     clearButton: "Daten dieses Geräts löschen",
-    clearQuestion: "Die auf diesem Gerät gespeicherten Daten wirklich löschen?",
-    clearConfirm: "Ja, löschen",
+    clearQuestion:
+      "Daten dieses Geräts löschen? Ohne Konto lässt sich der Fortschritt nicht wiederherstellen. Die Seite wird neu geladen.",
+    clearConfirm: "Daten löschen",
   },
   admin: {
+    summary: {
+      heading: "Zu erledigen",
+      candidates: "Neue Titel zu prüfen",
+      dates: "Daten zu prüfen",
+      suggestions: "Vorschläge zu lesen",
+      none: "Nichts zu tun",
+    },
     heading: "Neue Titel auf TMDB zur Prüfung",
     intro:
       "TMDB führt diese Marvel-Titel, die nicht im Katalog stehen. Füge sie hinzu oder blende sie aus.",
@@ -732,7 +754,7 @@ export const de: Messages = {
     todo: {
       heading: "Inhalte zu ergänzen",
       intro:
-        "Für jeden erschienenen Titel: was er hat und was fehlt. Hier werden keine Texte geschrieben: Vorlage kopieren und im Code ausfüllen.",
+        "Die Inhalte werden im Code geschrieben. Hier siehst du, was fehlt, und kopierst die Vorlage zum Ausfüllen.",
       summary: "{count} Titel zu ergänzen von {total} erschienenen",
       filterLegend: "Anzeigen",
       filterTodo: "Zu ergänzen ({count})",
@@ -843,7 +865,7 @@ export const de: Messages = {
         error: "Die Suche ist fehlgeschlagen: Die Liste kann unvollständig sein.",
         late: "Die Suche lief seit über 8 Tagen nicht: Die Liste kann unvollständig sein.",
         never: "Die Suche wurde noch nicht ausgeführt: Die Liste kann unvollständig sein.",
-        noToken: "TMDB-Token fehlt: Die Suche kann nicht laufen.",
+        noToken: "Suche gestoppt: siehe Status der Website.",
       },
       generate: "Code anzeigen",
       hideCode: "Code ausblenden",
@@ -881,21 +903,21 @@ export const de: Messages = {
       heading: "Welche Daten wir verarbeiten",
       accountLabel: "Kontodaten",
       accountText:
-        "Superheldenname (ein ausgedachter Spitzname: Deinen echten Namen verlangen wir nicht), E-Mail und Passwort. Das Passwort wird nur verschlüsselt (Hash) gespeichert und ist nie lesbar.",
+        "Superheldenname (ein ausgedachter Spitzname, nicht dein echter Name), E-Mail und Passwort. Das Passwort wird nur verschlüsselt (Hash) gespeichert: Niemand kann es lesen.",
       progressLabel: "Fortschritt",
       progressText: "die Titel, die du als gesehen markierst, und das Datum der Markierung.",
       technicalLabel: "Technische Daten",
       technicalText:
-        "IP-Adresse und Browsertyp, die den Anmeldesitzungen zugeordnet sind, sowie Zähler zur Begrenzung wiederholter Anmeldeversuche.",
+        "IP-Adresse und Browsertyp der Anmeldesitzungen sowie Zähler, die wiederholte Anmeldeversuche begrenzen.",
       deviceLabel: "Auf deinem Gerät",
       deviceText:
-        "ohne Konto bleibt dein Fortschritt nur in deinem Browser (localStorage) gespeichert und wird nicht an uns übermittelt. Die gewählte Sprache und die Filter werden auf dieselbe Weise gemerkt. Du kannst diese Daten jederzeit unter „Datenschutzeinstellungen“ löschen.",
+        "ohne Konto bleiben dein Fortschritt, die Sprache und die Filter nur in deinem Browser (localStorage) und werden nicht an uns übermittelt. Du kannst sie jederzeit unter {link} löschen.",
       shareLabel: "Teilen",
       shareText:
-        "wenn du das Teilen aktivierst, sind dein Superheldenname und die Titel, die du gesehen hast, für alle mit dem Link sichtbar – bis zum gewählten Ablauf oder bis du ihn deaktivierst. Der Link enthält einen zufälligen Code, nicht deine Kennung.",
+        "wenn du das Teilen aktivierst, sehen alle mit dem Link deinen Superheldennamen und die Titel, die du gesehen hast – bis zum gewählten Ablauf oder bis du es deaktivierst. Der Link enthält einen zufälligen Code, nicht deine Kennung.",
       suggestionsLabel: "Vorschläge",
       suggestionsText:
-        "Wenn du einen Korrekturvorschlag sendest, speichern wir den Text, den du schreibst (es ist freier Text: schreibe keine personenbezogenen Daten), den Film und den Teil der Seite, auf den er sich bezieht, das Datum und deinen Superheldennamen, nur für uns sichtbar. Sie werden zusammen mit dem Konto gelöscht.",
+        "wenn du einen Vorschlag sendest, speichern wir den Text, den du schreibst (es ist freier Text: schreibe keine personenbezogenen Daten), den Titel und den Teil der Seite, auf den er sich bezieht, das Datum und deinen Superheldennamen. Nur wir sehen sie, und sie werden mit deinem Konto gelöscht.",
     },
     purposes: {
       heading: "Warum wir sie verarbeiten",
@@ -910,25 +932,24 @@ export const de: Messages = {
     },
     cookies: {
       heading: "Cookies und lokaler Speicher",
-      body: "Wir verwenden nur technische Cookies, die für den Betrieb nötig sind: ein Sitzungs-Cookie, das dich angemeldet hält. Wir setzen keine Analyse-, Werbe- oder Profiling-Cookies und keine Cookies von Dritten ein (außer solchen, die YouTube setzen kann, wenn du einen Trailer startest), daher ist keine Einwilligung erforderlich (Art. 122 des italienischen Datenschutzkodex, ePrivacy-Richtlinie und Leitlinien des Garante vom 10. Juni 2021). Die vollständige Liste findest du im {link}.",
-      link: "Fenster „Datenschutzeinstellungen“",
+      body: "Wir verwenden nur technische Cookies, die für den Betrieb nötig sind: ein Sitzungs-Cookie, das dich angemeldet hält. Wir setzen keine Analyse-, Werbe- oder Profiling-Cookies und keine Cookies von Dritten ein, außer solchen, die YouTube setzen kann, wenn du einen Trailer startest. Deshalb ist keine Einwilligung nötig (Art. 122 des italienischen Datenschutzkodex, ePrivacy-Richtlinie und Leitlinien des Garante vom 10. Juni 2021). Die vollständige Liste findest du unter {link}.",
     },
     providers: {
       heading: "Wo sie gespeichert werden und wer sie verarbeitet",
-      body: "Die Seite und die Datenbank werden von Cloudflare gehostet, die Datenbank befindet sich in Westeuropa; Cloudflare handelt als Auftragsverarbeiter. Die Informationen zu den Titeln (Kurzbeschreibungen, Handlungen, Besetzung, Poster und Hintergrundbilder) fragt unser Server bei TMDB, Wikipedia und Wikidata ab: Dein Browser kontaktiert diese Dienste nie direkt und übermittelt ihnen daher deine IP-Adresse nicht. Cloudflare hat seinen Sitz in den Vereinigten Staaten: Einige Daten können außerhalb der Europäischen Union übermittelt werden, unter Einhaltung der von der DSGVO vorgesehenen Garantien (EU-US Data Privacy Framework und Standardvertragsklauseln).",
+      body: "Die Seite und die Datenbank werden von Cloudflare gehostet, die Datenbank steht in Westeuropa. Cloudflare ist unser Auftragsverarbeiter. Unser Server fragt die Informationen zu den Titeln (Kurzbeschreibungen, Handlungen, Besetzung, Poster, Hintergrundbilder) bei TMDB, Wikipedia und Wikidata ab: Dein Browser kontaktiert diese Dienste nie und übermittelt ihnen daher deine IP-Adresse nicht. Cloudflare hat seinen Sitz in den Vereinigten Staaten: Einige Daten können die Europäische Union verlassen, mit den Garantien der DSGVO (EU-US Data Privacy Framework und Standardvertragsklauseln).",
     },
     retention: {
       heading: "Wie lange wir sie speichern",
-      body: "Wir speichern deine Kontodaten, solange dein Konto besteht. Sitzungen laufen nach 7 Tagen ab, abgelaufene werden täglich gelöscht; die Zähler gegen wiederholte Anmeldeversuche werden nach einem Tag gelöscht; von Dritten erhaltene Titelinformationen bleiben höchstens 90 Tage im Cache. Wenn du dein Konto löschst, werden Superheldenname, E-Mail, Fortschritt und Sitzungen sofort gelöscht; eventuelle technische Sicherungskopien werden innerhalb von 30 Tagen überschrieben. Abgelaufene Freigabelinks werden täglich gelöscht.",
+      body: "Wir speichern deine Kontodaten, solange dein Konto besteht. Sitzungen laufen nach 7 Tagen ab; abgelaufene Sitzungen und abgelaufene Freigabelinks werden täglich gelöscht. Die Zähler gegen wiederholte Anmeldeversuche werden nach einem Tag gelöscht. Von Dritten erhaltene Titelinformationen bleiben höchstens 90 Tage im Cache. Wenn du dein Konto löschst, werden Superheldenname, E-Mail, Fortschritt und Sitzungen sofort gelöscht; technische Sicherungskopien werden innerhalb von 30 Tagen überschrieben.",
     },
     rights: {
       heading: "Deine Rechte",
-      body: "Du kannst jederzeit Auskunft, Berichtigung, Löschung, Einschränkung oder Übertragbarkeit deiner Daten verlangen oder der Verarbeitung widersprechen, indem du an {email} schreibst. Auf der Seite {account} kannst du deinen Superheldennamen ändern, deine Daten als JSON herunterladen und dein Konto löschen. Wir treffen keine Entscheidungen auf Grundlage automatisierter Verarbeitung. Außerdem hast du das Recht, bei der italienischen Datenschutzbehörde, dem Garante, Beschwerde einzulegen ({garante}).",
+      body: "Du kannst jederzeit Auskunft, Berichtigung, Löschung, Einschränkung oder Übertragbarkeit deiner Daten verlangen oder der Verarbeitung widersprechen, indem du an {email} schreibst. {account}: Dort kannst du deinen Superheldennamen ändern, deine Daten als JSON herunterladen und dein Konto löschen. Wir treffen keine Entscheidungen auf Grundlage automatisierter Verarbeitung. Du kannst außerdem bei der italienischen Datenschutzbehörde, dem Garante, Beschwerde einlegen ({garante}).",
       accountLink: "Dein Konto",
     },
     other: {
       heading: "Andere Rechtsordnungen",
-      body: "Wir verkaufen oder teilen deine personenbezogenen Daten nicht für zielgerichtete Werbung oder andere kommerzielle Zwecke. Dieselben Schutzmaßnahmen gelten für Personen, die die Seite von außerhalb der Europäischen Union nutzen (zum Beispiel in Kalifornien, im Vereinigten Königreich oder in Brasilien): Du kannst dieselben Rechte ausüben, indem du an {email} schreibst.",
+      body: "Wir verkaufen oder teilen deine personenbezogenen Daten nicht für zielgerichtete Werbung oder andere kommerzielle Zwecke. Dieselben Schutzmaßnahmen gelten außerhalb der Europäischen Union (zum Beispiel in Kalifornien, im Vereinigten Königreich oder in Brasilien): Du kannst dieselben Rechte ausüben, indem du an {email} schreibst.",
     },
     minors: {
       heading: "Minderjährige",
@@ -936,7 +957,7 @@ export const de: Messages = {
     },
     changes: {
       heading: "Änderungen",
-      body: "Änderungen dieser Erklärung werden auf dieser Seite veröffentlicht, mit dem oben angegebenen Aktualisierungsdatum.",
+      body: "Wenn sich etwas ändert, veröffentlichen wir es hier und aktualisieren oben das Datum.",
     },
   },
 };

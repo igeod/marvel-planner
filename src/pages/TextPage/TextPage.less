@@ -1,0 +1,158 @@
+@import (reference) "mixins";
+
+// Privacy and Accessibility: a saga-style header, one numbered card per section.
+.text-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  max-width: 36rem;
+  margin: 0 auto;
+}
+
+.text-head {
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-2) 0 var(--sp-1);
+
+  h1 {
+    margin: var(--sp-1) 0 0;
+    .display-font();
+    font-size: var(--fs-h1-sm);
+    line-height: 1.05;
+    overflow-wrap: break-word;
+    hyphens: auto;
+
+    .desktop({ font-size: var(--fs-xl); });
+  }
+}
+
+.text-head__kicker {
+  margin: 0;
+  font-size: var(--fs-label);
+  font-weight: 700;
+}
+
+.text-head__meta {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-label);
+}
+
+.text-head__intro {
+  margin: var(--sp-3) 0 0;
+}
+
+.text-page__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  min-width: 0;
+}
+
+.text-section {
+  .desktop({ padding: 2rem; });
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    margin: 0 0 var(--sp-3);
+    font-size: var(--fs-h3);
+    font-weight: 800;
+    line-height: 1.2;
+    scroll-margin-top: var(--sp-4);
+  }
+
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-1h);
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  p + p,
+  ul + p,
+  p + ul,
+  p + .text-page__facts {
+    margin-top: var(--sp-3);
+  }
+}
+
+.text-section__n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--r-pill);
+  background: var(--panel);
+  color: var(--highlight);
+  .display-font();
+  font-size: var(--fs-title);
+  text-transform: none;
+}
+
+.text-section__n--ink {
+  background: var(--ink-static);
+  color: var(--highlight);
+}
+
+.text-page__facts {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  margin: 0;
+  padding: var(--sp-4);
+  border: 1px solid transparent;
+  border-radius: var(--r-sm);
+  background: var(--row);
+
+  dt {
+    font-size: var(--fs-label);
+    color: var(--ink-2);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  @media (min-width: 40em) {
+    > div {
+      display: grid;
+      grid-template-columns: 7rem 1fr;
+      gap: var(--sp-3);
+    }
+  }
+}
+
+// The yellow of "Share your planner", but straight.
+.text-ticket {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-3);
+  padding: var(--sp-6);
+  border-radius: var(--r-md);
+  background: var(--highlight);
+  color: var(--ink-static);
+
+  .desktop({ padding: 2rem; });
+
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-3);
+    margin: 0;
+    .display-font();
+    font-size: var(--fs-h2);
+    line-height: 0.95;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .btn {
+    max-width: 100%;
+  }
+}

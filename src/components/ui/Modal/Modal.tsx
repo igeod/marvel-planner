@@ -5,6 +5,7 @@ import { useI18n } from "../../../i18n/useI18n";
 import { useDialog } from "../useDialog";
 import { SHEET_QUERY, useMediaQuery } from "../useMediaQuery";
 import { useSheetDrag } from "../useSheetDrag";
+import { useViewportHeight } from "../useViewportHeight";
 
 interface ModalProps {
   isOpen: boolean;
@@ -42,11 +43,9 @@ export function Modal({
   // The bottom sheet (the handle at the top) follows the finger: a downward drag from the header, or
   // from content scrolled to the top, does what Esc does. The profile dialog does this itself.
   const isSheet = useMediaQuery(SHEET_QUERY);
-  useSheetDrag(
-    useCallback(() => dialogRef.current, [dialogRef]),
-    onClose,
-    isOpen && isSheet && !isBare,
-  );
+  const getDialog = useCallback(() => dialogRef.current, [dialogRef]);
+  useSheetDrag(getDialog, onClose, isOpen && isSheet && !isBare);
+  useViewportHeight(getDialog, isOpen && isSheet && !isBare);
 
   // Focus starts on the dialog itself, not on its first control.
   useEffect(() => {

@@ -7,6 +7,9 @@
 
   .wordmark {
     color: var(--accent-hover);
+
+    // Only the header logo is a link; the footer one is not.
+    .on-hover({ color: var(--primary-hover); });
   }
 
   :focus-visible {
@@ -56,8 +59,6 @@
   line-height: 1;
   text-decoration: none;
   transition: color var(--dur-hover) var(--ease-out);
-
-  .on-hover({ color: var(--primary-hover); });
 
   @media (prefers-reduced-motion: no-preference) {
     transition:

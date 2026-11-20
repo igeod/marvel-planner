@@ -202,7 +202,13 @@ export function ImportSharedDialog(props: ImportSharedDialogProps) {
   const { t } = useI18n();
 
   return (
-    <Modal isOpen title={t("import.title")} showClose={false} onClose={props.onClose}>
+    <Modal
+      isOpen
+      title={t("import.title")}
+      showClose={false}
+      // Esc, backdrop and drag do not close while the import is in flight.
+      onClose={() => !props.isLoading && props.onClose()}
+    >
       <ImportContent {...props} />
     </Modal>
   );

@@ -8,6 +8,7 @@ import { todayIso } from "../../../planner/utils/releases";
 import type { TranslationKey } from "../../../../i18n/types";
 import { tmdbUrl } from "../../services/adminService";
 import { searchReliability, type SearchReliability } from "../../utils/jobStatus";
+import { AdminQueue } from "../AdminQueue/AdminQueue";
 
 const COPIED_MS = 2000;
 
@@ -201,10 +202,9 @@ export function CandidatesSection({
 }: CandidatesSectionProps) {
   const { t } = useI18n();
   const { hash } = useLocation();
-  const headingId = useId();
   const emptyId = useId();
   const isEmpty = candidates.length === 0;
-  const sectionRef = useRef<HTMLElement>(null);
+  const sectionRef = useRef<HTMLDetailsElement>(null);
   const headingNode = useRef<HTMLHeadingElement | null>(null);
   const [announcement, setAnnouncement] = useState("");
   // Where the focus goes once the dismissed row has left the list: the next row's copy button, or the heading.
@@ -231,15 +231,14 @@ export function CandidatesSection({
   };
 
   return (
-    <section id="candidati" className="candidates" aria-labelledby={headingId} ref={sectionRef}>
-      <h2
-        id={headingId}
-        tabIndex={-1}
-        ref={headingNode}
-        aria-describedby={isEmpty ? emptyId : undefined}
-      >
-        {t("admin.heading")}
-      </h2>
+    <AdminQueue
+      id="candidati"
+      title={t("admin.heading")}
+      count={candidates.length}
+      ref={sectionRef}
+      headingRef={headingNode}
+      headingDescribedBy={isEmpty ? emptyId : undefined}
+    >
       {isEmpty ? (
         <EmptyState id={emptyId} tmdbConfigured={tmdbConfigured} weeklyRun={weeklyRun} />
       ) : (
@@ -260,6 +259,6 @@ export function CandidatesSection({
       <p role="status" className="visually-hidden">
         {announcement}
       </p>
-    </section>
+    </AdminQueue>
   );
 }

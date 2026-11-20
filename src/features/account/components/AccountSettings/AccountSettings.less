@@ -16,13 +16,13 @@ dialog.dialog--profile {
     outline: none;
   }
 
-  // --viewport-height is the visual viewport, set by AccountSettings, so keyboards and browser bars
+  // --viewport-height is the visual viewport, set by useViewportHeight, so keyboards and browser bars
   // never cover the fields.
   @media (max-width: 39.9375em) {
     width: 100%;
     max-width: 100%;
-    height: min(760px, calc(var(--viewport-height, 100dvh) - 48px));
-    max-height: calc(var(--viewport-height, 100dvh) - 48px);
+    height: min(760px, calc(var(--viewport-height, 100dvh) - var(--sheet-gap)));
+    max-height: calc(var(--viewport-height, 100dvh) - var(--sheet-gap));
   }
 }
 

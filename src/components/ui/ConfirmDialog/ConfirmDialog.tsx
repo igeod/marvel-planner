@@ -63,6 +63,9 @@ export function ConfirmDialog({
         event.preventDefault();
         if (!isPending) finish(onCancel)();
       }}
+      onClick={(event) => {
+        if (event.target === event.currentTarget && !isPending) finish(onCancel)();
+      }}
     >
       <div className="dialog__body">
         {tone ? (

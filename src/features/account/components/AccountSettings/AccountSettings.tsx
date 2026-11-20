@@ -15,6 +15,7 @@ import { Link } from "react-router";
 import { PATHS } from "../../../../app/paths";
 import { SHEET_QUERY, useMediaQuery } from "../../../../components/ui/useMediaQuery";
 import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
+import { useViewportHeight } from "../../../../components/ui/useViewportHeight";
 import type { TranslationKey } from "../../../../i18n/types";
 import { useI18n } from "../../../../i18n/useI18n";
 import { AdminBadge } from "../../../admin/components/AdminBadge/AdminBadge";
@@ -104,6 +105,7 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
   // The sheet follows the finger on mobile; with unsaved changes it springs back and asks first.
   const getDialog = useCallback(() => rootRef.current?.closest("dialog"), []);
   useSheetDrag(getDialog, () => tryCloseRef.current(), isSheet);
+  useViewportHeight(getDialog, true);
 
   const reportDirty = useCallback((id: string, isDirty: boolean) => {
     if (isDirty) dirtyForms.current.add(id);
@@ -138,22 +140,6 @@ export function AccountSettings({ user, onClose, closeRef }: AccountSettingsProp
       closeRef.current = null;
     };
   });
-
-  // The sheet height follows the visual viewport so the keyboard and browser bars never cover fields.
-  useEffect(() => {
-    const dialog = rootRef.current?.closest("dialog");
-    const viewport = window.visualViewport;
-    if (!dialog || !viewport) return;
-    const sync = () => dialog.style.setProperty("--viewport-height", `${viewport.height}px`);
-    sync();
-    viewport.addEventListener("resize", sync);
-    window.addEventListener("resize", sync);
-    return () => {
-      viewport.removeEventListener("resize", sync);
-      window.removeEventListener("resize", sync);
-      dialog.style.removeProperty("--viewport-height");
-    };
-  }, []);
 
   useEffect(() => {
     scrollRef.current?.scrollTo(0, 0);

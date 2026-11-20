@@ -4,17 +4,18 @@ dialog.filters-sheet {
   .sheet-surface();
   inset: auto 0 0 0;
   width: 100%;
-  max-height: calc(100dvh - 24px);
+  max-height: calc(var(--viewport-height, 100dvh) - var(--sheet-gap));
   border-radius: var(--r-lg) var(--r-lg) 0 0;
   background: var(--surface);
   color: var(--ink);
 }
 
 .filters-sheet__body {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
-  padding: 1.25rem var(--sp-6) 1.5rem;
+  padding: 1.25rem var(--sp-6) calc(1.5rem + env(safe-area-inset-bottom, 0px));
 }
 
 .filters-sheet__header {
@@ -22,6 +23,8 @@ dialog.filters-sheet {
   align-items: center;
   justify-content: space-between;
   gap: 0.75rem;
+  // Keeps the title clear of the close button (12px from the edge, --hit wide).
+  padding-right: var(--hit);
 }
 
 .filters-sheet .switch {
@@ -29,9 +32,10 @@ dialog.filters-sheet {
 }
 
 .filters-sheet__title {
-  .display-font();
-  font-size: var(--fs-h1-sm);
-  line-height: 1;
+  font-size: var(--fs-h4);
+  font-weight: 800;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .filters-sheet__actions {

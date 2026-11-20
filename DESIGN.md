@@ -21,6 +21,7 @@ Sito per appassionati del MCU, spesso aperto da telefono davanti alla TV. Caratt
 - **Anton** (display): titoli e numeri grandi, maiuscolo, `letter-spacing: .01em`.
 - **Hanken Grotesk** (corpo): tutto il resto.
 - Dimensioni solo da `--fs-*`. Il testo contenitore cresce con il testo dell'utente: larghezze in `rem` (o `ch` per la prosa); restano in px solo oggetti disegnati (icone, poster, avatar, barre, bordi).
+- I titoli dei fogli in basso (popup, Filtri, Account) sono Hanken 800 `--fs-h4`: Anton non entra nei titoli lunghi di fr e de.
 - I titoli delle opere restano in inglese (`lang="en"`). Francese e tedesco sono più lunghi dell'italiano: il layout deve reggerli.
 
 ## Colore e temi
@@ -70,6 +71,10 @@ Da completare con i difetti concreti che il proprietario nota nella grafica ("tr
 
 Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design la risolve e poi la cancella.
 
+- Pagine di testo | `PrivacyPage`, `AccessibilityPage` | intestazione come una saga, una scheda numerata per sezione, biglietto giallo dritto nell'Accessibilità | voce 27 di HANDOFF §2
+- Admin | `AdminDashboard` | «Da fare» e «Stato del sito» in testa, code a fisarmonica (Manutenzione, Automazione e Utenti confluiti nello Stato) | voce 30 di HANDOFF §2
+- Contrasto forzato | `forced-colors.less` | stati e pulsanti con soli colori di sistema (fascia, pulsanti, scelte, interruttori, avatar) | voce 28 di HANDOFF §2
+- Fogli in basso | `Modal`, `FiltersSheet`, `AccountSettings` | altezza = viewport visivo − `--sheet-gap`; Account con tetto 760 px; titoli dei fogli in Hanken 800 `--fs-h4` | voce 26 di HANDOFF §2
 - Header | `LanguageSwitcher.tsx`, `HeaderMenu.tsx`, `AccountSettings.tsx`, `SelectField.less` | nessuna scheda di preferenze nel profilo (la lingua compatta e l'ordine del Menu sono fatti; la scheda "Aspetto e lingua" è rimandata) | voce 11 di HANDOFF §2, decisa da Design il 16 novembre
 - Apertura del planner | `useCountUp.ts`, `PlannerSummary.tsx`, `ProgressStatsSection.tsx`, `motion.less` | numero da 900ms al montaggio, fascia a passo costante: tre orologi diversi | voce 13 di HANDOFF §2, decisa da Design il 18 novembre
 - Apertura del planner | `tokens.less` (`--dur-progress`) | durata del primo arrivo di numero, fascia a batteria e barre del profilo accorciata da 600ms a 300ms su richiesta del committente (troppo lenta); cambia anche il primo riempimento delle barre dell'Account | da confermare con Design (o tornare a 600ms)
@@ -88,4 +93,3 @@ Quando il codice non può seguire il design (o lo supera), si annota qui, una ri
 - Popup di accesso (`.auth-view .form`) | `AuthDialogs.less` | `max-width: none`: il tetto di 30rem del `.form` generico (nato per i moduli in pagina, 480 px) nel popup da 35rem lasciava 48 px a destra contro 32 a sinistra; ora i campi occupano tutta la larghezza del corpo (32 px per lato) | da confermare con Design
 - Campi di testo | `base.less` | a fuoco l'ombra interna (hover, errore) è spenta: un solo contorno per volta, come la ricerca del planner; bordo a riposo 1 px `--ink-2` (2 px a hover, nessuno a fuoco o se disattivo) per il contrasto del campo (WCAG 1.4.11, V3 del canvas, deciso dal committente) | voce 24 di HANDOFF §2
 - Biglietto "Condividi" (`.share-poster`) | `PlannerSummary.less` | dal desktop `.progress-card` non va a capo (`flex-wrap: nowrap` da 64em), la colonna del testo scende fino a 246 px a 1024 px di finestra; titolo del biglietto a `--fs-h2` (era `--fs-xl`) | voce 19 di HANDOFF §2
-- Tabella dei cookie nelle Preferenze privacy | `StorageTable.tsx` | contenitore con scorrimento orizzontale (`.scroll-x`, focalizzabile) invece del taglio: a 390 px la tabella è larga 414 px e a 320 px mancavano 94 px (colonna «Durata» illeggibile) | tampone in attesa che Design disegni la scheda per voce sotto 40em; cancellare questa riga quando c’è
