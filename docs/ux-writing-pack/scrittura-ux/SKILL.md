@@ -7,6 +7,10 @@ description: Scrive e rivede i testi dell'interfaccia di Marvel Planner (pulsant
 
 Pacchetto che unisce quattro skill pubbliche di UX writing (cartella `fonti/`, testi originali non modificati, con licenze) e le adatta a questo progetto. Le regole sotto valgono prima delle regole generiche delle fonti.
 
+## Chi la usa
+
+La **sessione Design** (Claude Design): scrive e rivede i testi insieme al disegno e li consegna nelle pagine «Testi nelle 5 lingue» del canvas. La sessione Code li copia nei file di lingua senza cambiarli.
+
 ## Quando usarla
 
 - Revisione di tutti i testi di `src/i18n/locales/it.ts`.
