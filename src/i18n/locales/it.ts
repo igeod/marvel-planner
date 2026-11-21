@@ -602,28 +602,28 @@ export const it = {
       standardLabel: "Standard",
       standard: "WCAG 2.2, livello AA",
       statusLabel: "Stato",
-      status: "Conformità parziale: vedi i limiti noti",
+      status: "Parzialmente conforme: vedi i limiti noti",
       checkedLabel: "Verificato il",
     },
     use: {
-      heading: "Cosa puoi usare",
+      heading: "Come usare il sito",
     },
     limits: {
       heading: "Limiti noti",
       contrast:
-        "Con il contrasto forzato di Windows i pulsanti e la fascia delle fasi perdono la forma: si leggono, ma non si distinguono dal testo. Lo stiamo correggendo.",
+        "Con il contrasto forzato di Windows, pulsanti e fascia delle fasi perdono la forma: si leggono, ma sembrano testo. Ci stiamo lavorando.",
     },
     report: {
-      heading: "Come segnalare un ostacolo",
-      body: "Se trovi un ostacolo, dicci quale pagina, cosa stavi facendo e che strumento usi.",
+      heading: "Hai trovato un ostacolo?",
+      body: "Scrivici in quale pagina eri, cosa stavi facendo e che strumento usi.",
     },
     vision: {
-      heading: "Se vedi poco o male",
-      body: "Puoi scegliere tema chiaro, scuro o come il sistema (menu in alto). Ogni stato ha un’icona o un testo, non solo un colore. I controlli hanno un anello di focus ben visibile.",
+      heading: "Se vedi poco",
+      body: "Tema chiaro, scuro o quello del sistema, dal menu in alto. Ogni stato ha anche un'icona o un testo, mai solo un colore. Quando usi la tastiera, il controllo attivo ha un anello ben visibile.",
     },
     hearing: {
-      heading: "Se non senti bene",
-      body: "Il sito non usa suoni per darti informazioni. Il trailer parte solo quando lo avvii tu e i sottotitoli dipendono dal video.",
+      heading: "Se non senti",
+      body: "Nessuna informazione passa solo dal suono. Il trailer parte solo se lo avvii tu; i sottotitoli dipendono dal video.",
     },
     motion: {
       heading: "Se il movimento ti dà fastidio",
@@ -631,13 +631,13 @@ export const it = {
     },
     keyboard: {
       heading: "Tastiera",
-      body: "Tab per spostarti, Invio o Spazio per attivare, Esc per chiudere popup e messaggi. Al primo Tab compare «Vai al contenuto».",
+      body: "Tab per spostarti, Invio o Spazio per attivare, Esc per chiudere popup e avvisi. Al primo Tab compare «Vai al contenuto».",
     },
   },
   cookiePage: {
     noBannerHeading: "Nessun consenso da dare",
     noBannerBody:
-      "Usiamo solo strumenti tecnici, necessari al servizio che chiedi: accesso, lingua, progressi, filtri. Per questi la normativa non richiede né consenso né banner. Non usiamo cookie di analisi, pubblicità o profilazione. L'unica risorsa di terzi è il video del trailer: YouTube lo carica solo se premi “Avvia il trailer”. Se un giorno questo cambierà, ti chiederemo prima il consenso.",
+      "Usiamo solo strumenti tecnici, necessari al servizio che chiedi: accesso, lingua, progressi e filtri. Per questi non servono né consenso né banner. Niente cookie di analisi, pubblicità o profilazione. L'unica risorsa di terzi è il video del trailer: YouTube lo carica solo se premi «Avvia il trailer». Se un giorno cambierà, ti chiederemo prima il consenso.",
     tableCaption: "Cookie e dati salvati nel browser",
     columns: {
       kind: "Tipo",
@@ -675,7 +675,7 @@ export const it = {
     },
     completedSeen: {
       kind: "Archiviazione locale (propria)",
-      purpose: "Ricorda che hai già visto il messaggio per aver completato tutti i titoli.",
+      purpose: "Ricorda che hai già visto il messaggio di completamento.",
       duration: "Finché non lo cancelli",
     },
     sound: {
@@ -698,10 +698,10 @@ export const it = {
     title: "Preferenze privacy",
     clearHeading: "Dati su questo dispositivo",
     clearBody:
-      "Cancella i progressi (se non hai un account), la lingua e i filtri salvati in questo browser. Il tuo accesso resta attivo: il cookie di sessione si elimina solo quando esci. Puoi cancellare i dati anche dalle impostazioni del browser.",
+      "Cancella progressi (se non hai un account), lingua e filtri salvati in questo browser. Il tuo accesso resta attivo: il cookie di sessione sparisce solo quando esci. Puoi cancellare i dati anche dalle impostazioni del browser.",
     clearButton: "Cancella i dati di questo dispositivo",
     clearQuestion:
-      "Cancellare i dati di questo dispositivo? Senza un account, i progressi non si recuperano. La pagina si ricarica.",
+      "Cancellare i dati di questo dispositivo? Senza account, i progressi non tornano indietro. La pagina si ricarica.",
     clearConfirm: "Cancella i dati",
   },
   admin: {
@@ -879,60 +879,60 @@ export const it = {
     title: "Informativa sulla privacy",
     updated: "Ultimo aggiornamento: {date}",
     controller: {
-      heading: "Titolare del trattamento",
-      body: "Il titolare del trattamento è {name}. Per qualsiasi richiesta sui tuoi dati puoi scrivere a {email}.",
+      heading: "Chi è il titolare",
+      body: "I tuoi dati sono nelle mani di {name}, titolare del trattamento. Per qualsiasi richiesta scrivi a {email}.",
     },
     data: {
       heading: "Quali dati trattiamo",
       accountLabel: "Dati dell'account",
       accountText:
-        "nome da supereroe (un nickname di fantasia, non il tuo nome reale), email e password. La password è salvata solo cifrata (hash): nessuno può leggerla.",
+        "il nome da supereroe (lo scegli tu, può essere di fantasia), l'email e la password. La password è salvata solo cifrata (hash): nessuno può leggerla.",
       progressLabel: "Progressi",
-      progressText: "i titoli che segni come visti e la data in cui li hai segnati.",
+      progressText: "i titoli che segni come visti e quando li hai segnati.",
       technicalLabel: "Dati tecnici",
       technicalText:
-        "indirizzo IP e tipo di browser delle sessioni di accesso, più contatori che limitano i tentativi di accesso ripetuti.",
+        "l'indirizzo IP e il tipo di browser delle sessioni di accesso, più dei contatori che frenano i tentativi di accesso ripetuti.",
       deviceLabel: "Sul tuo dispositivo",
       deviceText:
-        "senza account i progressi, la lingua e i filtri restano solo nel tuo browser (localStorage) e non vengono inviati a noi. Puoi cancellarli quando vuoi da {link}.",
+        "senza account, progressi, lingua e filtri restano nel tuo browser (localStorage) e non ci arrivano. Puoi cancellarli quando vuoi da {link}.",
       shareLabel: "Condivisione",
       shareText:
-        "se attivi la condivisione, chiunque abbia il link vede il tuo nome da supereroe e i titoli che hai visto, fino alla scadenza che scegli o finché non lo disattivi. Il link contiene un codice casuale, non il tuo identificativo.",
+        "se attivi la condivisione, chiunque abbia il link vede il tuo nome da supereroe e i titoli che hai visto, finché il link non scade o non lo disattivi. Nel link c'è un codice casuale, non il tuo identificativo.",
       suggestionsLabel: "Suggerimenti",
       suggestionsText:
-        "se invii un suggerimento conserviamo il testo che scrivi (è testo libero: non scrivere dati personali), il titolo e la parte della pagina a cui si riferisce, la data e il tuo nome da supereroe. Li vediamo solo noi e vengono eliminati con l'account.",
+        "se invii un suggerimento conserviamo il testo (è libero: non scriverci dati personali), il titolo e la parte della pagina a cui si riferisce, la data e il tuo nome da supereroe. Li vediamo solo noi e spariscono con l'account.",
     },
     purposes: {
-      heading: "Perché li trattiamo",
+      heading: "A cosa ci servono",
       service:
-        "Per fornirti il servizio: creare e gestire l'account e conservare i tuoi progressi (esecuzione del servizio richiesto, art. 6.1.b GDPR).",
+        "Per darti il servizio: gestire l'account e salvare i tuoi progressi (esecuzione del servizio che chiedi, art. 6.1.b GDPR).",
       security:
-        "Per la sicurezza del servizio e la prevenzione degli abusi (legittimo interesse, art. 6.1.f GDPR).",
+        "Per tenere il servizio sicuro e prevenire gli abusi (legittimo interesse, art. 6.1.f GDPR).",
       suggestions:
-        "Per leggere e gestire i suggerimenti di modifica che invii (esecuzione del servizio richiesto, art. 6.1.b GDPR).",
+        "Per leggere e gestire i suggerimenti che invii (esecuzione del servizio che chiedi, art. 6.1.b GDPR).",
       noProfiling:
-        "Non usiamo i tuoi dati per pubblicità o profilazione, non li vendiamo e non li cediamo a terzi.",
+        "Niente pubblicità né profilazione: non vendiamo i tuoi dati e non li cediamo a terzi.",
     },
     cookies: {
       heading: "Cookie e archiviazione locale",
-      body: "Usiamo solo cookie tecnici, necessari al funzionamento: un cookie di sessione, che mantiene attivo il tuo accesso. Non usiamo cookie di analisi, pubblicità o profilazione né cookie di terze parti, salvo quelli che YouTube può impostare se avvii tu un trailer. Per questo non serve il tuo consenso (art. 122 del Codice privacy, direttiva ePrivacy, linee guida del Garante del 10 giugno 2021). L'elenco completo è in {link}.",
+      body: "Usiamo solo cookie tecnici, necessari al funzionamento: uno solo, di sessione, che mantiene attivo il tuo accesso. Niente cookie di analisi, pubblicità o profilazione, né di terze parti, tranne quelli che YouTube può impostare se avvii tu un trailer. Per questo non serve il tuo consenso (art. 122 del Codice privacy, direttiva ePrivacy, linee guida del Garante del 10 giugno 2021). L'elenco completo è in {link}.",
     },
     providers: {
-      heading: "Dove sono conservati e chi li tratta",
-      body: "Il sito e il database sono ospitati da Cloudflare, con il database nell'Europa occidentale. Cloudflare è responsabile del trattamento. Le informazioni sui titoli (sinossi, trame, cast, locandine, sfondi) le chiede il nostro server a TMDB, Wikipedia e Wikidata: il tuo browser non contatta mai questi servizi, quindi non comunica loro il tuo indirizzo IP. Cloudflare ha sede negli Stati Uniti: alcuni dati potrebbero lasciare l'Unione europea, con le garanzie previste dal GDPR (EU-US Data Privacy Framework e clausole contrattuali standard).",
+      heading: "Dove stanno i dati e chi li gestisce",
+      body: "Sito e database sono ospitati da Cloudflare, con il database nell'Europa occidentale. Cloudflare è responsabile del trattamento. Le informazioni sui titoli (sinossi, trame, cast, locandine, sfondi) le chiede il nostro server a TMDB, Wikipedia e Wikidata: il tuo browser non contatta mai questi servizi, quindi il tuo indirizzo IP non arriva a loro. Cloudflare ha sede negli Stati Uniti, quindi alcuni dati potrebbero lasciare l'Unione europea, con le garanzie previste dal GDPR (EU-US Data Privacy Framework e clausole contrattuali standard).",
     },
     retention: {
-      heading: "Per quanto tempo",
-      body: "Conserviamo i dati dell'account finché esiste. Le sessioni scadono dopo 7 giorni; quelle scadute e i link di condivisione scaduti vengono eliminati ogni giorno. I contatori contro gli accessi ripetuti si eliminano dopo un giorno. Le informazioni sui titoli ricevute da terzi restano in cache al massimo 90 giorni. Quando elimini l'account, nome da supereroe, email, progressi e sessioni vengono cancellati subito; le copie di backup tecniche vengono sovrascritte entro 30 giorni.",
+      heading: "Quanto li conserviamo",
+      body: "Conserviamo i dati dell'account finché esiste. Le sessioni durano 7 giorni; ogni giorno eliminiamo quelle scadute e i link di condivisione scaduti. I contatori contro gli accessi ripetuti si cancellano dopo un giorno. Le informazioni sui titoli che riceviamo da terzi restano in cache al massimo 90 giorni. Se elimini l'account, nome da supereroe, email, progressi e sessioni spariscono subito; le copie di backup tecniche vengono sovrascritte entro 30 giorni.",
     },
     rights: {
       heading: "I tuoi diritti",
-      body: "Puoi chiedere in qualsiasi momento l'accesso, la rettifica, la cancellazione, la limitazione o la portabilità dei tuoi dati, o opporti al trattamento, scrivendo a {email}. {account}: qui puoi modificare il nome da supereroe, scaricare i tuoi dati in JSON ed eliminare l'account. Non prendiamo decisioni basate su trattamenti automatizzati. Puoi anche presentare reclamo al Garante per la protezione dei dati personali ({garante}).",
+      body: "Puoi chiedere in qualsiasi momento di accedere ai tuoi dati, correggerli, cancellarli, limitarne il trattamento o riceverli in un formato portabile, e puoi opporti al trattamento: scrivi a {email}. {account}: qui puoi cambiare il nome da supereroe, scaricare i dati in JSON ed eliminare l'account. Non prendiamo decisioni basate su trattamenti automatizzati. Se pensi che non rispettiamo le regole, puoi fare reclamo al Garante per la protezione dei dati personali ({garante}).",
       accountLink: "Il tuo account",
     },
     other: {
-      heading: "Altre giurisdizioni",
-      body: "Non vendiamo né condividiamo i tuoi dati personali per pubblicità mirata o altre finalità commerciali. Le stesse tutele valgono anche fuori dall'Unione europea (ad esempio in California, nel Regno Unito o in Brasile): puoi esercitare gli stessi diritti scrivendo a {email}.",
+      heading: "Fuori dall'Unione europea",
+      body: "Non vendiamo né condividiamo i tuoi dati personali per pubblicità mirata o altri scopi commerciali. Le stesse tutele valgono fuori dall'Unione europea (per esempio in California, nel Regno Unito o in Brasile): per esercitare gli stessi diritti scrivi a {email}.",
     },
     minors: {
       heading: "Minori",
@@ -940,7 +940,7 @@ export const it = {
     },
     changes: {
       heading: "Modifiche",
-      body: "Se cambia qualcosa, lo pubblichiamo qui e aggiorniamo la data in alto.",
+      body: "Se cambia qualcosa, lo scriviamo qui e aggiorniamo la data in alto.",
     },
   },
 };

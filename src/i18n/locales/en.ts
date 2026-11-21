@@ -607,7 +607,7 @@ export const en: Messages = {
       checkedLabel: "Checked on",
     },
     use: {
-      heading: "What you can use",
+      heading: "How to use the site",
     },
     limits: {
       heading: "Known limits",
@@ -615,12 +615,12 @@ export const en: Messages = {
         "With Windows forced colours, buttons and the phase strip lose their shape: you can read them, but they look like plain text. We are fixing this.",
     },
     report: {
-      heading: "How to report a barrier",
+      heading: "Found a barrier?",
       body: "If you run into a barrier, tell us which page, what you were doing and which tool you use.",
     },
     vision: {
       heading: "Low vision",
-      body: "You can pick the light theme, the dark theme or follow your system (top menu). Every state has an icon or text, not just a colour. Controls have a clearly visible focus ring.",
+      body: "Choose a light theme, a dark theme or your system's, from the menu at the top. Every state also has an icon or a text, never just a colour. When you use the keyboard, the active control has a clearly visible focus ring.",
     },
     hearing: {
       heading: "Hearing loss",
@@ -878,47 +878,47 @@ export const en: Messages = {
     title: "Privacy policy",
     updated: "Last updated: {date}",
     controller: {
-      heading: "Data controller",
-      body: "The data controller is {name}. For any request about your data you can write to {email}.",
+      heading: "Who the data controller is",
+      body: "Your data is handled by {name}, the data controller. For any request, write to {email}.",
     },
     data: {
       heading: "What data we process",
       accountLabel: "Account data",
       accountText:
-        "superhero name (a made-up nickname, not your real name), email and password. The password is stored only encrypted (hash): nobody can read it.",
+        "your hero name (you choose it, and it can be made up), your email and your password. The password is stored only encrypted (hashed): nobody can read it.",
       progressLabel: "Progress",
-      progressText: "the titles you mark as watched and the date you marked them.",
+      progressText: "the titles you mark as watched and when you marked them.",
       technicalLabel: "Technical data",
       technicalText:
-        "IP address and browser type of sign-in sessions, plus counters that limit repeated sign-in attempts.",
+        "the IP address and browser type of each sign-in session, plus counters that limit repeated sign-in attempts.",
       deviceLabel: "On your device",
       deviceText:
-        "without an account, your progress, language and filters stay only in your browser (localStorage) and are not sent to us. You can delete them any time from {link}.",
+        "without an account, your progress, language and filters stay in your browser (localStorage) and never reach us. You can delete them any time from {link}.",
       shareLabel: "Sharing",
       shareText:
-        "if you turn on sharing, anyone with the link sees your superhero name and the titles you have watched, until the expiry you choose or until you turn it off. The link contains a random code, not your identifier.",
+        "if you turn on sharing, anyone with the link sees your hero name and the titles you've watched, until the link expires or you turn it off. The link holds a random code, not your identifier.",
       suggestionsLabel: "Suggestions",
       suggestionsText:
-        "if you send a suggestion we keep the text you write (it is free text: do not write personal data), the title and the part of the page it refers to, the date and your superhero name. Only we can see them, and they are deleted with your account.",
+        "if you send a suggestion we keep the text (it's free text: don't put personal data in it), the title and the part of the page it refers to, the date and your hero name. Only we can see them, and they are deleted with your account.",
     },
     purposes: {
-      heading: "Why we process it",
+      heading: "What we use it for",
       service:
-        "To provide the service: create and manage your account and keep your progress (performance of the requested service, art. 6.1.b GDPR).",
+        "To provide the service: managing your account and saving your progress (performance of the service you ask for, art. 6.1.b GDPR).",
       security:
-        "For the security of the service and the prevention of abuse (legitimate interest, art. 6.1.f GDPR).",
+        "To keep the service secure and prevent abuse (legitimate interest, art. 6.1.f GDPR).",
       suggestions:
-        "To read and handle the corrections you suggest (performance of the service requested, Art. 6.1.b GDPR).",
+        "To read and handle the suggestions you send (performance of the service you ask for, art. 6.1.b GDPR).",
       noProfiling:
-        "We do not use your data for advertising or profiling, we do not sell it and we do not share it with third parties.",
+        "No advertising or profiling: we don't sell your data or pass it on to third parties.",
     },
     cookies: {
       heading: "Cookies and local storage",
-      body: "We only use technical cookies, needed for the service to work: a session cookie that keeps you signed in. We do not use analytics, advertising or profiling cookies, nor third-party ones, except those YouTube may set if you start a trailer. That is why we do not need your consent (art. 122 of the Italian Privacy Code, the ePrivacy Directive and the Italian Garante's guidelines of 10 June 2021). The full list is in the {link}.",
+      body: "We only use technical cookies, needed for the service to work: just one, a session cookie that keeps you signed in. No analytics, advertising or profiling cookies, and no third-party ones, except those YouTube may set if you start a trailer. That is why we don't need your consent (art. 122 of the Italian Privacy Code, the ePrivacy Directive and the Italian Garante's guidelines of 10 June 2021). The full list is in the {link}.",
     },
     providers: {
-      heading: "Where it is stored and who processes it",
-      body: "The site and the database are hosted by Cloudflare, with the database in Western Europe. Cloudflare is our data processor. Our server requests information about titles (synopses, plots, cast, posters, backdrops) from TMDB, Wikipedia and Wikidata: your browser never contacts these services, so it never gives them your IP address. Cloudflare is based in the United States: some data may leave the European Union, with the safeguards the GDPR provides (EU-US Data Privacy Framework and standard contractual clauses).",
+      heading: "Where the data lives and who handles it",
+      body: "The site and the database are hosted by Cloudflare, with the database in Western Europe. Cloudflare is our data processor. Our server asks TMDB, Wikipedia and Wikidata for the information about titles (synopses, plots, cast, posters, backdrops): your browser never contacts these services, so your IP address never reaches them. Cloudflare is based in the United States, so some data may leave the European Union, with the safeguards the GDPR provides (EU-US Data Privacy Framework and standard contractual clauses).",
     },
     retention: {
       heading: "How long we keep it",
@@ -930,7 +930,7 @@ export const en: Messages = {
       accountLink: "Your account",
     },
     other: {
-      heading: "Other jurisdictions",
+      heading: "Outside the European Union",
       body: "We do not sell or share your personal data for targeted advertising or other commercial purposes. The same protections apply outside the European Union (for example in California, the United Kingdom or Brazil): you can exercise the same rights by writing to {email}.",
     },
     minors: {

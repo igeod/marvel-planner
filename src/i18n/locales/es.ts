@@ -611,7 +611,7 @@ export const es: Messages = {
       checkedLabel: "Verificado el",
     },
     use: {
-      heading: "Qué puedes usar",
+      heading: "Cómo usar el sitio",
     },
     limits: {
       heading: "Límites conocidos",
@@ -619,12 +619,12 @@ export const es: Messages = {
         "Con el contraste forzado de Windows, los botones y la franja de fases pierden su forma: se leen, pero parecen texto simple. Lo estamos corrigiendo.",
     },
     report: {
-      heading: "Cómo comunicar un obstáculo",
+      heading: "¿Has encontrado un obstáculo?",
       body: "Si encuentras un obstáculo, dinos qué página, qué estabas haciendo y qué herramienta usas.",
     },
     vision: {
       heading: "Si ves poco o mal",
-      body: "Puedes elegir el tema claro, el oscuro o el del sistema (menú superior). Cada estado tiene un icono o un texto, no solo un color. Los controles tienen un anillo de foco bien visible.",
+      body: "Elige tema claro, oscuro o el del sistema desde el menú de arriba. Cada estado tiene también un icono o un texto, nunca solo un color. Con el teclado, el control activo tiene un anillo de foco bien visible.",
     },
     hearing: {
       heading: "Si no oyes bien",
@@ -881,50 +881,50 @@ export const es: Messages = {
     title: "Política de privacidad",
     updated: "Última actualización: {date}",
     controller: {
-      heading: "Responsable del tratamiento",
-      body: "El responsable del tratamiento es {name}. Para cualquier solicitud sobre tus datos puedes escribir a {email}.",
+      heading: "Quién es el responsable del tratamiento",
+      body: "Tus datos están en manos de {name}, responsable del tratamiento. Para cualquier petición, escribe a {email}.",
     },
     data: {
       heading: "Qué datos tratamos",
       accountLabel: "Datos de la cuenta",
       accountText:
-        "nombre de superhéroe (un apodo inventado, no tu nombre real), correo electrónico y contraseña. La contraseña solo se guarda cifrada (hash): nadie puede leerla.",
+        "tu nombre de superhéroe (lo eliges tú, puede ser inventado), tu correo y tu contraseña. La contraseña se guarda solo cifrada (hash): nadie puede leerla.",
       progressLabel: "Progreso",
-      progressText: "los títulos que marcas como vistos y la fecha en que los marcaste.",
+      progressText: "los títulos que marcas como vistos y cuándo los marcaste.",
       technicalLabel: "Datos técnicos",
       technicalText:
-        "dirección IP y tipo de navegador de las sesiones de acceso, y contadores que limitan los intentos de acceso repetidos.",
+        "la dirección IP y el tipo de navegador de las sesiones de acceso, más contadores que limitan los intentos de acceso repetidos.",
       deviceLabel: "En tu dispositivo",
       deviceText:
-        "sin cuenta, tu progreso, el idioma y los filtros se quedan solo en tu navegador (localStorage) y no se nos envían. Puedes borrarlos cuando quieras desde {link}.",
+        "sin cuenta, tu progreso, tu idioma y tus filtros se quedan en tu navegador (localStorage) y no nos llegan. Puedes borrarlos cuando quieras desde {link}.",
       shareLabel: "Compartir",
       shareText:
-        "si activas la opción de compartir, cualquiera que tenga el enlace ve tu nombre de superhéroe y los títulos que has visto, hasta la caducidad que elijas o hasta que lo desactives. El enlace contiene un código aleatorio, no tu identificador.",
+        "si activas el uso compartido, quien tenga el enlace ve tu nombre de superhéroe y los títulos que has visto, hasta que el enlace caduque o lo desactives. El enlace contiene un código aleatorio, no tu identificador.",
       suggestionsLabel: "Sugerencias",
       suggestionsText:
-        "si envías una sugerencia, guardamos el texto que escribes (es texto libre: no escribas datos personales), el título y la parte de la página a la que se refiere, la fecha y tu nombre de superhéroe. Solo nosotros los vemos y se eliminan con tu cuenta.",
+        "si envías una sugerencia, conservamos el texto (es libre: no escribas datos personales), el título y la parte de la página a la que se refiere, la fecha y tu nombre de superhéroe. Solo nosotros los vemos y se eliminan con tu cuenta.",
     },
     purposes: {
-      heading: "Por qué los tratamos",
+      heading: "Para qué los usamos",
       service:
-        "Para prestarte el servicio: crear y gestionar tu cuenta y conservar tu progreso (ejecución del servicio solicitado, art. 6.1.b RGPD).",
+        "Para darte el servicio: gestionar tu cuenta y guardar tu progreso (ejecución del servicio que solicitas, art. 6.1.b RGPD).",
       security:
-        "Para la seguridad del servicio y la prevención de abusos (interés legítimo, art. 6.1.f RGPD).",
+        "Para mantener el servicio seguro y evitar abusos (interés legítimo, art. 6.1.f RGPD).",
       suggestions:
-        "Para leer y gestionar las correcciones que sugieres (ejecución del servicio solicitado, art. 6.1.b RGPD).",
+        "Para leer y gestionar las sugerencias que envías (ejecución del servicio que solicitas, art. 6.1.b RGPD).",
       noProfiling:
-        "No usamos tus datos para publicidad ni elaboración de perfiles, no los vendemos y no los cedemos a terceros.",
+        "Nada de publicidad ni perfiles: no vendemos tus datos ni los cedemos a terceros.",
     },
     cookies: {
       heading: "Cookies y almacenamiento local",
-      body: "Solo usamos cookies técnicas, necesarias para el funcionamiento: una cookie de sesión que mantiene tu sesión abierta. No usamos cookies de analítica, publicidad ni elaboración de perfiles, ni de terceros, salvo las que YouTube pueda establecer si inicias un tráiler. Por eso no se requiere tu consentimiento (art. 122 del Código de privacidad italiano, Directiva ePrivacy y directrices del Garante de 10 de junio de 2021). La lista completa está en la {link}.",
+      body: "Solo usamos cookies técnicas, necesarias para el funcionamiento: una sola, de sesión, que mantiene tu sesión abierta. Nada de cookies de analítica, publicidad ni perfiles, ni de terceros, salvo las que YouTube pueda establecer si inicias un tráiler. Por eso no se requiere tu consentimiento (art. 122 del Código de privacidad italiano, Directiva ePrivacy y directrices del Garante de 10 de junio de 2021). La lista completa está en la {link}.",
     },
     providers: {
-      heading: "Dónde se conservan y quién los trata",
-      body: "El sitio y la base de datos están alojados en Cloudflare, con la base de datos en Europa occidental. Cloudflare es nuestro encargado del tratamiento. Nuestro servidor pide la información sobre los títulos (sinopsis, argumentos, reparto, carteles, imágenes de fondo) a TMDB, Wikipedia y Wikidata: tu navegador nunca contacta con estos servicios, así que no les comunica tu dirección IP. Cloudflare tiene su sede en Estados Unidos: algunos datos podrían salir de la Unión Europea, con las garantías previstas por el RGPD (EU-US Data Privacy Framework y cláusulas contractuales tipo).",
+      heading: "Dónde están los datos y quién los gestiona",
+      body: "El sitio y la base de datos están alojados en Cloudflare, con la base de datos en Europa occidental. Cloudflare es nuestro encargado del tratamiento. Nuestro servidor pide la información sobre los títulos (sinopsis, argumentos, reparto, carteles, imágenes de fondo) a TMDB, Wikipedia y Wikidata: tu navegador nunca contacta con estos servicios, así que tu dirección IP no les llega. Cloudflare tiene su sede en Estados Unidos, así que algunos datos podrían salir de la Unión Europea, con las garantías previstas por el RGPD (EU-US Data Privacy Framework y cláusulas contractuales tipo).",
     },
     retention: {
-      heading: "Durante cuánto tiempo",
+      heading: "Cuánto tiempo los conservamos",
       body: "Conservamos los datos de tu cuenta mientras exista. Las sesiones caducan a los 7 días; las sesiones y los enlaces para compartir caducados se eliminan cada día. Los contadores contra los accesos repetidos se eliminan al cabo de un día. La información sobre los títulos recibida de terceros permanece en caché 90 días como máximo. Cuando eliminas la cuenta, el nombre de superhéroe, el correo, el progreso y las sesiones se borran de inmediato; las copias de seguridad técnicas se sobrescriben en un plazo de 30 días.",
     },
     rights: {
@@ -933,7 +933,7 @@ export const es: Messages = {
       accountLink: "Tu cuenta",
     },
     other: {
-      heading: "Otras jurisdicciones",
+      heading: "Fuera de la Unión Europea",
       body: "No vendemos ni compartimos tus datos personales para publicidad dirigida ni con otros fines comerciales. Las mismas garantías se aplican fuera de la Unión Europea (por ejemplo, en California, el Reino Unido o Brasil): puedes ejercer los mismos derechos escribiendo a {email}.",
     },
     minors: {

@@ -614,7 +614,7 @@ export const de: Messages = {
       checkedLabel: "Geprüft am",
     },
     use: {
-      heading: "Was du nutzen kannst",
+      heading: "So nutzt du die Seite",
     },
     limits: {
       heading: "Bekannte Einschränkungen",
@@ -622,12 +622,12 @@ export const de: Messages = {
         "Bei erzwungenen Farben in Windows verlieren Schaltflächen und der Phasenstreifen ihre Form: Man kann sie lesen, sie sehen aber wie normaler Text aus. Wir arbeiten daran.",
     },
     report: {
-      heading: "Ein Hindernis melden",
+      heading: "Hindernis gefunden?",
       body: "Wenn du auf ein Hindernis stößt, sag uns, welche Seite, was du gerade getan hast und welches Hilfsmittel du nutzt.",
     },
     vision: {
       heading: "Bei Sehbeeinträchtigung",
-      body: "Du kannst das helle oder dunkle Design wählen oder dem System folgen (Menü oben). Jeder Zustand hat ein Symbol oder einen Text, nicht nur eine Farbe. Bedienelemente haben einen gut sichtbaren Fokusrahmen.",
+      body: "Wähle im Menü oben das helle, das dunkle oder das Systemdesign. Jeder Zustand hat auch ein Symbol oder einen Text, nie nur eine Farbe. Bei Tastaturbedienung hat das aktive Element einen gut sichtbaren Fokusring.",
     },
     hearing: {
       heading: "Bei Hörbeeinträchtigung",
@@ -887,47 +887,47 @@ export const de: Messages = {
     title: "Datenschutzerklärung",
     updated: "Zuletzt aktualisiert: {date}",
     controller: {
-      heading: "Verantwortlicher",
-      body: "Verantwortlicher für die Datenverarbeitung ist {name}. Bei Anfragen zu deinen Daten kannst du an {email} schreiben.",
+      heading: "Wer der Verantwortliche ist",
+      body: "Deine Daten liegen bei {name}, dem Verantwortlichen. Für jede Anfrage schreibe an {email}.",
     },
     data: {
       heading: "Welche Daten wir verarbeiten",
       accountLabel: "Kontodaten",
       accountText:
-        "Superheldenname (ein ausgedachter Spitzname, nicht dein echter Name), E-Mail und Passwort. Das Passwort wird nur verschlüsselt (Hash) gespeichert: Niemand kann es lesen.",
+        "dein Superheldenname (du wählst ihn selbst, er kann ausgedacht sein), deine E-Mail-Adresse und dein Passwort. Das Passwort wird nur verschlüsselt (gehasht) gespeichert: Niemand kann es lesen.",
       progressLabel: "Fortschritt",
-      progressText: "die Titel, die du als gesehen markierst, und das Datum der Markierung.",
+      progressText: "die Titel, die du als gesehen markierst, und wann du sie markiert hast.",
       technicalLabel: "Technische Daten",
       technicalText:
         "IP-Adresse und Browsertyp der Anmeldesitzungen sowie Zähler, die wiederholte Anmeldeversuche begrenzen.",
       deviceLabel: "Auf deinem Gerät",
       deviceText:
-        "ohne Konto bleiben dein Fortschritt, die Sprache und die Filter nur in deinem Browser (localStorage) und werden nicht an uns übermittelt. Du kannst sie jederzeit unter {link} löschen.",
+        "ohne Konto bleiben Fortschritt, Sprache und Filter in deinem Browser (localStorage) und erreichen uns nicht. Du kannst sie jederzeit unter {link} löschen.",
       shareLabel: "Teilen",
       shareText:
-        "wenn du das Teilen aktivierst, sehen alle mit dem Link deinen Superheldennamen und die Titel, die du gesehen hast – bis zum gewählten Ablauf oder bis du es deaktivierst. Der Link enthält einen zufälligen Code, nicht deine Kennung.",
+        "wenn du das Teilen aktivierst, sieht jeder mit dem Link deinen Superheldennamen und die Titel, die du gesehen hast, bis der Link abläuft oder du ihn deaktivierst. Der Link enthält einen Zufallscode, nicht deine Kennung.",
       suggestionsLabel: "Vorschläge",
       suggestionsText:
-        "wenn du einen Vorschlag sendest, speichern wir den Text, den du schreibst (es ist freier Text: schreibe keine personenbezogenen Daten), den Titel und den Teil der Seite, auf den er sich bezieht, das Datum und deinen Superheldennamen. Nur wir sehen sie, und sie werden mit deinem Konto gelöscht.",
+        "wenn du einen Vorschlag sendest, speichern wir den Text (er ist frei: Schreibe keine personenbezogenen Daten hinein), den Titel und den Teil der Seite, auf den er sich bezieht, das Datum und deinen Superheldennamen. Nur wir sehen sie, und sie werden mit dem Konto gelöscht.",
     },
     purposes: {
-      heading: "Warum wir sie verarbeiten",
+      heading: "Wofür wir sie nutzen",
       service:
-        "Um dir den Dienst bereitzustellen: Konto erstellen und verwalten und deinen Fortschritt speichern (Erfüllung des gewünschten Dienstes, Art. 6 Abs. 1 lit. b DSGVO).",
+        "Um dir den Dienst bereitzustellen: dein Konto zu verwalten und deinen Fortschritt zu speichern (Erfüllung des gewünschten Dienstes, Art. 6 Abs. 1 lit. b DSGVO).",
       security:
-        "Für die Sicherheit des Dienstes und die Missbrauchsprävention (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO).",
+        "Um den Dienst sicher zu halten und Missbrauch zu verhindern (berechtigtes Interesse, Art. 6 Abs. 1 lit. f DSGVO).",
       suggestions:
-        "Um die von dir vorgeschlagenen Korrekturen zu lesen und zu bearbeiten (Erfüllung des gewünschten Dienstes, Art. 6.1.b DSGVO).",
+        "Um die Vorschläge zu lesen und zu bearbeiten, die du sendest (Erfüllung des gewünschten Dienstes, Art. 6 Abs. 1 lit. b DSGVO).",
       noProfiling:
-        "Wir verwenden deine Daten nicht für Werbung oder Profiling, wir verkaufen sie nicht und geben sie nicht an Dritte weiter.",
+        "Keine Werbung, kein Profiling: Wir verkaufen deine Daten nicht und geben sie nicht an Dritte weiter.",
     },
     cookies: {
       heading: "Cookies und lokaler Speicher",
-      body: "Wir verwenden nur technische Cookies, die für den Betrieb nötig sind: ein Sitzungs-Cookie, das dich angemeldet hält. Wir setzen keine Analyse-, Werbe- oder Profiling-Cookies und keine Cookies von Dritten ein, außer solchen, die YouTube setzen kann, wenn du einen Trailer startest. Deshalb ist keine Einwilligung nötig (Art. 122 des italienischen Datenschutzkodex, ePrivacy-Richtlinie und Leitlinien des Garante vom 10. Juni 2021). Die vollständige Liste findest du unter {link}.",
+      body: "Wir verwenden nur technische Cookies, die für den Betrieb nötig sind: genau eines, ein Sitzungs-Cookie, das dich angemeldet hält. Keine Analyse-, Werbe- oder Profiling-Cookies und keine von Dritten, außer solchen, die YouTube setzen kann, wenn du einen Trailer startest. Deshalb ist keine Einwilligung nötig (Art. 122 des italienischen Datenschutzkodex, ePrivacy-Richtlinie und Leitlinien des Garante vom 10. Juni 2021). Die vollständige Liste findest du unter {link}.",
     },
     providers: {
-      heading: "Wo sie gespeichert werden und wer sie verarbeitet",
-      body: "Die Seite und die Datenbank werden von Cloudflare gehostet, die Datenbank steht in Westeuropa. Cloudflare ist unser Auftragsverarbeiter. Unser Server fragt die Informationen zu den Titeln (Kurzbeschreibungen, Handlungen, Besetzung, Poster, Hintergrundbilder) bei TMDB, Wikipedia und Wikidata ab: Dein Browser kontaktiert diese Dienste nie und übermittelt ihnen daher deine IP-Adresse nicht. Cloudflare hat seinen Sitz in den Vereinigten Staaten: Einige Daten können die Europäische Union verlassen, mit den Garantien der DSGVO (EU-US Data Privacy Framework und Standardvertragsklauseln).",
+      heading: "Wo die Daten liegen und wer sie verarbeitet",
+      body: "Die Seite und die Datenbank werden von Cloudflare gehostet, die Datenbank steht in Westeuropa. Cloudflare ist unser Auftragsverarbeiter. Unser Server fragt die Informationen zu den Titeln (Kurzbeschreibungen, Handlungen, Besetzung, Poster, Hintergrundbilder) bei TMDB, Wikipedia und Wikidata ab: Dein Browser kontaktiert diese Dienste nie, deine IP-Adresse erreicht sie also nicht. Cloudflare hat seinen Sitz in den Vereinigten Staaten, daher können einige Daten die Europäische Union verlassen, mit den Garantien der DSGVO (EU-US Data Privacy Framework und Standardvertragsklauseln).",
     },
     retention: {
       heading: "Speicherdauer",
@@ -939,7 +939,7 @@ export const de: Messages = {
       accountLink: "Dein Konto",
     },
     other: {
-      heading: "Andere Rechtsordnungen",
+      heading: "Außerhalb der Europäischen Union",
       body: "Wir verkaufen oder teilen deine personenbezogenen Daten nicht für zielgerichtete Werbung oder andere kommerzielle Zwecke. Dieselben Schutzmaßnahmen gelten außerhalb der Europäischen Union (zum Beispiel in Kalifornien, im Vereinigten Königreich oder in Brasilien): Du kannst dieselben Rechte ausüben, indem du an {email} schreibst.",
     },
     minors: {
