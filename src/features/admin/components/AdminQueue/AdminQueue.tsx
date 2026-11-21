@@ -1,4 +1,4 @@
-import { useId, useState, type ReactNode, type Ref } from "react";
+import { useEffect, useId, useState, type ReactNode, type Ref } from "react";
 import { useLocation } from "react-router";
 import { Chevron } from "../../../../components/ui/Chevron/Chevron";
 
@@ -36,6 +36,11 @@ export function AdminQueue({
     setSeenHash(hash);
     if (hash === `#${id}`) setIsOpen(true);
   }
+
+  // Once open, the queue comes into view (the browser scrolled to it while it was still closed).
+  useEffect(() => {
+    if (hash === `#${id}`) document.getElementById(id)?.scrollIntoView();
+  }, [hash, id]);
 
   return (
     <details
