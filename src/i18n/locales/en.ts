@@ -54,7 +54,7 @@ export const en: Messages = {
     none: "No poster",
   },
   planner: {
-    title: "Watch planner",
+    title: "Your MCU planner",
     progressHeading: "Your progress",
     watchedCount: "{done} of {total} watched",
     sharePoster: {
@@ -62,7 +62,7 @@ export const en: Messages = {
       text: "Show your friends how far you've got.",
     },
     strip: {
-      heading: "All {total} released titles",
+      heading: "{total} titles out so far",
       phase: "Phase {number}",
       legendWatched: "Watched",
       legendNext: "Next",
@@ -70,9 +70,9 @@ export const en: Messages = {
     },
     completed: "Completed",
     list: {
-      added: "Added to your list",
-      removed: "Removed from your list",
-      savedOnDevice: "Saved on this device",
+      added: "Marked as watched",
+      removed: "Removed from watched",
+      savedOnDevice: "Marked, on this device only",
     },
     completion: {
       title: "Multiverse completed",
@@ -82,7 +82,7 @@ export const en: Messages = {
       soundHint: "A little celebration sound, off until you turn it on.",
     },
     storage: {
-      account: "Your progress is saved to your account.",
+      account: "Progress saved to your account: find it anywhere.",
       device: "Your progress stays on this device. Sign in to find it anywhere.",
       none: "We can't save your progress here: you lose it when you close the page.",
     },
@@ -94,7 +94,7 @@ export const en: Messages = {
     },
     markWatched: 'Mark "{name}" as watched',
     compact: {
-      nextUp: "Next up: {title}",
+      nextUp: "Up next: {title}",
     },
     next: {
       heading: "Up next",
@@ -106,8 +106,8 @@ export const en: Messages = {
     order: {
       heading: "Viewing order",
       release: "By release",
-      chronological: "Chronological",
-      chronologicalHeading: "Chronological order",
+      chronological: "In story",
+      chronologicalHeading: "Story order",
       unplacedHeading: "No placement",
       unplacedNote:
         "They aren't in the timeline we use as a source, so we won't place them at random.",
@@ -134,7 +134,7 @@ export const en: Messages = {
       clear: "Clear filters",
       type: "Type",
       visibility: "Visibility",
-      showAlternate: "Show alternate continuity",
+      showAlternate: "Show parallel universes",
       showUpcoming: "Also show upcoming titles",
       film: "Films",
       serie: "Series",
@@ -148,8 +148,8 @@ export const en: Messages = {
       shorts: "Short-form series",
     },
     tags: {
-      alternate: "Alternate continuity",
-      alternateHint: "Parallel universe: you can skip it without losing the thread.",
+      alternate: "Parallel universe",
+      alternateHint: "You can skip it without losing the thread of the main story.",
       upcoming: "Upcoming",
     },
     jump: {
@@ -167,7 +167,7 @@ export const en: Messages = {
     empty: {
       filters: {
         title: "Half the titles turned to dust",
-        body: "No title matches these filters. Try removing a few.",
+        body: "Nothing survives these filters. Remove a few to bring titles back.",
       },
       search: {
         title: "No results for “{q}”",
@@ -176,17 +176,17 @@ export const en: Messages = {
       },
     },
     guide: {
-      title: "How to read the planner",
+      title: "How the planner works",
       startTerm: "Where to start",
       startText:
         "Start with the first title and go in release order: it's the best way to watch for the first time. Mark each title you've seen and the planner shows you what's next.",
       orderTerm: "Prefer story order?",
       orderText:
         "Some titles, like Captain America: The First Avenger and Captain Marvel, are set in the past. Pick {chrono} to watch them where they fall in the story.",
-      alternateTerm: "Alternate continuity",
+      alternateTerm: "Parallel universe",
       alternateText:
-        "Titles tagged {tag}, like X-Men ’97 and What If…?, tell parallel-universe stories: you can skip them without losing the thread. Not interested? Turn off {filter} in the filters.",
-      help: "How to read the planner",
+        "Titles tagged {tag}, like X-Men ’97 and What If…?, tell stories outside the main line: you can skip them without losing the thread. Not interested? Turn off {filter} in the filters.",
+      help: "How the planner works",
       callout: "First time here? We'll show you how it works.",
       calloutOpen: "Show me",
       calloutDismiss: "Not now",
@@ -666,7 +666,7 @@ export const en: Messages = {
     },
     viewOrder: {
       kind: "Local storage (first-party)",
-      purpose: "Remembers whether you view titles by release or in chronological order.",
+      purpose: "Remembers whether you view titles by release or in story order.",
       duration: "Until you delete it",
     },
     theme: {

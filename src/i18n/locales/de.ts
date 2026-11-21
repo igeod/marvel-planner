@@ -55,7 +55,7 @@ export const de: Messages = {
     none: "Kein Poster",
   },
   planner: {
-    title: "Watch-Planner",
+    title: "Dein MCU-Planner",
     progressHeading: "Dein Fortschritt",
     watchedCount: "{done} von {total} gesehen",
     sharePoster: {
@@ -63,7 +63,7 @@ export const de: Messages = {
       text: "Zeig deinen Freunden, wie weit du bist.",
     },
     strip: {
-      heading: "Alle {total} erschienenen Titel",
+      heading: "{total} erschienene Titel",
       phase: "Phase {number}",
       legendWatched: "Gesehen",
       legendNext: "Als Nächstes",
@@ -71,9 +71,9 @@ export const de: Messages = {
     },
     completed: "Abgeschlossen",
     list: {
-      added: "Zu deiner Liste hinzugefügt",
-      removed: "Aus deiner Liste entfernt",
-      savedOnDevice: "Auf diesem Gerät gespeichert",
+      added: "Als gesehen markiert",
+      removed: "Aus den gesehenen entfernt",
+      savedOnDevice: "Markiert, nur auf diesem Gerät",
     },
     completion: {
       title: "Multiversum abgeschlossen",
@@ -83,7 +83,7 @@ export const de: Messages = {
       soundHint: "Ein kleiner Festklang, aus, bis du ihn einschaltest.",
     },
     storage: {
-      account: "Dein Fortschritt wird in deinem Konto gespeichert.",
+      account: "Fortschritt in deinem Konto gespeichert: Du findest ihn überall.",
       device: "Dein Fortschritt bleibt auf diesem Gerät. Melde dich an, um ihn überall zu haben.",
       none: "Hier können wir deinen Fortschritt nicht speichern: Er geht verloren, wenn du die Seite schließt.",
     },
@@ -98,7 +98,7 @@ export const de: Messages = {
       nextUp: "Als Nächstes: {title}",
     },
     next: {
-      heading: "Als Nächstes ansehen",
+      heading: "Als Nächstes",
       hiddenByFilters: "Deine Filter blenden ihn aus.",
       details: "Details",
       markWatched: "Als gesehen markieren",
@@ -108,8 +108,8 @@ export const de: Messages = {
     order: {
       heading: "Ansehreihenfolge",
       release: "Nach Erscheinen",
-      chronological: "Chronologisch",
-      chronologicalHeading: "Chronologische Reihenfolge",
+      chronological: "In der Story",
+      chronologicalHeading: "Reihenfolge der Story",
       unplacedHeading: "Ohne Einordnung",
       unplacedNote:
         "Sie stehen nicht in der Zeitleiste, die wir als Quelle nutzen, also ordnen wir sie nicht willkürlich ein.",
@@ -136,7 +136,7 @@ export const de: Messages = {
       clear: "Filter zurücksetzen",
       type: "Art",
       visibility: "Sichtbarkeit",
-      showAlternate: "Alternative Kontinuität anzeigen",
+      showAlternate: "Paralleluniversen anzeigen",
       showUpcoming: "Auch kommende Titel anzeigen",
       film: "Filme",
       serie: "Serien",
@@ -150,8 +150,8 @@ export const de: Messages = {
       shorts: "Kurzfilmserie",
     },
     tags: {
-      alternate: "Alternative Kontinuität",
-      alternateHint: "Paralleluniversum: Du kannst es überspringen, ohne den Faden zu verlieren.",
+      alternate: "Paralleluniversum",
+      alternateHint: "Du kannst es überspringen, ohne den Faden der Haupthandlung zu verlieren.",
       upcoming: "Demnächst",
     },
     jump: {
@@ -169,7 +169,7 @@ export const de: Messages = {
     empty: {
       filters: {
         title: "Kein Titel passt",
-        body: "Kein Titel passt zu diesen Filtern. Versuche, einige zu entfernen.",
+        body: "Mit diesen Filtern bleibt nichts übrig. Entferne ein paar, um Titel zurückzuholen.",
       },
       search: {
         title: "Keine Ergebnisse für „{q}“",
@@ -178,17 +178,17 @@ export const de: Messages = {
       },
     },
     guide: {
-      title: "So liest du den Planner",
+      title: "So funktioniert der Planner",
       startTerm: "Wo anfangen",
       startText:
         "Beginne beim ersten Titel und geh in der Reihenfolge des Erscheinens vor: So schaust du am besten zum ersten Mal. Markiere jeden gesehenen Titel, und der Planner zeigt dir den nächsten.",
       orderTerm: "Lieber in Story-Reihenfolge?",
       orderText:
         "Einige Titel, etwa Captain America: The First Avenger und Captain Marvel, spielen in der Vergangenheit. Wähle {chrono}, um sie an ihrer Stelle in der Geschichte zu sehen.",
-      alternateTerm: "Alternative Kontinuität",
+      alternateTerm: "Paralleluniversum",
       alternateText:
-        "Titel mit dem Etikett {tag}, etwa X-Men ’97 und What If…?, erzählen von Paralleluniversen: Du kannst sie überspringen, ohne den Faden zu verlieren. Kein Interesse? Schalte {filter} in den Filtern aus.",
-      help: "So liest du den Planner",
+        "Titel mit dem Etikett {tag}, etwa X-Men ’97 und What If…?, erzählen Geschichten außerhalb der Hauptlinie: Du kannst sie überspringen, ohne den Faden zu verlieren. Kein Interesse? Schalte {filter} in den Filtern aus.",
+      help: "So funktioniert der Planner",
       callout: "Zum ersten Mal hier? Wir zeigen dir, wie es funktioniert.",
       calloutOpen: "Zeig mir",
       calloutDismiss: "Nicht jetzt",
@@ -673,7 +673,8 @@ export const de: Messages = {
     },
     viewOrder: {
       kind: "Lokaler Speicher (eigener)",
-      purpose: "Merkt sich, ob du die Titel nach Erscheinen oder chronologisch ansiehst.",
+      purpose:
+        "Merkt sich, ob du die Titel nach Erscheinen oder in der Reihenfolge der Story ansiehst.",
       duration: "Bis du ihn löschst",
     },
     theme: {
