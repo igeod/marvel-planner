@@ -246,7 +246,7 @@ export const es: Messages = {
     imageHeading: "Imagen para stories",
     downloadImage: "Descargar imagen",
     shareImage: "Compartir imagen",
-    imageError: "No puedo crear la imagen.",
+    imageError: "No se pudo crear la imagen.",
     shareTitle: "Mi Marvel Planner",
     image: {
       heading: "El planificador de {name}",
@@ -288,7 +288,7 @@ export const es: Messages = {
       spoilers: "Todavía no hay información de spoilers para este título.",
     },
     keyScenes: {
-      heading: "Escenas a las que prestar atención",
+      heading: "Escenas clave",
       show: "Mostrar las escenas",
       hide: "Ocultar las escenas",
       warning: "Atención: contiene spoilers.",
@@ -453,7 +453,6 @@ export const es: Messages = {
     },
     stats: {
       heading: "Tu progreso",
-      overall: "Títulos vistos: {done} / {total}",
       byPhase: "Por fase",
       byType: "Por tipo",
       byYear: "Por año",
@@ -464,7 +463,7 @@ export const es: Messages = {
     export: {
       heading: "Tus datos",
       description: "Descarga tu perfil, títulos vistos y ajustes en un archivo JSON.",
-      button: "Exportar JSON",
+      button: "Descargar datos",
       pending: "Preparando…",
       error: "No se pueden descargar los datos. Inténtalo más tarde.",
       done: "Descarga iniciada.",
@@ -474,9 +473,9 @@ export const es: Messages = {
       email: "Correo electrónico",
       save: "Guardar nombre",
       saving: "Guardando…",
-      saved: "Nombre actualizado",
-      emailSave: "Actualizar correo",
-      emailSaved: "Correo actualizado",
+      saved: "Nombre guardado",
+      emailSave: "Guardar correo",
+      emailSaved: "Correo guardado",
       nothingToSave: "No hay cambios que guardar.",
       errors: {
         nameShort: "El nombre debe tener al menos {min} caracteres.",
@@ -652,7 +651,7 @@ export const es: Messages = {
     },
     session: {
       kind: "Cookie técnica de sesión (propia, HttpOnly, SameSite=Lax)",
-      purpose: "Te mantiene conectado después de iniciar sesión.",
+      purpose: "Mantiene tu sesión abierta tras iniciar sesión.",
       duration: "7 días desde el último uso, o hasta que cierres sesión",
     },
     progress: {
@@ -705,7 +704,7 @@ export const es: Messages = {
     title: "Preferencias de privacidad",
     clearHeading: "Datos en este dispositivo",
     clearBody:
-      "Borra el progreso (si no tienes cuenta), el idioma y los filtros guardados en este navegador. Sigues conectado: la cookie de sesión solo se elimina al cerrar sesión. También puedes borrar los datos desde los ajustes del navegador.",
+      "Borra el progreso (si no tienes cuenta), el idioma y los filtros guardados en este navegador. Tu sesión sigue abierta: la cookie de sesión solo se elimina al cerrar sesión. También puedes borrar los datos desde los ajustes del navegador.",
     clearButton: "Borrar los datos de este dispositivo",
     clearQuestion:
       "¿Borrar los datos de este dispositivo? Sin cuenta, el progreso no se puede recuperar. La página se recarga.",
@@ -872,7 +871,7 @@ export const es: Messages = {
   maintenance: {
     title: "Sitio en mantenimiento",
     body: "Estamos trabajando, volvemos pronto.",
-    adminLogin: "Acceso de administrador",
+    adminLogin: "Acceso admin",
   },
   notFound: {
     title: "Página no encontrada",
@@ -919,7 +918,7 @@ export const es: Messages = {
     },
     cookies: {
       heading: "Cookies y almacenamiento local",
-      body: "Solo usamos cookies técnicas, necesarias para el funcionamiento: una cookie de sesión que te mantiene conectado. No usamos cookies de analítica, publicidad ni elaboración de perfiles, ni de terceros, salvo las que YouTube pueda establecer si inicias un tráiler. Por eso no se requiere tu consentimiento (art. 122 del Código de privacidad italiano, Directiva ePrivacy y directrices del Garante de 10 de junio de 2021). La lista completa está en la {link}.",
+      body: "Solo usamos cookies técnicas, necesarias para el funcionamiento: una cookie de sesión que mantiene tu sesión abierta. No usamos cookies de analítica, publicidad ni elaboración de perfiles, ni de terceros, salvo las que YouTube pueda establecer si inicias un tráiler. Por eso no se requiere tu consentimiento (art. 122 del Código de privacidad italiano, Directiva ePrivacy y directrices del Garante de 10 de junio de 2021). La lista completa está en la {link}.",
     },
     providers: {
       heading: "Dónde se conservan y quién los trata",

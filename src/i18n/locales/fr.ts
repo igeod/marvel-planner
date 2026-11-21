@@ -132,7 +132,7 @@ export const fr: Messages = {
       resultsShort: "{shown} sur {total} titres",
       results: "{shown} affichés sur {total}",
       remove: "Retirer",
-      clear: "Réinitialiser les filtres",
+      clear: "Effacer les filtres",
       type: "Type",
       visibility: "Visibilité",
       showAlternate: "Afficher la continuité alternative",
@@ -246,7 +246,7 @@ export const fr: Messages = {
     imageHeading: "Image pour les stories",
     downloadImage: "Télécharger l'image",
     shareImage: "Partager l'image",
-    imageError: "Je ne peux pas créer l'image.",
+    imageError: "Impossible de créer l'image.",
     shareTitle: "Mon Marvel Planner",
     image: {
       heading: "Le planificateur de {name}",
@@ -288,7 +288,7 @@ export const fr: Messages = {
       spoilers: "Il n'y a pas encore d'informations spoiler pour ce titre.",
     },
     keyScenes: {
-      heading: "Scènes à suivre de près",
+      heading: "Scènes clés",
       show: "Afficher les scènes",
       hide: "Masquer les scènes",
       warning: "Attention : contient des spoilers.",
@@ -402,7 +402,7 @@ export const fr: Messages = {
       new: {
         title: "Choisir un nouveau mot de passe",
         intro: "Choisissez un mot de passe que vous n'utilisez nulle part ailleurs.",
-        button: "Enregistrer le nouveau mot de passe",
+        button: "Enregistrer le mot de passe",
         pending: "Enregistrement…",
       },
       done: {
@@ -455,7 +455,6 @@ export const fr: Messages = {
     },
     stats: {
       heading: "Votre progression",
-      overall: "Titres vus : {done} / {total}",
       byPhase: "Par phase",
       byType: "Par type",
       byYear: "Par année",
@@ -466,7 +465,7 @@ export const fr: Messages = {
     export: {
       heading: "Vos données",
       description: "Téléchargez votre profil, titres vus et réglages dans un fichier JSON.",
-      button: "Exporter en JSON",
+      button: "Télécharger les données",
       pending: "Préparation…",
       error: "Impossible de télécharger les données. Réessayez plus tard.",
       done: "Téléchargement lancé.",
@@ -476,10 +475,10 @@ export const fr: Messages = {
       email: "E-mail",
       save: "Enregistrer le nom",
       saving: "Enregistrement…",
-      saved: "Nom mis à jour",
-      emailSave: "Mettre à jour l'e-mail",
-      emailSaved: "E-mail mis à jour",
-      nothingToSave: "Il n'y a aucune modification à enregistrer.",
+      saved: "Nom enregistré",
+      emailSave: "Enregistrer l'e-mail",
+      emailSaved: "E-mail enregistré",
+      nothingToSave: "Aucune modification à enregistrer.",
       errors: {
         nameShort: "Le nom doit contenir au moins {min} caractères.",
         emailUnchanged: "C'est déjà votre adresse e-mail.",
@@ -493,17 +492,16 @@ export const fr: Messages = {
       showCurrent: "Afficher le mot de passe actuel",
       showNew: "Afficher le nouveau mot de passe",
       showConfirm: "Afficher la confirmation",
-      signedOut:
-        "Après le changement de mot de passe, vous serez déconnecté de vos autres appareils.",
+      signedOut: "Après le changement de mot de passe, vos autres appareils seront déconnectés.",
       requirements: {
         length: "Au moins {min} caractères",
-        met: "Rempli",
-        notMet: "Non rempli",
+        met: "Respecté",
+        notMet: "Non respecté",
       },
       mismatch: "Les mots de passe ne correspondent pas.",
       change: "Changer le mot de passe",
       changing: "Mise à jour…",
-      changed: "Mot de passe modifié. Vous avez été déconnecté de vos autres appareils.",
+      changed: "Mot de passe modifié. Vos autres appareils ont été déconnectés.",
       errors: {
         currentWrong: "Le mot de passe actuel est incorrect. Réessayez.",
       },
@@ -654,7 +652,7 @@ export const fr: Messages = {
     },
     session: {
       kind: "Cookie technique de session (propre, HttpOnly, SameSite=Lax)",
-      purpose: "Vous maintient connecté après la connexion.",
+      purpose: "Maintient votre session ouverte après la connexion.",
       duration: "7 jours après la dernière utilisation, ou jusqu'à la déconnexion",
     },
     progress: {
@@ -708,7 +706,7 @@ export const fr: Messages = {
     title: "Préférences de confidentialité",
     clearHeading: "Données sur cet appareil",
     clearBody:
-      "Supprime la progression (si vous n'avez pas de compte), la langue et les filtres enregistrés dans ce navigateur. Vous restez connecté : le cookie de session n'est supprimé que lorsque vous vous déconnectez. Vous pouvez aussi supprimer ces données depuis les réglages du navigateur.",
+      "Supprime la progression (si vous n'avez pas de compte), la langue et les filtres enregistrés dans ce navigateur. Votre session reste ouverte : le cookie de session n'est supprimé que lorsque vous vous déconnectez. Vous pouvez aussi supprimer ces données depuis les réglages du navigateur.",
     clearButton: "Supprimer les données de cet appareil",
     clearQuestion:
       "Supprimer les données de cet appareil ? Sans compte, la progression ne peut pas être récupérée. La page se recharge.",
@@ -924,7 +922,7 @@ export const fr: Messages = {
     },
     cookies: {
       heading: "Cookies et stockage local",
-      body: "Nous n'utilisons que des cookies techniques, nécessaires au fonctionnement : un cookie de session, qui vous maintient connecté. Nous n'utilisons aucun cookie d'analyse, de publicité ou de profilage, ni cookie tiers, sauf ceux que YouTube peut déposer si vous lancez une bande-annonce. Votre consentement n'est donc pas requis (art. 122 du Code italien de la vie privée, directive ePrivacy et lignes directrices du Garante du 10 juin 2021). La liste complète figure dans {link}.",
+      body: "Nous n'utilisons que des cookies techniques, nécessaires au fonctionnement : un cookie de session, qui maintient votre session ouverte. Nous n'utilisons aucun cookie d'analyse, de publicité ou de profilage, ni cookie tiers, sauf ceux que YouTube peut déposer si vous lancez une bande-annonce. Votre consentement n'est donc pas requis (art. 122 du Code italien de la vie privée, directive ePrivacy et lignes directrices du Garante du 10 juin 2021). La liste complète figure dans {link}.",
     },
     providers: {
       heading: "Où elles sont conservées et qui les traite",

@@ -248,7 +248,7 @@ export const de: Messages = {
     imageHeading: "Bild für Stories",
     downloadImage: "Bild herunterladen",
     shareImage: "Bild teilen",
-    imageError: "Ich kann das Bild nicht erstellen.",
+    imageError: "Das Bild konnte nicht erstellt werden.",
     shareTitle: "Mein Marvel Planner",
     image: {
       heading: "Der Planer von {name}",
@@ -456,7 +456,6 @@ export const de: Messages = {
     },
     stats: {
       heading: "Dein Fortschritt",
-      overall: "Gesehene Titel: {done} / {total}",
       byPhase: "Nach Phase",
       byType: "Nach Typ",
       byYear: "Nach Jahr",
@@ -467,7 +466,7 @@ export const de: Messages = {
     export: {
       heading: "Deine Daten",
       description: "Lade dein Profil, gesehene Titel und Einstellungen als JSON-Datei herunter.",
-      button: "JSON exportieren",
+      button: "Daten herunterladen",
       pending: "Wird vorbereitet …",
       error: "Die Daten konnten nicht heruntergeladen werden. Versuche es später erneut.",
       done: "Download gestartet.",
@@ -477,10 +476,10 @@ export const de: Messages = {
       email: "E-Mail",
       save: "Namen speichern",
       saving: "Wird gespeichert …",
-      saved: "Name aktualisiert",
-      emailSave: "E-Mail aktualisieren",
-      emailSaved: "E-Mail aktualisiert",
-      nothingToSave: "Es gibt keine Änderungen zu speichern.",
+      saved: "Name gespeichert",
+      emailSave: "E-Mail speichern",
+      emailSaved: "E-Mail gespeichert",
+      nothingToSave: "Keine Änderungen zu speichern.",
       errors: {
         nameShort: "Der Name muss mindestens {min} Zeichen lang sein.",
         emailUnchanged: "Das ist bereits deine E-Mail-Adresse.",
@@ -931,7 +930,7 @@ export const de: Messages = {
       body: "Die Seite und die Datenbank werden von Cloudflare gehostet, die Datenbank steht in Westeuropa. Cloudflare ist unser Auftragsverarbeiter. Unser Server fragt die Informationen zu den Titeln (Kurzbeschreibungen, Handlungen, Besetzung, Poster, Hintergrundbilder) bei TMDB, Wikipedia und Wikidata ab: Dein Browser kontaktiert diese Dienste nie und übermittelt ihnen daher deine IP-Adresse nicht. Cloudflare hat seinen Sitz in den Vereinigten Staaten: Einige Daten können die Europäische Union verlassen, mit den Garantien der DSGVO (EU-US Data Privacy Framework und Standardvertragsklauseln).",
     },
     retention: {
-      heading: "Wie lange wir sie speichern",
+      heading: "Speicherdauer",
       body: "Wir speichern deine Kontodaten, solange dein Konto besteht. Sitzungen laufen nach 7 Tagen ab; abgelaufene Sitzungen und abgelaufene Freigabelinks werden täglich gelöscht. Die Zähler gegen wiederholte Anmeldeversuche werden nach einem Tag gelöscht. Von Dritten erhaltene Titelinformationen bleiben höchstens 90 Tage im Cache. Wenn du dein Konto löschst, werden Superheldenname, E-Mail, Fortschritt und Sitzungen sofort gelöscht; technische Sicherungskopien werden innerhalb von 30 Tagen überschrieben.",
     },
     rights: {

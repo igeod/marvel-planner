@@ -244,7 +244,7 @@ export const it = {
     imageHeading: "Immagine per le storie",
     downloadImage: "Scarica immagine",
     shareImage: "Condividi immagine",
-    imageError: "Non riesco a creare l'immagine.",
+    imageError: "Impossibile creare l'immagine.",
     shareTitle: "Il mio Marvel Planner",
     image: {
       heading: "Il planner di {name}",
@@ -368,7 +368,7 @@ export const it = {
       noAccount: "Non hai un account? {link}",
       registerLink: "Registrati",
       forgotLink: "Password dimenticata?",
-      done: "Bentornato, eroe.",
+      done: "Eccoti di nuovo, eroe.",
     },
     register: {
       title: "Crea un account",
@@ -379,7 +379,7 @@ export const it = {
       loginLink: "Accedi",
       privacyNotice: "Creando un account dichiari di aver letto l'{link}.",
       privacyLink: "informativa sulla privacy",
-      done: "Account creato. Benvenuto nel team.",
+      done: "Account creato. Entri a far parte del team.",
     },
     reset: {
       request: {
@@ -451,7 +451,6 @@ export const it = {
     },
     stats: {
       heading: "I tuoi progressi",
-      overall: "Titoli visti: {done} / {total}",
       byPhase: "Per fase",
       byType: "Per tipo",
       byYear: "Per anno",
@@ -462,7 +461,7 @@ export const it = {
     export: {
       heading: "I tuoi dati",
       description: "Scarica profilo, titoli visti e impostazioni in un file JSON.",
-      button: "Esporta JSON",
+      button: "Scarica i dati",
       pending: "Preparazione…",
       error: "Impossibile scaricare i dati. Riprova più tardi.",
       done: "Download avviato.",
@@ -472,10 +471,10 @@ export const it = {
       email: "Email",
       save: "Salva nome",
       saving: "Salvataggio…",
-      saved: "Nome aggiornato",
-      emailSave: "Aggiorna email",
-      emailSaved: "Email aggiornata",
-      nothingToSave: "Non ci sono modifiche da salvare.",
+      saved: "Nome salvato",
+      emailSave: "Salva email",
+      emailSaved: "Email salvata",
+      nothingToSave: "Nessuna modifica da salvare.",
       errors: {
         nameShort: "Il nome deve avere almeno {min} caratteri.",
         emailUnchanged: "Questa è già la tua email.",
@@ -488,17 +487,17 @@ export const it = {
       confirm: "Conferma nuova password",
       showCurrent: "Mostra la password attuale",
       showNew: "Mostra la nuova password",
-      showConfirm: "Mostra la conferma della password",
-      signedOut: "Dopo aver cambiato la password verrai disconnesso dagli altri dispositivi.",
+      showConfirm: "Mostra la password di conferma",
+      signedOut: "Dopo aver cambiato la password, ti disconnetteremo dagli altri dispositivi.",
       requirements: {
         length: "Almeno {min} caratteri",
-        met: "Soddisfatto",
-        notMet: "Non soddisfatto",
+        met: "Rispettato",
+        notMet: "Non rispettato",
       },
       mismatch: "Le password non coincidono.",
       change: "Cambia password",
       changing: "Aggiornamento…",
-      changed: "Password cambiata. Sei stato disconnesso dagli altri dispositivi.",
+      changed: "Password cambiata. Ti abbiamo disconnesso dagli altri dispositivi.",
       errors: {
         currentWrong: "La password attuale non è corretta. Riprova.",
       },
@@ -515,7 +514,7 @@ export const it = {
       warning:
         "L'account, i progressi salvati e tutte le sessioni attive verranno cancellati in modo definitivo. L'operazione non può essere annullata.",
       confirm: "Ho capito che l'eliminazione è definitiva",
-      button: "Elimina account",
+      button: "Elimina definitivamente",
       pending: "Eliminazione…",
     },
   },
@@ -649,7 +648,7 @@ export const it = {
     },
     session: {
       kind: "Cookie tecnico di sessione (proprio, HttpOnly, SameSite=Lax)",
-      purpose: "Ti mantiene connesso dopo l'accesso.",
+      purpose: "Mantiene attivo il tuo accesso.",
       duration: "7 giorni dall'ultimo uso, oppure fino all'uscita",
     },
     progress: {
@@ -702,7 +701,7 @@ export const it = {
     title: "Preferenze privacy",
     clearHeading: "Dati su questo dispositivo",
     clearBody:
-      "Cancella i progressi (se non hai un account), la lingua e i filtri salvati in questo browser. Resti connesso: il cookie di sessione si elimina solo quando esci. Puoi cancellare i dati anche dalle impostazioni del browser.",
+      "Cancella i progressi (se non hai un account), la lingua e i filtri salvati in questo browser. Il tuo accesso resta attivo: il cookie di sessione si elimina solo quando esci. Puoi cancellare i dati anche dalle impostazioni del browser.",
     clearButton: "Cancella i dati di questo dispositivo",
     clearQuestion:
       "Cancellare i dati di questo dispositivo? Senza un account, i progressi non si recuperano. La pagina si ricarica.",
@@ -767,7 +766,7 @@ export const it = {
       open: "Apri nel planner",
       copyTemplate: "Copia modello",
       templateCopied: "Modello copiato",
-      copyError: "Non sono riuscito a copiare: il modello è qui sotto.",
+      copyError: "Copia non riuscita: il modello è qui sotto.",
       verify: "Segna verificato…",
       verifyTitle: "Verificato: niente da aggiungere",
       verifyLegend: "Contenuti controllati",
@@ -864,7 +863,7 @@ export const it = {
       copyAgain: "Copia di nuovo",
       alreadyCopied: "Già copiato il {date}",
       found: "Trovato il {date}",
-      copyError: "Non riesco a copiare. Seleziona il codice qui sotto.",
+      copyError: "Copia non riuscita. Seleziona il codice qui sotto.",
       dismissed: "{title} ignorato",
       copied: "Codice copiato",
     },
@@ -919,7 +918,7 @@ export const it = {
     },
     cookies: {
       heading: "Cookie e archiviazione locale",
-      body: "Usiamo solo cookie tecnici, necessari al funzionamento: un cookie di sessione, che ti mantiene connesso. Non usiamo cookie di analisi, pubblicità o profilazione né cookie di terze parti, salvo quelli che YouTube può impostare se avvii tu un trailer. Per questo non serve il tuo consenso (art. 122 del Codice privacy, direttiva ePrivacy, linee guida del Garante del 10 giugno 2021). L'elenco completo è in {link}.",
+      body: "Usiamo solo cookie tecnici, necessari al funzionamento: un cookie di sessione, che mantiene attivo il tuo accesso. Non usiamo cookie di analisi, pubblicità o profilazione né cookie di terze parti, salvo quelli che YouTube può impostare se avvii tu un trailer. Per questo non serve il tuo consenso (art. 122 del Codice privacy, direttiva ePrivacy, linee guida del Garante del 10 giugno 2021). L'elenco completo è in {link}.",
     },
     providers: {
       heading: "Dove sono conservati e chi li tratta",

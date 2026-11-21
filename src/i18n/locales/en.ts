@@ -245,7 +245,7 @@ export const en: Messages = {
     imageHeading: "Image for stories",
     downloadImage: "Download image",
     shareImage: "Share image",
-    imageError: "I can't create the image.",
+    imageError: "Could not create the image.",
     shareTitle: "My Marvel Planner",
     image: {
       heading: "{name}'s planner",
@@ -451,7 +451,6 @@ export const en: Messages = {
     },
     stats: {
       heading: "Your progress",
-      overall: "Titles watched: {done} / {total}",
       byPhase: "By phase",
       byType: "By type",
       byYear: "By year",
@@ -462,7 +461,7 @@ export const en: Messages = {
     export: {
       heading: "Your data",
       description: "Download your profile, watched titles and settings as a JSON file.",
-      button: "Export JSON",
+      button: "Download data",
       pending: "Preparing…",
       error: "Unable to download your data. Please try again later.",
       done: "Download started.",
@@ -472,10 +471,10 @@ export const en: Messages = {
       email: "Email",
       save: "Save name",
       saving: "Saving…",
-      saved: "Name updated",
-      emailSave: "Update email",
-      emailSaved: "Email updated",
-      nothingToSave: "There are no changes to save.",
+      saved: "Name saved",
+      emailSave: "Save email",
+      emailSaved: "Email saved",
+      nothingToSave: "No changes to save.",
       errors: {
         nameShort: "The name must be at least {min} characters long.",
         emailUnchanged: "This is already your email.",
@@ -488,8 +487,8 @@ export const en: Messages = {
       confirm: "Confirm new password",
       showCurrent: "Show current password",
       showNew: "Show new password",
-      showConfirm: "Show confirm password",
-      signedOut: "After you change your password, you will be signed out of your other devices.",
+      showConfirm: "Show password confirmation",
+      signedOut: "After you change your password, we'll sign you out of your other devices.",
       requirements: {
         length: "At least {min} characters",
         met: "Met",
@@ -498,7 +497,7 @@ export const en: Messages = {
       mismatch: "Passwords do not match.",
       change: "Change password",
       changing: "Updating…",
-      changed: "Password changed. You have been signed out of your other devices.",
+      changed: "Password changed. We signed you out of your other devices.",
       errors: {
         currentWrong: "The current password is incorrect. Try again.",
       },
@@ -513,9 +512,9 @@ export const en: Messages = {
     delete: {
       heading: "Delete account",
       warning:
-        "Your account, hero name and all watched marks will be removed. This cannot be undone. Enter your password to confirm.",
+        "Your account, saved progress and all active sessions will be permanently deleted. This can't be undone.",
       confirm: "I understand that deletion is permanent",
-      button: "Delete account",
+      button: "Delete permanently",
       pending: "Deleting…",
     },
   },
