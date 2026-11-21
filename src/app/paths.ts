@@ -1,7 +1,7 @@
 export const PATHS = {
   home: "/",
   privacy: "/privacy",
-  accessibility: "/accessibilita",
+  accessibility: "/accessibility",
   admin: "/admin",
   shared: "/s/:code",
   title: "/film/:id",
