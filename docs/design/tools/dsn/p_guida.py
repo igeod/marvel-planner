@@ -73,7 +73,7 @@ P.append(sec('Che cosa non va oggi','Letto dal codice (main '+COMMIT+', GuideHel
  'Su desktop la colonna è la rail destra, sticky: il pulsante e l’invito della prima visita stanno nell’angolo più affollato, vicino a filtri e barra fluttuante.',
  'Il contenuto è breve (da una a tre voci, a seconda di ordine e alternativa) ma si apre in un popup modale: copre proprio la pagina che la guida spiega, e non si può leggere guardando i filtri o l’avanzamento.'])))
 P.append(sec('Quello che la guida è','Per scegliere la forma conta il contenuto.',ul([
- 'Da 1 a 3 voci di 2-3 righe: “Vuoi seguire la storia?” (solo con ordine di uscita), “Ordine di uscita e cronologico”, “Continuità alternativa” (solo se l’alternativa è visibile). Si leggono in meno di un minuto.',
+ 'Da 1 a 3 voci di 2-3 righe: “Vuoi seguire la storia?” (solo con ordine di uscita), “Ordine di uscita e cronologico”, “Universo parallelo” (solo se l’alternativa è visibile). Si leggono in meno di un minuto.',
  'Cita elementi della pagina: tab, filtro, fasi. Perciò è utile poterla leggere <b>con la pagina in vista</b>.',
  'Si legge una volta, forse due. La prima visita ha già un invito (flag <code>mcu-planner-guide-seen</code>): il “?” deve restare trovabile ma non deve essere in primo piano.',
  'Dipende dallo stato del planner (<code>isChronological</code>, <code>showAlternate</code>): il componente che la apre deve poter leggerlo.'])))

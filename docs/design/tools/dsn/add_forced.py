@@ -73,7 +73,7 @@ def showcase(theme, forced_css=''):
     choice = lambda t, c='': f'<label class="choice"><input class="choice__input" type="radio" name="o"{c}><span class="choice__face">{t}</span></label>'
     sw = lambda t, c='': f'<div class="switch"><span>{t}</span><label class="switch__control"><input class="switch__input" type="checkbox" role="switch"{c} aria-label="{t}"><span class="switch__track" aria-hidden="true"></span></label></div>'
     ctrl = ('<section class="card"><h2 class="section-title">Scelte e interruttori</h2><div class="fs-row">' + choice('Per uscita', ' checked') + choice('Cronologico') + '</div>'
-            + sw('Mostra continuità alternativa', ' checked') + sw('Mostra i non ancora usciti') + '</section>')
+            + sw('Mostra universo parallelo', ' checked') + sw('Mostra i non ancora usciti') + '</section>')
     acc = ('<section class="card fs-row"><button type="button" class="account-pill"><span class="avatar" aria-hidden="true">D</span><span>Diego</span></button>'
            '<div class="share-poster" style="width:11rem"><span>Condividi il tuo planner</span></div></section>')
     css = ('body{margin:0;padding:12px;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:var(--fs-body);line-height:1.5;width:496px}'

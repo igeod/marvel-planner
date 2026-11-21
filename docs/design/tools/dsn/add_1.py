@@ -79,7 +79,7 @@ b5=[
  ['Condividi, Azzera, Rigenera, Disattiva link, Scarica, Elimina dati','<code>icon</code> a sinistra','invariato','PlannerSummary.tsx r.105 e r.131; ShareDialog.tsx r.201 e r.211; ExportSection.tsx r.46; PrivacySettingsDialog.tsx r.60'],
  ['Cancella ricerca, Rimuovi filtri','<code>icon</code> X a sinistra','invariato (azione con verbo)','PlannerSearch.tsx r.78; FiltersEmpty.tsx r.16'],
  ['Apri scheda del titolo','Maximize2 <b>dopo</b> il testo (<code>TitleItem.tsx</code> r.116, non passa da <code>iconEnd</code>)','invariato: apre altro → icona a destra; si passa da <code>iconEnd</code>','TitleItem.tsx r.117?'],
- ['Dettagli (scheda “Prossimo da guardare”)','nessuna icona (<code>Link</code> con <code>buttonClass("text")</code>); “Apri scheda” nello stesso percorso ha Maximize2 a destra','<b>Maximize2 a destra</b>, come “Apri scheda”: stessa destinazione (<code>/film/:id</code>), stessa regola','NextToWatch.tsx r.126-128; TitleItem.tsx r.113-119'],
+ ['Dettagli (scheda “Prossimo da vedere”)','nessuna icona (<code>Link</code> con <code>buttonClass("text")</code>); “Apri scheda” nello stesso percorso ha Maximize2 a destra','<b>Maximize2 a destra</b>, come “Apri scheda”: stessa destinazione (<code>/film/:id</code>), stessa regola','NextToWatch.tsx r.126-128; TitleItem.tsx r.113-119'],
  ['Link esterni (JustWatch, candidati)','ExternalLink dopo il testo','invariato: a destra','WhereToWatch.tsx r.108; CandidatesSection.tsx r.102'],
  ['Annulla, Chiudi, Indietro, Non importare','nessuna icona','invariato: azioni neutre senza icona','ConfirmDialog.tsx; ImportSharedDialog.tsx'],
  ['Toast: Annulla, Accedi','nessuna icona','invariato: azioni dentro un toast senza icona','useWatched.ts'],

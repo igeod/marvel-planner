@@ -32,7 +32,7 @@ def hh(v,desk17=190,desk34=190,mob=520):
            +grid(sc(v,'light',False,D34,34,'Desktop · chiaro · 34 titoli',desk34),sc(v,'dark',True,D34,34,'Mobile · scuro · 34 titoli',mob)))
 def pc(pro,con): return '<div class="dc-row"><div class="dc-box" style="flex:1 1 20rem"><div class="dc-fl">Pro</div>'+ul(pro)+'</div><div class="dc-box" style="flex:1 1 20rem"><div class="dc-fl">Contro</div>'+ul(con)+'</div></div>'
 P=[]
-P.append(h1('Fascia delle fasi','Come sistemare le icone dentro le celle della fascia delle fasi (“Tutti i 34 titoli”): cinque varianti, provate con 17 e con 34 titoli, desktop e mobile.'))
+P.append(h1('Fascia delle fasi','Come sistemare le icone dentro le celle della fascia delle fasi (“34 titoli usciti”): cinque varianti, provate con 17 e con 34 titoli, desktop e mobile.'))
 P.append(hdr('Proposte per le icone (spunta e play) nelle celle della fascia delle fasi di PhaseStrip e nella sua legenda',
  'src/features/planner/components/PhaseStrip/ (PhaseStrip.tsx, PhaseStrip.less)','Planner (fascia delle fasi, legenda)','12 novembre 2026'))
 P.append(sec('Che cosa non va oggi','Letto dal codice (main '+COMMIT+', PhaseStrip.less r.89-115, r.54-63).',ul([

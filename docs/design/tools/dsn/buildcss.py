@@ -2,7 +2,7 @@
 import subprocess, re, os, sys
 S='@WORK@'
 SRC='@REPO@/src'
-LESSC=f'{S}/lessc/node_modules/.bin/lessc'
+LESSC=f'{S}/lessc/node_modules/.bin/lessc'+('.cmd' if os.name=='nt' else '')
 OUT=f'{S}/canvas'
 ENTRY_TOK='@import "styles/tokens";\n'
 ENTRY_APP=open(f'{S}/dsn/entry_app.less').read()

@@ -11,7 +11,7 @@ def card(vw,desktop):
       f'<p class="progress-card__percent" aria-hidden="true"><span class="progress-card__percent-width">100%</span><span class="progress-card__percent-value">35%</span></p><p class="progress-card__count">{L("planner.watchedCount",done=12,total=34)}</p>{mob}'
       f'<div class="progress-card__footer"><p class="progress-card__note muted">{L("planner.storage.device")}</p>{btn("text",L("planner.toolbar.reset"),"","","rotate-ccw")}</div></div>{share}</section>')
 def hero(vw):
-    nxt='<section class="card card--panel on-panel"><h2 class="section-title">Prossimo da guardare</h2><p class="muted">(segnaposto: la scheda vera sta a fianco)</p></section>'
+    nxt='<section class="card card--panel on-panel"><h2 class="section-title">Prossimo da vedere</h2><p class="muted">(segnaposto: la scheda vera sta a fianco)</p></section>'
     return f'<main class="site-main"><div class="planner__hero">{card(vw,vw>=1024)}{nxt}</div></main>'
 FIX='@media (min-width:64em){.progress-card{flex-wrap:nowrap}}'
 def fx(vw,h,theme,label,after=False):
@@ -62,7 +62,7 @@ def build():
           '<b>Perché non (b):</b> un biglietto più stretto fa andare il titolo su tre righe già in italiano (a 40 px la parola più lunga è 151 px). '
           '<b>Perché non (c):</b> un biglietto sotto la percentuale, a tutta larghezza e orizzontale, è un secondo layout da disegnare, mantenere e tradurre per una fascia di 118 px (1024-1142); e sul telefono la funzione la fa già il riquadro dentro la scheda.')
     return block('Decisione · biglietto “Condividi” tra 1024 e 1142 px',DECI,
-      'Tra l\'inizio del desktop (1024 px) e la scheda da 666 px il biglietto (<code>.share-poster</code>, 250 px) va a capo sotto la percentuale, lascia il lato destro vuoto e rende la scheda quasi il doppio di “Prossimo da guardare”. Misurato nel browser con il CSS del canvas e i font veri (Anton, Hanken Grotesk). Le finestre sotto sono iframe larghi quanto la finestra, con 12 px di barra di scorrimento simulati a destra.',
+      'Tra l\'inizio del desktop (1024 px) e la scheda da 666 px il biglietto (<code>.share-poster</code>, 250 px) va a capo sotto la percentuale, lascia il lato destro vuoto e rende la scheda quasi il doppio di “Prossimo da vedere”. Misurato nel browser con il CSS del canvas e i font veri (Anton, Hanken Grotesk). Le finestre sotto sono iframe larghi quanto la finestra, con 12 px di barra di scorrimento simulati a destra.',
       f'<div class="dc-box"><div class="dc-fl">Scelta · variante preferita e perché</div><p>{why_}</p></div>'
       +sec('La regola','Una riga di LESS in <code>PlannerSummary.less</code>.',
         '<pre><code>.progress-card {\n  display: flex;\n  flex-wrap: wrap;            // telefono e tablet: il riquadro Condividi sta nella colonna\n  gap: 1.5rem;\n  padding: 1.5rem 1.25rem;\n\n  .desktop({ padding: 32px 36px; flex-wrap: nowrap; });   // dal desktop il biglietto non va mai a capo\n}</code></pre>'

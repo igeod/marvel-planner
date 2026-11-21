@@ -72,8 +72,8 @@ add('Planner',
   '<div class="dc-row">'+fr('light','100%',f'<div style="position:relative;padding-bottom:9rem">{searchrow()}<div style="position:absolute;right:0;top:calc(var(--row-h) + var(--sp-2))">{callout()}</div></div>','Prima visita · invito sotto il “?”')+fr('dark','100%',f'<div style="position:relative;padding-bottom:9rem">{searchrow()}<div style="position:absolute;right:0;top:calc(var(--row-h) + var(--sp-2))">{callout()}</div></div>','Scuro')+'</div>'
   +'<div class="dc-fl">Popup della guida: voci condizionali</div><div class="dc-row">'
   +fr('light','520px',modal(esc(L('planner.guide.title')),guide_items('it',False,True)),'Ordine di uscita, alternativa visibile: 3 voci')
-  +fr('light','520px',modal(esc(L('planner.guide.title')),guide_items('it',True,True)),'Ordine cronologico: senza “Vuoi seguire la storia?”')
-  +fr('light','520px',modal(esc(L('planner.guide.title')),guide_items('it',False,False)),'Alternativa spenta nei filtri: senza “Continuità alternativa”')+'</div>'
+  +fr('light','520px',modal(esc(L('planner.guide.title')),guide_items('it',True,True)),'Ordine della storia: senza “Vuoi seguire la storia?”')
+  +fr('light','520px',modal(esc(L('planner.guide.title')),guide_items('it',False,False)),'Alternativa spenta nei filtri: senza “Universo parallelo”')+'</div>'
   +sec('Valori letti dal codice','',tbl(['Elemento','Valore','File'],[
    ['Riga ricerca + “?”','flex, gap <code>--sp-2</code>; il “?” è centrato sul campo di ricerca: <code>margin-top: calc((var(--row-h) - var(--hit)) / 2)</code>','GuideHelp.less r.3-19'],
    ['Pulsante “?”','<code>btn btn--soft btn--icon</code>, largo e alto <code>--hit</code>; icona <code>CircleHelp</code>; <code>aria-haspopup="dialog"</code>; apre il popup e segna la guida come vista','GuideHelp.tsx r.52-63; GuideHelp.less r.21-26'],
@@ -82,7 +82,7 @@ add('Planner',
    ['Movimento','<code>reveal-in</code> per <code>--dur-enter</code> solo con <code>prefers-reduced-motion: no-preference</code>','GuideHelp.less r.42-44'],
    ['Chiusura dell\'invito','pointerdown o tasto o scroll fuori dall\'invito; “Leggi” e “?” aprono il popup e chiudono l\'invito','GuideHelp.tsx r.27-41'],
    ['Popup','<code>Modal</code> con titolo <code>planner.guide.title</code>; voci in colonna, gap <code>--sp-4</code>, titoli <code>h3</code> <code>--fs-title</code> peso 800','GuideHelp.tsx r.86-105; GuideHelp.less r.53-63'],
-   ['Voci condizionali','“Da dove iniziare”: sempre. “Vuoi seguire la storia?”: solo se l\'ordine <b>non</b> è cronologico. “Continuità alternativa”: solo se il filtro delle alternative è acceso','GuideHelp.tsx r.88-103'],
+   ['Voci condizionali','“Da dove iniziare”: sempre. “Vuoi seguire la storia?”: solo se l\'ordine <b>non</b> è cronologico. “Universo parallelo”: solo se il filtro delle alternative è acceso','GuideHelp.tsx r.88-103'],
   ]))
   +sec('Nomi di scheda e filtro: dalle chiavi dell\'app','I nomi in grassetto non sono scritti nel testo della guida: vengono dalle chiavi <code>planner.order.chronological</code> (scheda), <code>planner.tags.alternate</code> (etichetta) e <code>planner.filters.showAlternate</code> (filtro) e si traducono con l\'app (GuideHelp.tsx r.43-48). Se un\'etichetta cambia, la guida resta giusta.',
      tbl(['Segnaposto','Chiave','it','en','fr','es','de'],[[f'<code>{{{p}}}</code>',f'<code>{k}</code>']+[esc(L(k,l)) for l in LANGS] for p,k in [('chrono','planner.order.chronological'),('tag','planner.tags.alternate'),('filter','planner.filters.showAlternate')]]))

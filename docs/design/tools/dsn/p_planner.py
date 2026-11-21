@@ -69,12 +69,12 @@ S.append(hdr('Pagina Planner (e il suo link condiviso): ordine delle regioni, co
  'Navigation (intestazione, piè di pagina), Buttons, Accordion (fase, riga del titolo, guida), Switch e ChoiceGroup, Progress (CompactProgress, FloatingProgress), Badges (contatore filtri), System states (vuoti), Toast, Popup generici (azzeramento, condivisione)'))
 S.append(sec('Desktop (da 64em)','Hero a due colonne (avanzamento su pannello scuro + prossimo da vedere), fascia delle fasi, poi l\'elenco a sinistra e una colonna fissa da 320px a destra (progress compatto, ricerca, filtri, comprimi tutto). Dati dimostrativi; testi veri dai file locale.',
   vp(desk_view(True),'light',1100,2360,'Chiaro')+vp(desk_view(False),'dark',1100,2210,'Scuro')))
-S.append(sec('Mobile (sotto 40em)','Sotto il desktop l\'avanzamento mostra “Condividi” e “Fasi” come pulsanti, la fascia delle fasi è un accordion a sé dopo “Prossimo da guardare”, ricerca e barra strumenti (Filtri, comprimi tutto) passano sopra l\'elenco; i filtri si aprono in un foglio. In fondo compare la barra di avanzamento sticky, solo su mobile (pagina Progress).',
+S.append(sec('Mobile (sotto 40em)','Sotto il desktop l\'avanzamento mostra “Condividi” e “Fasi” come pulsanti, la fascia delle fasi è un accordion a sé dopo “Prossimo da vedere”, ricerca e barra strumenti (Filtri, comprimi tutto) passano sopra l\'elenco; i filtri si aprono in un foglio. In fondo compare la barra di avanzamento sticky, solo su mobile (pagina Progress).',
   vp(mob_view(False),'light',390,2230,'Chiaro')+vp(mob_view(False),'dark',390,2230,'Scuro')))
 S.append(sec('Ordine delle regioni','',tbl(['#','Regione','Componente','Desktop','Mobile'],[
  ['1','Avanzamento','PlannerSummary (<code>.progress-card</code>)','sì, con scheda “Condividi”','sì, con pulsanti Condividi e Fasi'],
  ['2','Prossimo da vedere','NextToWatch (<code>.next-card</code>)','sì','sì'],
- ['3','Fascia delle fasi','PhaseStrip (<code>.phase-strip</code>)','scheda a sé, sempre aperta','accordion a sé (chiuso all\'inizio), dopo “Prossimo da guardare”'],
+ ['3','Fascia delle fasi','PhaseStrip (<code>.phase-strip</code>)','scheda a sé, sempre aperta','accordion a sé (chiuso all\'inizio), dopo “Prossimo da vedere”'],
  ['4','Guida “?”','GuideHelp, portale su <code>#header-help-slot</code> (AppHeader.tsx r.21; Planner.tsx r.337)','header, a sinistra del pulsante del tema, solo su <code>/</code> e <code>/s/:code</code>','header, a sinistra di Menu'],
  ['—','Scorciatoie “Ultimo visto” e “Torna su”','BackToTop (Planner.tsx r.343)','due pillole centrate in basso (“Torna su” dopo 1,5 schermate; “Ultimo visto” se la riga non è in vista)','idem, alzate sopra la barra solo quando è attaccata al bordo basso'],
  ['5','Ricerca, filtri, comprimi tutto','PlannerSearch, PlannerFilters, CollapseToggle','colonna fissa a destra (320px, sticky)','ricerca + MobileToolbar + FiltersSheet'],
@@ -97,7 +97,7 @@ for title,path,only in [
  ('Saga e elenco (SagaSection)','SagaSection/SagaSection.less',None),
 ]:
     S.append(sec(title,'',parts_table(path,only)))
-S.append(sec('Toast “Aggiunto alla tua lista”','Segnare o togliere un titolo visto, da una riga dell\'elenco o da “Prossimo da vedere”, mostra un toast in basso al centro (componente Toast, <code>id</code> <code>list-change</code>, 8 s perché ha un\'azione). Con account: “Aggiunto alla tua lista” / “Rimosso dalla tua lista” con <b>Annulla</b>. Da ospite: segnare dà “Salvato su questo dispositivo” con <b>Accedi</b> al posto di Annulla.',
+S.append(sec('Toast “Segnato come visto”','Segnare o togliere un titolo visto, da una riga dell\'elenco o da “Prossimo da vedere”, mostra un toast in basso al centro (componente Toast, <code>id</code> <code>list-change</code>, 8 s perché ha un\'azione). Con account: “Segnato come visto” / “Tolto dai visti” con <b>Annulla</b>. Da ospite: segnare dà “Segnato, solo su questo dispositivo” con <b>Accedi</b> al posto di Annulla.',
   both('480px',toast_demo(),'Account: aggiunto · ospite: aggiunto')
   +tbl(['Lingua','planner.list.added','planner.list.removed','planner.list.savedOnDevice','common.undo','nav.login'],[[l]+[L(k,l) for k in ('planner.list.added','planner.list.removed','planner.list.savedOnDevice','common.undo','nav.login')] for l in ('it','en','fr','es','de')])
   +'<p class="dc-src">Valori, durata e comportamento: pagina Toast, sezione “Aggiunto o rimosso dalla lista”. Fonte: <code>useWatched.ts</code> r.86-116, chiamato da <code>Planner.tsx</code> r.180 (<code>onMarkWatched</code>) e r.274, r.282 (<code>onToggleTitle</code>).</p>'))

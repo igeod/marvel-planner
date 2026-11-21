@@ -58,7 +58,7 @@ def phase_ref():
     from comp import phase,row
     return phase(False)
 block2=block('Fascia delle fasi su mobile: lo stesso accordion delle fasi',PROP,
- 'L’accordion “Tutti i 71 titoli” è un pulsante con il corpo <code>hidden</code> (PhaseStrip.tsx r.81-91): si apre di colpo, senza l’animazione di altezza e di contenuto che hanno le fasi, e la barra del titolo è più alta e più grossa (card con padding 20px 16px + pulsante da 44px + testo 800). Decisione del 12 novembre: <b>è lo stesso accordion delle fasi</b>, stessa animazione, e più compatto. Provalo con un tocco sul titolo.',
+ 'L’accordion “71 titoli usciti” è un pulsante con il corpo <code>hidden</code> (PhaseStrip.tsx r.81-91): si apre di colpo, senza l’animazione di altezza e di contenuto che hanno le fasi, e la barra del titolo è più alta e più grossa (card con padding 20px 16px + pulsante da 44px + testo 800). Decisione del 12 novembre: <b>è lo stesso accordion delle fasi</b>, stessa animazione, e più compatto. Provalo con un tocco sul titolo.',
  grid(sc2('light','before','Prima · chiuso (nel codice)',120),sc2('light','closed','Dopo · prova viva: tocca il titolo',300),sc2('dark','ref','Dopo · accanto a una fase (stessa animazione)',360))
  +tbl(['Aspetto','Regola','Note'],[
   ['Struttura','<code>&lt;details class="phase card"&gt;</code> con <code>&lt;summary class="phase__summary"&gt;</code> e <code>Chevron</code>, come <code>PhaseSection</code>; il corpo (legenda e colonne) è il contenuto di <code>details</code>. Il pulsante <code>.phase-strip__toggle</code>, <code>hidden</code> e <code>aria-controls</code> si tolgono','il <code>details</code> dà già nome, stato aperto/chiuso e tastiera'],
