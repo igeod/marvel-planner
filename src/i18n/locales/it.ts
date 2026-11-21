@@ -601,8 +601,6 @@ export const it = {
   },
   a11y: {
     title: "Dichiarazione di accessibilità",
-    intro:
-      "Marvel Planner si può usare con tastiera, lettore di schermo e zoom. Qui trovi a che punto siamo.",
     conformance: {
       heading: "Stato di conformità",
       standardLabel: "Standard",
@@ -610,8 +608,6 @@ export const it = {
       statusLabel: "Stato",
       status: "Conformità parziale: vedi i limiti noti",
       checkedLabel: "Verificato il",
-      howLabel: "Come",
-      how: "Prove con tastiera, zoom al 400%, controllo automatico (axe) e prove manuali su Chromium e WebKit. Non ancora con un lettore di schermo reale.",
     },
     use: {
       heading: "Cosa puoi usare",
@@ -620,10 +616,6 @@ export const it = {
       heading: "Limiti noti",
       contrast:
         "Con il contrasto forzato di Windows i pulsanti e la fascia delle fasi perdono la forma: si leggono, ma non si distinguono dal testo. Lo stiamo correggendo.",
-      title:
-        "Se il servizio dei dati sui titoli non risponde, la pagina di un titolo non ha un titolo di pagina.",
-      screenReader:
-        "Non abbiamo ancora provato il sito con un lettore di schermo reale (NVDA, VoiceOver).",
     },
     report: {
       heading: "Come segnalare un ostacolo",

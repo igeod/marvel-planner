@@ -604,8 +604,6 @@ export const es: Messages = {
   },
   a11y: {
     title: "Declaración de accesibilidad",
-    intro:
-      "Marvel Planner se puede usar con teclado, lector de pantalla y zoom. Aquí tienes en qué punto estamos.",
     conformance: {
       heading: "Estado de conformidad",
       standardLabel: "Norma",
@@ -613,8 +611,6 @@ export const es: Messages = {
       statusLabel: "Estado",
       status: "Conformidad parcial: consulta los límites conocidos",
       checkedLabel: "Verificado el",
-      howLabel: "Método",
-      how: "Pruebas con teclado, zoom al 400 %, comprobación automática (axe) y pruebas manuales en Chromium y WebKit. Aún no con un lector de pantalla real.",
     },
     use: {
       heading: "Qué puedes usar",
@@ -623,10 +619,6 @@ export const es: Messages = {
       heading: "Límites conocidos",
       contrast:
         "Con el contraste forzado de Windows, los botones y la franja de fases pierden su forma: se leen, pero parecen texto simple. Lo estamos corrigiendo.",
-      title:
-        "Si el servicio de datos de los títulos no responde, la página de un título no tiene encabezado de página.",
-      screenReader:
-        "Aún no hemos probado el sitio con un lector de pantalla real (NVDA, VoiceOver).",
     },
     report: {
       heading: "Cómo comunicar un obstáculo",

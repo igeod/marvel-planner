@@ -606,8 +606,6 @@ export const de: Messages = {
   },
   a11y: {
     title: "Erklärung zur Barrierefreiheit",
-    intro:
-      "Marvel Planner lässt sich mit Tastatur, Screenreader und Zoom nutzen. Hier siehst du, wo wir stehen.",
     conformance: {
       heading: "Konformitätsstatus",
       standardLabel: "Standard",
@@ -615,8 +613,6 @@ export const de: Messages = {
       statusLabel: "Stand",
       status: "Teilweise konform: siehe bekannte Einschränkungen",
       checkedLabel: "Geprüft am",
-      howLabel: "Methode",
-      how: "Tastaturtests, 400 % Zoom, automatische Prüfung (axe) und manuelle Tests in Chromium und WebKit. Noch nicht mit einem echten Screenreader.",
     },
     use: {
       heading: "Was du nutzen kannst",
@@ -625,10 +621,6 @@ export const de: Messages = {
       heading: "Bekannte Einschränkungen",
       contrast:
         "Bei erzwungenen Farben in Windows verlieren Schaltflächen und der Phasenstreifen ihre Form: Man kann sie lesen, sie sehen aber wie normaler Text aus. Wir arbeiten daran.",
-      title:
-        "Wenn der Dienst für die Titeldaten nicht antwortet, hat die Seite eines Titels keine Seitenüberschrift.",
-      screenReader:
-        "Wir haben die Seite noch nicht mit einem echten Screenreader getestet (NVDA, VoiceOver).",
     },
     report: {
       heading: "Ein Hindernis melden",

@@ -127,7 +127,6 @@ export function PrivacyPage() {
     <>
       <article className="text-page" aria-labelledby="privacy-title">
         <header className="text-head">
-          <p className="text-head__kicker muted">{t("footer.legal")}</p>
           <h1 id="privacy-title">{t("privacy.title")}</h1>
           <p className="text-head__meta muted">
             {t("privacy.updated", { date: formatDate(SITE.privacyLastUpdated) })}

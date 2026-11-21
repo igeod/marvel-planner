@@ -71,7 +71,8 @@ Da completare con i difetti concreti che il proprietario nota nella grafica ("tr
 
 Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design la risolve e poi la cancella.
 
-- Pagine di testo | `PrivacyPage`, `AccessibilityPage` | intestazione come una saga, una scheda numerata per sezione, biglietto giallo dritto nell'Accessibilità | voce 27 di HANDOFF §2
+- Preferenze privacy | `PrivacySettingsDialog` | cliccando «Cancella i dati di questo dispositivo» il pulsante diventa la domanda con «Annulla» e «Cancella i dati» senza nessun movimento (Design non ne ha definito uno per questo passaggio; il popup ha solo la transizione di vista di `Modal`, usata dal login) | da definire con Design; proposta di partenza: dissolvenza `--dur-ui` come `.state-box--card`
+- Pagine di testo | `PrivacyPage`, `AccessibilityPage` | intestazione come una saga, una scheda numerata per sezione, biglietto giallo dritto nell'Accessibilità; senza la riga «Informazioni legali» sopra il titolo (la saga non ce l'ha) | voce 27 di HANDOFF §2
 - Admin | `AdminDashboard` | «Da fare» e «Stato del sito» in testa, code a fisarmonica (Manutenzione, Automazione e Utenti confluiti nello Stato) | voce 30 di HANDOFF §2
 - Contrasto forzato | `forced-colors.less` | stati e pulsanti con soli colori di sistema (fascia, pulsanti, scelte, interruttori, avatar) | voce 28 di HANDOFF §2
 - Fogli in basso | `Modal`, `FiltersSheet`, `AccountSettings` | altezza = viewport visivo − `--sheet-gap`; Account con tetto 760 px; titoli dei fogli in Hanken 800 `--fs-h4` | voce 26 di HANDOFF §2

@@ -469,7 +469,7 @@ dialog.menu-panel {
     }
   }
 
-  // Intro at every arrival on the planner or a film (and after the splash): html[data-intro] is removed
+  // Intro at every arrival on the planner, a film or a text page (and after the splash): html[data-intro] is removed
   // ~600ms later, opacity and transform only. The first screen cascades; everything else just appears.
   // Planner: header, progress, rail or search, next up, first phase.
   // --i is the step; the delay is capped at --stagger-max.
@@ -484,7 +484,9 @@ dialog.menu-panel {
     .film__heading,
     .film__glass,
     .film__story,
-    .film__cast {
+    .film__cast,
+    .text-head,
+    .text-page__body > :nth-child(-n + 2) {
       will-change: opacity, transform;
       animation: swap-in var(--dur-enter) var(--ease-out) backwards;
       // Starts --dur-hover in, halfway through the splash's exit; the fill keeps each element at its
@@ -535,6 +537,19 @@ dialog.menu-panel {
 
     .film__cast {
       --i: 5;
+    }
+
+    // Privacy and Accessibility: the header, then the first two cards.
+    .text-head {
+      --i: 1;
+    }
+
+    .text-page__body > :nth-child(1) {
+      --i: 2;
+    }
+
+    .text-page__body > :nth-child(2) {
+      --i: 3;
     }
   }
 

@@ -601,8 +601,6 @@ export const en: Messages = {
   },
   a11y: {
     title: "Accessibility statement",
-    intro:
-      "Marvel Planner works with a keyboard, a screen reader and zoom. Here is where we stand.",
     conformance: {
       heading: "Conformance status",
       standardLabel: "Standard",
@@ -610,8 +608,6 @@ export const en: Messages = {
       statusLabel: "Status",
       status: "Partially conformant: see the known limits",
       checkedLabel: "Checked on",
-      howLabel: "How",
-      how: "Keyboard tests, 400% zoom, automated checks (axe) and manual tests on Chromium and WebKit. Not yet with a real screen reader.",
     },
     use: {
       heading: "What you can use",
@@ -620,8 +616,6 @@ export const en: Messages = {
       heading: "Known limits",
       contrast:
         "With Windows forced colours, buttons and the phase strip lose their shape: you can read them, but they look like plain text. We are fixing this.",
-      title: "If the title-data service does not respond, a title page has no page heading.",
-      screenReader: "We have not yet tested the site with a real screen reader (NVDA, VoiceOver).",
     },
     report: {
       heading: "How to report a barrier",

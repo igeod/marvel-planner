@@ -13,11 +13,7 @@ const USE_ITEMS: { heading: TranslationKey; body: TranslationKey }[] = [
   { heading: "a11y.keyboard.heading", body: "a11y.keyboard.body" },
 ];
 
-const LIMIT_KEYS: TranslationKey[] = [
-  "a11y.limits.contrast",
-  "a11y.limits.title",
-  "a11y.limits.screenReader",
-];
+const LIMIT_KEYS: TranslationKey[] = ["a11y.limits.contrast"];
 
 // What the site does for people who see, hear or move differently, and what is still missing.
 export function AccessibilityPage() {
@@ -28,12 +24,10 @@ export function AccessibilityPage() {
     <>
       <article className="text-page" aria-labelledby="a11y-title">
         <header className="text-head">
-          <p className="text-head__kicker muted">{t("footer.legal")}</p>
           <h1 id="a11y-title">{t("a11y.title")}</h1>
           <p className="text-head__meta muted">
             {t("privacy.updated", { date: formatDate(SITE.a11yCheckedAt) })}
           </p>
-          <p className="text-head__intro">{t("a11y.intro")}</p>
         </header>
         <div className="text-page__body">
           <section className="card text-section" aria-labelledby="h-conformance">
@@ -55,10 +49,6 @@ export function AccessibilityPage() {
               <div>
                 <dt>{t("a11y.conformance.checkedLabel")}</dt>
                 <dd>{formatDate(SITE.a11yCheckedAt)}</dd>
-              </div>
-              <div>
-                <dt>{t("a11y.conformance.howLabel")}</dt>
-                <dd>{t("a11y.conformance.how")}</dd>
               </div>
             </dl>
           </section>

@@ -606,8 +606,6 @@ export const fr: Messages = {
   },
   a11y: {
     title: "Déclaration d'accessibilité",
-    intro:
-      "Marvel Planner s'utilise au clavier, avec un lecteur d'écran et le zoom. Voici où nous en sommes.",
     conformance: {
       heading: "État de conformité",
       standardLabel: "Norme",
@@ -615,8 +613,6 @@ export const fr: Messages = {
       statusLabel: "État",
       status: "Partiellement conforme : voir les limites connues",
       checkedLabel: "Vérifié le",
-      howLabel: "Méthode",
-      how: "Essais au clavier, zoom à 400 %, contrôle automatique (axe) et essais manuels sur Chromium et WebKit. Pas encore avec un vrai lecteur d'écran.",
     },
     use: {
       heading: "Ce que vous pouvez utiliser",
@@ -625,10 +621,6 @@ export const fr: Messages = {
       heading: "Limites connues",
       contrast:
         "Avec le contraste forcé de Windows, les boutons et la bande des phases perdent leur forme : ils se lisent, mais ressemblent à du texte simple. Nous le corrigeons.",
-      title:
-        "Si le service des données sur les titres ne répond pas, la page d'un titre n'a pas de titre de page.",
-      screenReader:
-        "Nous n'avons pas encore testé le site avec un vrai lecteur d'écran (NVDA, VoiceOver).",
     },
     report: {
       heading: "Comment signaler un obstacle",
