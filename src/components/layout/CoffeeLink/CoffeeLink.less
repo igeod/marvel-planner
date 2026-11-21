@@ -1,18 +1,61 @@
 @import (reference) "mixins";
 
-.coffee-link {
-  display: inline-flex;
-  align-items: center;
+.coffee-card {
+  margin: 0;
+  max-width: 26rem;
+  border-radius: var(--r-xl);
+  background: var(--highlight);
 
   a {
-    display: inline-flex;
+    display: flex;
     align-items: center;
-    gap: 0.5rem;
-    .touch-target();
+    gap: var(--sp-4);
+    min-height: var(--hit);
+    padding: var(--sp-5) var(--sp-6);
+    color: var(--ink-static);
+    text-decoration: none;
+
+    &:focus-visible {
+      outline: var(--focus-on-inverse);
+      outline-offset: 3px;
+    }
+
+    &:hover .coffee-card__text {
+      text-decoration: underline;
+    }
   }
+}
+
+.coffee-card__art {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 4.5rem;
+  height: 4.5rem;
+  border-radius: var(--r-pill);
+  background: var(--ink-static);
+  color: var(--highlight);
 
   svg {
-    width: 18px;
-    height: 18px;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.coffee-card__text {
+  .display-font();
+  font-size: var(--fs-h3);
+  line-height: 1.15;
+
+  .desktop({ font-size: var(--fs-h4); line-height: 1.1; });
+}
+
+.coffee-card__go {
+  flex: none;
+  margin-left: auto;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 }

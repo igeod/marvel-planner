@@ -1,5 +1,5 @@
 import { CalendarClock, CircleDashed, Pencil, RefreshCw, TriangleAlert, Undo2 } from "lucide-react";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { isRealIsoDate } from "../../../../../shared/isoDate";
 import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog/ConfirmDialog";
 import { TextField } from "../../../../components/ui/Field/Field";
@@ -9,6 +9,9 @@ import { useToast } from "../../../../components/ui/Toast/useToast";
 import { useI18n } from "../../../../i18n/useI18n";
 import { todayIso } from "../../../planner/utils/releases";
 import { titlesWithDates, type AdminTitle } from "../../utils/adminTitles";
+import { AdminQueue } from "../AdminQueue/AdminQueue";
+
+const PAGE_SIZE = 10;
 
 interface DateActions {
   setDate: (titleId: string, date: string) => Promise<boolean>;
@@ -216,15 +219,14 @@ interface ReleaseDatesSectionProps extends DateActions {
 
 export function ReleaseDatesSection({ titles, ...actions }: ReleaseDatesSectionProps) {
   const { t, formatDate } = useI18n();
-  const headingId = useId();
   const [editing, setEditing] = useState<AdminTitle | null>(null);
   const [isChoosing, setIsChoosing] = useState(false);
+  const [shown, setShown] = useState(PAGE_SIZE);
   const rows = titlesWithDates(titles);
   const dateName = (date: string | null) => (date ? formatDate(date) : t("admin.dates.none"));
 
   return (
-    <section id="date" className="candidates" aria-labelledby={headingId}>
-      <h2 id={headingId}>{t("admin.dates.heading")}</h2>
+    <AdminQueue id="date" title={t("admin.dates.heading")} count={rows.length}>
       <p>{t("admin.dates.intro")}</p>
       {rows.length === 0 ? (
         <div className="candidates__empty">
@@ -237,7 +239,7 @@ export function ReleaseDatesSection({ titles, ...actions }: ReleaseDatesSectionP
         </div>
       ) : (
         <ul className="candidates__list">
-          {rows.map((title) => (
+          {rows.slice(0, shown).map((title) => (
             <li key={title.id} className="admin-row candidate">
               <div className="candidate__head">
                 <strong className="candidate__title" lang="en">
@@ -288,6 +290,11 @@ export function ReleaseDatesSection({ titles, ...actions }: ReleaseDatesSectionP
           ))}
         </ul>
       )}
+      {rows.length > shown && (
+        <button type="button" className="btn btn--soft" onClick={() => setShown(shown + PAGE_SIZE)}>
+          {t("admin.todo.more")}
+        </button>
+      )}
       <button type="button" className="btn btn--text" onClick={() => setIsChoosing(true)}>
         {t("admin.dates.other")}
       </button>
@@ -300,6 +307,6 @@ export function ReleaseDatesSection({ titles, ...actions }: ReleaseDatesSectionP
           setIsChoosing(false);
         }}
       />
-    </section>
+    </AdminQueue>
   );
 }

@@ -1,5 +1,5 @@
 import { Check, TriangleAlert } from "lucide-react";
-import { useId, useState } from "react";
+import { useState } from "react";
 import { Button } from "../../../../components/ui/Button/Button";
 import { ConfirmDialog } from "../../../../components/ui/ConfirmDialog/ConfirmDialog";
 import { useI18n } from "../../../../i18n/useI18n";
@@ -16,7 +16,6 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
   const [isConfirming, setIsConfirming] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [hasFailed, setHasFailed] = useState(false);
-  const headingId = useId();
 
   // The dialog stays open while the request runs; if it fails it stays open with the error.
   const confirm = async () => {
@@ -36,8 +35,7 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
   };
 
   return (
-    <section className="maintenance-section" aria-labelledby={headingId}>
-      <h2 id={headingId}>{t("admin.maintenance.heading")}</h2>
+    <>
       <div className="maintenance-section__row">
         <div className="maintenance-section__text">
           <p role="status">
@@ -81,6 +79,6 @@ export function MaintenanceSection({ isOn, onChange }: MaintenanceSectionProps) 
           setHasFailed(false);
         }}
       />
-    </section>
+    </>
   );
 }

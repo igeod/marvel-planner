@@ -23,11 +23,25 @@
   max-width: min(45rem, calc(100vw - 32px));
 }
 
+// The frame of header and body: the header stays put, only the body scrolls.
 .dialog__scroll {
+  display: flex;
+  flex-direction: column;
   max-height: calc(100dvh - 64px);
-  // No reserved strip on the right: the body has the same 2rem on both sides. The scrollbar takes
-  // its width only when the content really overflows.
-  scrollbar-gutter: auto;
+
+  > .dialog__header {
+    flex: none;
+  }
+
+  > .dialog__body {
+    flex: 1;
+    min-height: 0;
+    // No reserved strip on the right: the body has the same 2rem on both sides. The scrollbar takes
+    // its width only when the content really overflows.
+    overflow: hidden auto;
+    overscroll-behavior: contain;
+    scrollbar-gutter: auto;
+  }
 }
 
 .dialog__header {
@@ -101,11 +115,11 @@
     max-width: 100%;
     margin: auto 0 0;
     border-radius: var(--r-lg) var(--r-lg) 0 0;
-    max-height: calc(100dvh - 48px);
+    max-height: calc(var(--viewport-height, 100dvh) - var(--sheet-gap));
   }
 
   .dialog__scroll {
-    max-height: calc(100dvh - 48px);
+    max-height: calc(var(--viewport-height, 100dvh) - var(--sheet-gap));
   }
 
   .dialog__header {

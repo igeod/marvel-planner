@@ -1,0 +1,60 @@
+@import (reference) "mixins";
+
+// The queue is an accordion like a phase: no shadow, a row when closed.
+.admin-queue.card {
+  padding: var(--pad-card);
+  box-shadow: none;
+}
+
+.admin-queue__head {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3h);
+  min-height: 4rem;
+  padding: var(--sp-2h) 1rem var(--sp-2h) var(--sp-3h);
+  border-radius: var(--r-md);
+  cursor: pointer;
+  list-style: none;
+  .tones(var(--row-hover), var(--row-press));
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: var(--focus);
+    outline-offset: -3px;
+  }
+}
+
+.admin-queue__heading {
+  flex: 1;
+  min-width: 0;
+
+  h2 {
+    font-size: var(--fs-h3);
+    font-weight: 800;
+    line-height: 1.2;
+    scroll-margin-top: calc(@header-height + 16px);
+  }
+
+  &:has(h2:focus-visible) {
+    outline: var(--focus);
+  }
+}
+
+.admin-queue__context {
+  display: block;
+  font-size: var(--fs-label);
+}
+
+.admin-queue__count {
+  font-weight: 700;
+}
+
+.admin-queue__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: var(--sp-2) var(--sp-4) var(--sp-4);
+}

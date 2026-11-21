@@ -24,12 +24,18 @@ export function AppLayout() {
     mainRef.current?.focus();
   }, [pathname]);
 
-  // Planner and film pages enter with the cascade on every arrival; the first load does it after the splash.
+  // Planner, film and text pages enter with the cascade on every arrival; the first load does it after the splash.
   const previousIntroPath = useRef(pathname);
   useLayoutEffect(() => {
     if (previousIntroPath.current === pathname) return;
     previousIntroPath.current = pathname;
-    if (pathname === PATHS.home || pathname.startsWith("/s/") || pathname.startsWith("/film/")) {
+    const isTextPage = pathname === PATHS.privacy || pathname === PATHS.accessibility;
+    if (
+      pathname === PATHS.home ||
+      pathname.startsWith("/s/") ||
+      pathname.startsWith("/film/") ||
+      isTextPage
+    ) {
       playIntro();
     }
   }, [pathname]);

@@ -17,8 +17,8 @@ export const fr: Messages = {
     accessibility: "Accessibilité",
     cookies: "Cookies",
     privacySettings: "Préférences de confidentialité",
-    credits: "Données de disponibilité : {justwatch}. Résumés : {wikipedia}, {license}.",
-    creditsLicense: "licence CC BY-SA 4.0",
+    version: "Version {version}",
+    copyright: "© {year} Marvel Planner",
     coffee: "Si je vous ai été utile, offrez-moi un café",
     fonts: "Polices Anton et Hanken Grotesk, {license}.",
     fontsLicense: "licence SIL OFL 1.1",
@@ -62,7 +62,7 @@ export const fr: Messages = {
       text: "Envoyez à vos amis un lien vers ce que vous avez vu.",
     },
     strip: {
-      heading: "Les {total} titres",
+      heading: "Les {total} titres sortis",
       phase: "Phase {number}",
       legendWatched: "Vus",
       legendNext: "Suivant",
@@ -605,9 +605,27 @@ export const fr: Messages = {
     warning: "Attention : les scènes contiennent des spoilers.",
   },
   a11y: {
-    title: "Accessibilité",
-    intro:
-      "Marvel Planner s’utilise au clavier, avec un lecteur d’écran et en zoomant. Voici comment, et ce qui manque encore.",
+    title: "Déclaration d'accessibilité",
+    conformance: {
+      heading: "État de conformité",
+      standardLabel: "Norme",
+      standard: "WCAG 2.2, niveau AA",
+      statusLabel: "État",
+      status: "Partiellement conforme : voir les limites connues",
+      checkedLabel: "Vérifié le",
+    },
+    use: {
+      heading: "Ce que vous pouvez utiliser",
+    },
+    limits: {
+      heading: "Limites connues",
+      contrast:
+        "Avec le contraste forcé de Windows, les boutons et la bande des phases perdent leur forme : ils se lisent, mais ressemblent à du texte simple. Nous le corrigeons.",
+    },
+    report: {
+      heading: "Comment signaler un obstacle",
+      body: "Si vous rencontrez un obstacle, dites-nous quelle page, ce que vous faisiez et quel outil vous utilisez.",
+    },
     vision: {
       heading: "Si vous voyez mal",
       body: "Vous pouvez choisir le thème clair, sombre ou celui du système (menu en haut). Chaque état a une icône ou un texte, pas seulement une couleur. Les contrôles ont un anneau de focus bien visible.",
@@ -624,21 +642,14 @@ export const fr: Messages = {
       heading: "Clavier",
       body: "Tab pour se déplacer, Entrée ou Espace pour activer, Échap pour fermer fenêtres et messages. Le premier Tab affiche « Aller au contenu ».",
     },
-    missing: {
-      heading: "Ce qui manque encore",
-      body: "Nous vérifions encore le zoom à 400 % et le mode contraste forcé. Si vous rencontrez un obstacle, dites-le-nous.",
-    },
   },
   cookiePage: {
-    intro: "Cette page recense tout ce que le site enregistre sur votre appareil.",
     noBannerHeading: "Aucun consentement à donner",
     noBannerBody:
-      "Le site n'utilise que des outils techniques, nécessaires au service que vous demandez (connexion, langue, progression, filtres). Pour ceux-ci, la réglementation n'exige ni consentement ni bandeau. Nous n'utilisons aucun cookie d'analyse, de publicité ou de profilage et ne chargeons aucune ressource tierce, à l'exception de la vidéo de la bande-annonce, chargée depuis YouTube uniquement si vous appuyez sur « Lancer la bande-annonce » : si cela change un jour, nous vous demanderons d'abord votre consentement.",
+      "Nous n'utilisons que des outils techniques, nécessaires au service que vous demandez : connexion, langue, progression, filtres. Pour ceux-ci, la réglementation n'exige ni consentement ni bandeau. Nous n'utilisons aucun cookie d'analyse, de publicité ou de profilage. La seule ressource tierce est la vidéo de la bande-annonce : YouTube ne la charge que si vous appuyez sur « Lancer la bande-annonce ». Si cela change un jour, nous vous demanderons d'abord votre consentement.",
     tableCaption: "Cookies et données enregistrés dans votre navigateur",
     columns: {
-      name: "Nom",
       kind: "Type",
-      purpose: "Finalité",
       duration: "Durée",
     },
     session: {
@@ -692,22 +703,25 @@ export const fr: Messages = {
       purpose: "Se souvient des phases du planner que vous avez repliées.",
       duration: "Jusqu'à ce que vous le supprimiez",
     },
-    manageHeading: "Comment les gérer",
-    manageBody:
-      "Vous pouvez supprimer les données enregistrées sur cet appareil depuis « Préférences de confidentialité » ou depuis les réglages du navigateur. Le cookie de session est supprimé lorsque vous vous déconnectez.",
   },
   privacySettings: {
     title: "Préférences de confidentialité",
-    intro:
-      "Ce site n'utilise aucun cookie d'analyse, de publicité ou de profilage et ne charge aucune ressource tierce, à l'exception de la vidéo de la bande-annonce, chargée depuis YouTube uniquement si vous appuyez sur « Lancer la bande-annonce » : il n'y a rien à accepter ni à refuser.",
     clearHeading: "Données sur cet appareil",
     clearBody:
-      "Supprime la progression (si vous n'avez pas de compte), la langue et les filtres enregistrés dans ce navigateur. Cela ne vous déconnecte pas.",
+      "Supprime la progression (si vous n'avez pas de compte), la langue et les filtres enregistrés dans ce navigateur. Vous restez connecté : le cookie de session n'est supprimé que lorsque vous vous déconnectez. Vous pouvez aussi supprimer ces données depuis les réglages du navigateur.",
     clearButton: "Supprimer les données de cet appareil",
-    clearQuestion: "Supprimer vraiment les données enregistrées sur cet appareil ?",
-    clearConfirm: "Oui, supprimer",
+    clearQuestion:
+      "Supprimer les données de cet appareil ? Sans compte, la progression ne peut pas être récupérée. La page se recharge.",
+    clearConfirm: "Supprimer les données",
   },
   admin: {
+    summary: {
+      heading: "À faire",
+      candidates: "Nouveaux titres à évaluer",
+      dates: "Dates à vérifier",
+      suggestions: "Suggestions à lire",
+      none: "Rien à faire",
+    },
     heading: "Nouveaux titres sur TMDB à examiner",
     intro: "TMDB répertorie ces titres Marvel absents du catalogue. Ajoutez-les ou ignorez-les.",
     newTitle: "Nouveau titre",
@@ -732,7 +746,7 @@ export const fr: Messages = {
     todo: {
       heading: "Contenus à compléter",
       intro:
-        "Pour chaque titre sorti : ce qu'il a et ce qui manque. On n'écrit pas de texte ici : copie le modèle et remplis-le dans le code.",
+        "Les contenus s'écrivent dans le code. Ici, vous voyez ce qui manque et copiez le modèle à compléter.",
       summary: "{count} titres à compléter sur {total} sortis",
       filterLegend: "Afficher",
       filterTodo: "À compléter ({count})",
@@ -842,7 +856,7 @@ export const fr: Messages = {
         error: "La recherche a échoué : la liste peut être incomplète.",
         late: "La recherche n'a pas tourné depuis plus de 8 jours : la liste peut être incomplète.",
         never: "La recherche n'a pas encore été exécutée : la liste peut être incomplète.",
-        noToken: "Jeton TMDB manquant : la recherche ne peut pas démarrer.",
+        noToken: "Recherche à l'arrêt : voir l'état du site.",
       },
       generate: "Afficher le code",
       hideCode: "Masquer le code",
@@ -880,22 +894,22 @@ export const fr: Messages = {
       heading: "Quelles données nous traitons",
       accountLabel: "Données du compte",
       accountText:
-        "nom de super-héros (un pseudo de fantaisie : nous ne demandons pas votre vrai nom), e-mail et mot de passe. Le mot de passe n'est conservé que sous forme chiffrée (hash) et n'est jamais lisible.",
+        "nom de super-héros (un pseudo de fantaisie, pas votre vrai nom), e-mail et mot de passe. Le mot de passe n'est conservé que chiffré (hash) : personne ne peut le lire.",
       progressLabel: "Progression",
       progressText:
         "les titres que vous marquez comme vus et la date à laquelle vous les avez marqués.",
       technicalLabel: "Données techniques",
       technicalText:
-        "adresse IP et type de navigateur associés aux sessions de connexion, et compteurs servant à limiter les tentatives de connexion répétées.",
+        "adresse IP et type de navigateur des sessions de connexion, plus des compteurs qui limitent les tentatives de connexion répétées.",
       deviceLabel: "Sur votre appareil",
       deviceText:
-        "sans compte, votre progression reste enregistrée uniquement dans votre navigateur (localStorage) et ne nous est pas transmise. La langue et les filtres choisis sont mémorisés de la même façon. Vous pouvez supprimer ces données à tout moment depuis « Préférences de confidentialité ».",
+        "sans compte, votre progression, la langue et les filtres restent uniquement dans votre navigateur (localStorage) et ne nous sont pas transmis. Vous pouvez les supprimer à tout moment depuis {link}.",
       shareLabel: "Partage",
       shareText:
-        "si vous activez le partage, votre nom de super-héros et les titres que vous avez vus sont visibles par toute personne disposant du lien, jusqu'à l'expiration choisie ou jusqu'à sa désactivation. Le lien contient un code aléatoire, pas votre identifiant.",
+        "si vous activez le partage, toute personne disposant du lien voit votre nom de super-héros et les titres que vous avez vus, jusqu'à l'expiration choisie ou jusqu'à la désactivation. Le lien contient un code aléatoire, pas votre identifiant.",
       suggestionsLabel: "Suggestions",
       suggestionsText:
-        "Si tu envoies une suggestion de correction, nous conservons le texte que tu écris (c'est un texte libre : n'y mets pas de données personnelles), le film et la partie de la page concernée, la date et ton nom de super-héros, visibles par nous seuls. Ils sont supprimés avec le compte.",
+        "si vous envoyez une suggestion, nous conservons le texte que vous écrivez (c'est un texte libre : n'y mettez pas de données personnelles), le titre et la partie de la page concernée, la date et votre nom de super-héros. Nous seuls les voyons, et ils sont supprimés avec le compte.",
     },
     purposes: {
       heading: "Pourquoi nous les traitons",
@@ -910,25 +924,24 @@ export const fr: Messages = {
     },
     cookies: {
       heading: "Cookies et stockage local",
-      body: "Nous n'utilisons que des cookies techniques, nécessaires au fonctionnement : un cookie de session pour vous maintenir connecté. Nous n'utilisons aucun cookie d'analyse, de publicité ou de profilage, ni cookie tiers (sauf ceux que YouTube peut déposer si vous lancez une bande-annonce) ; votre consentement n'est donc pas requis (art. 122 du Code italien de la vie privée, directive ePrivacy et lignes directrices du Garante du 10 juin 2021). La liste complète figure dans la {link}.",
-      link: "fenêtre « Préférences de confidentialité »",
+      body: "Nous n'utilisons que des cookies techniques, nécessaires au fonctionnement : un cookie de session, qui vous maintient connecté. Nous n'utilisons aucun cookie d'analyse, de publicité ou de profilage, ni cookie tiers, sauf ceux que YouTube peut déposer si vous lancez une bande-annonce. Votre consentement n'est donc pas requis (art. 122 du Code italien de la vie privée, directive ePrivacy et lignes directrices du Garante du 10 juin 2021). La liste complète figure dans {link}.",
     },
     providers: {
       heading: "Où elles sont conservées et qui les traite",
-      body: "Le site et la base de données sont hébergés par Cloudflare, la base de données étant située en Europe occidentale ; Cloudflare agit en tant que sous-traitant. Les informations sur les titres (synopsis, intrigues, distribution, affiches et images de fond) sont demandées par notre serveur à TMDB, Wikipédia et Wikidata : votre navigateur ne contacte jamais directement ces services et ne leur communique donc pas votre adresse IP. Cloudflare est établi aux États-Unis : certaines données peuvent être transférées hors de l'Union européenne, dans le respect des garanties prévues par le RGPD (EU-US Data Privacy Framework et clauses contractuelles types).",
+      body: "Le site et la base de données sont hébergés par Cloudflare, la base de données se trouvant en Europe occidentale. Cloudflare est notre sous-traitant. Notre serveur demande les informations sur les titres (synopsis, intrigues, distribution, affiches, images de fond) à TMDB, Wikipédia et Wikidata : votre navigateur ne contacte jamais ces services et ne leur communique donc pas votre adresse IP. Cloudflare est établi aux États-Unis : certaines données peuvent quitter l'Union européenne, avec les garanties prévues par le RGPD (EU-US Data Privacy Framework et clauses contractuelles types).",
     },
     retention: {
       heading: "Pendant combien de temps",
-      body: "Nous conservons les données de votre compte tant qu'il existe. Les sessions expirent après 7 jours et les sessions expirées sont supprimées chaque jour ; les compteurs limitant les connexions répétées sont supprimés après un jour ; les informations sur les titres reçues de tiers restent en cache 90 jours au maximum. Lorsque vous supprimez votre compte, le nom de super-héros, l'e-mail, la progression et les sessions sont supprimés immédiatement ; les éventuelles copies de sauvegarde techniques sont écrasées sous 30 jours. Les liens de partage expirés sont supprimés chaque jour.",
+      body: "Nous conservons les données de votre compte tant qu'il existe. Les sessions expirent après 7 jours ; les sessions expirées et les liens de partage expirés sont supprimés chaque jour. Les compteurs contre les connexions répétées sont supprimés après un jour. Les informations sur les titres reçues de tiers restent en cache 90 jours au maximum. Lorsque vous supprimez votre compte, le nom de super-héros, l'e-mail, la progression et les sessions sont supprimés immédiatement ; les copies de sauvegarde techniques sont écrasées sous 30 jours.",
     },
     rights: {
       heading: "Vos droits",
-      body: "Vous pouvez demander à tout moment l'accès, la rectification, l'effacement, la limitation ou la portabilité de vos données, ou vous opposer au traitement, en écrivant à {email}. Depuis la page {account}, vous pouvez modifier votre nom de super-héros, télécharger vos données au format JSON et supprimer votre compte. Nous ne prenons aucune décision fondée sur un traitement automatisé. Vous avez également le droit d'introduire une réclamation auprès de l'autorité italienne de protection des données, le Garante ({garante}).",
+      body: "Vous pouvez demander à tout moment l'accès, la rectification, l'effacement, la limitation ou la portabilité de vos données, ou vous opposer au traitement, en écrivant à {email}. {account} : vous pouvez y modifier votre nom de super-héros, télécharger vos données au format JSON et supprimer votre compte. Nous ne prenons aucune décision fondée sur un traitement automatisé. Vous pouvez aussi introduire une réclamation auprès de l'autorité italienne de protection des données, le Garante ({garante}).",
       accountLink: "Votre compte",
     },
     other: {
       heading: "Autres juridictions",
-      body: "Nous ne vendons ni ne partageons vos données personnelles à des fins de publicité ciblée ou à d'autres fins commerciales. Les mêmes protections s'appliquent aux personnes qui utilisent le site depuis l'extérieur de l'Union européenne (par exemple en Californie, au Royaume-Uni ou au Brésil) : vous pouvez exercer les mêmes droits en écrivant à {email}.",
+      body: "Nous ne vendons ni ne partageons vos données personnelles à des fins de publicité ciblée ou à d'autres fins commerciales. Les mêmes protections s'appliquent en dehors de l'Union européenne (par exemple en Californie, au Royaume-Uni ou au Brésil) : vous pouvez exercer les mêmes droits en écrivant à {email}.",
     },
     minors: {
       heading: "Mineurs",
@@ -936,7 +949,7 @@ export const fr: Messages = {
     },
     changes: {
       heading: "Modifications",
-      body: "Toute modification de cette politique sera publiée sur cette page, avec la date de mise à jour indiquée en haut.",
+      body: "Si quelque chose change, nous le publions ici et mettons à jour la date en haut.",
     },
   },
 };

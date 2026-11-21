@@ -20,7 +20,7 @@ dialog.menu-panel {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  padding: var(--sp-2h) 1rem 1.5rem;
+  padding: calc(var(--sp-2h) + env(safe-area-inset-top, 0px)) 1rem 1.5rem;
 }
 
 .menu-panel__bar {

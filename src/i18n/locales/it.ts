@@ -15,8 +15,8 @@ export const it = {
     accessibility: "Accessibilità",
     cookies: "Cookie",
     privacySettings: "Preferenze privacy",
-    credits: "Dati sulla disponibilità: {justwatch}. Trame: {wikipedia}, {license}.",
-    creditsLicense: "licenza CC BY-SA 4.0",
+    version: "Versione {version}",
+    copyright: "© {year} Marvel Planner",
     coffee: "Se ti sono stato utile, offrimi un caffè",
     fonts: "Caratteri Anton e Hanken Grotesk, {license}.",
     fontsLicense: "licenza SIL OFL 1.1",
@@ -60,7 +60,7 @@ export const it = {
       text: "Manda agli amici un link ai titoli che hai visto.",
     },
     strip: {
-      heading: "Tutti i {total} titoli",
+      heading: "Tutti i {total} titoli usciti",
       phase: "Fase {number}",
       legendWatched: "Visti",
       legendNext: "Prossimo",
@@ -600,9 +600,27 @@ export const it = {
     warning: "Attenzione: le scene contengono spoiler.",
   },
   a11y: {
-    title: "Accessibilità",
-    intro:
-      "Marvel Planner si può usare con tastiera, lettore di schermo e zoom. Qui trovi come, e che cosa ancora manca.",
+    title: "Dichiarazione di accessibilità",
+    conformance: {
+      heading: "Stato di conformità",
+      standardLabel: "Standard",
+      standard: "WCAG 2.2, livello AA",
+      statusLabel: "Stato",
+      status: "Conformità parziale: vedi i limiti noti",
+      checkedLabel: "Verificato il",
+    },
+    use: {
+      heading: "Cosa puoi usare",
+    },
+    limits: {
+      heading: "Limiti noti",
+      contrast:
+        "Con il contrasto forzato di Windows i pulsanti e la fascia delle fasi perdono la forma: si leggono, ma non si distinguono dal testo. Lo stiamo correggendo.",
+    },
+    report: {
+      heading: "Come segnalare un ostacolo",
+      body: "Se trovi un ostacolo, dicci quale pagina, cosa stavi facendo e che strumento usi.",
+    },
     vision: {
       heading: "Se vedi poco o male",
       body: "Puoi scegliere tema chiaro, scuro o come il sistema (menu in alto). Ogni stato ha un’icona o un testo, non solo un colore. I controlli hanno un anello di focus ben visibile.",
@@ -619,21 +637,14 @@ export const it = {
       heading: "Tastiera",
       body: "Tab per spostarti, Invio o Spazio per attivare, Esc per chiudere popup e messaggi. Al primo Tab compare «Vai al contenuto».",
     },
-    missing: {
-      heading: "Cosa manca",
-      body: "Stiamo ancora controllando lo zoom al 400% e la modalità a contrasto forzato. Se trovi un ostacolo, segnalacelo.",
-    },
   },
   cookiePage: {
-    intro: "Questa pagina elenca tutto ciò che il sito salva sul tuo dispositivo.",
     noBannerHeading: "Nessun consenso da dare",
     noBannerBody:
-      "Il sito usa solo strumenti tecnici, necessari al servizio che chiedi (accesso, lingua, progressi, filtri). Per questi la normativa non richiede il consenso né un banner. Non usiamo cookie di analisi, pubblicità o profilazione e non carichiamo risorse di terze parti, tranne il video del trailer, che viene caricato da YouTube solo se premi “Avvia il trailer”: se in futuro lo faremo, ti chiederemo prima il consenso.",
+      "Usiamo solo strumenti tecnici, necessari al servizio che chiedi: accesso, lingua, progressi, filtri. Per questi la normativa non richiede né consenso né banner. Non usiamo cookie di analisi, pubblicità o profilazione. L'unica risorsa di terzi è il video del trailer: YouTube lo carica solo se premi “Avvia il trailer”. Se un giorno questo cambierà, ti chiederemo prima il consenso.",
     tableCaption: "Cookie e dati salvati nel browser",
     columns: {
-      name: "Nome",
       kind: "Tipo",
-      purpose: "Finalità",
       duration: "Durata",
     },
     session: {
@@ -686,22 +697,25 @@ export const it = {
       purpose: "Ricorda quali fasi del planner hai chiuso.",
       duration: "Finché non lo cancelli",
     },
-    manageHeading: "Come gestirli",
-    manageBody:
-      "Puoi cancellare i dati salvati su questo dispositivo da «Preferenze privacy» o dalle impostazioni del browser. Il cookie di sessione viene eliminato quando esci dal tuo account.",
   },
   privacySettings: {
     title: "Preferenze privacy",
-    intro:
-      "Questo sito non usa cookie di analisi, pubblicità o profilazione e non carica risorse di terze parti, tranne il video del trailer, che viene caricato da YouTube solo se premi “Avvia il trailer”: non c'è nulla da accettare o rifiutare.",
     clearHeading: "Dati su questo dispositivo",
     clearBody:
-      "Cancella i progressi (se non hai un account), la lingua e i filtri salvati in questo browser. Non ti disconnette dall'account.",
+      "Cancella i progressi (se non hai un account), la lingua e i filtri salvati in questo browser. Resti connesso: il cookie di sessione si elimina solo quando esci. Puoi cancellare i dati anche dalle impostazioni del browser.",
     clearButton: "Cancella i dati di questo dispositivo",
-    clearQuestion: "Cancellare davvero i dati salvati su questo dispositivo?",
-    clearConfirm: "Sì, cancella",
+    clearQuestion:
+      "Cancellare i dati di questo dispositivo? Senza un account, i progressi non si recuperano. La pagina si ricarica.",
+    clearConfirm: "Cancella i dati",
   },
   admin: {
+    summary: {
+      heading: "Da fare",
+      candidates: "Nuovi titoli da valutare",
+      dates: "Date da controllare",
+      suggestions: "Suggerimenti da leggere",
+      none: "Niente da fare",
+    },
     heading: "Nuovi titoli su TMDB da valutare",
     intro:
       "TMDB elenca questi titoli Marvel che non sono nel catalogo. Aggiungili oppure ignorali.",
@@ -727,7 +741,7 @@ export const it = {
     todo: {
       heading: "Contenuti da completare",
       intro:
-        "Per ogni titolo uscito: cosa c'è e cosa manca. Qui non si scrivono testi: copia il modello e compilalo nel codice.",
+        "I contenuti si scrivono nel codice. Qui vedi cosa manca e copi il modello da compilare.",
       summary: "{count} titoli da completare su {total} usciti",
       filterLegend: "Mostra",
       filterTodo: "Da completare ({count})",
@@ -838,7 +852,7 @@ export const it = {
         error: "La ricerca non è riuscita: l'elenco può essere incompleto.",
         late: "La ricerca non gira da più di 8 giorni: l'elenco può essere incompleto.",
         never: "La ricerca non è ancora stata eseguita: l'elenco può essere incompleto.",
-        noToken: "Token TMDB mancante: la ricerca non può partire.",
+        noToken: "Ricerca ferma: vedi lo Stato del sito.",
       },
       generate: "Mostra codice",
       hideCode: "Nascondi codice",
@@ -876,21 +890,21 @@ export const it = {
       heading: "Quali dati trattiamo",
       accountLabel: "Dati dell'account",
       accountText:
-        "nome da supereroe (un nickname di fantasia: non ti chiediamo il nome reale), email e password. La password è conservata solo in forma cifrata (hash) e non è mai leggibile.",
+        "nome da supereroe (un nickname di fantasia, non il tuo nome reale), email e password. La password è salvata solo cifrata (hash): nessuno può leggerla.",
       progressLabel: "Progressi",
       progressText: "i titoli che segni come visti e la data in cui li hai segnati.",
       technicalLabel: "Dati tecnici",
       technicalText:
-        "indirizzo IP e tipo di browser associati alle sessioni di accesso, e contatori usati per limitare i tentativi di accesso ripetuti.",
+        "indirizzo IP e tipo di browser delle sessioni di accesso, più contatori che limitano i tentativi di accesso ripetuti.",
       deviceLabel: "Sul tuo dispositivo",
       deviceText:
-        "senza account i progressi restano salvati solo nel tuo browser (localStorage) e non vengono inviati a noi. Nello stesso modo vengono ricordati la lingua e i filtri scelti. Puoi cancellare questi dati in qualsiasi momento da «Preferenze privacy».",
+        "senza account i progressi, la lingua e i filtri restano solo nel tuo browser (localStorage) e non vengono inviati a noi. Puoi cancellarli quando vuoi da {link}.",
       shareLabel: "Condivisione",
       shareText:
-        "se attivi la condivisione, il tuo nome da supereroe e i titoli che hai visto sono visibili a chiunque abbia il link, fino alla scadenza che scegli o finché non lo disattivi. Il link contiene un codice casuale, non il tuo identificativo.",
+        "se attivi la condivisione, chiunque abbia il link vede il tuo nome da supereroe e i titoli che hai visto, fino alla scadenza che scegli o finché non lo disattivi. Il link contiene un codice casuale, non il tuo identificativo.",
       suggestionsLabel: "Suggerimenti",
       suggestionsText:
-        "Se invii un suggerimento di modifica conserviamo il testo che scrivi (è testo libero: non scrivere dati personali), il film e la parte della pagina a cui si riferisce, la data e il tuo nome da supereroe, visibili solo a noi. Vengono eliminati insieme all'account.",
+        "se invii un suggerimento conserviamo il testo che scrivi (è testo libero: non scrivere dati personali), il titolo e la parte della pagina a cui si riferisce, la data e il tuo nome da supereroe. Li vediamo solo noi e vengono eliminati con l'account.",
     },
     purposes: {
       heading: "Perché li trattiamo",
@@ -905,25 +919,24 @@ export const it = {
     },
     cookies: {
       heading: "Cookie e archiviazione locale",
-      body: "Usiamo solo cookie tecnici, necessari al funzionamento: un cookie di sessione per mantenerti connesso. Non usiamo cookie di analisi, pubblicità o profilazione né cookie di terze parti (salvo quelli che YouTube può impostare se avvii tu un trailer), per cui non è richiesto il tuo consenso (art. 122 del Codice privacy, direttiva ePrivacy e linee guida del Garante del 10 giugno 2021). L'elenco completo è nella {link}.",
-      link: "finestra «Preferenze privacy»",
+      body: "Usiamo solo cookie tecnici, necessari al funzionamento: un cookie di sessione, che ti mantiene connesso. Non usiamo cookie di analisi, pubblicità o profilazione né cookie di terze parti, salvo quelli che YouTube può impostare se avvii tu un trailer. Per questo non serve il tuo consenso (art. 122 del Codice privacy, direttiva ePrivacy, linee guida del Garante del 10 giugno 2021). L'elenco completo è in {link}.",
     },
     providers: {
       heading: "Dove sono conservati e chi li tratta",
-      body: "Il sito e il database sono ospitati da Cloudflare, con database situato nell'Europa occidentale; Cloudflare agisce come responsabile del trattamento. Le informazioni sui titoli (sinossi, trame, cast, locandine e sfondi) vengono richieste dal nostro server a TMDB, Wikipedia e Wikidata: il tuo browser non contatta mai direttamente questi servizi e quindi non comunica loro il tuo indirizzo IP. Cloudflare ha sede negli Stati Uniti: alcuni dati potrebbero essere trasferiti fuori dall'Unione europea, nel rispetto delle garanzie previste dal GDPR (EU-US Data Privacy Framework e clausole contrattuali standard).",
+      body: "Il sito e il database sono ospitati da Cloudflare, con il database nell'Europa occidentale. Cloudflare è responsabile del trattamento. Le informazioni sui titoli (sinossi, trame, cast, locandine, sfondi) le chiede il nostro server a TMDB, Wikipedia e Wikidata: il tuo browser non contatta mai questi servizi, quindi non comunica loro il tuo indirizzo IP. Cloudflare ha sede negli Stati Uniti: alcuni dati potrebbero lasciare l'Unione europea, con le garanzie previste dal GDPR (EU-US Data Privacy Framework e clausole contrattuali standard).",
     },
     retention: {
       heading: "Per quanto tempo",
-      body: "Conserviamo i dati dell'account finché esiste. Le sessioni scadono dopo 7 giorni e quelle scadute vengono eliminate ogni giorno; i contatori contro gli accessi ripetuti vengono eliminati dopo un giorno; le informazioni sui titoli ricevute da terzi restano in cache al massimo 90 giorni. Quando elimini l'account, nome da supereroe, email, progressi e sessioni vengono cancellati subito; eventuali copie di backup tecniche vengono sovrascritte entro 30 giorni. I link di condivisione scaduti vengono eliminati ogni giorno.",
+      body: "Conserviamo i dati dell'account finché esiste. Le sessioni scadono dopo 7 giorni; quelle scadute e i link di condivisione scaduti vengono eliminati ogni giorno. I contatori contro gli accessi ripetuti si eliminano dopo un giorno. Le informazioni sui titoli ricevute da terzi restano in cache al massimo 90 giorni. Quando elimini l'account, nome da supereroe, email, progressi e sessioni vengono cancellati subito; le copie di backup tecniche vengono sovrascritte entro 30 giorni.",
     },
     rights: {
       heading: "I tuoi diritti",
-      body: "Puoi chiedere in qualsiasi momento l'accesso, la rettifica, la cancellazione, la limitazione o la portabilità dei tuoi dati, oppure opporti al trattamento, scrivendo a {email}. Dalla pagina {account} puoi modificare il nome da supereroe, scaricare i tuoi dati in formato JSON ed eliminare l'account. Non prendiamo decisioni basate su trattamenti automatizzati. Hai inoltre il diritto di proporre reclamo al Garante per la protezione dei dati personali ({garante}).",
+      body: "Puoi chiedere in qualsiasi momento l'accesso, la rettifica, la cancellazione, la limitazione o la portabilità dei tuoi dati, o opporti al trattamento, scrivendo a {email}. {account}: qui puoi modificare il nome da supereroe, scaricare i tuoi dati in JSON ed eliminare l'account. Non prendiamo decisioni basate su trattamenti automatizzati. Puoi anche presentare reclamo al Garante per la protezione dei dati personali ({garante}).",
       accountLink: "Il tuo account",
     },
     other: {
       heading: "Altre giurisdizioni",
-      body: "Non vendiamo né condividiamo i tuoi dati personali per pubblicità mirata o altre finalità commerciali. Le stesse tutele valgono per chi usa il sito da fuori dall'Unione europea (ad esempio in California, nel Regno Unito o in Brasile): puoi esercitare gli stessi diritti scrivendo a {email}.",
+      body: "Non vendiamo né condividiamo i tuoi dati personali per pubblicità mirata o altre finalità commerciali. Le stesse tutele valgono anche fuori dall'Unione europea (ad esempio in California, nel Regno Unito o in Brasile): puoi esercitare gli stessi diritti scrivendo a {email}.",
     },
     minors: {
       heading: "Minori",
@@ -931,7 +944,7 @@ export const it = {
     },
     changes: {
       heading: "Modifiche",
-      body: "Eventuali modifiche a questa informativa saranno pubblicate su questa pagina, con la data di aggiornamento indicata in alto.",
+      body: "Se cambia qualcosa, lo pubblichiamo qui e aggiorniamo la data in alto.",
     },
   },
 };

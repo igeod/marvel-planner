@@ -3,7 +3,7 @@
 .site-footer {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--sp-10);
   margin-top: var(--sp-10);
   // The bottom leaves room for the floating pills, so they never cover the last line when the page ends.
   padding: 2rem 1rem calc(var(--sp-10) + var(--hit));
@@ -15,19 +15,49 @@
   });
 }
 
-.site-footer__columns {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+.site-footer__top {
+  display: grid;
+  gap: var(--sp-8);
 
-  .desktop({ flex-direction: row; justify-content: space-between; });
+  .desktop({ grid-template-columns: 1fr auto; column-gap: var(--sp-10); align-items: center; });
 }
 
 .site-footer__about {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  max-width: 58ch;
+  gap: var(--sp-3);
+  max-width: 36rem;
+
+  p {
+    margin: 0;
+    color: var(--muted-on-dark);
+  }
+}
+
+.site-footer__bottom {
+  display: grid;
+  grid-template-areas: "legal" "info" "made";
+  gap: var(--sp-6) var(--sp-10);
+  padding-top: var(--sp-8);
+  border-top: 1px solid var(--panel-2);
+  font-size: var(--fs-label);
+
+  @media (min-width: 48em) {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "info legal" "info made";
+  }
+}
+
+.site-footer__info {
+  grid-area: info;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+  color: var(--muted-on-dark);
+
+  p {
+    margin: 0;
+  }
 }
 
 .wordmark--large {
@@ -39,15 +69,9 @@
 
 .site-footer__tmdb {
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1rem;
-  max-width: 52ch;
-
-  @media (min-width: 40em) {
-    flex-direction: row;
-    align-items: center;
-  }
+  align-items: center;
+  gap: var(--sp-4);
+  max-width: 32rem;
 }
 
 .site-footer__tmdb-logo {
@@ -58,23 +82,37 @@
 }
 
 .site-footer__legal {
+  grid-area: legal;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 1.5rem;
+  gap: 0 var(--sp-6);
 
-  a {
+  @media (min-width: 48em) {
+    justify-content: flex-end;
+  }
+
+  a,
+  .btn {
     display: inline-flex;
     align-items: center;
-    .touch-target();
+    min-height: var(--hit);
+    padding: 0;
+    font-size: var(--fs-label);
+    font-weight: 600;
+    color: var(--on-dark);
+    text-decoration: underline;
   }
 }
 
-// "Made in Italy" is the signature: display type, upper case, full colour, always on the right.
+// "Made in Italy" is the signature: display type, upper case, full colour, bottom right.
 .site-footer__made {
   .display-font();
-  margin-left: auto;
+  grid-area: made;
+  justify-self: end;
+  align-self: end;
+  margin: 0;
   font-size: var(--fs-title);
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--on-dark);
 }

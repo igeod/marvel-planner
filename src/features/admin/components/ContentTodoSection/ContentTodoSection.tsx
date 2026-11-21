@@ -16,6 +16,7 @@ import {
   type ContentState,
   type TodoFilter,
 } from "../../utils/adminTitles";
+import { AdminQueue } from "../AdminQueue/AdminQueue";
 
 const PAGE_SIZE = 10;
 const COPIED_MS = 2000;
@@ -253,7 +254,6 @@ interface ContentTodoSectionProps {
 
 export function ContentTodoSection({ titles, onVerify, onReviewGuide }: ContentTodoSectionProps) {
   const { t } = useI18n();
-  const headingId = useId();
   const [filter, setFilter] = useState<TodoFilter>("todo");
   const [shown, setShown] = useState(PAGE_SIZE);
   const [verifying, setVerifying] = useState<AdminTitle | null>(null);
@@ -266,8 +266,12 @@ export function ContentTodoSection({ titles, onVerify, onReviewGuide }: ContentT
   const rows = filterTodoTitles(titles, filter);
 
   return (
-    <section id="da-completare" className="candidates" aria-labelledby={headingId}>
-      <h2 id={headingId}>{t("admin.todo.heading")}</h2>
+    <AdminQueue
+      id="da-completare"
+      title={t("admin.todo.heading")}
+      context={t("admin.todo.summary", { count: counts.todo, total: counts.all })}
+      count={counts.todo}
+    >
       <p>{t("admin.todo.intro")}</p>
       <ChoiceGroup legend={t("admin.todo.filterLegend")} columns={3}>
         {FILTERS.map((item) => (
@@ -285,9 +289,6 @@ export function ContentTodoSection({ titles, onVerify, onReviewGuide }: ContentT
           </Choice>
         ))}
       </ChoiceGroup>
-      <p className="admin-note" role="status">
-        {t("admin.todo.summary", { count: counts.todo, total: counts.all })}
-      </p>
       {rows.length === 0 ? (
         <div className="candidates__empty">
           <span className="candidates__empty-icon" aria-hidden="true">
@@ -325,6 +326,6 @@ export function ContentTodoSection({ titles, onVerify, onReviewGuide }: ContentT
         </>
       )}
       <VerifyDialog title={verifying} onClose={() => setVerifying(null)} onSave={onVerify} />
-    </section>
+    </AdminQueue>
   );
 }

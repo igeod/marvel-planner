@@ -1,11 +1,11 @@
 import { Check, MessageSquarePlus } from "lucide-react";
 import { ExternalLink } from "lucide-react";
-import { useId } from "react";
 import type { AdminSuggestion } from "../../../../../shared/admin";
 import { titlePath } from "../../../../app/paths";
 import { useI18n } from "../../../../i18n/useI18n";
 import { TITLES_BY_ID } from "../../../planner/data/catalog";
 import { SECTION_KEYS } from "../../../suggest/sectionKeys";
+import { AdminQueue } from "../AdminQueue/AdminQueue";
 
 interface SuggestionsSectionProps {
   suggestions: AdminSuggestion[];
@@ -14,11 +14,9 @@ interface SuggestionsSectionProps {
 
 export function SuggestionsSection({ suggestions, onHandle }: SuggestionsSectionProps) {
   const { t, formatDate } = useI18n();
-  const headingId = useId();
 
   return (
-    <section id="suggerimenti" className="candidates" aria-labelledby={headingId}>
-      <h2 id={headingId}>{t("admin.suggestions.heading")}</h2>
+    <AdminQueue id="suggerimenti" title={t("admin.suggestions.heading")} count={suggestions.length}>
       {suggestions.length === 0 ? (
         <div className="candidates__empty">
           <span className="candidates__empty-icon" aria-hidden="true">
@@ -85,6 +83,6 @@ export function SuggestionsSection({ suggestions, onHandle }: SuggestionsSection
           ))}
         </ul>
       )}
-    </section>
+    </AdminQueue>
   );
 }

@@ -16,13 +16,13 @@ dialog.dialog--profile {
     outline: none;
   }
 
-  // --viewport-height is the visual viewport, set by AccountSettings, so keyboards and browser bars
+  // --viewport-height is the visual viewport, set by useViewportHeight, so keyboards and browser bars
   // never cover the fields.
   @media (max-width: 39.9375em) {
     width: 100%;
     max-width: 100%;
-    height: min(760px, calc(var(--viewport-height, 100dvh) - 48px));
-    max-height: calc(var(--viewport-height, 100dvh) - 48px);
+    height: min(760px, calc(var(--viewport-height, 100dvh) - var(--sheet-gap)));
+    max-height: calc(var(--viewport-height, 100dvh) - var(--sheet-gap));
   }
 }
 
@@ -273,26 +273,36 @@ dialog.dialog--profile {
   flex-direction: column;
 }
 
-// The padded box is the scroll area, so focus rings have the whole padding to draw in.
+// The title stays put; only .profile__body scrolls, so the title never leaves the top.
 .profile__inner {
   flex: 1;
   min-height: 0;
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+}
+
+// The padded box is the scroll area, so focus rings have the whole padding to draw in.
+.profile__body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   gap: var(--sp-6);
-  padding: var(--pad-popup);
+  padding: var(--sp-6) var(--pad-popup) var(--pad-popup);
   overflow: hidden auto;
   overscroll-behavior: contain;
   scrollbar-gutter: stable;
 
-  // Progress scrolls only its list, under a fixed title.
+  // Progress scrolls only its list.
   &[data-tab="progress"] {
     overflow: hidden;
     gap: var(--sp-4);
+    padding-top: var(--sp-4);
   }
 
   @media (max-width: 39.9375em) {
-    padding: var(--sp-5) var(--sp-5) calc(var(--sp-5) + env(safe-area-inset-bottom, 0px));
+    padding: var(--sp-4) var(--sp-5) calc(var(--sp-5) + env(safe-area-inset-bottom, 0px));
   }
 }
 
@@ -304,13 +314,14 @@ dialog.dialog--profile {
 }
 
 .profile__title {
+  flex: none;
+  padding: var(--pad-popup) 3rem 0 var(--pad-popup);
   font-size: var(--fs-h4);
   font-weight: 800;
   line-height: 1.2;
-  padding-right: 3rem;
 
   @media (max-width: 39.9375em) {
-    padding-right: 0;
+    padding: var(--sp-5) var(--sp-5) 0;
   }
 }
 
@@ -352,7 +363,9 @@ dialog.dialog--profile {
   gap: var(--sp-4);
 
   h3 {
+    font-size: var(--fs-h3);
     font-weight: 800;
+    line-height: 1.2;
   }
 
   // Same 14px secondary text as the description under "Your data".
@@ -417,6 +430,6 @@ dialog.dialog--profile {
 }
 
 // The banner sits over the bottom of the panel; the panel keeps room for it.
-.profile__inner[data-unsaved] {
+.profile__body[data-unsaved] {
   padding-bottom: calc(var(--unsaved-h, 0px) + var(--sp-3));
 }

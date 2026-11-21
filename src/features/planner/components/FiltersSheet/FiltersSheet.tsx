@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 import { Button } from "../../../../components/ui/Button/Button";
 import { useDialog } from "../../../../components/ui/useDialog";
 import { useSheetDrag } from "../../../../components/ui/useSheetDrag";
+import { useViewportHeight } from "../../../../components/ui/useViewportHeight";
 import { useI18n } from "../../../../i18n/useI18n";
 import type { Filters, ViewOrder } from "../../types";
 import { areDefaultFilters, DEFAULT_FILTERS } from "../../utils/filters";
@@ -32,11 +33,9 @@ export function FiltersSheet({
   const dialogRef = useDialog(isOpen);
   const titleId = useId();
   // The sheet follows the finger from the header or from content scrolled to the top.
-  useSheetDrag(
-    useCallback(() => dialogRef.current, [dialogRef]),
-    onClose,
-    isOpen,
-  );
+  const getDialog = useCallback(() => dialogRef.current, [dialogRef]);
+  useSheetDrag(getDialog, onClose, isOpen);
+  useViewportHeight(getDialog, isOpen);
 
   return createPortal(
     <dialog
@@ -97,12 +96,14 @@ function FiltersSheetBody({
         <h2 id={titleId} className="filters-sheet__title">
           {t("planner.filters.heading")}
         </h2>
-        <Button
-          variant="soft"
-          icon={<X aria-hidden />}
+        <button
+          type="button"
+          className="dialog__close"
           aria-label={t("common.close")}
           onClick={onClose}
-        />
+        >
+          <X aria-hidden />
+        </button>
       </div>
       <FiltersFields
         filters={draft}

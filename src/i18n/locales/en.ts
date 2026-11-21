@@ -17,8 +17,8 @@ export const en: Messages = {
     accessibility: "Accessibility",
     cookies: "Cookies",
     privacySettings: "Privacy settings",
-    credits: "Availability data: {justwatch}. Plots: {wikipedia}, {license}.",
-    creditsLicense: "CC BY-SA 4.0 license",
+    version: "Version {version}",
+    copyright: "© {year} Marvel Planner",
     coffee: "If I've been useful to you, buy me a coffee",
     fonts: "Fonts Anton and Hanken Grotesk, {license}.",
     fontsLicense: "SIL OFL 1.1 license",
@@ -62,7 +62,7 @@ export const en: Messages = {
       text: "Send friends a link to what you have watched.",
     },
     strip: {
-      heading: "All {total} titles",
+      heading: "All {total} released titles",
       phase: "Phase {number}",
       legendWatched: "Watched",
       legendNext: "Next",
@@ -600,9 +600,27 @@ export const en: Messages = {
     warning: "Warning: the scenes contain spoilers.",
   },
   a11y: {
-    title: "Accessibility",
-    intro:
-      "Marvel Planner works with a keyboard, a screen reader and zoom. Here is how, and what is still missing.",
+    title: "Accessibility statement",
+    conformance: {
+      heading: "Conformance status",
+      standardLabel: "Standard",
+      standard: "WCAG 2.2, level AA",
+      statusLabel: "Status",
+      status: "Partially conformant: see the known limits",
+      checkedLabel: "Checked on",
+    },
+    use: {
+      heading: "What you can use",
+    },
+    limits: {
+      heading: "Known limits",
+      contrast:
+        "With Windows forced colours, buttons and the phase strip lose their shape: you can read them, but they look like plain text. We are fixing this.",
+    },
+    report: {
+      heading: "How to report a barrier",
+      body: "If you run into a barrier, tell us which page, what you were doing and which tool you use.",
+    },
     vision: {
       heading: "Low vision",
       body: "You can pick the light theme, the dark theme or follow your system (top menu). Every state has an icon or text, not just a colour. Controls have a clearly visible focus ring.",
@@ -619,21 +637,14 @@ export const en: Messages = {
       heading: "Keyboard",
       body: "Tab to move, Enter or Space to activate, Esc to close popups and messages. The first Tab shows “Skip to content”.",
     },
-    missing: {
-      heading: "What is still missing",
-      body: "We are still checking 400% zoom and forced-contrast mode. If you find a barrier, tell us.",
-    },
   },
   cookiePage: {
-    intro: "This page lists everything the site stores on your device.",
     noBannerHeading: "Nothing to consent to",
     noBannerBody:
-      "The site only uses technical tools that are needed for the service you ask for (sign-in, language, progress, filters). The law does not require consent or a banner for these. We do not use analytics, advertising or profiling cookies and we do not load third-party resources, except the trailer video, which loads from YouTube only if you press “Play the trailer”: if that ever changes, we will ask for your consent first.",
+      "We only use technical tools, needed for the service you ask for: sign-in, language, progress, filters. The law requires neither consent nor a banner for these. We use no analytics, advertising or profiling cookies. The only third-party resource is the trailer video: YouTube loads it only if you press “Play the trailer”. If that ever changes, we will ask for your consent first.",
     tableCaption: "Cookies and data stored in your browser",
     columns: {
-      name: "Name",
       kind: "Type",
-      purpose: "Purpose",
       duration: "Duration",
     },
     session: {
@@ -686,22 +697,25 @@ export const en: Messages = {
       purpose: "Remembers which planner phases you folded.",
       duration: "Until you delete it",
     },
-    manageHeading: "How to manage them",
-    manageBody:
-      "You can delete the data stored on this device from “Privacy settings” or from your browser settings. The session cookie is removed when you sign out.",
   },
   privacySettings: {
     title: "Privacy settings",
-    intro:
-      "This site does not use analytics, advertising or profiling cookies and does not load third-party resources, except the trailer video, which loads from YouTube only if you press “Play the trailer”: there is nothing to accept or refuse.",
     clearHeading: "Data on this device",
     clearBody:
-      "Deletes the progress (if you have no account), the language and the filters saved in this browser. It does not sign you out.",
+      "Deletes the progress (if you have no account), the language and the filters saved in this browser. You stay signed in: the session cookie is removed only when you sign out. You can also delete the data from your browser settings.",
     clearButton: "Delete this device's data",
-    clearQuestion: "Really delete the data stored on this device?",
-    clearConfirm: "Yes, delete",
+    clearQuestion:
+      "Delete this device's data? Without an account, your progress can't be recovered. The page reloads.",
+    clearConfirm: "Delete data",
   },
   admin: {
+    summary: {
+      heading: "To do",
+      candidates: "New titles to review",
+      dates: "Dates to check",
+      suggestions: "Suggestions to read",
+      none: "Nothing to do",
+    },
     heading: "New titles on TMDB to review",
     intro: "TMDB lists these Marvel titles that are not in the catalog. Add them or dismiss them.",
     newTitle: "New title",
@@ -726,7 +740,7 @@ export const en: Messages = {
     todo: {
       heading: "Content to complete",
       intro:
-        "For each released title: what it has and what is missing. No text is written here: copy the template and fill it in the code.",
+        "Content is written in the code. Here you see what is missing and copy the template to fill in.",
       summary: "{count} titles to complete out of {total} released",
       filterLegend: "Show",
       filterTodo: "To complete ({count})",
@@ -836,7 +850,7 @@ export const en: Messages = {
         error: "The search failed: the list may be incomplete.",
         late: "The search has not run for over 8 days: the list may be incomplete.",
         never: "The search has not run yet: the list may be incomplete.",
-        noToken: "TMDB token missing: the search cannot run.",
+        noToken: "Search stopped: see the site status.",
       },
       generate: "Show code",
       hideCode: "Hide code",
@@ -874,21 +888,21 @@ export const en: Messages = {
       heading: "What data we process",
       accountLabel: "Account data",
       accountText:
-        "superhero name (a made-up nickname: we do not ask for your real name), email and password. The password is stored only in encrypted form (hash) and can never be read.",
+        "superhero name (a made-up nickname, not your real name), email and password. The password is stored only encrypted (hash): nobody can read it.",
       progressLabel: "Progress",
       progressText: "the titles you mark as watched and the date you marked them.",
       technicalLabel: "Technical data",
       technicalText:
-        "IP address and browser type linked to sign-in sessions, and counters used to limit repeated sign-in attempts.",
+        "IP address and browser type of sign-in sessions, plus counters that limit repeated sign-in attempts.",
       deviceLabel: "On your device",
       deviceText:
-        "without an account, your progress is saved only in your browser (localStorage) and is not sent to us. The language and filters you choose are remembered the same way. You can delete this data at any time from “Privacy settings”.",
+        "without an account, your progress, language and filters stay only in your browser (localStorage) and are not sent to us. You can delete them any time from {link}.",
       shareLabel: "Sharing",
       shareText:
-        "if you turn on sharing, your superhero name and the titles you have watched are visible to anyone with the link, until the expiry you choose or until you turn it off. The link contains a random code, not your identifier.",
+        "if you turn on sharing, anyone with the link sees your superhero name and the titles you have watched, until the expiry you choose or until you turn it off. The link contains a random code, not your identifier.",
       suggestionsLabel: "Suggestions",
       suggestionsText:
-        "If you send a suggested correction we keep the text you write (it is free text: do not write personal data), the film and the part of the page it refers to, the date and your superhero name, visible only to us. They are deleted together with the account.",
+        "if you send a suggestion we keep the text you write (it is free text: do not write personal data), the title and the part of the page it refers to, the date and your superhero name. Only we can see them, and they are deleted with your account.",
     },
     purposes: {
       heading: "Why we process it",
@@ -903,25 +917,24 @@ export const en: Messages = {
     },
     cookies: {
       heading: "Cookies and local storage",
-      body: "We only use technical cookies that are needed for the service to work: a session cookie to keep you signed in. We do not use analytics, advertising or profiling cookies, nor third-party cookies (except those YouTube may set if you start a trailer), so your consent is not required (art. 122 of the Italian Privacy Code, the ePrivacy Directive and the Italian Garante's guidelines of 10 June 2021). The full list is in the {link}.",
-      link: "“Privacy settings” window",
+      body: "We only use technical cookies, needed for the service to work: a session cookie that keeps you signed in. We do not use analytics, advertising or profiling cookies, nor third-party ones, except those YouTube may set if you start a trailer. That is why we do not need your consent (art. 122 of the Italian Privacy Code, the ePrivacy Directive and the Italian Garante's guidelines of 10 June 2021). The full list is in the {link}.",
     },
     providers: {
       heading: "Where it is stored and who processes it",
-      body: "The site and the database are hosted by Cloudflare, with the database located in Western Europe; Cloudflare acts as data processor. Information about titles (synopses, plots, cast, posters and backdrops) is requested by our server from TMDB, Wikipedia and Wikidata: your browser never contacts these services directly and therefore does not give them your IP address. Cloudflare is based in the United States: some data may be transferred outside the European Union, in line with the safeguards provided by the GDPR (EU-US Data Privacy Framework and standard contractual clauses).",
+      body: "The site and the database are hosted by Cloudflare, with the database in Western Europe. Cloudflare is our data processor. Our server requests information about titles (synopses, plots, cast, posters, backdrops) from TMDB, Wikipedia and Wikidata: your browser never contacts these services, so it never gives them your IP address. Cloudflare is based in the United States: some data may leave the European Union, with the safeguards the GDPR provides (EU-US Data Privacy Framework and standard contractual clauses).",
     },
     retention: {
       heading: "How long we keep it",
-      body: "We keep your account data for as long as the account exists. Sessions expire after 7 days and expired ones are deleted every day; the counters that limit repeated sign-in attempts are deleted after one day; title information received from third parties stays in cache for at most 90 days. When you delete your account, superhero name, email, progress and sessions are deleted immediately; any technical backup copies are overwritten within 30 days. Expired sharing links are deleted every day.",
+      body: "We keep your account data for as long as the account exists. Sessions expire after 7 days; expired sessions and expired sharing links are deleted every day. The counters against repeated sign-in attempts are deleted after one day. Title information from third parties stays in cache for 90 days at most. When you delete your account, your superhero name, email, progress and sessions are deleted immediately; technical backup copies are overwritten within 30 days.",
     },
     rights: {
       heading: "Your rights",
-      body: "You can at any time request access, rectification, erasure, restriction or portability of your data, or object to the processing, by writing to {email}. From the {account} page you can change your superhero name, download your data as JSON and delete your account. We do not take decisions based on automated processing. You also have the right to lodge a complaint with the Italian Data Protection Authority, the Garante ({garante}).",
+      body: "You can ask at any time for access, rectification, erasure, restriction or portability of your data, or object to the processing, by writing to {email}. {account}: here you can change your superhero name, download your data as JSON and delete your account. We do not take decisions based on automated processing. You can also lodge a complaint with the Italian Data Protection Authority, the Garante ({garante}).",
       accountLink: "Your account",
     },
     other: {
       heading: "Other jurisdictions",
-      body: "We do not sell or share your personal data for targeted advertising or other commercial purposes. The same protections apply to people using the site from outside the European Union (for example in California, the United Kingdom or Brazil): you can exercise the same rights by writing to {email}.",
+      body: "We do not sell or share your personal data for targeted advertising or other commercial purposes. The same protections apply outside the European Union (for example in California, the United Kingdom or Brazil): you can exercise the same rights by writing to {email}.",
     },
     minors: {
       heading: "Minors",
@@ -929,7 +942,7 @@ export const en: Messages = {
     },
     changes: {
       heading: "Changes",
-      body: "Any changes to this policy will be published on this page, with the update date shown at the top.",
+      body: "If anything changes, we publish it here and update the date at the top.",
     },
   },
 };

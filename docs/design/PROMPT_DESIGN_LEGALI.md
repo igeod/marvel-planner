@@ -5,7 +5,7 @@ Sei la sessione **Design** di Marvel Planner. Questo prompt è autosufficiente: 
 ## Cosa devi rivedere (tutto insieme, come una famiglia)
 
 1. **Pagina Privacy** (`/privacy`): `src/pages/PrivacyPage/PrivacyPage.tsx` e `.less`.
-2. **Pagina Accessibilità** (`/accessibilita`): `src/pages/AccessibilityPage/AccessibilityPage.tsx` e `.less`.
+2. **Pagina Accessibilità** (`/accessibility`): `src/pages/AccessibilityPage/AccessibilityPage.tsx` e `.less`.
 3. **Popup «Preferenze privacy»** (si apre dal footer): `src/features/privacy/components/PrivacySettingsDialog/PrivacySettingsDialog.tsx` e `.less`, con la tabella `StorageTable/StorageTable.tsx` e `.less`. È l'unico posto in cui la tabella compare.
 
 Il committente non capisce perché le due pagine si vedano **come una scheda (box)** su sfondo diverso. Risposta, verificata nel canvas: l'ha disegnata Design. `Accessibility.dc.html`, sezione «Pagina “Accessibilità” del sito (funzione 23)», dice «una colonna su scheda», «stessa famiglia della pagina Privacy». **Una pagina Privacy nel canvas non esiste**: nessun file la disegna (cercato in tutti i `.dc.html` e in `Index.dc.html`); esiste solo nel codice. Oggi `.privacy-page` e `.accessibility-page` usano `.block()` + `background: var(--surface)`, `max-width: 800px`, `margin: 1rem auto`, padding 1.5rem 1rem (40px 48px da desktop) (`PrivacyPage.less` r.3-13, `AccessibilityPage.less` r.4-14). Sono pagine **di lettura** (documenti), non schermate di strumento come il Planner. **Decidi tu** se devono restare schede o diventare pagine di lettura (testo sul fondo della pagina, larghezza di lettura, ritmo dei titoli); motiva la scelta e usa lo stesso schema per le due pagine e per le 404/errori se serve.

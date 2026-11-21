@@ -5,11 +5,161 @@
   .compact-progress,
   .toast,
   .card,
+  .text-ticket,
   .film__card,
   dialog.dialog,
   dialog.filters-sheet,
   dialog.menu-panel,
   .select-field--popover .select-field__list {
+    border: 1px solid CanvasText;
+  }
+
+  // The yellow card loses its background.
+  .coffee-card {
+    border: 1px solid ButtonText;
+  }
+
+  .coffee-card__art {
+    forced-color-adjust: none;
+    border: 1px solid ButtonText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  // The numbered circle is a background, which this mode drops.
+  .text-section__n {
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
+    border: 1px solid CanvasText;
+  }
+
+  // The sheet handle is a background, which this mode drops.
+  .dialog__header::before {
+    forced-color-adjust: none;
+    background: GrayText;
+  }
+
+  // Phase strip and legend: three states, three shapes (full / empty with a thick border and the
+  // triangle / empty).
+  .phase-strip__cell,
+  .phase-strip__swatch {
+    forced-color-adjust: none;
+    box-sizing: border-box;
+    border: 1px solid ButtonText;
+    background: Canvas;
+    color: CanvasText;
+  }
+
+  .phase-strip__cell--watched {
+    background: Highlight;
+    border-color: Highlight;
+    color: HighlightText;
+  }
+
+  .phase-strip__cell--next {
+    border: 2px solid Highlight;
+  }
+
+  // Buttons: filled (action), outlined (secondary), underlined (text).
+  .btn:not(.btn--text) {
+    border: 1px solid ButtonText;
+  }
+
+  .btn--primary,
+  .btn--accent,
+  .btn--ink,
+  .btn--dark,
+  .btn--danger {
+    forced-color-adjust: none;
+    background: ButtonText;
+    color: ButtonFace;
+  }
+
+  .btn--soft,
+  .btn--surface,
+  .btn--panel {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  // Dashed, so that "off" is not only a tint.
+  .btn:disabled,
+  .btn[aria-disabled="true"]:not([aria-busy="true"]) {
+    forced-color-adjust: none;
+    background: ButtonFace;
+    color: GrayText;
+    border: 1px dashed GrayText;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .btn:not(.btn--text):hover:not(:disabled):not([aria-disabled="true"]) {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+      border-color: Highlight;
+    }
+  }
+
+  // Choices and switches: the state is a fill of Highlight against an outline of ButtonText.
+  .choice__face {
+    border: 1px solid ButtonText;
+  }
+
+  .choice__input:checked + .choice__face,
+  .on-panel .choice__input:checked + .choice__face,
+  .filters-card .choice__input:checked + .choice__face {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+    border-color: Highlight;
+  }
+
+  .switch__track {
+    forced-color-adjust: none;
+    box-sizing: border-box;
+    border: 2px solid ButtonText;
+    background: Canvas;
+  }
+
+  .switch__track::after {
+    background: ButtonText;
+  }
+
+  .switch__input:checked + .switch__track {
+    background: Highlight;
+    border-color: Highlight;
+  }
+
+  .switch__input:checked + .switch__track::after {
+    background: HighlightText;
+  }
+
+  // Other states held by a fill or a shadow alone.
+  .merge-choice__option {
+    border: 1px solid ButtonText;
+  }
+
+  .merge-choice__option:has(input:checked) {
+    border: 2px solid Highlight;
+  }
+
+  .mark-watched__button--alert[aria-pressed="true"] .mark-watched__pill svg,
+  .title-alert-panel[aria-pressed="true"] svg {
+    forced-color-adjust: none;
+    color: Highlight;
+  }
+
+  // Poster, account pill, avatar.
+  .share-poster,
+  .account-pill {
+    border: 1px solid CanvasText;
+  }
+
+  .avatar {
+    forced-color-adjust: none;
+    background: Canvas;
+    color: CanvasText;
     border: 1px solid CanvasText;
   }
 

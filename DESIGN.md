@@ -21,6 +21,7 @@ Sito per appassionati del MCU, spesso aperto da telefono davanti alla TV. Caratt
 - **Anton** (display): titoli e numeri grandi, maiuscolo, `letter-spacing: .01em`.
 - **Hanken Grotesk** (corpo): tutto il resto.
 - Dimensioni solo da `--fs-*`. Il testo contenitore cresce con il testo dell'utente: larghezze in `rem` (o `ch` per la prosa); restano in px solo oggetti disegnati (icone, poster, avatar, barre, bordi).
+- I titoli dei fogli in basso (popup, Filtri, Account) sono Hanken 800 `--fs-h4`: Anton non entra nei titoli lunghi di fr e de.
 - I titoli delle opere restano in inglese (`lang="en"`). Francese e tedesco sono più lunghi dell'italiano: il layout deve reggerli.
 
 ## Colore e temi
@@ -70,6 +71,11 @@ Da completare con i difetti concreti che il proprietario nota nella grafica ("tr
 
 Quando il codice non può seguire il design (o lo supera), si annota qui, una riga: componente | file | cosa | perché. Design la risolve e poi la cancella.
 
+- Preferenze privacy | `PrivacySettingsDialog` | cliccando «Cancella i dati di questo dispositivo» il pulsante diventa la domanda con «Annulla» e «Cancella i dati» senza nessun movimento (Design non ne ha definito uno per questo passaggio; il popup ha solo la transizione di vista di `Modal`, usata dal login) | da definire con Design; proposta di partenza: dissolvenza `--dur-ui` come `.state-box--card`
+- Pagine di testo | `PrivacyPage`, `AccessibilityPage` | intestazione come una saga, una scheda numerata per sezione, biglietto giallo dritto nell'Accessibilità; senza la riga «Informazioni legali» sopra il titolo (la saga non ce l'ha) | voce 27 di HANDOFF §2
+- Admin | `AdminDashboard` | «Da fare» e «Stato del sito» in testa, code a fisarmonica (Manutenzione, Automazione e Utenti confluiti nello Stato) | voce 30 di HANDOFF §2
+- Contrasto forzato | `forced-colors.less` | stati e pulsanti con soli colori di sistema (fascia, pulsanti, scelte, interruttori, avatar) | voce 28 di HANDOFF §2
+- Fogli in basso | `Modal`, `FiltersSheet`, `AccountSettings` | altezza = viewport visivo − `--sheet-gap`; Account con tetto 760 px; titoli dei fogli in Hanken 800 `--fs-h4` | voce 26 di HANDOFF §2
 - Header | `LanguageSwitcher.tsx`, `HeaderMenu.tsx`, `AccountSettings.tsx`, `SelectField.less` | nessuna scheda di preferenze nel profilo (la lingua compatta e l'ordine del Menu sono fatti; la scheda "Aspetto e lingua" è rimandata) | voce 11 di HANDOFF §2, decisa da Design il 16 novembre
 - Apertura del planner | `useCountUp.ts`, `PlannerSummary.tsx`, `ProgressStatsSection.tsx`, `motion.less` | numero da 900ms al montaggio, fascia a passo costante: tre orologi diversi | voce 13 di HANDOFF §2, decisa da Design il 18 novembre
 - Apertura del planner | `tokens.less` (`--dur-progress`) | durata del primo arrivo di numero, fascia a batteria e barre del profilo accorciata da 600ms a 300ms su richiesta del committente (troppo lenta); cambia anche il primo riempimento delle barre dell'Account | da confermare con Design (o tornare a 600ms)
@@ -88,4 +94,9 @@ Quando il codice non può seguire il design (o lo supera), si annota qui, una ri
 - Popup di accesso (`.auth-view .form`) | `AuthDialogs.less` | `max-width: none`: il tetto di 30rem del `.form` generico (nato per i moduli in pagina, 480 px) nel popup da 35rem lasciava 48 px a destra contro 32 a sinistra; ora i campi occupano tutta la larghezza del corpo (32 px per lato) | da confermare con Design
 - Campi di testo | `base.less` | a fuoco l'ombra interna (hover, errore) è spenta: un solo contorno per volta, come la ricerca del planner; bordo a riposo 1 px `--ink-2` (2 px a hover, nessuno a fuoco o se disattivo) per il contrasto del campo (WCAG 1.4.11, V3 del canvas, deciso dal committente) | voce 24 di HANDOFF §2
 - Biglietto "Condividi" (`.share-poster`) | `PlannerSummary.less` | dal desktop `.progress-card` non va a capo (`flex-wrap: nowrap` da 64em), la colonna del testo scende fino a 246 px a 1024 px di finestra; titolo del biglietto a `--fs-h2` (era `--fs-xl`) | voce 19 di HANDOFF §2
-- Tabella dei cookie nelle Preferenze privacy | `StorageTable.tsx` | contenitore con scorrimento orizzontale (`.scroll-x`, focalizzabile) invece del taglio: a 390 px la tabella è larga 414 px e a 320 px mancavano 94 px (colonna «Durata» illeggibile) | tampone in attesa che Design disegni la scheda per voce sotto 40em; cancellare questa riga quando c’è
+- Popup (titolo fisso) | `Modal.tsx/.less`, `AccountSettings.tsx/.less` | titolo e X restano fermi, scorre solo il corpo (variante (a) del canvas «Popup generici»); nel Profilo il corpo di ogni scheda sta in `.profile__body`, non più in `.profile__inner`; nessun filo `--line` sotto il titolo (la variante lo disegna) | richiesta del committente, 21 novembre; il canvas va rigenerato
+- Titoli di sezione dell'Account | `AccountSettings.less`, `ExportSection.less`, `PhaseSection.less` | «Esci», «I tuoi dati» e il conteggio della fase ereditavano 18,72px (`<h3>` del browser): ora `--fs-h3` (come «Elimina account») e `--fs-title` | audit del 21 novembre
+- Fascia delle fasi | `it/en/fr/es/de.ts` (`planner.strip.heading`) | «Tutti i 65 titoli» dice ora «usciti»: il totale esclude gli «in arrivo», i filtri contano tutte le righe (71) | audit del 21 novembre
+- Hero del film e «Dove guardare» | `TitleDetailsPanel.less`, `WhereToWatch.less` | gli `rgba()` fissi sono `color-mix` di `--ink-static` e `--white` (stessi valori, nessun token nuovo) | audit del 21 novembre
+- Scheletri che pulsano | `motion.less`, `ProgressStatsSection.less`, `AdminDashboard.less` | `ease-in-out` → `--ease-out` (il DESIGN vieta `ease-in`) | audit del 21 novembre
+- Corpi grandi senza token | `TitleDetailsPanel.less` (r.131, 160, 303), `PlannerSummary.less` r.26 | quattro `clamp()` fluidi (titolo film, durata, «Zona spoiler», percentuale): valori noti, non nella scala `--fs-*` | da decidere con Design: token fluidi o eccezione scritta

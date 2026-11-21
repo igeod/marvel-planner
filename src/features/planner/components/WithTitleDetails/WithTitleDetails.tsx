@@ -9,9 +9,16 @@ interface WithTitleDetailsProps {
   children: (details: TitleDetails) => ReactNode;
   // Replaces the default lines while loading; it should match the final layout.
   skeleton?: ReactNode;
+  // Shown above the error, so the page keeps its heading when the details do not arrive.
+  errorHeading?: ReactNode;
 }
 
-export function WithTitleDetails({ titleId, children, skeleton }: WithTitleDetailsProps) {
+export function WithTitleDetails({
+  titleId,
+  children,
+  skeleton,
+  errorHeading,
+}: WithTitleDetailsProps) {
   const { t } = useI18n();
   const state = useTitleDetails(titleId);
 
@@ -32,7 +39,12 @@ export function WithTitleDetails({ titleId, children, skeleton }: WithTitleDetai
   }
 
   if (state.status === "error") {
-    return <LoadError variant="inline" onRetry={state.retry} />;
+    return (
+      <>
+        {errorHeading}
+        <LoadError variant="inline" onRetry={state.retry} />
+      </>
+    );
   }
 
   return <>{children(state.details)}</>;

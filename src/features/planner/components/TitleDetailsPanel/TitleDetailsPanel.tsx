@@ -47,7 +47,17 @@ export function TitleDetailsPanel({ titleId, onBack }: TitleDetailsPanelProps) {
         </button>
       </div>
 
-      <WithTitleDetails titleId={titleId} skeleton={<TitleDetailsSkeleton />}>
+      <WithTitleDetails
+        titleId={titleId}
+        skeleton={<TitleDetailsSkeleton />}
+        errorHeading={
+          catalogTitle && (
+            <h1 className="film__error-title" lang="en">
+              {catalogTitle.name}
+            </h1>
+          )
+        }
+      >
         {(details) => {
           const credit =
             details.creators.length && !details.directors.length
